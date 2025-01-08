@@ -1,0 +1,22 @@
+[23:44:04:829]	[OPER] ----- Initialize -----
+[23:44:04:829]	[SEND] RESET
+[23:44:04:875]	[RECV] A
+[23:44:04:878]	[RECV] O
+[23:44:04:882]	[SEND] HOM
+[23:44:04:921]	[RECV] A
+[23:44:22:086]	[RECV] O
+[23:44:22:090]	[SEND] STATUS
+[23:44:22:141]	[RECV] A
+[23:44:22:142]	[RECV] S4150142B
+[23:44:22:144]	[OPER] ----- Result : Completed, Description : 
+[23:44:22:145]	[OPER] ----- ChangeToFoup -----
+[23:44:22:145]	[SEND] RESET
+[23:44:22:186]	[RECV] A
+[23:44:22:187]	[RECV] O
+[23:44:22:191]	[SEND] OC_MODE OFF
+[23:44:22:240]	[RECV] A
+[23:44:22:241]	[RECV] O
+[23:44:22:245]	[SEND] STATUS
+[23:44:22:297]	[RECV] A
+[23:44:22:298]	[RECV] S4150142B
+[23:44:22:299]	[OPER] ----- Result : Completed, Description : 

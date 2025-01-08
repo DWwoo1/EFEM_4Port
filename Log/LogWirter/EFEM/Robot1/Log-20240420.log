@@ -1,0 +1,34 @@
+[11:25:36:017]	[OPER] ----- Initialize -----
+[11:25:36:017]	[SEND] CLEAR
+[11:25:36:070]	[RECV] _ACK
+[11:25:37:189]	[RECV] _RDY
+[11:25:37:195]	[SEND] HOME ALL
+[11:25:37:247]	[RECV] _ACK
+[11:25:48:421]	[RECV] _RDY
+[11:25:48:422]	[OPER] ----- Result : Completed, Description : 
+[11:26:25:306]	[OPER] ----- ClearError -----
+[11:26:25:308]	[SEND] CLEAR
+[11:26:25:359]	[RECV] _ACK
+[11:26:26:497]	[RECV] _RDY
+[11:26:26:498]	[OPER] ----- Result : Completed, Description : 
+[11:26:40:265]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 7 -----
+[11:26:40:273]	[SEND] PICK 11 SLOT 8 ARM A
+[11:26:40:339]	[RECV] _ACK
+[11:27:07:554]	[RECV] _ERR 42201
+[11:27:07:555]	[OPER] ----- Result : Error, Description : 42201
+[11:28:25:379]	[OPER] ----- Initialize -----
+[11:28:25:379]	[SEND] CLEAR
+[11:28:25:431]	[RECV] _ACK
+[11:28:26:564]	[RECV] _RDY
+[11:28:26:570]	[SEND] HOME ALL
+[11:28:26:623]	[RECV] _ACK
+[11:29:00:285]	[RECV] _RDY
+[11:29:00:286]	[OPER] ----- Result : Completed, Description : 
+[11:34:57:203]	[OPER] ----- Initialize -----
+[11:34:57:206]	[SEND] CLEAR
+[11:34:57:259]	[RECV] _ACK
+[11:34:58:382]	[RECV] _RDY
+[11:34:58:391]	[SEND] HOME ALL
+[11:34:58:444]	[RECV] _ACK
+[11:35:09:666]	[RECV] _RDY
+[11:35:09:668]	[OPER] ----- Result : Completed, Description : 

@@ -1,0 +1,50 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly FileBorn, Version=1.0.*, Culture=고정 언어(고정 국가): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly Microsoft.VisualC.STLCLR, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Class FileBorn_.FileBorn: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Methods:
+    GetInstance(): PrivateScope, Public, Static, HideBySig
+    Init(): PrivateScope, Public, HideBySig
+    Exit(): PrivateScope, Public, HideBySig
+    GetBornFrame(BORN_LIST IsConst, String[]&, String[]&): PrivateScope, Public, HideBySig
+    GetItemFrame(BORN_LIST IsConst, String[]&, String, String[]&): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Struct FileBorn_.BORN_LIST: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    FileBorn_.BORN_LIST ALARM = 0 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST ACTION = 1 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST ANALOG = 2 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST ANALOG_LOOKUPTABLE = 3 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST CYLINDER = 4 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST DIGITALIO = 5 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST TRIGGER = 6 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST LANGUAGE = 7 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST MOTION = 8 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST MOTION_SPEED = 9 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST SERIAL = 10 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST SOCKET = 11 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST INTERRUPT = 12 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST FLOW = 13 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST RECIPE = 14 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST RECIPE_PROCESS = 15 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST RECIPE_PROCESS_VALUE = 16 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST TASK = 17 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST TASK_DEVICE = 18 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST JOG = 19 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST ACCOUNT = 20 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST PORT = 21 : Public, Static, Literal, HasDefault
+    FileBorn_.BORN_LIST TOOL = 22 : Public, Static, Literal, HasDefault

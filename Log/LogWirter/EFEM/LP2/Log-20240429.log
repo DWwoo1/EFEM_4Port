@@ -1,0 +1,45 @@
+[01:51:52:588]	[OPER] ----- Initialize -----
+[01:51:52:588]	[SEND] RESET
+[01:51:52:634]	[RECV] A
+[01:51:52:635]	[RECV] O
+[01:51:52:638]	[SEND] HOM
+[01:51:52:677]	[RECV] A
+[01:52:09:816]	[RECV] O
+[01:52:09:819]	[SEND] STATUS
+[01:52:09:871]	[RECV] A
+[01:52:09:872]	[RECV] S4150142B
+[01:52:09:873]	[OPER] ----- Result : Completed, Description : 
+[01:52:09:874]	[OPER] ----- ChangeToFoup -----
+[01:52:09:874]	[SEND] RESET
+[01:52:09:917]	[RECV] A
+[01:52:09:918]	[RECV] O
+[01:52:09:922]	[SEND] OC_MODE OFF
+[01:52:09:971]	[RECV] A
+[01:52:09:972]	[RECV] O
+[01:52:09:976]	[SEND] STATUS
+[01:52:10:027]	[RECV] A
+[01:52:10:028]	[RECV] S4150142B
+[01:52:10:029]	[OPER] ----- Result : Completed, Description : 
+[15:59:46:568]	[RECV] C01000000
+[16:14:25:931]	[OPER] ----- Initialize -----
+[16:14:25:931]	[SEND] RESET
+[16:14:25:976]	[RECV] A
+[16:14:25:979]	[RECV] O
+[16:14:25:984]	[SEND] HOM
+[16:14:26:025]	[RECV] A
+[16:14:43:183]	[RECV] O
+[16:14:43:186]	[SEND] STATUS
+[16:14:43:238]	[RECV] A
+[16:14:43:239]	[RECV] S4150142B
+[16:14:43:240]	[OPER] ----- Result : Completed, Description : 
+[16:14:43:241]	[OPER] ----- ChangeToFoup -----
+[16:14:43:241]	[SEND] RESET
+[16:14:43:283]	[RECV] A
+[16:14:43:284]	[RECV] O
+[16:14:43:288]	[SEND] OC_MODE OFF
+[16:14:43:335]	[RECV] A
+[16:14:43:336]	[RECV] O
+[16:14:43:340]	[SEND] STATUS
+[16:14:43:392]	[RECV] A
+[16:14:43:393]	[RECV] S4150142B
+[16:14:43:394]	[OPER] ----- Result : Completed, Description : 

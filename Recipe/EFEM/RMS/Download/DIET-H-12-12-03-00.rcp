@@ -1,0 +1,473 @@
+>> FileVersion 1.0.0.0
+GROUP PROCESS
+	GROUP Global
+		GROUP BarcodeReadingRetryCount
+			GROUP 0
+				VALUE = 2
+			END
+		END
+		GROUP ChipSize_X
+			GROUP 0
+				VALUE = 10.023
+			END
+		END
+		GROUP ChipSize_Y
+			GROUP 0
+				VALUE = 10.359
+			END
+		END
+		GROUP ChipThickness
+			GROUP 0
+				VALUE = 0.038
+			END
+		END
+		GROUP ReferenceFindDirection
+			GROUP 0
+				VALUE = HORIZONTAL
+			END
+		END
+		GROUP ReferenceFindInterlockLimitDistance
+			GROUP 0
+				VALUE = 2
+			END
+		END
+		GROUP ReferenceFindStartDistance
+			GROUP 0
+				VALUE = 4
+			END
+		END
+		GROUP SearchDirectionForBonding
+			GROUP 0
+				VALUE = TOP_LEFT
+			END
+		END
+		GROUP SearchDirectionForPickUp
+			GROUP 0
+				VALUE = TOP_LEFT
+			END
+		END
+		GROUP SortingWaferBarcodeType
+			GROUP 0
+				VALUE = Barcode_2D_FixedPosition
+			END
+		END
+		GROUP SortingWaferChipPitchX
+			GROUP 0
+				VALUE = 0.29
+			END
+		END
+		GROUP SortingWaferChipPitchY
+			GROUP 0
+				VALUE = 0.27
+			END
+		END
+		GROUP SupplyWaferBarcodeType
+			GROUP 0
+				VALUE = Barcode_2D_ReferencePosition
+			END
+		END
+		GROUP SupplyWaferChipPitchX
+			GROUP 0
+				VALUE = 0.1
+			END
+		END
+		GROUP SupplyWaferChipPitchY
+			GROUP 0
+				VALUE = 0.12
+			END
+		END
+		GROUP SupplyWaferFixedBarcodePositionT
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP SupplyWaferFixedBarcodePositionX
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP SupplyWaferFixedBarcodePositionY
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP SupplyWaferPitchDistanceForLoadingAngleAlign
+			GROUP 0
+				VALUE = 3
+			END
+		END
+		GROUP SupplyWaferReferenceCount
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP SupplyWaferReferenceDieType
+			GROUP 0
+				VALUE = DieAdjacentToTheNotchZeroMark
+			END
+		END
+		GROUP SupplyWaferReferenceIndexX1
+			GROUP 0
+				VALUE = 16
+			END
+		END
+		GROUP SupplyWaferReferenceIndexX2
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP SupplyWaferReferenceIndexY1
+			GROUP 0
+				VALUE = 1
+			END
+		END
+		GROUP SupplyWaferReferenceIndexY2
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP Use_SupplyOutShuttleHeating_BeforeUnloading
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP Use_SupplyStageHeating_BeforeUnloading
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP WorkingNotchAngleForRotatingCoreMap
+			GROUP 0
+				VALUE = CCW_180
+			END
+		END
+	END
+	GROUP SortingStage
+		GROUP Bin1_BincodeTable
+			GROUP 0
+				VALUE = BINCODE_1
+			END
+		END
+		GROUP Bin2_BincodeTable
+			GROUP 0
+				VALUE = NONE
+			END
+		END
+		GROUP Bin3_BincodeTable
+			GROUP 0
+				VALUE = NONE
+			END
+		END
+	END
+	GROUP SupplyOutShuttle
+		GROUP HEATING_TIME
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP USE_HEATER
+			GROUP 0
+				VALUE = 
+			END
+		END
+	END
+	GROUP SupplyStage
+		GROUP Barcode2DVisionScene
+			GROUP 0
+				VALUE = WAFER_BARCODE_2D
+			END
+		END
+		GROUP BincodeTable
+			GROUP 0
+				VALUE = CORE_123
+			END
+		END
+		GROUP BlowHeatingTime
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP ExpansionDownOffset
+			GROUP 0
+				VALUE = -7
+			END
+		END
+		GROUP ExpansionDownSpeed
+			GROUP 0
+				VALUE = 3
+			END
+		END
+		GROUP IncreaseStepDistanceRatioForFindingDie
+			GROUP 0
+				VALUE = 0.2
+			END
+		END
+		GROUP LimitDistanceRatioByScaleForFindingDie
+			GROUP 0
+				VALUE = 1
+			END
+		END
+		GROUP MappingVisionScene
+			GROUP 0
+				VALUE = WAFER_ALIGN_PATTERN_MATCHING
+			END
+		END
+		GROUP StageWorkingAngle
+			GROUP 0
+				VALUE = 180
+			END
+		END
+	END
+	GROUP SwingHead
+		GROUP AirEjectingHeight_Delay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP AirEjectingHeight_Distance
+			GROUP 0
+				VALUE = 0.3
+			END
+		END
+		GROUP AirEjectingHeight_Speed
+			GROUP 0
+				VALUE = 1
+			END
+		END
+		GROUP BondingAirBlowOnMode
+			GROUP 0
+				VALUE = AfterBondingDelay
+			END
+		END
+		GROUP BondingAirBlowTime
+			GROUP 0
+				VALUE = 300
+			END
+		END
+		GROUP BondingDelay
+			GROUP 0
+				VALUE = 400
+			END
+		END
+		GROUP BondingSearchDistance
+			GROUP 0
+				VALUE = 0.2
+			END
+		END
+		GROUP BondingSearchPositionDelay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP BondingSearchSpeed
+			GROUP 0
+				VALUE = 5
+			END
+		END
+		GROUP BondingSlowUpDistance
+			GROUP 0
+				VALUE = 0.2
+			END
+		END
+		GROUP BondingSlowUpPositionDelay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP BondingSlowUpSpeed
+			GROUP 0
+				VALUE = 5
+			END
+		END
+		GROUP BondingSuccessVacuumThreshold
+			GROUP 0
+				VALUE = -45
+			END
+		END
+		GROUP BondingTargetForce
+			GROUP 0
+				VALUE = 200
+			END
+		END
+		GROUP BondingVacuumOffMode
+			GROUP 0
+				VALUE = TouchTimeOff
+			END
+		END
+		GROUP EjectorType
+			GROUP 0
+				VALUE = Air
+			END
+		END
+		GROUP NeedleHeight_1_Delay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP NeedleHeight_1_Distance
+			GROUP 0
+				VALUE = 0.42
+			END
+		END
+		GROUP NeedleHeight_1_Speed
+			GROUP 0
+				VALUE = 0.3
+			END
+		END
+		GROUP NeedleHeight_2_Delay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP NeedleHeight_2_Distance
+			GROUP 0
+				VALUE = 0.11
+			END
+		END
+		GROUP NeedleHeight_2_Speed
+			GROUP 0
+				VALUE = 0.1
+			END
+		END
+		GROUP NeedleHeight_3_Delay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP NeedleHeight_3_Distance
+			GROUP 0
+				VALUE = 0.2
+			END
+		END
+		GROUP NeedleHeight_3_Speed
+			GROUP 0
+				VALUE = 0.2
+			END
+		END
+		GROUP PBIGapErrorSkipCountLimit
+			GROUP 0
+				VALUE = 5
+			END
+		END
+		GROUP PickerDownOffsetForDetectingTouch
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP PickerLeft_BondingRecipeOffset_T
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickerLeft_BondingRecipeOffset_X
+			GROUP 0
+				VALUE = 0.01
+			END
+		END
+		GROUP PickerLeft_BondingRecipeOffset_Y
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickerRight_BondingRecipeOffset_T
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickerRight_BondingRecipeOffset_X
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickerRight_BondingRecipeOffset_Y
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickRetryCount
+			GROUP 0
+				VALUE = 1
+			END
+		END
+		GROUP PickSearchDistance
+			GROUP 0
+				VALUE = 0.1
+			END
+		END
+		GROUP PickSearchPositionDelay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickSearchSpeed
+			GROUP 0
+				VALUE = 10
+			END
+		END
+		GROUP PickSlowUpDistance
+			GROUP 0
+				VALUE = 0.1
+			END
+		END
+		GROUP PickSlowUpPositionDelay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickSlowUpSpeed
+			GROUP 0
+				VALUE = 10
+			END
+		END
+		GROUP PickSuccessVacuumThreshold
+			GROUP 0
+				VALUE = -64
+			END
+		END
+		GROUP PickTouchCheckMode
+			GROUP 0
+				VALUE = FixedEncoderValue
+			END
+		END
+		GROUP PickUpMissPassLimitCount
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP PickUpTargetForce
+			GROUP 0
+				VALUE = 50
+			END
+		END
+		GROUP PickVacuumMode
+			GROUP 0
+				VALUE = TouchTimeOn
+			END
+		END
+		GROUP PitchVisionScene
+			GROUP 0
+				VALUE = WAFER_ALIGN_PATTERN_MATCHING
+			END
+		END
+		GROUP PreDelayForAirPressureBuildUp
+			GROUP 0
+				VALUE = 600
+			END
+		END
+		GROUP TouchDetectEncoderValueZ
+			GROUP 0
+				VALUE = 
+			END
+		END
+		GROUP TouchTimeDelay
+			GROUP 0
+				VALUE = 0
+			END
+		END
+		GROUP WaferVisionErrorSkipCount
+			GROUP 0
+				VALUE = 0
+			END
+		END
+	END
+END

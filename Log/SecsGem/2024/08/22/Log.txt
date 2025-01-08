@@ -1,0 +1,2 @@
+[08/22-09:32:33.223] Communicator Initialize 실패
+[08/22-11:26:06.801] Communicator Initialize 종료

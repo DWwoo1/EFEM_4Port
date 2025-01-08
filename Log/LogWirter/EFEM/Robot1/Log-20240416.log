@@ -1,0 +1,2881 @@
+[11:00:46:655]	[OPER] ----- Initialize -----
+[11:00:46:657]	[SEND] CLEAR
+[11:00:46:711]	[RECV] _ACK
+[11:00:47:840]	[RECV] _RDY
+[11:00:47:851]	[SEND] HOME ALL
+[11:00:47:905]	[RECV] _ACK
+[11:01:09:492]	[RECV] _RDY
+[11:01:09:494]	[OPER] ----- Result : Completed, Description : 
+[11:01:31:542]	[OPER] ----- ClearError -----
+[11:01:31:544]	[SEND] CLEAR
+[11:01:31:595]	[RECV] _ACK
+[11:01:32:735]	[RECV] _RDY
+[11:01:32:737]	[OPER] ----- Result : Completed, Description : 
+[11:01:46:266]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[11:01:46:271]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[11:01:46:352]	[RECV] _ACK
+[11:01:50:837]	[RECV] _RDY
+[11:01:50:839]	[OPER] ----- Result : Completed, Description : 
+[11:01:51:002]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:01:51:004]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:01:51:081]	[RECV] _ACK
+[11:01:53:984]	[RECV] _RDY
+[11:01:53:985]	[OPER] ----- Result : Completed, Description : 
+[11:01:54:099]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 1 -----
+[11:01:54:103]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:01:54:193]	[RECV] _ACK
+[11:01:54:194]	[RECV] _RDY
+[11:01:54:195]	[OPER] ----- Result : Completed, Description : 
+[11:01:54:319]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[11:01:54:323]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[11:01:54:400]	[RECV] _ACK
+[11:01:57:303]	[RECV] _RDY
+[11:01:57:303]	[OPER] ----- Result : Completed, Description : 
+[11:01:57:444]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:01:57:446]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:01:57:523]	[RECV] _ACK
+[11:02:00:427]	[RECV] _RDY
+[11:02:00:429]	[OPER] ----- Result : Completed, Description : 
+[11:02:00:547]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 2 -----
+[11:02:00:551]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:02:00:643]	[RECV] _ACK
+[11:02:00:645]	[RECV] _RDY
+[11:02:00:647]	[OPER] ----- Result : Completed, Description : 
+[11:02:00:777]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[11:02:00:781]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[11:02:00:859]	[RECV] _ACK
+[11:02:03:761]	[RECV] _RDY
+[11:02:03:762]	[OPER] ----- Result : Completed, Description : 
+[11:02:03:900]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:02:03:902]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:03:981]	[RECV] _ACK
+[11:02:06:883]	[RECV] _RDY
+[11:02:06:885]	[OPER] ----- Result : Completed, Description : 
+[11:02:07:001]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[11:02:07:005]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:07:097]	[RECV] _ACK
+[11:02:07:098]	[RECV] _RDY
+[11:02:07:098]	[OPER] ----- Result : Completed, Description : 
+[11:02:07:218]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 3 -----
+[11:02:07:222]	[SEND] GOTO N 10 R RE Z UP SLOT 4 ARM A
+[11:02:07:302]	[RECV] _ACK
+[11:02:10:204]	[RECV] _RDY
+[11:02:10:204]	[OPER] ----- Result : Completed, Description : 
+[11:02:10:341]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:02:10:343]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:02:10:422]	[RECV] _ACK
+[11:02:13:324]	[RECV] _RDY
+[11:02:13:326]	[OPER] ----- Result : Completed, Description : 
+[11:02:13:450]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 3 -----
+[11:02:13:454]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:02:13:547]	[RECV] _ACK
+[11:02:13:549]	[RECV] _RDY
+[11:02:13:550]	[OPER] ----- Result : Completed, Description : 
+[11:02:13:567]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 2 -----
+[11:02:13:571]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM A
+[11:02:13:650]	[RECV] _ACK
+[11:02:16:552]	[RECV] _RDY
+[11:02:16:553]	[OPER] ----- Result : Completed, Description : 
+[11:02:16:683]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:02:16:685]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:16:765]	[RECV] _ACK
+[11:02:19:666]	[RECV] _RDY
+[11:02:19:666]	[OPER] ----- Result : Completed, Description : 
+[11:02:19:786]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 2 -----
+[11:02:19:790]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:19:882]	[RECV] _ACK
+[11:02:19:883]	[RECV] _RDY
+[11:02:19:885]	[OPER] ----- Result : Completed, Description : 
+[11:02:20:008]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 3 -----
+[11:02:20:012]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM A
+[11:02:20:091]	[RECV] _ACK
+[11:02:22:993]	[RECV] _RDY
+[11:02:22:994]	[OPER] ----- Result : Completed, Description : 
+[11:02:23:130]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:02:23:132]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:23:210]	[RECV] _ACK
+[11:02:26:113]	[RECV] _RDY
+[11:02:26:114]	[OPER] ----- Result : Completed, Description : 
+[11:02:26:235]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 3 -----
+[11:02:26:239]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:26:334]	[RECV] _ACK
+[11:02:26:335]	[RECV] _RDY
+[11:02:26:336]	[OPER] ----- Result : Completed, Description : 
+[11:02:26:469]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:02:26:472]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:02:26:550]	[RECV] _ACK
+[11:02:29:198]	[RECV] _RDY
+[11:02:29:199]	[OPER] ----- Result : Completed, Description : 
+[11:02:29:315]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:02:29:319]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:02:29:398]	[RECV] _ACK
+[11:02:29:990]	[RECV] _RDY
+[11:02:29:991]	[OPER] ----- Result : Completed, Description : 
+[11:02:30:113]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 1 -----
+[11:02:30:117]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM B
+[11:02:30:195]	[RECV] _ACK
+[11:02:33:098]	[RECV] _RDY
+[11:02:33:099]	[OPER] ----- Result : Completed, Description : 
+[11:02:33:115]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 4 -----
+[11:02:33:119]	[SEND] GOTO N 11 R RE Z UP SLOT 5 ARM A
+[11:02:33:198]	[RECV] _ACK
+[11:02:34:703]	[RECV] _RDY
+[11:02:34:704]	[OPER] ----- Result : Completed, Description : 
+[11:02:34:835]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:02:34:837]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:34:915]	[RECV] _ACK
+[11:02:37:817]	[RECV] _RDY
+[11:02:37:818]	[OPER] ----- Result : Completed, Description : 
+[11:02:37:937]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 4 -----
+[11:02:37:941]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:38:033]	[RECV] _ACK
+[11:02:38:034]	[RECV] _RDY
+[11:02:38:035]	[OPER] ----- Result : Completed, Description : 
+[11:02:38:161]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:02:38:163]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:02:38:242]	[RECV] _ACK
+[11:02:41:439]	[RECV] _RDY
+[11:02:41:440]	[OPER] ----- Result : Completed, Description : 
+[11:02:41:553]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:02:41:557]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:02:41:635]	[RECV] _ACK
+[11:02:42:387]	[RECV] _RDY
+[11:02:42:388]	[OPER] ----- Result : Completed, Description : 
+[11:02:42:521]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 0 -----
+[11:02:42:525]	[SEND] GOTO N 3 R RE Z UP SLOT 1 ARM B
+[11:02:42:603]	[RECV] _ACK
+[11:02:45:505]	[RECV] _RDY
+[11:02:45:506]	[OPER] ----- Result : Completed, Description : 
+[11:02:45:522]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 4 -----
+[11:02:45:526]	[SEND] GOTO N 10 R RE Z UP SLOT 5 ARM A
+[11:02:45:604]	[RECV] _ACK
+[11:02:47:015]	[RECV] _RDY
+[11:02:47:017]	[OPER] ----- Result : Completed, Description : 
+[11:02:47:148]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:02:47:150]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:02:47:228]	[RECV] _ACK
+[11:02:50:132]	[RECV] _RDY
+[11:02:50:132]	[OPER] ----- Result : Completed, Description : 
+[11:02:50:252]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 4 -----
+[11:02:50:256]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:02:50:349]	[RECV] _ACK
+[11:02:50:350]	[RECV] _RDY
+[11:02:50:350]	[OPER] ----- Result : Completed, Description : 
+[11:02:50:474]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:02:50:476]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:02:50:553]	[RECV] _ACK
+[11:02:53:746]	[RECV] _RDY
+[11:02:53:747]	[OPER] ----- Result : Completed, Description : 
+[11:02:53:855]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:02:53:859]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:02:53:937]	[RECV] _ACK
+[11:02:54:529]	[RECV] _RDY
+[11:02:54:529]	[OPER] ----- Result : Completed, Description : 
+[11:02:54:656]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 2 -----
+[11:02:54:660]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM B
+[11:02:54:739]	[RECV] _ACK
+[11:02:57:641]	[RECV] _RDY
+[11:02:57:642]	[OPER] ----- Result : Completed, Description : 
+[11:02:57:658]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 5 -----
+[11:02:57:662]	[SEND] GOTO N 11 R RE Z UP SLOT 6 ARM A
+[11:02:57:741]	[RECV] _ACK
+[11:02:59:247]	[RECV] _RDY
+[11:02:59:248]	[OPER] ----- Result : Completed, Description : 
+[11:02:59:377]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:02:59:379]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:02:59:458]	[RECV] _ACK
+[11:03:02:360]	[RECV] _RDY
+[11:03:02:361]	[OPER] ----- Result : Completed, Description : 
+[11:03:02:480]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 5 -----
+[11:03:02:484]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:03:02:576]	[RECV] _ACK
+[11:03:02:577]	[RECV] _RDY
+[11:03:02:579]	[OPER] ----- Result : Completed, Description : 
+[11:03:02:718]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:03:02:720]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:03:02:799]	[RECV] _ACK
+[11:03:05:997]	[RECV] _RDY
+[11:03:05:998]	[OPER] ----- Result : Completed, Description : 
+[11:03:06:107]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:03:06:111]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:03:06:190]	[RECV] _ACK
+[11:03:06:943]	[RECV] _RDY
+[11:03:06:943]	[OPER] ----- Result : Completed, Description : 
+[11:03:07:072]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 1 -----
+[11:03:07:076]	[SEND] GOTO N 3 R RE Z UP SLOT 2 ARM B
+[11:03:07:153]	[RECV] _ACK
+[11:03:10:056]	[RECV] _RDY
+[11:03:10:057]	[OPER] ----- Result : Completed, Description : 
+[11:03:10:072]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 5 -----
+[11:03:10:076]	[SEND] GOTO N 10 R RE Z UP SLOT 6 ARM A
+[11:03:10:155]	[RECV] _ACK
+[11:03:11:552]	[RECV] _RDY
+[11:03:11:552]	[OPER] ----- Result : Completed, Description : 
+[11:03:11:689]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:03:11:691]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:03:11:770]	[RECV] _ACK
+[11:03:14:671]	[RECV] _RDY
+[11:03:14:671]	[OPER] ----- Result : Completed, Description : 
+[11:03:14:787]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 5 -----
+[11:03:14:791]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:03:14:883]	[RECV] _ACK
+[11:03:14:884]	[RECV] _RDY
+[11:03:14:884]	[OPER] ----- Result : Completed, Description : 
+[11:03:15:009]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:03:15:011]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:03:15:090]	[RECV] _ACK
+[11:03:18:281]	[RECV] _RDY
+[11:03:18:282]	[OPER] ----- Result : Completed, Description : 
+[11:03:18:396]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:03:18:400]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:03:18:478]	[RECV] _ACK
+[11:03:19:070]	[RECV] _RDY
+[11:03:19:072]	[OPER] ----- Result : Completed, Description : 
+[11:03:19:201]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 3 -----
+[11:03:19:205]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM B
+[11:03:19:284]	[RECV] _ACK
+[11:03:22:185]	[RECV] _RDY
+[11:03:22:186]	[OPER] ----- Result : Completed, Description : 
+[11:03:22:201]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 6 -----
+[11:03:22:205]	[SEND] GOTO N 11 R RE Z UP SLOT 7 ARM A
+[11:03:22:283]	[RECV] _ACK
+[11:03:23:790]	[RECV] _RDY
+[11:03:23:790]	[OPER] ----- Result : Completed, Description : 
+[11:03:23:925]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:03:23:927]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:03:24:006]	[RECV] _ACK
+[11:03:26:908]	[RECV] _RDY
+[11:03:26:908]	[OPER] ----- Result : Completed, Description : 
+[11:03:27:022]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 6 -----
+[11:03:27:026]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:03:27:120]	[RECV] _ACK
+[11:03:27:121]	[RECV] _RDY
+[11:03:27:122]	[OPER] ----- Result : Completed, Description : 
+[11:03:27:246]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:03:27:248]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:03:27:327]	[RECV] _ACK
+[11:03:30:524]	[RECV] _RDY
+[11:03:30:524]	[OPER] ----- Result : Completed, Description : 
+[11:03:30:634]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:03:30:638]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:03:30:717]	[RECV] _ACK
+[11:03:31:470]	[RECV] _RDY
+[11:03:31:472]	[OPER] ----- Result : Completed, Description : 
+[11:03:31:595]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 2 -----
+[11:03:31:599]	[SEND] GOTO N 3 R RE Z UP SLOT 3 ARM B
+[11:03:31:675]	[RECV] _ACK
+[11:03:34:579]	[RECV] _RDY
+[11:03:34:581]	[OPER] ----- Result : Completed, Description : 
+[11:03:34:596]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 6 -----
+[11:03:34:600]	[SEND] GOTO N 10 R RE Z UP SLOT 7 ARM A
+[11:03:34:678]	[RECV] _ACK
+[11:03:36:068]	[RECV] _RDY
+[11:03:36:069]	[OPER] ----- Result : Completed, Description : 
+[11:03:36:197]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:03:36:199]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:03:36:278]	[RECV] _ACK
+[11:03:39:179]	[RECV] _RDY
+[11:03:39:180]	[OPER] ----- Result : Completed, Description : 
+[11:03:39:299]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 6 -----
+[11:03:39:303]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:03:39:395]	[RECV] _ACK
+[11:03:39:396]	[RECV] _RDY
+[11:03:39:397]	[OPER] ----- Result : Completed, Description : 
+[11:03:39:521]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:03:39:523]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:03:39:602]	[RECV] _ACK
+[11:03:42:793]	[RECV] _RDY
+[11:03:42:793]	[OPER] ----- Result : Completed, Description : 
+[11:03:42:910]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:03:42:914]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:03:42:993]	[RECV] _ACK
+[11:03:43:586]	[RECV] _RDY
+[11:03:43:587]	[OPER] ----- Result : Completed, Description : 
+[11:03:43:711]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 4 -----
+[11:03:43:715]	[SEND] GOTO N 11 R RE Z UP SLOT 5 ARM B
+[11:03:43:794]	[RECV] _ACK
+[11:03:46:697]	[RECV] _RDY
+[11:03:46:699]	[OPER] ----- Result : Completed, Description : 
+[11:03:46:715]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 7 -----
+[11:03:46:719]	[SEND] GOTO N 11 R RE Z UP SLOT 8 ARM A
+[11:03:46:797]	[RECV] _ACK
+[11:03:48:303]	[RECV] _RDY
+[11:03:48:305]	[OPER] ----- Result : Completed, Description : 
+[11:03:48:434]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:03:48:436]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:03:48:513]	[RECV] _ACK
+[11:03:51:417]	[RECV] _RDY
+[11:03:51:419]	[OPER] ----- Result : Completed, Description : 
+[11:03:51:542]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 7 -----
+[11:03:51:546]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:03:51:638]	[RECV] _ACK
+[11:03:51:639]	[RECV] _RDY
+[11:03:51:641]	[OPER] ----- Result : Completed, Description : 
+[11:03:51:776]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:03:51:778]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:03:51:856]	[RECV] _ACK
+[11:03:55:053]	[RECV] _RDY
+[11:03:55:054]	[OPER] ----- Result : Completed, Description : 
+[11:03:55:166]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:03:55:170]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:03:55:248]	[RECV] _ACK
+[11:03:56:001]	[RECV] _RDY
+[11:03:56:002]	[OPER] ----- Result : Completed, Description : 
+[11:03:56:124]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 3 -----
+[11:03:56:128]	[SEND] GOTO N 3 R RE Z UP SLOT 4 ARM B
+[11:03:56:206]	[RECV] _ACK
+[11:03:59:107]	[RECV] _RDY
+[11:03:59:107]	[OPER] ----- Result : Completed, Description : 
+[11:03:59:122]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 7 -----
+[11:03:59:126]	[SEND] GOTO N 10 R RE Z UP SLOT 8 ARM A
+[11:03:59:205]	[RECV] _ACK
+[11:04:00:584]	[RECV] _RDY
+[11:04:00:584]	[OPER] ----- Result : Completed, Description : 
+[11:04:00:713]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:04:00:715]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:04:00:793]	[RECV] _ACK
+[11:04:03:695]	[RECV] _RDY
+[11:04:03:697]	[OPER] ----- Result : Completed, Description : 
+[11:04:03:815]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 7 -----
+[11:04:03:819]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:04:03:911]	[RECV] _ACK
+[11:04:03:912]	[RECV] _RDY
+[11:04:03:913]	[OPER] ----- Result : Completed, Description : 
+[11:04:04:039]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:04:04:041]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:04:04:120]	[RECV] _ACK
+[11:04:07:311]	[RECV] _RDY
+[11:04:07:313]	[OPER] ----- Result : Completed, Description : 
+[11:04:07:425]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:04:07:429]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:04:07:508]	[RECV] _ACK
+[11:04:08:100]	[RECV] _RDY
+[11:04:08:100]	[OPER] ----- Result : Completed, Description : 
+[11:04:08:232]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 5 -----
+[11:04:08:236]	[SEND] GOTO N 11 R RE Z UP SLOT 6 ARM B
+[11:04:08:314]	[RECV] _ACK
+[11:04:11:216]	[RECV] _RDY
+[11:04:11:218]	[OPER] ----- Result : Completed, Description : 
+[11:04:11:233]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 8 -----
+[11:04:11:237]	[SEND] GOTO N 11 R RE Z UP SLOT 9 ARM A
+[11:04:11:315]	[RECV] _ACK
+[11:04:12:821]	[RECV] _RDY
+[11:04:12:821]	[OPER] ----- Result : Completed, Description : 
+[11:04:12:947]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:04:12:949]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:04:13:027]	[RECV] _ACK
+[11:04:15:931]	[RECV] _RDY
+[11:04:15:933]	[OPER] ----- Result : Completed, Description : 
+[11:04:16:051]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 8 -----
+[11:04:16:055]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:04:16:148]	[RECV] _ACK
+[11:04:16:149]	[RECV] _RDY
+[11:04:16:150]	[OPER] ----- Result : Completed, Description : 
+[11:04:16:286]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:04:16:288]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:04:16:366]	[RECV] _ACK
+[11:04:19:557]	[RECV] _RDY
+[11:04:19:557]	[OPER] ----- Result : Completed, Description : 
+[11:04:19:675]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:04:19:679]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:04:19:758]	[RECV] _ACK
+[11:04:20:511]	[RECV] _RDY
+[11:04:20:512]	[OPER] ----- Result : Completed, Description : 
+[11:04:20:644]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 4 -----
+[11:04:20:648]	[SEND] GOTO N 3 R RE Z UP SLOT 5 ARM B
+[11:04:20:725]	[RECV] _ACK
+[11:04:23:628]	[RECV] _RDY
+[11:04:23:629]	[OPER] ----- Result : Completed, Description : 
+[11:04:23:644]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 8 -----
+[11:04:23:648]	[SEND] GOTO N 10 R RE Z UP SLOT 9 ARM A
+[11:04:23:725]	[RECV] _ACK
+[11:04:25:101]	[RECV] _RDY
+[11:04:25:102]	[OPER] ----- Result : Completed, Description : 
+[11:04:25:234]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:04:25:236]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:04:25:315]	[RECV] _ACK
+[11:04:28:218]	[RECV] _RDY
+[11:04:28:219]	[OPER] ----- Result : Completed, Description : 
+[11:04:28:328]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 8 -----
+[11:04:28:332]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:04:28:425]	[RECV] _ACK
+[11:04:28:426]	[RECV] _RDY
+[11:04:28:428]	[OPER] ----- Result : Completed, Description : 
+[11:04:28:566]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:04:28:568]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:04:28:647]	[RECV] _ACK
+[11:04:31:838]	[RECV] _RDY
+[11:04:31:840]	[OPER] ----- Result : Completed, Description : 
+[11:04:31:951]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:04:31:955]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:04:32:033]	[RECV] _ACK
+[11:04:32:627]	[RECV] _RDY
+[11:04:32:628]	[OPER] ----- Result : Completed, Description : 
+[11:04:32:755]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 6 -----
+[11:04:32:759]	[SEND] GOTO N 11 R RE Z UP SLOT 7 ARM B
+[11:04:32:837]	[RECV] _ACK
+[11:04:35:740]	[RECV] _RDY
+[11:04:35:742]	[OPER] ----- Result : Completed, Description : 
+[11:04:35:757]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 9 -----
+[11:04:35:761]	[SEND] GOTO N 11 R RE Z UP SLOT 10 ARM A
+[11:04:35:840]	[RECV] _ACK
+[11:04:37:346]	[RECV] _RDY
+[11:04:37:347]	[OPER] ----- Result : Completed, Description : 
+[11:04:37:475]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:04:37:477]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:04:37:554]	[RECV] _ACK
+[11:04:40:459]	[RECV] _RDY
+[11:04:40:461]	[OPER] ----- Result : Completed, Description : 
+[11:04:40:572]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 9 -----
+[11:04:40:576]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:04:40:668]	[RECV] _ACK
+[11:04:40:669]	[RECV] _RDY
+[11:04:40:671]	[OPER] ----- Result : Completed, Description : 
+[11:04:40:806]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:04:40:808]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:04:40:886]	[RECV] _ACK
+[11:04:44:085]	[RECV] _RDY
+[11:04:44:087]	[OPER] ----- Result : Completed, Description : 
+[11:04:44:204]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:04:44:208]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:04:44:285]	[RECV] _ACK
+[11:04:45:039]	[RECV] _RDY
+[11:04:45:039]	[OPER] ----- Result : Completed, Description : 
+[11:04:45:162]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 5 -----
+[11:04:45:166]	[SEND] GOTO N 3 R RE Z UP SLOT 6 ARM B
+[11:04:45:244]	[RECV] _ACK
+[11:04:48:146]	[RECV] _RDY
+[11:04:48:147]	[OPER] ----- Result : Completed, Description : 
+[11:04:48:162]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 9 -----
+[11:04:48:166]	[SEND] GOTO N 10 R RE Z UP SLOT 10 ARM A
+[11:04:48:246]	[RECV] _ACK
+[11:04:49:619]	[RECV] _RDY
+[11:04:49:620]	[OPER] ----- Result : Completed, Description : 
+[11:04:49:757]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:04:49:759]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:04:49:838]	[RECV] _ACK
+[11:04:52:740]	[RECV] _RDY
+[11:04:52:742]	[OPER] ----- Result : Completed, Description : 
+[11:04:52:860]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 9 -----
+[11:04:52:863]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:04:52:955]	[RECV] _ACK
+[11:04:52:956]	[RECV] _RDY
+[11:04:52:958]	[OPER] ----- Result : Completed, Description : 
+[11:04:53:083]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:04:53:085]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:04:53:164]	[RECV] _ACK
+[11:04:56:355]	[RECV] _RDY
+[11:04:56:356]	[OPER] ----- Result : Completed, Description : 
+[11:04:56:474]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:04:56:478]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:04:56:557]	[RECV] _ACK
+[11:04:57:148]	[RECV] _RDY
+[11:04:57:150]	[OPER] ----- Result : Completed, Description : 
+[11:04:57:271]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 7 -----
+[11:04:57:275]	[SEND] GOTO N 11 R RE Z UP SLOT 8 ARM B
+[11:04:57:353]	[RECV] _ACK
+[11:05:00:255]	[RECV] _RDY
+[11:05:00:255]	[OPER] ----- Result : Completed, Description : 
+[11:05:00:271]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 10 -----
+[11:05:00:275]	[SEND] GOTO N 11 R RE Z UP SLOT 11 ARM A
+[11:05:00:354]	[RECV] _ACK
+[11:05:01:859]	[RECV] _RDY
+[11:05:01:859]	[OPER] ----- Result : Completed, Description : 
+[11:05:01:988]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:05:01:990]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:05:02:068]	[RECV] _ACK
+[11:05:04:970]	[RECV] _RDY
+[11:05:04:972]	[OPER] ----- Result : Completed, Description : 
+[11:05:05:081]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 10 -----
+[11:05:05:085]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:05:05:176]	[RECV] _ACK
+[11:05:05:177]	[RECV] _RDY
+[11:05:05:177]	[OPER] ----- Result : Completed, Description : 
+[11:05:05:304]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:05:05:306]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:05:05:386]	[RECV] _ACK
+[11:05:08:581]	[RECV] _RDY
+[11:05:08:582]	[OPER] ----- Result : Completed, Description : 
+[11:05:08:701]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:05:08:705]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:05:08:784]	[RECV] _ACK
+[11:05:09:540]	[RECV] _RDY
+[11:05:09:541]	[OPER] ----- Result : Completed, Description : 
+[11:05:09:662]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 6 -----
+[11:05:09:666]	[SEND] GOTO N 3 R RE Z UP SLOT 7 ARM B
+[11:05:09:743]	[RECV] _ACK
+[11:05:12:648]	[RECV] _RDY
+[11:05:12:650]	[OPER] ----- Result : Completed, Description : 
+[11:05:12:665]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 10 -----
+[11:05:12:669]	[SEND] GOTO N 10 R RE Z UP SLOT 11 ARM A
+[11:05:12:748]	[RECV] _ACK
+[11:05:14:116]	[RECV] _RDY
+[11:05:14:117]	[OPER] ----- Result : Completed, Description : 
+[11:05:14:242]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:05:14:244]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:05:14:322]	[RECV] _ACK
+[11:05:17:224]	[RECV] _RDY
+[11:05:17:224]	[OPER] ----- Result : Completed, Description : 
+[11:05:17:343]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 10 -----
+[11:05:17:347]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:05:17:441]	[RECV] _ACK
+[11:05:17:442]	[RECV] _RDY
+[11:05:17:444]	[OPER] ----- Result : Completed, Description : 
+[11:05:17:578]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:05:17:580]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:05:17:660]	[RECV] _ACK
+[11:05:20:852]	[RECV] _RDY
+[11:05:20:854]	[OPER] ----- Result : Completed, Description : 
+[11:05:20:975]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:05:20:979]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:05:21:058]	[RECV] _ACK
+[11:05:21:650]	[RECV] _RDY
+[11:05:21:650]	[OPER] ----- Result : Completed, Description : 
+[11:05:21:777]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 8 -----
+[11:05:21:781]	[SEND] GOTO N 11 R RE Z UP SLOT 9 ARM B
+[11:05:21:860]	[RECV] _ACK
+[11:05:24:764]	[RECV] _RDY
+[11:05:24:765]	[OPER] ----- Result : Completed, Description : 
+[11:05:24:781]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 11 -----
+[11:05:24:785]	[SEND] GOTO N 11 R RE Z UP SLOT 12 ARM A
+[11:05:24:863]	[RECV] _ACK
+[11:05:26:370]	[RECV] _RDY
+[11:05:26:371]	[OPER] ----- Result : Completed, Description : 
+[11:05:26:500]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:05:26:502]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:05:26:579]	[RECV] _ACK
+[11:05:29:483]	[RECV] _RDY
+[11:05:29:485]	[OPER] ----- Result : Completed, Description : 
+[11:05:29:604]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 11 -----
+[11:05:29:608]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:05:29:701]	[RECV] _ACK
+[11:05:29:702]	[RECV] _RDY
+[11:05:29:703]	[OPER] ----- Result : Completed, Description : 
+[11:05:29:842]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:05:29:844]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:05:29:921]	[RECV] _ACK
+[11:05:33:116]	[RECV] _RDY
+[11:05:33:117]	[OPER] ----- Result : Completed, Description : 
+[11:05:33:229]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:05:33:233]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:05:33:311]	[RECV] _ACK
+[11:05:34:064]	[RECV] _RDY
+[11:05:34:065]	[OPER] ----- Result : Completed, Description : 
+[11:05:34:187]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 7 -----
+[11:05:34:191]	[SEND] GOTO N 3 R RE Z UP SLOT 8 ARM B
+[11:05:34:267]	[RECV] _ACK
+[11:05:37:174]	[RECV] _RDY
+[11:05:37:175]	[OPER] ----- Result : Completed, Description : 
+[11:05:37:190]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 11 -----
+[11:05:37:194]	[SEND] GOTO N 10 R RE Z UP SLOT 12 ARM A
+[11:05:37:274]	[RECV] _ACK
+[11:05:38:642]	[RECV] _RDY
+[11:05:38:642]	[OPER] ----- Result : Completed, Description : 
+[11:05:38:779]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:05:38:781]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:05:38:860]	[RECV] _ACK
+[11:05:41:761]	[RECV] _RDY
+[11:05:41:763]	[OPER] ----- Result : Completed, Description : 
+[11:05:41:873]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 11 -----
+[11:05:41:877]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:05:41:968]	[RECV] _ACK
+[11:05:41:969]	[RECV] _RDY
+[11:05:41:969]	[OPER] ----- Result : Completed, Description : 
+[11:05:42:096]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:05:42:099]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:05:42:177]	[RECV] _ACK
+[11:05:45:369]	[RECV] _RDY
+[11:05:45:369]	[OPER] ----- Result : Completed, Description : 
+[11:05:45:485]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:05:45:489]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:05:45:567]	[RECV] _ACK
+[11:05:46:159]	[RECV] _RDY
+[11:05:46:161]	[OPER] ----- Result : Completed, Description : 
+[11:05:46:288]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 9 -----
+[11:05:46:292]	[SEND] GOTO N 11 R RE Z UP SLOT 10 ARM B
+[11:05:46:371]	[RECV] _ACK
+[11:05:49:275]	[RECV] _RDY
+[11:05:49:275]	[OPER] ----- Result : Completed, Description : 
+[11:05:49:290]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 12 -----
+[11:05:49:294]	[SEND] GOTO N 11 R RE Z UP SLOT 13 ARM A
+[11:05:49:373]	[RECV] _ACK
+[11:05:50:878]	[RECV] _RDY
+[11:05:50:879]	[OPER] ----- Result : Completed, Description : 
+[11:05:51:007]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:05:51:009]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:05:51:087]	[RECV] _ACK
+[11:05:53:988]	[RECV] _RDY
+[11:05:53:990]	[OPER] ----- Result : Completed, Description : 
+[11:05:54:108]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 12 -----
+[11:05:54:112]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:05:54:205]	[RECV] _ACK
+[11:05:54:206]	[RECV] _RDY
+[11:05:54:206]	[OPER] ----- Result : Completed, Description : 
+[11:05:54:343]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:05:54:345]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:05:54:424]	[RECV] _ACK
+[11:05:57:623]	[RECV] _RDY
+[11:05:57:624]	[OPER] ----- Result : Completed, Description : 
+[11:05:57:733]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:05:57:737]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:05:57:817]	[RECV] _ACK
+[11:05:58:570]	[RECV] _RDY
+[11:05:58:571]	[OPER] ----- Result : Completed, Description : 
+[11:05:58:704]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 8 -----
+[11:05:58:708]	[SEND] GOTO N 3 R RE Z UP SLOT 9 ARM B
+[11:05:58:784]	[RECV] _ACK
+[11:06:01:688]	[RECV] _RDY
+[11:06:01:688]	[OPER] ----- Result : Completed, Description : 
+[11:06:01:704]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 12 -----
+[11:06:01:708]	[SEND] GOTO N 10 R RE Z UP SLOT 13 ARM A
+[11:06:01:786]	[RECV] _ACK
+[11:06:03:155]	[RECV] _RDY
+[11:06:03:156]	[OPER] ----- Result : Completed, Description : 
+[11:06:03:292]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:06:03:295]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:06:03:373]	[RECV] _ACK
+[11:06:06:274]	[RECV] _RDY
+[11:06:06:275]	[OPER] ----- Result : Completed, Description : 
+[11:06:06:386]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 12 -----
+[11:06:06:390]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:06:06:484]	[RECV] _ACK
+[11:06:06:485]	[RECV] _RDY
+[11:06:06:486]	[OPER] ----- Result : Completed, Description : 
+[11:06:06:608]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:06:06:610]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:06:06:689]	[RECV] _ACK
+[11:06:09:882]	[RECV] _RDY
+[11:06:09:883]	[OPER] ----- Result : Completed, Description : 
+[11:06:10:000]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:06:10:004]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:06:10:082]	[RECV] _ACK
+[11:06:10:675]	[RECV] _RDY
+[11:06:10:675]	[OPER] ----- Result : Completed, Description : 
+[11:06:10:800]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 10 -----
+[11:06:10:804]	[SEND] GOTO N 11 R RE Z UP SLOT 11 ARM B
+[11:06:10:882]	[RECV] _ACK
+[11:06:13:786]	[RECV] _RDY
+[11:06:13:788]	[OPER] ----- Result : Completed, Description : 
+[11:06:13:921]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:06:13:923]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:06:14:001]	[RECV] _ACK
+[11:06:17:246]	[RECV] _RDY
+[11:06:17:247]	[OPER] ----- Result : Completed, Description : 
+[11:06:17:361]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:06:17:365]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:06:17:442]	[RECV] _ACK
+[11:06:18:197]	[RECV] _RDY
+[11:06:18:198]	[OPER] ----- Result : Completed, Description : 
+[11:06:18:321]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 9 -----
+[11:06:18:325]	[SEND] GOTO N 3 R RE Z UP SLOT 10 ARM B
+[11:06:18:404]	[RECV] _ACK
+[11:06:21:306]	[RECV] _RDY
+[11:06:21:307]	[OPER] ----- Result : Completed, Description : 
+[11:06:21:430]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:06:21:432]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:06:21:509]	[RECV] _ACK
+[11:06:24:412]	[RECV] _RDY
+[11:06:24:414]	[OPER] ----- Result : Completed, Description : 
+[11:06:24:534]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:06:24:538]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:06:24:615]	[RECV] _ACK
+[11:06:25:208]	[RECV] _RDY
+[11:06:25:209]	[OPER] ----- Result : Completed, Description : 
+[11:06:25:335]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 11 -----
+[11:06:25:339]	[SEND] GOTO N 11 R RE Z UP SLOT 12 ARM B
+[11:06:25:418]	[RECV] _ACK
+[11:06:28:321]	[RECV] _RDY
+[11:06:28:321]	[OPER] ----- Result : Completed, Description : 
+[11:06:28:443]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:06:28:445]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:06:28:522]	[RECV] _ACK
+[11:06:31:766]	[RECV] _RDY
+[11:06:31:768]	[OPER] ----- Result : Completed, Description : 
+[11:06:31:887]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:06:31:891]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:06:31:970]	[RECV] _ACK
+[11:06:32:724]	[RECV] _RDY
+[11:06:32:726]	[OPER] ----- Result : Completed, Description : 
+[11:06:32:848]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 10 -----
+[11:06:32:852]	[SEND] GOTO N 3 R RE Z UP SLOT 11 ARM B
+[11:06:32:930]	[RECV] _ACK
+[11:06:35:832]	[RECV] _RDY
+[11:06:35:834]	[OPER] ----- Result : Completed, Description : 
+[11:06:35:960]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:06:35:962]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:06:36:040]	[RECV] _ACK
+[11:06:38:942]	[RECV] _RDY
+[11:06:38:943]	[OPER] ----- Result : Completed, Description : 
+[11:06:39:061]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:06:39:065]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:06:39:142]	[RECV] _ACK
+[11:06:39:735]	[RECV] _RDY
+[11:06:39:737]	[OPER] ----- Result : Completed, Description : 
+[11:06:39:754]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 12 -----
+[11:06:39:758]	[SEND] GOTO N 11 R RE Z UP SLOT 13 ARM B
+[11:06:39:838]	[RECV] _ACK
+[11:06:42:740]	[RECV] _RDY
+[11:06:42:741]	[OPER] ----- Result : Completed, Description : 
+[11:06:42:877]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:06:42:878]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:06:42:956]	[RECV] _ACK
+[11:06:46:204]	[RECV] _RDY
+[11:06:46:205]	[OPER] ----- Result : Completed, Description : 
+[11:06:46:314]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:06:46:318]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:06:46:396]	[RECV] _ACK
+[11:06:47:150]	[RECV] _RDY
+[11:06:47:151]	[OPER] ----- Result : Completed, Description : 
+[11:06:47:168]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 11 -----
+[11:06:47:172]	[SEND] GOTO N 3 R RE Z UP SLOT 12 ARM B
+[11:06:47:251]	[RECV] _ACK
+[11:06:50:153]	[RECV] _RDY
+[11:06:50:154]	[OPER] ----- Result : Completed, Description : 
+[11:07:04:908]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[11:07:04:912]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[11:07:04:990]	[RECV] _ACK
+[11:07:07:059]	[RECV] _RDY
+[11:07:07:060]	[OPER] ----- Result : Completed, Description : 
+[11:07:07:186]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:07:07:188]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:07:265]	[RECV] _ACK
+[11:07:10:170]	[RECV] _RDY
+[11:07:10:171]	[OPER] ----- Result : Completed, Description : 
+[11:07:10:281]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[11:07:10:285]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:10:377]	[RECV] _ACK
+[11:07:10:378]	[RECV] _RDY
+[11:07:10:379]	[OPER] ----- Result : Completed, Description : 
+[11:07:10:512]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 2 -----
+[11:07:10:516]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM A
+[11:07:10:592]	[RECV] _ACK
+[11:07:13:497]	[RECV] _RDY
+[11:07:13:499]	[OPER] ----- Result : Completed, Description : 
+[11:07:13:636]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:07:13:638]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:13:717]	[RECV] _ACK
+[11:07:16:621]	[RECV] _RDY
+[11:07:16:622]	[OPER] ----- Result : Completed, Description : 
+[11:07:16:743]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 2 -----
+[11:07:16:747]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:16:839]	[RECV] _ACK
+[11:07:16:840]	[RECV] _RDY
+[11:07:16:841]	[OPER] ----- Result : Completed, Description : 
+[11:07:16:975]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 3 -----
+[11:07:16:979]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM A
+[11:07:17:057]	[RECV] _ACK
+[11:07:19:961]	[RECV] _RDY
+[11:07:19:963]	[OPER] ----- Result : Completed, Description : 
+[11:07:20:096]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:07:20:098]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:20:176]	[RECV] _ACK
+[11:07:23:079]	[RECV] _RDY
+[11:07:23:081]	[OPER] ----- Result : Completed, Description : 
+[11:07:23:195]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 3 -----
+[11:07:23:199]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:23:291]	[RECV] _ACK
+[11:07:23:292]	[RECV] _RDY
+[11:07:23:293]	[OPER] ----- Result : Completed, Description : 
+[11:07:23:310]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[11:07:23:314]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[11:07:23:392]	[RECV] _ACK
+[11:07:26:296]	[RECV] _RDY
+[11:07:26:297]	[OPER] ----- Result : Completed, Description : 
+[11:07:26:425]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:07:26:427]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:07:26:505]	[RECV] _ACK
+[11:07:29:406]	[RECV] _RDY
+[11:07:29:408]	[OPER] ----- Result : Completed, Description : 
+[11:07:29:530]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 1 -----
+[11:07:29:534]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:07:29:627]	[RECV] _ACK
+[11:07:29:628]	[RECV] _RDY
+[11:07:29:628]	[OPER] ----- Result : Completed, Description : 
+[11:07:29:749]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[11:07:29:753]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[11:07:29:831]	[RECV] _ACK
+[11:07:32:733]	[RECV] _RDY
+[11:07:32:734]	[OPER] ----- Result : Completed, Description : 
+[11:07:32:859]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:07:32:861]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:07:32:939]	[RECV] _ACK
+[11:07:35:842]	[RECV] _RDY
+[11:07:35:843]	[OPER] ----- Result : Completed, Description : 
+[11:07:35:965]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 2 -----
+[11:07:35:969]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:07:36:061]	[RECV] _ACK
+[11:07:36:062]	[RECV] _RDY
+[11:07:36:062]	[OPER] ----- Result : Completed, Description : 
+[11:07:36:186]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 3 -----
+[11:07:36:190]	[SEND] GOTO N 10 R RE Z UP SLOT 4 ARM A
+[11:07:36:268]	[RECV] _ACK
+[11:07:39:170]	[RECV] _RDY
+[11:07:39:170]	[OPER] ----- Result : Completed, Description : 
+[11:07:39:297]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:07:39:299]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:07:39:378]	[RECV] _ACK
+[11:07:42:280]	[RECV] _RDY
+[11:07:42:281]	[OPER] ----- Result : Completed, Description : 
+[11:07:42:396]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 3 -----
+[11:07:42:400]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:07:42:492]	[RECV] _ACK
+[11:07:42:493]	[RECV] _RDY
+[11:07:42:495]	[OPER] ----- Result : Completed, Description : 
+[11:07:42:635]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:07:42:637]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:07:42:716]	[RECV] _ACK
+[11:07:45:908]	[RECV] _RDY
+[11:07:45:910]	[OPER] ----- Result : Completed, Description : 
+[11:07:46:025]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:07:46:029]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:07:46:107]	[RECV] _ACK
+[11:07:46:698]	[RECV] _RDY
+[11:07:46:699]	[OPER] ----- Result : Completed, Description : 
+[11:07:46:828]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 1 -----
+[11:07:46:832]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM B
+[11:07:46:910]	[RECV] _ACK
+[11:07:49:814]	[RECV] _RDY
+[11:07:49:815]	[OPER] ----- Result : Completed, Description : 
+[11:07:49:830]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 4 -----
+[11:07:49:834]	[SEND] GOTO N 11 R RE Z UP SLOT 5 ARM A
+[11:07:49:912]	[RECV] _ACK
+[11:07:51:416]	[RECV] _RDY
+[11:07:51:417]	[OPER] ----- Result : Completed, Description : 
+[11:07:51:551]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:07:51:553]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:51:632]	[RECV] _ACK
+[11:07:54:534]	[RECV] _RDY
+[11:07:54:534]	[OPER] ----- Result : Completed, Description : 
+[11:07:54:645]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 4 -----
+[11:07:54:649]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:07:54:742]	[RECV] _ACK
+[11:07:54:743]	[RECV] _RDY
+[11:07:54:744]	[OPER] ----- Result : Completed, Description : 
+[11:07:54:880]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:07:54:882]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:07:54:961]	[RECV] _ACK
+[11:07:58:158]	[RECV] _RDY
+[11:07:58:159]	[OPER] ----- Result : Completed, Description : 
+[11:07:58:274]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:07:58:278]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:07:58:356]	[RECV] _ACK
+[11:07:59:111]	[RECV] _RDY
+[11:07:59:112]	[OPER] ----- Result : Completed, Description : 
+[11:07:59:246]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 12 -----
+[11:07:59:250]	[SEND] GOTO N 3 R RE Z UP SLOT 13 ARM B
+[11:07:59:328]	[RECV] _ACK
+[11:08:02:231]	[RECV] _RDY
+[11:08:02:231]	[OPER] ----- Result : Completed, Description : 
+[11:08:02:246]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 4 -----
+[11:08:02:250]	[SEND] GOTO N 10 R RE Z UP SLOT 5 ARM A
+[11:08:02:327]	[RECV] _ACK
+[11:08:04:084]	[RECV] _RDY
+[11:08:04:086]	[OPER] ----- Result : Completed, Description : 
+[11:08:04:220]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:08:04:222]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:08:04:299]	[RECV] _ACK
+[11:08:07:205]	[RECV] _RDY
+[11:08:07:206]	[OPER] ----- Result : Completed, Description : 
+[11:08:07:326]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 4 -----
+[11:08:07:330]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:08:07:422]	[RECV] _ACK
+[11:08:07:423]	[RECV] _RDY
+[11:08:07:424]	[OPER] ----- Result : Completed, Description : 
+[11:08:07:549]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:08:07:552]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:08:07:630]	[RECV] _ACK
+[11:08:10:824]	[RECV] _RDY
+[11:08:10:825]	[OPER] ----- Result : Completed, Description : 
+[11:08:10:946]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:08:10:950]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:08:11:028]	[RECV] _ACK
+[11:08:11:621]	[RECV] _RDY
+[11:08:11:622]	[OPER] ----- Result : Completed, Description : 
+[11:08:11:748]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 2 -----
+[11:08:11:752]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM B
+[11:08:11:830]	[RECV] _ACK
+[11:08:14:732]	[RECV] _RDY
+[11:08:14:733]	[OPER] ----- Result : Completed, Description : 
+[11:08:14:749]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 5 -----
+[11:08:14:753]	[SEND] GOTO N 11 R RE Z UP SLOT 6 ARM A
+[11:08:14:831]	[RECV] _ACK
+[11:08:16:338]	[RECV] _RDY
+[11:08:16:339]	[OPER] ----- Result : Completed, Description : 
+[11:08:16:471]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:08:16:473]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:08:16:552]	[RECV] _ACK
+[11:08:19:455]	[RECV] _RDY
+[11:08:19:456]	[OPER] ----- Result : Completed, Description : 
+[11:08:19:566]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 5 -----
+[11:08:19:570]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:08:19:663]	[RECV] _ACK
+[11:08:19:664]	[RECV] _RDY
+[11:08:19:666]	[OPER] ----- Result : Completed, Description : 
+[11:08:19:802]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:08:19:804]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:08:19:883]	[RECV] _ACK
+[11:08:22:531]	[RECV] _RDY
+[11:08:22:533]	[OPER] ----- Result : Completed, Description : 
+[11:08:22:653]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:08:22:657]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:08:22:735]	[RECV] _ACK
+[11:08:23:327]	[RECV] _RDY
+[11:08:23:328]	[OPER] ----- Result : Completed, Description : 
+[11:08:23:453]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 3 -----
+[11:08:23:457]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM B
+[11:08:23:536]	[RECV] _ACK
+[11:08:26:437]	[RECV] _RDY
+[11:08:26:439]	[OPER] ----- Result : Completed, Description : 
+[11:08:26:454]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 6 -----
+[11:08:26:458]	[SEND] GOTO N 11 R RE Z UP SLOT 7 ARM A
+[11:08:26:535]	[RECV] _ACK
+[11:08:28:040]	[RECV] _RDY
+[11:08:28:041]	[OPER] ----- Result : Completed, Description : 
+[11:08:28:173]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:08:28:175]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:08:28:252]	[RECV] _ACK
+[11:08:31:154]	[RECV] _RDY
+[11:08:31:155]	[OPER] ----- Result : Completed, Description : 
+[11:08:31:273]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 6 -----
+[11:08:31:277]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:08:31:370]	[RECV] _ACK
+[11:08:31:371]	[RECV] _RDY
+[11:08:31:371]	[OPER] ----- Result : Completed, Description : 
+[11:08:31:508]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:08:31:510]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:08:31:589]	[RECV] _ACK
+[11:08:34:786]	[RECV] _RDY
+[11:08:34:786]	[OPER] ----- Result : Completed, Description : 
+[11:08:34:897]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:08:34:901]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:08:34:982]	[RECV] _ACK
+[11:08:35:734]	[RECV] _RDY
+[11:08:35:735]	[OPER] ----- Result : Completed, Description : 
+[11:08:35:856]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 0 -----
+[11:08:35:860]	[SEND] GOTO N 3 R RE Z UP SLOT 1 ARM B
+[11:08:35:937]	[RECV] _ACK
+[11:08:38:839]	[RECV] _RDY
+[11:08:38:840]	[OPER] ----- Result : Completed, Description : 
+[11:08:38:855]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 5 -----
+[11:08:38:859]	[SEND] GOTO N 10 R RE Z UP SLOT 6 ARM A
+[11:08:38:936]	[RECV] _ACK
+[11:08:40:476]	[RECV] _RDY
+[11:08:40:477]	[OPER] ----- Result : Completed, Description : 
+[11:08:40:612]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:08:40:614]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:08:40:692]	[RECV] _ACK
+[11:08:43:594]	[RECV] _RDY
+[11:08:43:596]	[OPER] ----- Result : Completed, Description : 
+[11:08:43:714]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 5 -----
+[11:08:43:718]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:08:43:811]	[RECV] _ACK
+[11:08:43:812]	[RECV] _RDY
+[11:08:43:813]	[OPER] ----- Result : Completed, Description : 
+[11:08:43:937]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:08:43:939]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:08:44:017]	[RECV] _ACK
+[11:08:47:208]	[RECV] _RDY
+[11:08:47:209]	[OPER] ----- Result : Completed, Description : 
+[11:08:47:329]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:08:47:333]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:08:47:412]	[RECV] _ACK
+[11:08:48:005]	[RECV] _RDY
+[11:08:48:007]	[OPER] ----- Result : Completed, Description : 
+[11:08:48:131]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 4 -----
+[11:08:48:135]	[SEND] GOTO N 11 R RE Z UP SLOT 5 ARM B
+[11:08:48:213]	[RECV] _ACK
+[11:08:51:116]	[RECV] _RDY
+[11:08:51:118]	[OPER] ----- Result : Completed, Description : 
+[11:08:51:133]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 7 -----
+[11:08:51:137]	[SEND] GOTO N 11 R RE Z UP SLOT 8 ARM A
+[11:08:51:216]	[RECV] _ACK
+[11:08:52:721]	[RECV] _RDY
+[11:08:52:723]	[OPER] ----- Result : Completed, Description : 
+[11:08:52:845]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:08:52:847]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:08:52:926]	[RECV] _ACK
+[11:08:55:829]	[RECV] _RDY
+[11:08:55:830]	[OPER] ----- Result : Completed, Description : 
+[11:08:55:945]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 7 -----
+[11:08:55:949]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:08:56:041]	[RECV] _ACK
+[11:08:56:042]	[RECV] _RDY
+[11:08:56:043]	[OPER] ----- Result : Completed, Description : 
+[11:08:56:167]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:08:56:169]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:08:56:249]	[RECV] _ACK
+[11:08:59:446]	[RECV] _RDY
+[11:08:59:446]	[OPER] ----- Result : Completed, Description : 
+[11:08:59:554]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:08:59:558]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:08:59:637]	[RECV] _ACK
+[11:09:00:391]	[RECV] _RDY
+[11:09:00:392]	[OPER] ----- Result : Completed, Description : 
+[11:09:00:525]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 1 -----
+[11:09:00:529]	[SEND] GOTO N 3 R RE Z UP SLOT 2 ARM B
+[11:09:00:605]	[RECV] _ACK
+[11:09:03:509]	[RECV] _RDY
+[11:09:03:511]	[OPER] ----- Result : Completed, Description : 
+[11:09:03:527]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 6 -----
+[11:09:03:531]	[SEND] GOTO N 10 R RE Z UP SLOT 7 ARM A
+[11:09:03:609]	[RECV] _ACK
+[11:09:05:142]	[RECV] _RDY
+[11:09:05:144]	[OPER] ----- Result : Completed, Description : 
+[11:09:05:271]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:09:05:273]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:09:05:351]	[RECV] _ACK
+[11:09:08:254]	[RECV] _RDY
+[11:09:08:255]	[OPER] ----- Result : Completed, Description : 
+[11:09:08:375]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 6 -----
+[11:09:08:379]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:09:08:471]	[RECV] _ACK
+[11:09:08:472]	[RECV] _RDY
+[11:09:08:472]	[OPER] ----- Result : Completed, Description : 
+[11:09:08:608]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:09:08:610]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:09:08:688]	[RECV] _ACK
+[11:09:11:882]	[RECV] _RDY
+[11:09:11:883]	[OPER] ----- Result : Completed, Description : 
+[11:09:12:006]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:09:12:010]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:09:12:088]	[RECV] _ACK
+[11:09:12:682]	[RECV] _RDY
+[11:09:12:683]	[OPER] ----- Result : Completed, Description : 
+[11:09:12:810]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 5 -----
+[11:09:12:814]	[SEND] GOTO N 11 R RE Z UP SLOT 6 ARM B
+[11:09:12:892]	[RECV] _ACK
+[11:09:15:795]	[RECV] _RDY
+[11:09:15:796]	[OPER] ----- Result : Completed, Description : 
+[11:09:15:812]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 8 -----
+[11:09:15:816]	[SEND] GOTO N 11 R RE Z UP SLOT 9 ARM A
+[11:09:15:893]	[RECV] _ACK
+[11:09:17:398]	[RECV] _RDY
+[11:09:17:399]	[OPER] ----- Result : Completed, Description : 
+[11:09:17:531]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:09:17:533]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:09:17:611]	[RECV] _ACK
+[11:09:20:514]	[RECV] _RDY
+[11:09:20:515]	[OPER] ----- Result : Completed, Description : 
+[11:09:20:627]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 8 -----
+[11:09:20:631]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:09:20:724]	[RECV] _ACK
+[11:09:20:725]	[RECV] _RDY
+[11:09:20:727]	[OPER] ----- Result : Completed, Description : 
+[11:09:20:864]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:09:20:866]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:09:20:945]	[RECV] _ACK
+[11:09:24:143]	[RECV] _RDY
+[11:09:24:144]	[OPER] ----- Result : Completed, Description : 
+[11:09:24:252]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:09:24:256]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:09:24:334]	[RECV] _ACK
+[11:09:25:088]	[RECV] _RDY
+[11:09:25:089]	[OPER] ----- Result : Completed, Description : 
+[11:09:25:211]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 2 -----
+[11:09:25:215]	[SEND] GOTO N 3 R RE Z UP SLOT 3 ARM B
+[11:09:25:291]	[RECV] _ACK
+[11:09:28:196]	[RECV] _RDY
+[11:09:28:198]	[OPER] ----- Result : Completed, Description : 
+[11:09:28:213]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 7 -----
+[11:09:28:217]	[SEND] GOTO N 10 R RE Z UP SLOT 8 ARM A
+[11:09:28:296]	[RECV] _ACK
+[11:09:29:827]	[RECV] _RDY
+[11:09:29:828]	[OPER] ----- Result : Completed, Description : 
+[11:09:29:952]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:09:29:954]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:09:30:033]	[RECV] _ACK
+[11:09:32:935]	[RECV] _RDY
+[11:09:32:937]	[OPER] ----- Result : Completed, Description : 
+[11:09:33:059]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 7 -----
+[11:09:33:063]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:09:33:156]	[RECV] _ACK
+[11:09:33:157]	[RECV] _RDY
+[11:09:33:158]	[OPER] ----- Result : Completed, Description : 
+[11:09:33:296]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:09:33:298]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:09:33:377]	[RECV] _ACK
+[11:09:36:569]	[RECV] _RDY
+[11:09:36:569]	[OPER] ----- Result : Completed, Description : 
+[11:09:36:686]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:09:36:690]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:09:36:769]	[RECV] _ACK
+[11:09:37:359]	[RECV] _RDY
+[11:09:37:360]	[OPER] ----- Result : Completed, Description : 
+[11:09:37:484]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 6 -----
+[11:09:37:488]	[SEND] GOTO N 11 R RE Z UP SLOT 7 ARM B
+[11:09:37:566]	[RECV] _ACK
+[11:09:40:468]	[RECV] _RDY
+[11:09:40:470]	[OPER] ----- Result : Completed, Description : 
+[11:09:40:486]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 9 -----
+[11:09:40:490]	[SEND] GOTO N 11 R RE Z UP SLOT 10 ARM A
+[11:09:40:570]	[RECV] _ACK
+[11:09:42:077]	[RECV] _RDY
+[11:09:42:079]	[OPER] ----- Result : Completed, Description : 
+[11:09:42:213]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:09:42:215]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:09:42:293]	[RECV] _ACK
+[11:09:45:196]	[RECV] _RDY
+[11:09:45:196]	[OPER] ----- Result : Completed, Description : 
+[11:09:45:312]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 9 -----
+[11:09:45:316]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:09:45:409]	[RECV] _ACK
+[11:09:45:410]	[RECV] _RDY
+[11:09:45:412]	[OPER] ----- Result : Completed, Description : 
+[11:09:45:544]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:09:45:546]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:09:45:624]	[RECV] _ACK
+[11:09:48:824]	[RECV] _RDY
+[11:09:48:826]	[OPER] ----- Result : Completed, Description : 
+[11:09:48:933]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:09:48:938]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:09:49:016]	[RECV] _ACK
+[11:09:49:772]	[RECV] _RDY
+[11:09:49:774]	[OPER] ----- Result : Completed, Description : 
+[11:09:49:897]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 3 -----
+[11:09:49:901]	[SEND] GOTO N 3 R RE Z UP SLOT 4 ARM B
+[11:09:49:978]	[RECV] _ACK
+[11:09:52:883]	[RECV] _RDY
+[11:09:52:885]	[OPER] ----- Result : Completed, Description : 
+[11:09:52:900]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 8 -----
+[11:09:52:904]	[SEND] GOTO N 10 R RE Z UP SLOT 9 ARM A
+[11:09:52:982]	[RECV] _ACK
+[11:09:54:503]	[RECV] _RDY
+[11:09:54:503]	[OPER] ----- Result : Completed, Description : 
+[11:09:54:639]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:09:54:641]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:09:54:719]	[RECV] _ACK
+[11:09:57:622]	[RECV] _RDY
+[11:09:57:623]	[OPER] ----- Result : Completed, Description : 
+[11:09:57:741]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 8 -----
+[11:09:57:745]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:09:57:838]	[RECV] _ACK
+[11:09:57:839]	[RECV] _RDY
+[11:09:57:840]	[OPER] ----- Result : Completed, Description : 
+[11:09:57:975]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:09:57:977]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:09:58:056]	[RECV] _ACK
+[11:10:01:248]	[RECV] _RDY
+[11:10:01:249]	[OPER] ----- Result : Completed, Description : 
+[11:10:01:370]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:10:01:374]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:10:01:452]	[RECV] _ACK
+[11:10:02:044]	[RECV] _RDY
+[11:10:02:046]	[OPER] ----- Result : Completed, Description : 
+[11:10:02:177]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 7 -----
+[11:10:02:181]	[SEND] GOTO N 11 R RE Z UP SLOT 8 ARM B
+[11:10:02:259]	[RECV] _ACK
+[11:10:05:164]	[RECV] _RDY
+[11:10:05:166]	[OPER] ----- Result : Completed, Description : 
+[11:10:05:181]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 10 -----
+[11:10:05:185]	[SEND] GOTO N 11 R RE Z UP SLOT 11 ARM A
+[11:10:05:265]	[RECV] _ACK
+[11:10:06:771]	[RECV] _RDY
+[11:10:06:773]	[OPER] ----- Result : Completed, Description : 
+[11:10:06:905]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:10:06:907]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:10:06:986]	[RECV] _ACK
+[11:10:09:888]	[RECV] _RDY
+[11:10:09:888]	[OPER] ----- Result : Completed, Description : 
+[11:10:10:003]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 10 -----
+[11:10:10:007]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:10:10:100]	[RECV] _ACK
+[11:10:10:101]	[RECV] _RDY
+[11:10:10:103]	[OPER] ----- Result : Completed, Description : 
+[11:10:10:239]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:10:10:241]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:10:10:320]	[RECV] _ACK
+[11:10:13:514]	[RECV] _RDY
+[11:10:13:516]	[OPER] ----- Result : Completed, Description : 
+[11:10:13:629]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:10:13:634]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:10:13:712]	[RECV] _ACK
+[11:10:14:465]	[RECV] _RDY
+[11:10:14:466]	[OPER] ----- Result : Completed, Description : 
+[11:10:14:601]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 4 -----
+[11:10:14:605]	[SEND] GOTO N 3 R RE Z UP SLOT 5 ARM B
+[11:10:14:682]	[RECV] _ACK
+[11:10:17:584]	[RECV] _RDY
+[11:10:17:585]	[OPER] ----- Result : Completed, Description : 
+[11:10:17:600]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 9 -----
+[11:10:17:604]	[SEND] GOTO N 10 R RE Z UP SLOT 10 ARM A
+[11:10:17:683]	[RECV] _ACK
+[11:10:19:204]	[RECV] _RDY
+[11:10:19:205]	[OPER] ----- Result : Completed, Description : 
+[11:10:19:335]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:10:19:337]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:10:19:415]	[RECV] _ACK
+[11:10:22:317]	[RECV] _RDY
+[11:10:22:319]	[OPER] ----- Result : Completed, Description : 
+[11:10:22:429]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 9 -----
+[11:10:22:433]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:10:22:526]	[RECV] _ACK
+[11:10:22:527]	[RECV] _RDY
+[11:10:22:527]	[OPER] ----- Result : Completed, Description : 
+[11:10:22:649]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:10:22:651]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:10:22:730]	[RECV] _ACK
+[11:10:25:924]	[RECV] _RDY
+[11:10:25:924]	[OPER] ----- Result : Completed, Description : 
+[11:10:26:039]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:10:26:043]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:10:26:121]	[RECV] _ACK
+[11:10:26:713]	[RECV] _RDY
+[11:10:26:715]	[OPER] ----- Result : Completed, Description : 
+[11:10:26:841]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 8 -----
+[11:10:26:845]	[SEND] GOTO N 11 R RE Z UP SLOT 9 ARM B
+[11:10:26:924]	[RECV] _ACK
+[11:10:29:828]	[RECV] _RDY
+[11:10:29:829]	[OPER] ----- Result : Completed, Description : 
+[11:10:29:844]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 11 -----
+[11:10:29:848]	[SEND] GOTO N 11 R RE Z UP SLOT 12 ARM A
+[11:10:29:927]	[RECV] _ACK
+[11:10:31:433]	[RECV] _RDY
+[11:10:31:434]	[OPER] ----- Result : Completed, Description : 
+[11:10:31:568]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:10:31:570]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:10:31:649]	[RECV] _ACK
+[11:10:34:551]	[RECV] _RDY
+[11:10:34:553]	[OPER] ----- Result : Completed, Description : 
+[11:10:34:670]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 11 -----
+[11:10:34:674]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:10:34:767]	[RECV] _ACK
+[11:10:34:768]	[RECV] _RDY
+[11:10:34:770]	[OPER] ----- Result : Completed, Description : 
+[11:10:34:906]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:10:34:908]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:10:34:987]	[RECV] _ACK
+[11:10:38:187]	[RECV] _RDY
+[11:10:38:187]	[OPER] ----- Result : Completed, Description : 
+[11:10:38:296]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:10:38:300]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:10:38:378]	[RECV] _ACK
+[11:10:39:132]	[RECV] _RDY
+[11:10:39:134]	[OPER] ----- Result : Completed, Description : 
+[11:10:39:257]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 5 -----
+[11:10:39:261]	[SEND] GOTO N 3 R RE Z UP SLOT 6 ARM B
+[11:10:39:338]	[RECV] _ACK
+[11:10:42:239]	[RECV] _RDY
+[11:10:42:240]	[OPER] ----- Result : Completed, Description : 
+[11:10:42:255]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 10 -----
+[11:10:42:259]	[SEND] GOTO N 10 R RE Z UP SLOT 11 ARM A
+[11:10:42:339]	[RECV] _ACK
+[11:10:43:847]	[RECV] _RDY
+[11:10:43:848]	[OPER] ----- Result : Completed, Description : 
+[11:10:43:983]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:10:43:985]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:10:44:065]	[RECV] _ACK
+[11:10:46:966]	[RECV] _RDY
+[11:10:46:966]	[OPER] ----- Result : Completed, Description : 
+[11:10:47:084]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 10 -----
+[11:10:47:089]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:10:47:181]	[RECV] _ACK
+[11:10:47:182]	[RECV] _RDY
+[11:10:47:183]	[OPER] ----- Result : Completed, Description : 
+[11:10:47:319]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:10:47:321]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:10:47:399]	[RECV] _ACK
+[11:10:50:594]	[RECV] _RDY
+[11:10:50:594]	[OPER] ----- Result : Completed, Description : 
+[11:10:50:709]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:10:50:713]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:10:50:791]	[RECV] _ACK
+[11:10:51:383]	[RECV] _RDY
+[11:10:51:384]	[OPER] ----- Result : Completed, Description : 
+[11:10:51:509]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 9 -----
+[11:10:51:513]	[SEND] GOTO N 11 R RE Z UP SLOT 10 ARM B
+[11:10:51:593]	[RECV] _ACK
+[11:10:54:496]	[RECV] _RDY
+[11:10:54:496]	[OPER] ----- Result : Completed, Description : 
+[11:10:54:511]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 12 -----
+[11:10:54:515]	[SEND] GOTO N 11 R RE Z UP SLOT 13 ARM A
+[11:10:54:594]	[RECV] _ACK
+[11:10:56:099]	[RECV] _RDY
+[11:10:56:100]	[OPER] ----- Result : Completed, Description : 
+[11:10:56:224]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:10:56:226]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:10:56:304]	[RECV] _ACK
+[11:10:59:207]	[RECV] _RDY
+[11:10:59:207]	[OPER] ----- Result : Completed, Description : 
+[11:10:59:328]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 12 -----
+[11:10:59:332]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:10:59:425]	[RECV] _ACK
+[11:10:59:426]	[RECV] _RDY
+[11:10:59:428]	[OPER] ----- Result : Completed, Description : 
+[11:10:59:551]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:10:59:553]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:10:59:630]	[RECV] _ACK
+[11:11:02:830]	[RECV] _RDY
+[11:11:02:832]	[OPER] ----- Result : Completed, Description : 
+[11:11:02:944]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:11:02:947]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:11:03:026]	[RECV] _ACK
+[11:11:03:780]	[RECV] _RDY
+[11:11:03:782]	[OPER] ----- Result : Completed, Description : 
+[11:11:03:918]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 6 -----
+[11:11:03:922]	[SEND] GOTO N 3 R RE Z UP SLOT 7 ARM B
+[11:11:04:000]	[RECV] _ACK
+[11:11:06:903]	[RECV] _RDY
+[11:11:06:905]	[OPER] ----- Result : Completed, Description : 
+[11:11:06:920]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 11 -----
+[11:11:06:924]	[SEND] GOTO N 10 R RE Z UP SLOT 12 ARM A
+[11:11:07:003]	[RECV] _ACK
+[11:11:08:507]	[RECV] _RDY
+[11:11:08:509]	[OPER] ----- Result : Completed, Description : 
+[11:11:08:637]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:11:08:640]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:11:08:719]	[RECV] _ACK
+[11:11:11:621]	[RECV] _RDY
+[11:11:11:621]	[OPER] ----- Result : Completed, Description : 
+[11:11:11:730]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 11 -----
+[11:11:11:734]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:11:11:828]	[RECV] _ACK
+[11:11:11:829]	[RECV] _RDY
+[11:11:11:830]	[OPER] ----- Result : Completed, Description : 
+[11:11:11:953]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:11:11:955]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:11:12:033]	[RECV] _ACK
+[11:11:15:228]	[RECV] _RDY
+[11:11:15:230]	[OPER] ----- Result : Completed, Description : 
+[11:11:15:345]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:11:15:349]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:11:15:427]	[RECV] _ACK
+[11:11:16:021]	[RECV] _RDY
+[11:11:16:021]	[OPER] ----- Result : Completed, Description : 
+[11:11:16:144]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 10 -----
+[11:11:16:148]	[SEND] GOTO N 11 R RE Z UP SLOT 11 ARM B
+[11:11:16:228]	[RECV] _ACK
+[11:11:19:130]	[RECV] _RDY
+[11:11:19:131]	[OPER] ----- Result : Completed, Description : 
+[11:11:19:263]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:11:19:265]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:11:19:343]	[RECV] _ACK
+[11:11:22:589]	[RECV] _RDY
+[11:11:22:591]	[OPER] ----- Result : Completed, Description : 
+[11:11:22:699]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:11:22:703]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:11:22:780]	[RECV] _ACK
+[11:11:23:533]	[RECV] _RDY
+[11:11:23:534]	[OPER] ----- Result : Completed, Description : 
+[11:11:23:661]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 7 -----
+[11:11:23:665]	[SEND] GOTO N 3 R RE Z UP SLOT 8 ARM B
+[11:11:23:743]	[RECV] _ACK
+[11:11:26:646]	[RECV] _RDY
+[11:11:26:647]	[OPER] ----- Result : Completed, Description : 
+[11:11:26:662]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 12 -----
+[11:11:26:666]	[SEND] GOTO N 10 R RE Z UP SLOT 13 ARM A
+[11:11:26:745]	[RECV] _ACK
+[11:11:28:235]	[RECV] _RDY
+[11:11:28:236]	[OPER] ----- Result : Completed, Description : 
+[11:11:28:369]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:11:28:371]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:11:28:449]	[RECV] _ACK
+[11:11:31:351]	[RECV] _RDY
+[11:11:31:352]	[OPER] ----- Result : Completed, Description : 
+[11:11:31:472]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 12 -----
+[11:11:31:476]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:11:31:568]	[RECV] _ACK
+[11:11:31:569]	[RECV] _RDY
+[11:11:31:570]	[OPER] ----- Result : Completed, Description : 
+[11:11:31:695]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:11:31:697]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:11:31:774]	[RECV] _ACK
+[11:11:34:970]	[RECV] _RDY
+[11:11:34:971]	[OPER] ----- Result : Completed, Description : 
+[11:11:35:091]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:11:35:095]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:11:35:173]	[RECV] _ACK
+[11:11:35:767]	[RECV] _RDY
+[11:11:35:769]	[OPER] ----- Result : Completed, Description : 
+[11:11:35:889]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 11 -----
+[11:11:35:893]	[SEND] GOTO N 11 R RE Z UP SLOT 12 ARM B
+[11:11:35:973]	[RECV] _ACK
+[11:11:38:876]	[RECV] _RDY
+[11:11:38:877]	[OPER] ----- Result : Completed, Description : 
+[11:11:39:004]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:11:39:006]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:11:39:085]	[RECV] _ACK
+[11:11:42:332]	[RECV] _RDY
+[11:11:42:333]	[OPER] ----- Result : Completed, Description : 
+[11:11:42:443]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:11:42:447]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:11:42:525]	[RECV] _ACK
+[11:11:43:279]	[RECV] _RDY
+[11:11:43:281]	[OPER] ----- Result : Completed, Description : 
+[11:11:43:403]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 8 -----
+[11:11:43:407]	[SEND] GOTO N 3 R RE Z UP SLOT 9 ARM B
+[11:11:43:485]	[RECV] _ACK
+[11:11:46:386]	[RECV] _RDY
+[11:11:46:388]	[OPER] ----- Result : Completed, Description : 
+[11:11:46:514]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:11:46:516]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:11:46:593]	[RECV] _ACK
+[11:11:49:496]	[RECV] _RDY
+[11:11:49:497]	[OPER] ----- Result : Completed, Description : 
+[11:11:49:617]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:11:49:621]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:11:49:699]	[RECV] _ACK
+[11:11:50:291]	[RECV] _RDY
+[11:11:50:291]	[OPER] ----- Result : Completed, Description : 
+[11:11:50:308]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 12 -----
+[11:11:50:312]	[SEND] GOTO N 11 R RE Z UP SLOT 13 ARM B
+[11:11:50:390]	[RECV] _ACK
+[11:11:53:294]	[RECV] _RDY
+[11:11:53:296]	[OPER] ----- Result : Completed, Description : 
+[11:11:53:425]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:11:53:427]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:11:53:505]	[RECV] _ACK
+[11:11:56:751]	[RECV] _RDY
+[11:11:56:752]	[OPER] ----- Result : Completed, Description : 
+[11:11:56:861]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:11:56:865]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:11:56:944]	[RECV] _ACK
+[11:11:57:698]	[RECV] _RDY
+[11:11:57:698]	[OPER] ----- Result : Completed, Description : 
+[11:11:57:819]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 9 -----
+[11:11:57:823]	[SEND] GOTO N 3 R RE Z UP SLOT 10 ARM B
+[11:11:57:901]	[RECV] _ACK
+[11:12:00:805]	[RECV] _RDY
+[11:12:00:806]	[OPER] ----- Result : Completed, Description : 
+[11:12:00:929]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:12:00:931]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:12:01:008]	[RECV] _ACK
+[11:12:03:911]	[RECV] _RDY
+[11:12:03:913]	[OPER] ----- Result : Completed, Description : 
+[11:12:04:027]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:12:04:031]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:12:04:109]	[RECV] _ACK
+[11:12:04:863]	[RECV] _RDY
+[11:12:04:863]	[OPER] ----- Result : Completed, Description : 
+[11:12:04:880]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 10 -----
+[11:12:04:884]	[SEND] GOTO N 3 R RE Z UP SLOT 11 ARM B
+[11:12:04:963]	[RECV] _ACK
+[11:12:07:865]	[RECV] _RDY
+[11:12:07:866]	[OPER] ----- Result : Completed, Description : 
+[11:12:15:432]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[11:12:15:442]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[11:12:15:521]	[RECV] _ACK
+[11:12:17:589]	[RECV] _RDY
+[11:12:17:591]	[OPER] ----- Result : Completed, Description : 
+[11:12:17:724]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:12:17:726]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:12:17:804]	[RECV] _ACK
+[11:12:20:706]	[RECV] _RDY
+[11:12:20:707]	[OPER] ----- Result : Completed, Description : 
+[11:12:20:828]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[11:12:20:832]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:12:20:924]	[RECV] _ACK
+[11:12:20:925]	[RECV] _RDY
+[11:12:20:925]	[OPER] ----- Result : Completed, Description : 
+[11:12:21:050]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 2 -----
+[11:12:21:054]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM A
+[11:12:21:133]	[RECV] _ACK
+[11:12:24:036]	[RECV] _RDY
+[11:12:24:038]	[OPER] ----- Result : Completed, Description : 
+[11:12:24:163]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:12:24:165]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:12:24:245]	[RECV] _ACK
+[11:12:27:147]	[RECV] _RDY
+[11:12:27:147]	[OPER] ----- Result : Completed, Description : 
+[11:12:27:262]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 2 -----
+[11:12:27:266]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:12:27:358]	[RECV] _ACK
+[11:12:27:359]	[RECV] _RDY
+[11:12:27:360]	[OPER] ----- Result : Completed, Description : 
+[11:12:27:481]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 3 -----
+[11:12:27:485]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM A
+[11:12:27:563]	[RECV] _ACK
+[11:12:30:464]	[RECV] _RDY
+[11:12:30:465]	[OPER] ----- Result : Completed, Description : 
+[11:12:30:600]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:12:30:602]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:12:30:680]	[RECV] _ACK
+[11:12:33:583]	[RECV] _RDY
+[11:12:33:584]	[OPER] ----- Result : Completed, Description : 
+[11:12:33:704]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 3 -----
+[11:12:33:708]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:12:33:800]	[RECV] _ACK
+[11:12:33:801]	[RECV] _RDY
+[11:12:33:802]	[OPER] ----- Result : Completed, Description : 
+[11:12:33:820]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[11:12:33:824]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[11:12:33:901]	[RECV] _ACK
+[11:12:36:807]	[RECV] _RDY
+[11:12:36:808]	[OPER] ----- Result : Completed, Description : 
+[11:12:36:938]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:12:36:940]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:12:37:019]	[RECV] _ACK
+[11:12:39:922]	[RECV] _RDY
+[11:12:39:923]	[OPER] ----- Result : Completed, Description : 
+[11:12:40:032]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 1 -----
+[11:12:40:036]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:12:40:129]	[RECV] _ACK
+[11:12:40:130]	[RECV] _RDY
+[11:12:40:132]	[OPER] ----- Result : Completed, Description : 
+[11:12:40:266]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[11:12:40:270]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[11:12:40:349]	[RECV] _ACK
+[11:12:43:251]	[RECV] _RDY
+[11:12:43:251]	[OPER] ----- Result : Completed, Description : 
+[11:12:43:377]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:12:43:379]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:12:43:459]	[RECV] _ACK
+[11:12:46:361]	[RECV] _RDY
+[11:12:46:361]	[OPER] ----- Result : Completed, Description : 
+[11:12:46:473]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 2 -----
+[11:12:46:477]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:12:46:570]	[RECV] _ACK
+[11:12:46:571]	[RECV] _RDY
+[11:12:46:571]	[OPER] ----- Result : Completed, Description : 
+[11:12:46:695]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 3 -----
+[11:12:46:699]	[SEND] GOTO N 10 R RE Z UP SLOT 4 ARM A
+[11:12:46:778]	[RECV] _ACK
+[11:12:49:683]	[RECV] _RDY
+[11:12:49:684]	[OPER] ----- Result : Completed, Description : 
+[11:12:49:816]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:12:49:818]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:12:49:896]	[RECV] _ACK
+[11:12:52:799]	[RECV] _RDY
+[11:12:52:800]	[OPER] ----- Result : Completed, Description : 
+[11:12:52:912]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 3 -----
+[11:12:52:916]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:12:53:008]	[RECV] _ACK
+[11:12:53:009]	[RECV] _RDY
+[11:12:53:011]	[OPER] ----- Result : Completed, Description : 
+[11:12:53:150]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:12:53:152]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:12:53:231]	[RECV] _ACK
+[11:12:56:976]	[RECV] _RDY
+[11:12:56:977]	[OPER] ----- Result : Completed, Description : 
+[11:12:57:092]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:12:57:096]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:12:57:174]	[RECV] _ACK
+[11:12:57:928]	[RECV] _RDY
+[11:12:57:929]	[OPER] ----- Result : Completed, Description : 
+[11:12:58:053]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 11 -----
+[11:12:58:057]	[SEND] GOTO N 3 R RE Z UP SLOT 12 ARM B
+[11:12:58:134]	[RECV] _ACK
+[11:13:01:039]	[RECV] _RDY
+[11:13:01:040]	[OPER] ----- Result : Completed, Description : 
+[11:13:01:055]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 4 -----
+[11:13:01:059]	[SEND] GOTO N 10 R RE Z UP SLOT 5 ARM A
+[11:13:01:137]	[RECV] _ACK
+[11:13:02:786]	[RECV] _RDY
+[11:13:02:788]	[OPER] ----- Result : Completed, Description : 
+[11:13:02:920]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:13:02:922]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:13:03:000]	[RECV] _ACK
+[11:13:05:904]	[RECV] _RDY
+[11:13:05:905]	[OPER] ----- Result : Completed, Description : 
+[11:13:06:015]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 4 -----
+[11:13:06:019]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:13:06:110]	[RECV] _ACK
+[11:13:06:111]	[RECV] _RDY
+[11:13:06:112]	[OPER] ----- Result : Completed, Description : 
+[11:13:06:235]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:13:06:237]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:13:06:315]	[RECV] _ACK
+[11:13:09:510]	[RECV] _RDY
+[11:13:09:512]	[OPER] ----- Result : Completed, Description : 
+[11:13:09:621]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:13:09:625]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:13:09:703]	[RECV] _ACK
+[11:13:10:294]	[RECV] _RDY
+[11:13:10:295]	[OPER] ----- Result : Completed, Description : 
+[11:13:10:423]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 1 -----
+[11:13:10:427]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM B
+[11:13:10:505]	[RECV] _ACK
+[11:13:13:409]	[RECV] _RDY
+[11:13:13:411]	[OPER] ----- Result : Completed, Description : 
+[11:13:13:426]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 4 -----
+[11:13:13:430]	[SEND] GOTO N 11 R RE Z UP SLOT 5 ARM A
+[11:13:13:509]	[RECV] _ACK
+[11:13:15:013]	[RECV] _RDY
+[11:13:15:014]	[OPER] ----- Result : Completed, Description : 
+[11:13:15:150]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:13:15:152]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:13:15:230]	[RECV] _ACK
+[11:13:18:132]	[RECV] _RDY
+[11:13:18:133]	[OPER] ----- Result : Completed, Description : 
+[11:13:18:255]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 4 -----
+[11:13:18:259]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:13:18:353]	[RECV] _ACK
+[11:13:18:354]	[RECV] _RDY
+[11:13:18:355]	[OPER] ----- Result : Completed, Description : 
+[11:13:18:492]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:13:18:494]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:13:18:572]	[RECV] _ACK
+[11:13:21:770]	[RECV] _RDY
+[11:13:21:771]	[OPER] ----- Result : Completed, Description : 
+[11:13:21:890]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:13:21:894]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:13:21:972]	[RECV] _ACK
+[11:13:22:727]	[RECV] _RDY
+[11:13:22:729]	[OPER] ----- Result : Completed, Description : 
+[11:13:22:851]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 12 -----
+[11:13:22:855]	[SEND] GOTO N 3 R RE Z UP SLOT 13 ARM B
+[11:13:22:933]	[RECV] _ACK
+[11:13:25:836]	[RECV] _RDY
+[11:13:25:837]	[OPER] ----- Result : Completed, Description : 
+[11:13:25:852]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 5 -----
+[11:13:25:856]	[SEND] GOTO N 10 R RE Z UP SLOT 6 ARM A
+[11:13:25:934]	[RECV] _ACK
+[11:13:27:591]	[RECV] _RDY
+[11:13:27:593]	[OPER] ----- Result : Completed, Description : 
+[11:13:27:720]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:13:27:722]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:13:27:800]	[RECV] _ACK
+[11:13:30:703]	[RECV] _RDY
+[11:13:30:705]	[OPER] ----- Result : Completed, Description : 
+[11:13:30:818]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 5 -----
+[11:13:30:822]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:13:30:914]	[RECV] _ACK
+[11:13:30:915]	[RECV] _RDY
+[11:13:30:917]	[OPER] ----- Result : Completed, Description : 
+[11:13:31:056]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:13:31:058]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:13:31:136]	[RECV] _ACK
+[11:13:34:331]	[RECV] _RDY
+[11:13:34:332]	[OPER] ----- Result : Completed, Description : 
+[11:13:34:452]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:13:34:456]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:13:34:534]	[RECV] _ACK
+[11:13:35:127]	[RECV] _RDY
+[11:13:35:128]	[OPER] ----- Result : Completed, Description : 
+[11:13:35:252]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 2 -----
+[11:13:35:256]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM B
+[11:13:35:335]	[RECV] _ACK
+[11:13:38:238]	[RECV] _RDY
+[11:13:38:238]	[OPER] ----- Result : Completed, Description : 
+[11:13:38:253]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 5 -----
+[11:13:38:257]	[SEND] GOTO N 11 R RE Z UP SLOT 6 ARM A
+[11:13:38:334]	[RECV] _ACK
+[11:13:39:840]	[RECV] _RDY
+[11:13:39:842]	[OPER] ----- Result : Completed, Description : 
+[11:13:39:968]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:13:39:970]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:13:40:048]	[RECV] _ACK
+[11:13:42:951]	[RECV] _RDY
+[11:13:42:952]	[OPER] ----- Result : Completed, Description : 
+[11:13:43:068]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 5 -----
+[11:13:43:072]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:13:43:164]	[RECV] _ACK
+[11:13:43:165]	[RECV] _RDY
+[11:13:43:165]	[OPER] ----- Result : Completed, Description : 
+[11:13:43:306]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:13:43:308]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:13:43:386]	[RECV] _ACK
+[11:13:46:036]	[RECV] _RDY
+[11:13:46:037]	[OPER] ----- Result : Completed, Description : 
+[11:13:46:146]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:13:46:150]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:13:46:229]	[RECV] _ACK
+[11:13:46:822]	[RECV] _RDY
+[11:13:46:823]	[OPER] ----- Result : Completed, Description : 
+[11:13:46:949]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 3 -----
+[11:13:46:953]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM B
+[11:13:47:032]	[RECV] _ACK
+[11:13:49:934]	[RECV] _RDY
+[11:13:49:935]	[OPER] ----- Result : Completed, Description : 
+[11:13:49:950]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 6 -----
+[11:13:49:954]	[SEND] GOTO N 11 R RE Z UP SLOT 7 ARM A
+[11:13:50:033]	[RECV] _ACK
+[11:13:51:538]	[RECV] _RDY
+[11:13:51:540]	[OPER] ----- Result : Completed, Description : 
+[11:13:51:670]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:13:51:672]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:13:51:750]	[RECV] _ACK
+[11:13:54:653]	[RECV] _RDY
+[11:13:54:654]	[OPER] ----- Result : Completed, Description : 
+[11:13:54:762]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 6 -----
+[11:13:54:766]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:13:54:860]	[RECV] _ACK
+[11:13:54:861]	[RECV] _RDY
+[11:13:54:861]	[OPER] ----- Result : Completed, Description : 
+[11:13:54:986]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:13:54:988]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:13:55:066]	[RECV] _ACK
+[11:13:58:266]	[RECV] _RDY
+[11:13:58:267]	[OPER] ----- Result : Completed, Description : 
+[11:13:58:389]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:13:58:393]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:13:58:470]	[RECV] _ACK
+[11:13:59:223]	[RECV] _RDY
+[11:13:59:223]	[OPER] ----- Result : Completed, Description : 
+[11:13:59:343]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 0 -----
+[11:13:59:347]	[SEND] GOTO N 3 R RE Z UP SLOT 1 ARM B
+[11:13:59:425]	[RECV] _ACK
+[11:14:02:328]	[RECV] _RDY
+[11:14:02:330]	[OPER] ----- Result : Completed, Description : 
+[11:14:02:345]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 6 -----
+[11:14:02:349]	[SEND] GOTO N 10 R RE Z UP SLOT 7 ARM A
+[11:14:02:428]	[RECV] _ACK
+[11:14:04:095]	[RECV] _RDY
+[11:14:04:096]	[OPER] ----- Result : Completed, Description : 
+[11:14:04:232]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:14:04:234]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:14:04:313]	[RECV] _ACK
+[11:14:07:216]	[RECV] _RDY
+[11:14:07:216]	[OPER] ----- Result : Completed, Description : 
+[11:14:07:330]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 6 -----
+[11:14:07:334]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:14:07:425]	[RECV] _ACK
+[11:14:07:426]	[RECV] _RDY
+[11:14:07:427]	[OPER] ----- Result : Completed, Description : 
+[11:14:07:563]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:14:07:565]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:14:07:645]	[RECV] _ACK
+[11:14:10:838]	[RECV] _RDY
+[11:14:10:839]	[OPER] ----- Result : Completed, Description : 
+[11:14:10:955]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:14:10:959]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:14:11:037]	[RECV] _ACK
+[11:14:11:629]	[RECV] _RDY
+[11:14:11:630]	[OPER] ----- Result : Completed, Description : 
+[11:14:11:758]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 4 -----
+[11:14:11:762]	[SEND] GOTO N 11 R RE Z UP SLOT 5 ARM B
+[11:14:11:840]	[RECV] _ACK
+[11:14:14:743]	[RECV] _RDY
+[11:14:14:744]	[OPER] ----- Result : Completed, Description : 
+[11:14:14:759]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 7 -----
+[11:14:14:763]	[SEND] GOTO N 11 R RE Z UP SLOT 8 ARM A
+[11:14:14:841]	[RECV] _ACK
+[11:14:16:344]	[RECV] _RDY
+[11:14:16:346]	[OPER] ----- Result : Completed, Description : 
+[11:14:16:470]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:14:16:472]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:14:16:552]	[RECV] _ACK
+[11:14:19:453]	[RECV] _RDY
+[11:14:19:454]	[OPER] ----- Result : Completed, Description : 
+[11:14:19:573]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 7 -----
+[11:14:19:577]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:14:19:668]	[RECV] _ACK
+[11:14:19:669]	[RECV] _RDY
+[11:14:19:671]	[OPER] ----- Result : Completed, Description : 
+[11:14:19:796]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:14:19:798]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:14:19:877]	[RECV] _ACK
+[11:14:23:076]	[RECV] _RDY
+[11:14:23:077]	[OPER] ----- Result : Completed, Description : 
+[11:14:23:192]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:14:23:196]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:14:23:275]	[RECV] _ACK
+[11:14:24:028]	[RECV] _RDY
+[11:14:24:029]	[OPER] ----- Result : Completed, Description : 
+[11:14:24:154]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 1 -----
+[11:14:24:158]	[SEND] GOTO N 3 R RE Z UP SLOT 2 ARM B
+[11:14:24:235]	[RECV] _ACK
+[11:14:27:139]	[RECV] _RDY
+[11:14:27:140]	[OPER] ----- Result : Completed, Description : 
+[11:14:27:155]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 7 -----
+[11:14:27:159]	[SEND] GOTO N 10 R RE Z UP SLOT 8 ARM A
+[11:14:27:238]	[RECV] _ACK
+[11:14:28:893]	[RECV] _RDY
+[11:14:28:894]	[OPER] ----- Result : Completed, Description : 
+[11:14:29:026]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:14:29:028]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:14:29:107]	[RECV] _ACK
+[11:14:32:010]	[RECV] _RDY
+[11:14:32:011]	[OPER] ----- Result : Completed, Description : 
+[11:14:32:130]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 7 -----
+[11:14:32:134]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:14:32:227]	[RECV] _ACK
+[11:14:32:228]	[RECV] _RDY
+[11:14:32:229]	[OPER] ----- Result : Completed, Description : 
+[11:14:32:352]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:14:32:354]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:14:32:433]	[RECV] _ACK
+[11:14:35:628]	[RECV] _RDY
+[11:14:35:629]	[OPER] ----- Result : Completed, Description : 
+[11:14:35:737]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:14:35:741]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:14:35:818]	[RECV] _ACK
+[11:14:36:410]	[RECV] _RDY
+[11:14:36:411]	[OPER] ----- Result : Completed, Description : 
+[11:14:36:535]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 5 -----
+[11:14:36:540]	[SEND] GOTO N 11 R RE Z UP SLOT 6 ARM B
+[11:14:36:618]	[RECV] _ACK
+[11:14:39:521]	[RECV] _RDY
+[11:14:39:523]	[OPER] ----- Result : Completed, Description : 
+[11:14:39:538]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 8 -----
+[11:14:39:542]	[SEND] GOTO N 11 R RE Z UP SLOT 9 ARM A
+[11:14:39:620]	[RECV] _ACK
+[11:14:41:127]	[RECV] _RDY
+[11:14:41:128]	[OPER] ----- Result : Completed, Description : 
+[11:14:41:263]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:14:41:265]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:14:41:343]	[RECV] _ACK
+[11:14:44:246]	[RECV] _RDY
+[11:14:44:248]	[OPER] ----- Result : Completed, Description : 
+[11:14:44:364]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 8 -----
+[11:14:44:368]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:14:44:461]	[RECV] _ACK
+[11:14:44:462]	[RECV] _RDY
+[11:14:44:463]	[OPER] ----- Result : Completed, Description : 
+[11:14:44:599]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:14:44:601]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:14:44:679]	[RECV] _ACK
+[11:14:47:878]	[RECV] _RDY
+[11:14:47:878]	[OPER] ----- Result : Completed, Description : 
+[11:14:47:991]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:14:47:995]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:14:48:073]	[RECV] _ACK
+[11:14:48:827]	[RECV] _RDY
+[11:14:48:828]	[OPER] ----- Result : Completed, Description : 
+[11:14:48:952]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 2 -----
+[11:14:48:956]	[SEND] GOTO N 3 R RE Z UP SLOT 3 ARM B
+[11:14:49:032]	[RECV] _ACK
+[11:14:51:937]	[RECV] _RDY
+[11:14:51:938]	[OPER] ----- Result : Completed, Description : 
+[11:14:51:952]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 8 -----
+[11:14:51:956]	[SEND] GOTO N 10 R RE Z UP SLOT 9 ARM A
+[11:14:52:034]	[RECV] _ACK
+[11:14:53:685]	[RECV] _RDY
+[11:14:53:686]	[OPER] ----- Result : Completed, Description : 
+[11:14:53:819]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:14:53:821]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:14:53:898]	[RECV] _ACK
+[11:14:56:801]	[RECV] _RDY
+[11:14:56:801]	[OPER] ----- Result : Completed, Description : 
+[11:14:56:917]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 8 -----
+[11:14:56:921]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:14:57:012]	[RECV] _ACK
+[11:14:57:013]	[RECV] _RDY
+[11:14:57:015]	[OPER] ----- Result : Completed, Description : 
+[11:14:57:140]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:14:57:142]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:14:57:219]	[RECV] _ACK
+[11:15:00:413]	[RECV] _RDY
+[11:15:00:414]	[OPER] ----- Result : Completed, Description : 
+[11:15:00:529]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:15:00:533]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:15:00:611]	[RECV] _ACK
+[11:15:01:204]	[RECV] _RDY
+[11:15:01:205]	[OPER] ----- Result : Completed, Description : 
+[11:15:01:327]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 6 -----
+[11:15:01:331]	[SEND] GOTO N 11 R RE Z UP SLOT 7 ARM B
+[11:15:01:410]	[RECV] _ACK
+[11:15:04:312]	[RECV] _RDY
+[11:15:04:314]	[OPER] ----- Result : Completed, Description : 
+[11:15:04:329]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 9 -----
+[11:15:04:333]	[SEND] GOTO N 11 R RE Z UP SLOT 10 ARM A
+[11:15:04:412]	[RECV] _ACK
+[11:15:05:917]	[RECV] _RDY
+[11:15:05:919]	[OPER] ----- Result : Completed, Description : 
+[11:15:06:054]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:15:06:056]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:15:06:135]	[RECV] _ACK
+[11:15:09:037]	[RECV] _RDY
+[11:15:09:038]	[OPER] ----- Result : Completed, Description : 
+[11:15:09:158]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 9 -----
+[11:15:09:162]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:15:09:253]	[RECV] _ACK
+[11:15:09:254]	[RECV] _RDY
+[11:15:09:256]	[OPER] ----- Result : Completed, Description : 
+[11:15:09:381]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:15:09:384]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:15:09:463]	[RECV] _ACK
+[11:15:12:660]	[RECV] _RDY
+[11:15:12:662]	[OPER] ----- Result : Completed, Description : 
+[11:15:12:778]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:15:12:782]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:15:12:860]	[RECV] _ACK
+[11:15:13:613]	[RECV] _RDY
+[11:15:13:614]	[OPER] ----- Result : Completed, Description : 
+[11:15:13:739]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 3 -----
+[11:15:13:743]	[SEND] GOTO N 3 R RE Z UP SLOT 4 ARM B
+[11:15:13:821]	[RECV] _ACK
+[11:15:16:722]	[RECV] _RDY
+[11:15:16:724]	[OPER] ----- Result : Completed, Description : 
+[11:15:16:740]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 9 -----
+[11:15:16:744]	[SEND] GOTO N 10 R RE Z UP SLOT 10 ARM A
+[11:15:16:825]	[RECV] _ACK
+[11:15:18:470]	[RECV] _RDY
+[11:15:18:472]	[OPER] ----- Result : Completed, Description : 
+[11:15:18:604]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:15:18:606]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:15:18:684]	[RECV] _ACK
+[11:15:21:586]	[RECV] _RDY
+[11:15:21:587]	[OPER] ----- Result : Completed, Description : 
+[11:15:21:708]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 9 -----
+[11:15:21:712]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:15:21:804]	[RECV] _ACK
+[11:15:21:805]	[RECV] _RDY
+[11:15:21:806]	[OPER] ----- Result : Completed, Description : 
+[11:15:21:929]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:15:21:931]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:15:22:010]	[RECV] _ACK
+[11:15:25:205]	[RECV] _RDY
+[11:15:25:207]	[OPER] ----- Result : Completed, Description : 
+[11:15:25:326]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:15:25:330]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:15:25:408]	[RECV] _ACK
+[11:15:26:002]	[RECV] _RDY
+[11:15:26:003]	[OPER] ----- Result : Completed, Description : 
+[11:15:26:138]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 7 -----
+[11:15:26:142]	[SEND] GOTO N 11 R RE Z UP SLOT 8 ARM B
+[11:15:26:222]	[RECV] _ACK
+[11:15:29:124]	[RECV] _RDY
+[11:15:29:125]	[OPER] ----- Result : Completed, Description : 
+[11:15:29:140]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 10 -----
+[11:15:29:144]	[SEND] GOTO N 11 R RE Z UP SLOT 11 ARM A
+[11:15:29:222]	[RECV] _ACK
+[11:15:30:730]	[RECV] _RDY
+[11:15:30:732]	[OPER] ----- Result : Completed, Description : 
+[11:15:30:857]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:15:30:860]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:15:30:938]	[RECV] _ACK
+[11:15:33:841]	[RECV] _RDY
+[11:15:33:843]	[OPER] ----- Result : Completed, Description : 
+[11:15:33:953]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 10 -----
+[11:15:33:957]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:15:34:050]	[RECV] _ACK
+[11:15:34:051]	[RECV] _RDY
+[11:15:34:051]	[OPER] ----- Result : Completed, Description : 
+[11:15:34:178]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:15:34:180]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:15:34:256]	[RECV] _ACK
+[11:15:37:457]	[RECV] _RDY
+[11:15:37:458]	[OPER] ----- Result : Completed, Description : 
+[11:15:37:580]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:15:37:584]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:15:37:662]	[RECV] _ACK
+[11:15:38:417]	[RECV] _RDY
+[11:15:38:417]	[OPER] ----- Result : Completed, Description : 
+[11:15:38:551]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 4 -----
+[11:15:38:555]	[SEND] GOTO N 3 R RE Z UP SLOT 5 ARM B
+[11:15:38:633]	[RECV] _ACK
+[11:15:41:535]	[RECV] _RDY
+[11:15:41:536]	[OPER] ----- Result : Completed, Description : 
+[11:15:41:552]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 10 -----
+[11:15:41:556]	[SEND] GOTO N 10 R RE Z UP SLOT 11 ARM A
+[11:15:41:635]	[RECV] _ACK
+[11:15:43:271]	[RECV] _RDY
+[11:15:43:272]	[OPER] ----- Result : Completed, Description : 
+[11:15:43:406]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:15:43:408]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:15:43:486]	[RECV] _ACK
+[11:15:46:389]	[RECV] _RDY
+[11:15:46:391]	[OPER] ----- Result : Completed, Description : 
+[11:15:46:505]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 10 -----
+[11:15:46:509]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:15:46:601]	[RECV] _ACK
+[11:15:46:602]	[RECV] _RDY
+[11:15:46:603]	[OPER] ----- Result : Completed, Description : 
+[11:15:46:741]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:15:46:744]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:15:46:822]	[RECV] _ACK
+[11:15:50:016]	[RECV] _RDY
+[11:15:50:016]	[OPER] ----- Result : Completed, Description : 
+[11:15:50:139]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:15:50:143]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:15:50:221]	[RECV] _ACK
+[11:15:50:812]	[RECV] _RDY
+[11:15:50:813]	[OPER] ----- Result : Completed, Description : 
+[11:15:50:940]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 8 -----
+[11:15:50:944]	[SEND] GOTO N 11 R RE Z UP SLOT 9 ARM B
+[11:15:51:023]	[RECV] _ACK
+[11:15:53:926]	[RECV] _RDY
+[11:15:53:926]	[OPER] ----- Result : Completed, Description : 
+[11:15:53:941]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 11 -----
+[11:15:53:945]	[SEND] GOTO N 11 R RE Z UP SLOT 12 ARM A
+[11:15:54:024]	[RECV] _ACK
+[11:15:55:531]	[RECV] _RDY
+[11:15:55:531]	[OPER] ----- Result : Completed, Description : 
+[11:15:55:663]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:15:55:665]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:15:55:744]	[RECV] _ACK
+[11:15:58:645]	[RECV] _RDY
+[11:15:58:646]	[OPER] ----- Result : Completed, Description : 
+[11:15:58:766]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 11 -----
+[11:15:58:770]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:15:58:862]	[RECV] _ACK
+[11:15:58:863]	[RECV] _RDY
+[11:15:58:864]	[OPER] ----- Result : Completed, Description : 
+[11:15:59:001]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:15:59:003]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:15:59:082]	[RECV] _ACK
+[11:16:02:282]	[RECV] _RDY
+[11:16:02:283]	[OPER] ----- Result : Completed, Description : 
+[11:16:02:390]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:16:02:394]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:16:02:473]	[RECV] _ACK
+[11:16:03:228]	[RECV] _RDY
+[11:16:03:230]	[OPER] ----- Result : Completed, Description : 
+[11:16:03:362]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 5 -----
+[11:16:03:366]	[SEND] GOTO N 3 R RE Z UP SLOT 6 ARM B
+[11:16:03:443]	[RECV] _ACK
+[11:16:06:344]	[RECV] _RDY
+[11:16:06:346]	[OPER] ----- Result : Completed, Description : 
+[11:16:06:361]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 11 -----
+[11:16:06:365]	[SEND] GOTO N 10 R RE Z UP SLOT 12 ARM A
+[11:16:06:444]	[RECV] _ACK
+[11:16:08:079]	[RECV] _RDY
+[11:16:08:081]	[OPER] ----- Result : Completed, Description : 
+[11:16:08:216]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:16:08:218]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:16:08:296]	[RECV] _ACK
+[11:16:11:198]	[RECV] _RDY
+[11:16:11:200]	[OPER] ----- Result : Completed, Description : 
+[11:16:11:317]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 11 -----
+[11:16:11:321]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:16:11:413]	[RECV] _ACK
+[11:16:11:414]	[RECV] _RDY
+[11:16:11:416]	[OPER] ----- Result : Completed, Description : 
+[11:16:11:541]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:16:11:543]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:16:11:622]	[RECV] _ACK
+[11:16:14:815]	[RECV] _RDY
+[11:16:14:816]	[OPER] ----- Result : Completed, Description : 
+[11:16:14:938]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:16:14:942]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:16:15:019]	[RECV] _ACK
+[11:16:15:612]	[RECV] _RDY
+[11:16:15:614]	[OPER] ----- Result : Completed, Description : 
+[11:16:15:741]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 9 -----
+[11:16:15:745]	[SEND] GOTO N 11 R RE Z UP SLOT 10 ARM B
+[11:16:15:824]	[RECV] _ACK
+[11:16:18:728]	[RECV] _RDY
+[11:16:18:730]	[OPER] ----- Result : Completed, Description : 
+[11:16:18:745]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 12 -----
+[11:16:18:749]	[SEND] GOTO N 11 R RE Z UP SLOT 13 ARM A
+[11:16:18:828]	[RECV] _ACK
+[11:16:20:333]	[RECV] _RDY
+[11:16:20:334]	[OPER] ----- Result : Completed, Description : 
+[11:16:20:468]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:16:20:470]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:16:20:548]	[RECV] _ACK
+[11:16:23:452]	[RECV] _RDY
+[11:16:23:454]	[OPER] ----- Result : Completed, Description : 
+[11:16:23:569]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 12 -----
+[11:16:23:573]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:16:23:665]	[RECV] _ACK
+[11:16:23:666]	[RECV] _RDY
+[11:16:23:668]	[OPER] ----- Result : Completed, Description : 
+[11:16:23:791]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:16:23:793]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:16:23:872]	[RECV] _ACK
+[11:16:27:072]	[RECV] _RDY
+[11:16:27:074]	[OPER] ----- Result : Completed, Description : 
+[11:16:27:199]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:16:27:203]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:16:27:281]	[RECV] _ACK
+[11:16:28:035]	[RECV] _RDY
+[11:16:28:037]	[OPER] ----- Result : Completed, Description : 
+[11:16:28:171]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 6 -----
+[11:16:28:175]	[SEND] GOTO N 3 R RE Z UP SLOT 7 ARM B
+[11:16:28:254]	[RECV] _ACK
+[11:16:31:160]	[RECV] _RDY
+[11:16:31:161]	[OPER] ----- Result : Completed, Description : 
+[11:16:31:176]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 12 -----
+[11:16:31:180]	[SEND] GOTO N 10 R RE Z UP SLOT 13 ARM A
+[11:16:31:259]	[RECV] _ACK
+[11:16:32:891]	[RECV] _RDY
+[11:16:32:891]	[OPER] ----- Result : Completed, Description : 
+[11:16:33:016]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:16:33:018]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:16:33:096]	[RECV] _ACK
+[11:16:35:999]	[RECV] _RDY
+[11:16:35:999]	[OPER] ----- Result : Completed, Description : 
+[11:16:36:108]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 12 -----
+[11:16:36:112]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:16:36:206]	[RECV] _ACK
+[11:16:36:207]	[RECV] _RDY
+[11:16:36:208]	[OPER] ----- Result : Completed, Description : 
+[11:16:36:342]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:16:36:344]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:16:36:421]	[RECV] _ACK
+[11:16:39:619]	[RECV] _RDY
+[11:16:39:620]	[OPER] ----- Result : Completed, Description : 
+[11:16:39:741]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:16:39:745]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:16:39:823]	[RECV] _ACK
+[11:16:40:415]	[RECV] _RDY
+[11:16:40:415]	[OPER] ----- Result : Completed, Description : 
+[11:16:40:541]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 10 -----
+[11:16:40:545]	[SEND] GOTO N 11 R RE Z UP SLOT 11 ARM B
+[11:16:40:624]	[RECV] _ACK
+[11:16:43:528]	[RECV] _RDY
+[11:16:43:529]	[OPER] ----- Result : Completed, Description : 
+[11:16:43:663]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:16:43:665]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:16:43:742]	[RECV] _ACK
+[11:16:46:990]	[RECV] _RDY
+[11:16:46:991]	[OPER] ----- Result : Completed, Description : 
+[11:16:47:103]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:16:47:107]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:16:47:185]	[RECV] _ACK
+[11:16:47:939]	[RECV] _RDY
+[11:16:47:941]	[OPER] ----- Result : Completed, Description : 
+[11:16:48:065]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 7 -----
+[11:16:48:069]	[SEND] GOTO N 3 R RE Z UP SLOT 8 ARM B
+[11:16:48:147]	[RECV] _ACK
+[11:16:51:051]	[RECV] _RDY
+[11:16:51:051]	[OPER] ----- Result : Completed, Description : 
+[11:16:51:184]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:16:51:186]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:16:51:264]	[RECV] _ACK
+[11:16:54:167]	[RECV] _RDY
+[11:16:54:168]	[OPER] ----- Result : Completed, Description : 
+[11:16:54:276]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:16:54:280]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:16:54:357]	[RECV] _ACK
+[11:16:54:950]	[RECV] _RDY
+[11:16:54:952]	[OPER] ----- Result : Completed, Description : 
+[11:16:55:076]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 11 -----
+[11:16:55:080]	[SEND] GOTO N 11 R RE Z UP SLOT 12 ARM B
+[11:16:55:159]	[RECV] _ACK
+[11:16:58:062]	[RECV] _RDY
+[11:16:58:064]	[OPER] ----- Result : Completed, Description : 
+[11:16:58:198]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:16:58:200]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:16:58:279]	[RECV] _ACK
+[11:17:01:524]	[RECV] _RDY
+[11:17:01:526]	[OPER] ----- Result : Completed, Description : 
+[11:17:01:644]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:17:01:648]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:17:01:726]	[RECV] _ACK
+[11:17:02:481]	[RECV] _RDY
+[11:17:02:483]	[OPER] ----- Result : Completed, Description : 
+[11:17:02:606]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 8 -----
+[11:17:02:610]	[SEND] GOTO N 3 R RE Z UP SLOT 9 ARM B
+[11:17:02:688]	[RECV] _ACK
+[11:17:05:592]	[RECV] _RDY
+[11:17:05:592]	[OPER] ----- Result : Completed, Description : 
+[11:17:05:724]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:17:05:726]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:17:05:804]	[RECV] _ACK
+[11:17:08:707]	[RECV] _RDY
+[11:17:08:708]	[OPER] ----- Result : Completed, Description : 
+[11:17:08:830]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:17:08:834]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:17:08:912]	[RECV] _ACK
+[11:17:09:504]	[RECV] _RDY
+[11:17:09:506]	[OPER] ----- Result : Completed, Description : 
+[11:17:09:523]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 12 -----
+[11:17:09:527]	[SEND] GOTO N 11 R RE Z UP SLOT 13 ARM B
+[11:17:09:606]	[RECV] _ACK
+[11:17:12:510]	[RECV] _RDY
+[11:17:12:511]	[OPER] ----- Result : Completed, Description : 
+[11:17:12:640]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:17:12:642]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[11:17:12:719]	[RECV] _ACK
+[11:17:15:966]	[RECV] _RDY
+[11:17:15:967]	[OPER] ----- Result : Completed, Description : 
+[11:17:16:080]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[11:17:16:084]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[11:17:16:163]	[RECV] _ACK
+[11:17:16:917]	[RECV] _RDY
+[11:17:16:919]	[OPER] ----- Result : Completed, Description : 
+[11:17:16:936]	[OPER] ----- Place, Arm : LowerArm, Location : LP3, Slot : 9 -----
+[11:17:16:940]	[SEND] GOTO N 3 R RE Z UP SLOT 10 ARM B
+[11:17:17:018]	[RECV] _ACK
+[11:17:19:921]	[RECV] _RDY
+[11:17:19:922]	[OPER] ----- Result : Completed, Description : 
+[11:17:34:660]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[11:17:34:664]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[11:17:34:742]	[RECV] _ACK
+[11:17:36:813]	[RECV] _RDY
+[11:17:36:814]	[OPER] ----- Result : Completed, Description : 
+[11:17:36:941]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:17:36:943]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:17:37:020]	[RECV] _ACK
+[11:17:39:923]	[RECV] _RDY
+[11:17:39:925]	[OPER] ----- Result : Completed, Description : 
+[11:17:40:039]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[11:17:40:043]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:17:40:136]	[RECV] _ACK
+[11:17:40:137]	[RECV] _RDY
+[11:17:40:138]	[OPER] ----- Result : Completed, Description : 
+[11:17:40:257]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 2 -----
+[11:17:40:261]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM A
+[11:17:40:339]	[RECV] _ACK
+[11:17:43:243]	[RECV] _RDY
+[11:17:43:244]	[OPER] ----- Result : Completed, Description : 
+[11:17:43:381]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:17:43:383]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:17:43:462]	[RECV] _ACK
+[11:17:46:364]	[RECV] _RDY
+[11:17:46:365]	[OPER] ----- Result : Completed, Description : 
+[11:17:46:484]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 2 -----
+[11:17:46:488]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:17:46:581]	[RECV] _ACK
+[11:17:46:582]	[RECV] _RDY
+[11:17:46:583]	[OPER] ----- Result : Completed, Description : 
+[11:17:46:715]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 3 -----
+[11:17:46:719]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM A
+[11:17:46:797]	[RECV] _ACK
+[11:17:49:700]	[RECV] _RDY
+[11:17:49:700]	[OPER] ----- Result : Completed, Description : 
+[11:17:49:826]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:17:49:828]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:17:49:906]	[RECV] _ACK
+[11:17:52:808]	[RECV] _RDY
+[11:17:52:809]	[OPER] ----- Result : Completed, Description : 
+[11:17:52:922]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 3 -----
+[11:17:52:926]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:17:53:018]	[RECV] _ACK
+[11:17:53:019]	[RECV] _RDY
+[11:17:53:019]	[OPER] ----- Result : Completed, Description : 
+[11:17:53:036]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[11:17:53:040]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[11:17:53:117]	[RECV] _ACK
+[11:17:56:020]	[RECV] _RDY
+[11:17:56:022]	[OPER] ----- Result : Completed, Description : 
+[11:17:56:156]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:17:56:158]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:17:56:237]	[RECV] _ACK
+[11:17:59:140]	[RECV] _RDY
+[11:17:59:141]	[OPER] ----- Result : Completed, Description : 
+[11:17:59:253]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 1 -----
+[11:17:59:257]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:17:59:350]	[RECV] _ACK
+[11:17:59:351]	[RECV] _RDY
+[11:17:59:351]	[OPER] ----- Result : Completed, Description : 
+[11:17:59:474]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[11:17:59:478]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[11:17:59:556]	[RECV] _ACK
+[11:18:02:459]	[RECV] _RDY
+[11:18:02:459]	[OPER] ----- Result : Completed, Description : 
+[11:18:02:583]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:18:02:585]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:18:02:663]	[RECV] _ACK
+[11:18:05:566]	[RECV] _RDY
+[11:18:05:568]	[OPER] ----- Result : Completed, Description : 
+[11:18:05:689]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 2 -----
+[11:18:05:693]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:18:05:785]	[RECV] _ACK
+[11:18:05:786]	[RECV] _RDY
+[11:18:05:786]	[OPER] ----- Result : Completed, Description : 
+[11:18:05:908]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 3 -----
+[11:18:05:912]	[SEND] GOTO N 10 R RE Z UP SLOT 4 ARM A
+[11:18:05:991]	[RECV] _ACK
+[11:18:08:891]	[RECV] _RDY
+[11:18:08:892]	[OPER] ----- Result : Completed, Description : 
+[11:18:09:023]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[11:18:09:025]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:18:09:104]	[RECV] _ACK
+[11:18:12:005]	[RECV] _RDY
+[11:18:12:007]	[OPER] ----- Result : Completed, Description : 
+[11:18:12:125]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 3 -----
+[11:18:12:129]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[11:18:12:220]	[RECV] _ACK
+[11:18:12:221]	[RECV] _RDY
+[11:18:12:222]	[OPER] ----- Result : Completed, Description : 
+[11:18:12:360]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:18:12:362]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[11:18:12:441]	[RECV] _ACK
+[11:18:15:635]	[RECV] _RDY
+[11:18:15:637]	[OPER] ----- Result : Completed, Description : 
+[11:18:15:745]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[11:18:15:749]	[SEND] GOTO N 15 R RE Z UP SLOT 1 ARM B
+[11:18:15:828]	[RECV] _ACK
+[11:18:16:420]	[RECV] _RDY
+[11:18:16:421]	[OPER] ----- Result : Completed, Description : 
+[11:18:16:547]	[OPER] ----- Place, Arm : LowerArm, Location : LP5, Slot : 1 -----
+[11:18:16:551]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM B
+[11:18:16:630]	[RECV] _ACK
+[11:18:19:534]	[RECV] _RDY
+[11:18:19:536]	[OPER] ----- Result : Completed, Description : 
+[11:18:19:551]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 4 -----
+[11:18:19:555]	[SEND] GOTO N 11 R RE Z UP SLOT 5 ARM A
+[11:18:19:634]	[RECV] _ACK
+[11:18:21:139]	[RECV] _RDY
+[11:18:21:141]	[OPER] ----- Result : Completed, Description : 
+[11:18:21:269]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[11:18:21:271]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[11:18:21:349]	[RECV] _ACK
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                [16:27:40:127]	[RECV] _RDY
+[16:30:16:600]	[OPER] ----- Initialize -----
+[16:30:16:604]	[SEND] CLEAR
+[16:30:16:656]	[RECV] _ACK
+[16:30:17:795]	[RECV] _RDY
+[16:30:17:804]	[SEND] HOME ALL
+[16:30:17:858]	[RECV] _ACK
+[16:30:45:250]	[RECV] _RDY
+[16:30:45:251]	[OPER] ----- Result : Completed, Description : 
+[16:32:15:210]	[OPER] ----- ApproachForPick, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[16:32:15:311]	[SEND] GOTO N 14 R RE Z DN SLOT 1 ARM A
+[16:32:15:390]	[RECV] _ACK
+[16:32:18:838]	[RECV] _RDY
+[16:32:18:937]	[OPER] ----- Result : Completed, Description : 
+[16:38:08:949]	[RECV] _ERR 00009
+[16:41:33:332]	[OPER] ----- Initialize -----
+[16:41:33:332]	[SEND] CLEAR
+[16:41:33:384]	[RECV] _ACK
+[16:41:34:517]	[RECV] _RDY
+[16:41:34:522]	[SEND] HOME ALL
+[16:41:34:575]	[RECV] _ACK
+[16:42:04:262]	[RECV] _RDY
+[16:42:04:264]	[OPER] ----- Result : Completed, Description : 
+[16:42:32:097]	[OPER] ----- ClearError -----
+[16:42:32:099]	[SEND] CLEAR
+[16:42:32:151]	[RECV] _ACK
+[16:42:33:263]	[RECV] _RDY
+[16:42:33:264]	[OPER] ----- Result : Completed, Description : 
+[16:42:51:794]	[OPER] ----- ClearError -----
+[16:42:51:796]	[SEND] CLEAR
+[16:42:51:847]	[RECV] _ACK
+[16:42:52:965]	[RECV] _RDY
+[16:42:52:966]	[OPER] ----- Result : Completed, Description : 
+[16:43:11:475]	[OPER] ----- ClearError -----
+[16:43:11:477]	[SEND] CLEAR
+[16:43:11:529]	[RECV] _ACK
+[16:43:12:651]	[RECV] _RDY
+[16:43:12:653]	[OPER] ----- Result : Completed, Description : 
+[16:43:27:827]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:43:27:832]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:43:27:913]	[RECV] _ACK
+[16:43:32:403]	[RECV] _RDY
+[16:43:32:405]	[OPER] ----- Result : Completed, Description : 
+[16:43:32:414]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:43:32:418]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:43:32:510]	[RECV] _ACK
+[16:43:32:511]	[RECV] _RDY
+[16:43:32:513]	[OPER] ----- Result : Completed, Description : 
+[16:43:32:528]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[16:43:32:532]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[16:43:32:612]	[RECV] _ACK
+[16:43:33:815]	[RECV] _RDY
+[16:43:33:816]	[OPER] ----- Result : Completed, Description : 
+[16:45:05:045]	[OPER] ----- Initialize -----
+[16:45:05:049]	[SEND] CLEAR
+[16:45:05:103]	[RECV] _ACK
+[16:45:06:219]	[RECV] _RDY
+[16:45:06:227]	[SEND] HOME ALL
+[16:45:06:280]	[RECV] _ACK
+[16:45:36:176]	[RECV] _RDY
+[16:45:36:177]	[OPER] ----- Result : Completed, Description : 
+[16:46:06:156]	[OPER] ----- ClearError -----
+[16:46:06:158]	[SEND] CLEAR
+[16:46:06:210]	[RECV] _ACK
+[16:46:07:336]	[RECV] _RDY
+[16:46:07:339]	[OPER] ----- Result : Completed, Description : 
+[16:46:22:652]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:46:22:656]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:46:22:734]	[RECV] _ACK
+[16:46:27:217]	[RECV] _RDY
+[16:46:27:220]	[OPER] ----- Result : Completed, Description : 
+[16:46:27:229]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:46:27:233]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:46:27:326]	[RECV] _ACK
+[16:46:27:327]	[RECV] _RDY
+[16:46:27:329]	[OPER] ----- Result : Completed, Description : 
+[16:46:27:345]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[16:46:27:349]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[16:46:27:427]	[RECV] _ACK
+[16:46:28:079]	[RECV] _RDY
+[16:46:28:080]	[OPER] ----- Result : Completed, Description : 
+[16:46:52:811]	[OPER] ----- ClearError -----
+[16:46:52:813]	[SEND] CLEAR
+[16:46:52:864]	[RECV] _ACK
+[16:46:53:993]	[RECV] _RDY
+[16:46:53:994]	[OPER] ----- Result : Completed, Description : 
+[16:47:08:710]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:47:08:714]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:47:08:792]	[RECV] _ACK
+[16:47:10:243]	[RECV] _RDY
+[16:47:10:244]	[OPER] ----- Result : Completed, Description : 
+[16:47:10:250]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:47:10:254]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:47:10:347]	[RECV] _ACK
+[16:47:10:348]	[RECV] _RDY
+[16:47:10:349]	[OPER] ----- Result : Completed, Description : 
+[16:47:10:363]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[16:47:10:367]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[16:47:10:446]	[RECV] _ACK
+[16:47:11:096]	[RECV] _RDY
+[16:47:11:097]	[OPER] ----- Result : Completed, Description : 
+[16:49:31:731]	[OPER] ----- ClearError -----
+[16:49:31:733]	[SEND] CLEAR
+[16:49:31:786]	[RECV] _ACK
+[16:49:32:906]	[RECV] _RDY
+[16:49:32:907]	[OPER] ----- Result : Completed, Description : 
+[16:49:47:641]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:49:47:646]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:49:47:725]	[RECV] _ACK
+[16:49:49:171]	[RECV] _RDY
+[16:49:49:172]	[OPER] ----- Result : Completed, Description : 
+[16:49:49:178]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:49:49:182]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:49:49:276]	[RECV] _ACK
+[16:49:49:277]	[RECV] _RDY
+[16:49:49:277]	[OPER] ----- Result : Completed, Description : 
+[16:49:49:291]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[16:49:49:295]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[16:49:49:373]	[RECV] _ACK
+[16:49:50:025]	[RECV] _RDY
+[16:49:50:025]	[OPER] ----- Result : Completed, Description : 
+[16:53:20:262]	[OPER] ----- Initialize -----
+[16:53:20:265]	[SEND] CLEAR
+[16:53:20:319]	[RECV] _ACK
+[16:53:21:448]	[RECV] _RDY
+[16:53:21:456]	[SEND] HOME ALL
+[16:53:21:509]	[RECV] _ACK
+[16:53:47:671]	[RECV] _RDY
+[16:53:47:673]	[OPER] ----- Result : Completed, Description : 
+[16:54:27:458]	[OPER] ----- ClearError -----
+[16:54:27:460]	[SEND] CLEAR
+[16:54:27:512]	[RECV] _ACK
+[16:54:28:633]	[RECV] _RDY
+[16:54:28:635]	[OPER] ----- Result : Completed, Description : 
+[16:55:55:674]	[OPER] ----- ClearError -----
+[16:55:55:676]	[SEND] CLEAR
+[16:55:55:728]	[RECV] _ACK
+[16:55:56:862]	[RECV] _RDY
+[16:55:56:864]	[OPER] ----- Result : Completed, Description : 
+[16:56:11:615]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:56:11:619]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:56:11:698]	[RECV] _ACK
+[16:56:16:182]	[RECV] _RDY
+[16:56:16:182]	[OPER] ----- Result : Completed, Description : 
+[16:56:16:190]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:56:16:194]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:56:16:286]	[RECV] _ACK
+[16:56:16:287]	[RECV] _RDY
+[16:56:16:289]	[OPER] ----- Result : Completed, Description : 
+[16:56:16:305]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[16:56:16:309]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[16:56:16:387]	[RECV] _ACK
+[16:56:17:589]	[RECV] _RDY
+[16:56:17:591]	[OPER] ----- Result : Completed, Description : 
+[16:56:45:099]	[OPER] ----- ClearError -----
+[16:56:45:101]	[SEND] CLEAR
+[16:56:45:154]	[RECV] _ACK
+[16:56:46:281]	[RECV] _RDY
+[16:56:46:283]	[OPER] ----- Result : Completed, Description : 
+[16:57:01:011]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:57:01:015]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:57:01:095]	[RECV] _ACK
+[16:57:03:099]	[RECV] _RDY
+[16:57:03:099]	[OPER] ----- Result : Completed, Description : 
+[16:57:03:105]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:57:03:110]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:57:03:204]	[RECV] _ACK
+[16:57:03:205]	[RECV] _RDY
+[16:57:03:207]	[OPER] ----- Result : Completed, Description : 
+[16:57:03:221]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[16:57:03:225]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[16:57:03:302]	[RECV] _ACK
+[16:57:03:955]	[RECV] _RDY
+[16:57:03:956]	[OPER] ----- Result : Completed, Description : 
+[16:57:55:315]	[OPER] ----- ClearError -----
+[16:57:55:317]	[SEND] CLEAR
+[16:57:55:370]	[RECV] _ACK
+[16:57:56:491]	[RECV] _RDY
+[16:57:56:493]	[OPER] ----- Result : Completed, Description : 
+[16:58:11:222]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:58:11:226]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:58:11:307]	[RECV] _ACK
+[16:58:12:757]	[RECV] _RDY
+[16:58:12:759]	[OPER] ----- Result : Completed, Description : 
+[16:58:12:765]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[16:58:12:769]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[16:58:12:864]	[RECV] _ACK
+[16:58:12:865]	[RECV] _RDY
+[16:58:12:866]	[OPER] ----- Result : Completed, Description : 
+[16:58:12:880]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[16:58:12:884]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[16:58:12:962]	[RECV] _ACK
+[16:58:13:613]	[RECV] _RDY
+[16:58:13:615]	[OPER] ----- Result : Completed, Description : 
+[17:01:48:837]	[OPER] ----- Initialize -----
+[17:01:48:840]	[SEND] CLEAR
+[17:01:48:893]	[RECV] _ACK
+[17:01:50:025]	[RECV] _RDY
+[17:01:50:034]	[SEND] HOME ALL
+[17:01:50:087]	[RECV] _ACK
+[17:02:16:312]	[RECV] _RDY
+[17:02:16:313]	[OPER] ----- Result : Completed, Description : 
+[17:02:51:118]	[OPER] ----- ClearError -----
+[17:02:51:120]	[SEND] CLEAR
+[17:02:51:172]	[RECV] _ACK
+[17:02:52:295]	[RECV] _RDY
+[17:02:52:296]	[OPER] ----- Result : Completed, Description : 
+[17:03:07:619]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:03:07:623]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:03:07:702]	[RECV] _ACK
+[17:03:12:193]	[RECV] _RDY
+[17:03:12:194]	[OPER] ----- Result : Completed, Description : 
+[17:03:12:203]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:03:12:207]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:03:12:300]	[RECV] _ACK
+[17:03:12:301]	[RECV] _RDY
+[17:03:12:303]	[OPER] ----- Result : Completed, Description : 
+[17:03:12:318]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[17:03:12:322]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[17:03:12:401]	[RECV] _ACK
+[17:03:13:051]	[RECV] _RDY
+[17:03:13:052]	[OPER] ----- Result : Completed, Description : 
+[17:06:03:419]	[OPER] ----- Initialize -----
+[17:06:03:422]	[SEND] CLEAR
+[17:06:03:477]	[RECV] _ACK
+[17:06:04:602]	[RECV] _RDY
+[17:06:04:611]	[SEND] HOME ALL
+[17:06:04:664]	[RECV] _ACK
+[17:06:30:889]	[RECV] _RDY
+[17:06:30:890]	[OPER] ----- Result : Completed, Description : 
+[17:07:08:973]	[OPER] ----- ClearError -----
+[17:07:08:975]	[SEND] CLEAR
+[17:07:09:026]	[RECV] _ACK
+[17:07:10:165]	[RECV] _RDY
+[17:07:10:166]	[OPER] ----- Result : Completed, Description : 
+[17:07:25:509]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:07:25:513]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:07:25:592]	[RECV] _ACK
+[17:07:30:077]	[RECV] _RDY
+[17:07:30:079]	[OPER] ----- Result : Completed, Description : 
+[17:07:30:088]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:07:30:092]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:07:30:182]	[RECV] _ACK
+[17:07:30:183]	[RECV] _RDY
+[17:07:30:183]	[OPER] ----- Result : Completed, Description : 
+[17:07:30:198]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[17:07:30:202]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[17:07:30:280]	[RECV] _ACK
+[17:07:30:932]	[RECV] _RDY
+[17:07:30:934]	[OPER] ----- Result : Completed, Description : 
+[17:07:31:088]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[17:07:31:090]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[17:07:31:167]	[RECV] _ACK
+[17:07:34:071]	[RECV] _RDY
+[17:07:34:072]	[OPER] ----- Result : Completed, Description : 
+[17:07:34:195]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 2 -----
+[17:07:34:199]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[17:07:34:291]	[RECV] _ACK
+[17:07:34:292]	[RECV] _RDY
+[17:07:34:292]	[OPER] ----- Result : Completed, Description : 
+[17:07:34:427]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:07:34:433]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:07:34:512]	[RECV] _ACK
+[17:07:37:414]	[RECV] _RDY
+[17:07:37:416]	[OPER] ----- Result : Completed, Description : 
+[17:07:37:570]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[17:07:37:572]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:07:37:649]	[RECV] _ACK
+[17:07:40:552]	[RECV] _RDY
+[17:07:40:554]	[OPER] ----- Result : Completed, Description : 
+[17:07:40:670]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[17:07:40:674]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:07:40:766]	[RECV] _ACK
+[17:07:40:767]	[RECV] _RDY
+[17:07:40:770]	[OPER] ----- Result : Completed, Description : 
+[17:07:47:786]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:07:47:790]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:07:47:869]	[RECV] _ACK
+[17:07:50:769]	[RECV] _RDY
+[17:07:50:770]	[OPER] ----- Result : Completed, Description : 
+[17:07:50:908]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[17:07:50:910]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[17:07:50:990]	[RECV] _ACK
+[17:07:53:890]	[RECV] _RDY
+[17:07:53:892]	[OPER] ----- Result : Completed, Description : 
+[17:07:54:004]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 1 -----
+[17:07:54:008]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[17:07:54:099]	[RECV] _ACK
+[17:07:54:100]	[RECV] _RDY
+[17:07:54:100]	[OPER] ----- Result : Completed, Description : 
+[17:07:54:377]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[17:07:54:380]	[SEND] GOTO N 16 R RE Z DN SLOT 1 ARM B
+[17:07:54:458]	[RECV] _ACK
+[17:07:58:200]	[RECV] _RDY
+[17:07:58:201]	[OPER] ----- Result : Completed, Description : 
+[17:07:58:317]	[OPER] ----- Pick, Arm : LowerArm, Location : PM1.SortOutput, Slot : 0 -----
+[17:07:58:321]	[SEND] GOTO N 16 R RE Z UP SLOT 1 ARM B
+[17:07:58:400]	[RECV] _ACK
+[17:07:59:153]	[RECV] _RDY
+[17:07:59:155]	[OPER] ----- Result : Completed, Description : 
+[17:07:59:288]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:07:59:293]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:07:59:372]	[RECV] _ACK
+[17:08:02:614]	[RECV] _RDY
+[17:08:02:616]	[OPER] ----- Result : Completed, Description : 
+[17:08:05:055]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[17:08:05:057]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:08:05:137]	[RECV] _ACK
+[17:08:08:040]	[RECV] _RDY
+[17:08:08:042]	[OPER] ----- Result : Completed, Description : 
+[17:08:08:152]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[17:08:08:156]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:08:08:248]	[RECV] _ACK
+[17:08:08:249]	[RECV] _RDY
+[17:08:08:250]	[OPER] ----- Result : Completed, Description : 
+[17:08:08:490]	[OPER] ----- ApproachForPick, Arm : LowerArm, Location : PM1.CoreOutput, Slot : 0 -----
+[17:08:08:492]	[SEND] GOTO N 15 R RE Z DN SLOT 1 ARM B
+[17:08:08:571]	[RECV] _ACK
+[17:08:11:219]	[RECV] _RDY
+[17:08:11:220]	[OPER] ----- Result : Completed, Description : 
+[17:09:31:643]	[OPER] ----- Initialize -----
+[17:09:31:646]	[SEND] CLEAR
+[17:09:31:699]	[RECV] _ACK
+[17:09:32:818]	[RECV] _RDY
+[17:09:32:827]	[SEND] HOME ALL
+[17:09:32:879]	[RECV] _ACK
+[17:09:51:089]	[RECV] _RDY
+[17:09:51:090]	[OPER] ----- Result : Completed, Description : 
+[17:13:14:878]	[OPER] ----- Initialize -----
+[17:13:14:880]	[SEND] CLEAR
+[17:13:14:934]	[RECV] _ACK
+[17:13:16:056]	[RECV] _RDY
+[17:13:16:065]	[SEND] HOME ALL
+[17:13:16:119]	[RECV] _ACK
+[17:13:27:333]	[RECV] _RDY
+[17:13:27:334]	[OPER] ----- Result : Completed, Description : 
+[17:14:00:291]	[OPER] ----- ClearError -----
+[17:14:00:294]	[SEND] CLEAR
+[17:14:00:346]	[RECV] _ACK
+[17:14:01:465]	[RECV] _RDY
+[17:14:01:466]	[OPER] ----- Result : Completed, Description : 
+[17:14:16:830]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:14:16:834]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:14:16:914]	[RECV] _ACK
+[17:14:21:402]	[RECV] _RDY
+[17:14:21:404]	[OPER] ----- Result : Completed, Description : 
+[17:16:06:841]	[OPER] ----- ClearError -----
+[17:16:06:843]	[SEND] CLEAR
+[17:16:06:895]	[RECV] _ACK
+[17:16:08:036]	[RECV] _RDY
+[17:16:08:038]	[OPER] ----- Result : Completed, Description : 
+[17:16:22:796]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:16:22:800]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:16:22:879]	[RECV] _ACK
+[17:16:23:727]	[RECV] _RDY
+[17:16:23:728]	[OPER] ----- Result : Completed, Description : 
+[17:16:23:737]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:16:23:741]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:16:23:833]	[RECV] _ACK
+[17:16:23:834]	[RECV] _RDY
+[17:16:23:836]	[OPER] ----- Result : Completed, Description : 
+[17:16:23:851]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 2 -----
+[17:16:23:855]	[SEND] GOTO N 10 R RE Z UP SLOT 3 ARM A
+[17:16:23:933]	[RECV] _ACK
+[17:16:24:583]	[RECV] _RDY
+[17:16:24:585]	[OPER] ----- Result : Completed, Description : 
+[17:17:27:593]	[OPER] ----- ClearError -----
+[17:17:27:595]	[SEND] CLEAR
+[17:17:27:647]	[RECV] _ACK
+[17:17:28:777]	[RECV] _RDY
+[17:17:28:778]	[OPER] ----- Result : Completed, Description : 
+[17:17:43:474]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:17:43:478]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:17:43:556]	[RECV] _ACK
+[17:17:45:558]	[RECV] _RDY
+[17:17:45:559]	[OPER] ----- Result : Completed, Description : 
+[17:17:45:565]	[OPER] ----- Place, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:17:45:569]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:17:45:664]	[RECV] _ACK
+[17:17:45:665]	[RECV] _RDY
+[17:17:45:667]	[OPER] ----- Result : Completed, Description : 
+[17:17:45:682]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:17:45:686]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:17:45:763]	[RECV] _ACK
+[17:17:46:964]	[RECV] _RDY
+[17:17:46:966]	[OPER] ----- Result : Completed, Description : 
+[17:19:11:431]	[OPER] ----- ClearError -----
+[17:19:11:433]	[SEND] CLEAR
+[17:19:11:485]	[RECV] _ACK
+[17:19:12:621]	[RECV] _RDY
+[17:19:12:622]	[OPER] ----- Result : Completed, Description : 
+[17:23:23:330]	[OPER] ----- ClearError -----
+[17:23:23:332]	[SEND] CLEAR
+[17:23:23:383]	[RECV] _ACK
+[17:23:24:498]	[RECV] _RDY
+[17:23:24:500]	[OPER] ----- Result : Completed, Description : 
+[17:24:55:803]	[OPER] ----- ClearError -----
+[17:24:55:805]	[SEND] CLEAR
+[17:24:55:858]	[RECV] _ACK
+[17:24:56:985]	[RECV] _RDY
+[17:24:56:987]	[OPER] ----- Result : Completed, Description : 
+[17:26:18:470]	[OPER] ----- ClearError -----
+[17:26:18:472]	[SEND] CLEAR
+[17:26:18:525]	[RECV] _ACK
+[17:26:19:644]	[RECV] _RDY
+[17:26:19:645]	[OPER] ----- Result : Completed, Description : 
+[17:31:56:977]	[OPER] ----- ClearError -----
+[17:31:56:979]	[SEND] CLEAR
+[17:31:57:031]	[RECV] _ACK
+[17:31:58:144]	[RECV] _RDY
+[17:31:58:146]	[OPER] ----- Result : Completed, Description : 
+[17:34:21:428]	[OPER] ----- Initialize -----
+[17:34:21:428]	[SEND] CLEAR
+[17:34:21:483]	[RECV] _ACK
+[17:34:22:622]	[RECV] _RDY
+[17:34:22:627]	[SEND] HOME ALL
+[17:34:22:680]	[RECV] _ACK
+[17:34:48:843]	[RECV] _RDY
+[17:34:48:845]	[OPER] ----- Result : Completed, Description : 
+[17:36:42:522]	[OPER] ----- Initialize -----
+[17:36:42:525]	[SEND] CLEAR
+[17:36:42:578]	[RECV] _ACK
+[17:36:43:716]	[RECV] _RDY
+[17:36:43:724]	[SEND] HOME ALL
+[17:36:43:777]	[RECV] _ACK
+[17:36:54:981]	[RECV] _RDY
+[17:36:54:983]	[OPER] ----- Result : Completed, Description : 
+[17:37:20:835]	[OPER] ----- ClearError -----
+[17:37:20:837]	[SEND] CLEAR
+[17:37:20:889]	[RECV] _ACK
+[17:37:22:028]	[RECV] _RDY
+[17:37:22:029]	[OPER] ----- Result : Completed, Description : 
+[17:37:41:200]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:37:41:209]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:37:41:290]	[RECV] _ACK
+[17:37:45:774]	[RECV] _RDY
+[17:37:45:775]	[OPER] ----- Result : Completed, Description : 
+[17:37:45:784]	[OPER] ----- Place, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:37:45:788]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:37:45:880]	[RECV] _ACK
+[17:37:45:881]	[RECV] _RDY
+[17:37:45:882]	[OPER] ----- Result : Completed, Description : 
+[17:37:45:898]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:37:45:902]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:37:45:980]	[RECV] _ACK
+[17:37:47:181]	[RECV] _RDY
+[17:37:47:182]	[OPER] ----- Result : Completed, Description : 
+[17:37:47:340]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[17:37:47:342]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:37:47:420]	[RECV] _ACK
+[17:37:50:322]	[RECV] _RDY
+[17:37:50:323]	[OPER] ----- Result : Completed, Description : 
+[17:37:50:442]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[17:37:50:445]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:37:50:537]	[RECV] _ACK
+[17:37:50:538]	[RECV] _RDY
+[17:37:50:539]	[OPER] ----- Result : Completed, Description : 
+[17:38:00:247]	[OPER] ----- ClearError -----
+[17:38:00:249]	[SEND] CLEAR
+[17:38:00:302]	[RECV] _ACK
+[17:38:01:432]	[RECV] _RDY
+[17:38:01:434]	[OPER] ----- Result : Completed, Description : 
+[17:38:36:161]	[OPER] ----- ClearError -----
+[17:38:36:163]	[SEND] CLEAR
+[17:38:36:216]	[RECV] _ACK
+[17:38:37:356]	[RECV] _RDY
+[17:38:37:358]	[OPER] ----- Result : Completed, Description : 
+[17:39:43:462]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:39:43:466]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:39:43:545]	[RECV] _ACK
+[17:39:47:253]	[RECV] _RDY
+[17:39:47:254]	[OPER] ----- Result : Completed, Description : 
+[17:41:18:389]	[OPER] ----- ClearError -----
+[17:41:18:391]	[SEND] CLEAR
+[17:41:18:443]	[RECV] _ACK
+[17:41:19:570]	[RECV] _RDY
+[17:41:19:572]	[OPER] ----- Result : Completed, Description : 
+[17:43:28:176]	[OPER] ----- ClearError -----
+[17:43:28:178]	[SEND] CLEAR
+[17:43:28:231]	[RECV] _ACK
+[17:43:29:353]	[RECV] _RDY
+[17:43:29:354]	[OPER] ----- Result : Completed, Description : 
+[17:43:48:087]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:43:48:091]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:43:48:170]	[RECV] _ACK
+[17:43:49:007]	[RECV] _RDY
+[17:43:49:008]	[OPER] ----- Result : Completed, Description : 
+[17:43:49:014]	[OPER] ----- Place, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:43:49:018]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:43:49:111]	[RECV] _ACK
+[17:43:49:119]	[RECV] _RDY
+[17:43:49:121]	[OPER] ----- Result : Completed, Description : 
+[17:43:49:143]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 2 -----
+[17:43:49:147]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM A
+[17:43:49:225]	[RECV] _ACK
+[17:43:49:877]	[RECV] _RDY
+[17:43:49:878]	[OPER] ----- Result : Completed, Description : 
+[17:43:50:002]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[17:43:50:004]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:43:50:083]	[RECV] _ACK
+[17:43:52:984]	[RECV] _RDY
+[17:43:52:985]	[OPER] ----- Result : Completed, Description : 
+[17:43:53:093]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 2 -----
+[17:43:53:097]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:43:53:190]	[RECV] _ACK
+[17:43:53:191]	[RECV] _RDY
+[17:43:53:192]	[OPER] ----- Result : Completed, Description : 
+[17:43:53:312]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 3 -----
+[17:43:53:316]	[SEND] GOTO N 11 R RE Z UP SLOT 4 ARM A
+[17:43:53:394]	[RECV] _ACK
+[17:43:56:297]	[RECV] _RDY
+[17:43:56:298]	[OPER] ----- Result : Completed, Description : 
+[17:44:06:977]	[OPER] ----- ClearError -----
+[17:44:06:979]	[SEND] CLEAR
+[17:44:07:031]	[RECV] _ACK
+[17:44:08:164]	[RECV] _RDY
+[17:44:08:166]	[OPER] ----- Result : Completed, Description : 
+[17:44:26:304]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:44:26:308]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:44:26:388]	[RECV] _ACK
+[17:44:28:097]	[RECV] _RDY
+[17:44:28:099]	[OPER] ----- Result : Completed, Description : 
+[17:44:28:105]	[OPER] ----- Place, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:44:28:109]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:44:28:202]	[RECV] _ACK
+[17:44:28:203]	[RECV] _RDY
+[17:44:28:204]	[OPER] ----- Result : Completed, Description : 
+[17:44:28:219]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 2 -----
+[17:44:28:223]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM A
+[17:44:28:301]	[RECV] _ACK
+[17:44:28:955]	[RECV] _RDY
+[17:44:28:957]	[OPER] ----- Result : Completed, Description : 
+[17:44:29:082]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[17:44:29:084]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:44:29:163]	[RECV] _ACK
+[17:44:32:065]	[RECV] _RDY
+[17:44:32:067]	[OPER] ----- Result : Completed, Description : 
+[17:44:32:188]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 2 -----
+[17:44:32:192]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:44:32:284]	[RECV] _ACK
+[17:44:32:285]	[RECV] _RDY
+[17:44:32:287]	[OPER] ----- Result : Completed, Description : 
+[17:45:30:239]	[OPER] ----- ClearError -----
+[17:45:45:069]	[SEND] CLEAR
+[17:45:45:124]	[RECV] _ACK
+[17:45:46:236]	[RECV] _RDY
+[17:45:46:237]	[OPER] ----- Result : Completed, Description : 
+[17:49:31:893]	[OPER] ----- Initialize -----
+[17:49:31:896]	[SEND] CLEAR
+[17:49:31:948]	[RECV] _ACK
+[17:49:33:061]	[RECV] _RDY
+[17:49:33:069]	[SEND] HOME ALL
+[17:49:33:122]	[RECV] _ACK
+[17:50:02:789]	[RECV] _RDY
+[17:50:02:790]	[OPER] ----- Result : Completed, Description : 
+[17:50:50:019]	[OPER] ----- ClearError -----
+[17:50:50:021]	[SEND] CLEAR
+[17:50:50:074]	[RECV] _ACK
+[17:50:51:198]	[RECV] _RDY
+[17:50:51:199]	[OPER] ----- Result : Completed, Description : 
+[17:51:07:594]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 1 -----
+[17:51:07:599]	[SEND] GOTO N 11 R RE Z UP SLOT 2 ARM A
+[17:51:07:677]	[RECV] _ACK
+[17:51:12:162]	[RECV] _RDY
+[17:51:12:163]	[OPER] ----- Result : Completed, Description : 
+[17:51:12:312]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.CoreInput, Slot : 0 -----
+[17:51:12:314]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:51:12:392]	[RECV] _ACK
+[17:51:15:295]	[RECV] _RDY
+[17:51:15:295]	[OPER] ----- Result : Completed, Description : 
+[17:51:15:421]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[17:51:15:425]	[SEND] GOTO N 14 R RE Z UP SLOT 1 ARM A
+[17:51:15:516]	[RECV] _ACK
+[17:51:15:517]	[RECV] _RDY
+[17:51:15:518]	[OPER] ----- Result : Completed, Description : 
+[17:51:15:650]	[OPER] ----- Pick, Arm : UpperArm, Location : LP4, Slot : 1 -----
+[17:51:15:654]	[SEND] GOTO N 10 R RE Z UP SLOT 2 ARM A
+[17:51:15:733]	[RECV] _ACK
+[17:51:18:635]	[RECV] _RDY
+[17:51:18:635]	[OPER] ----- Result : Completed, Description : 
+[17:51:18:759]	[OPER] ----- ApproachForPlace, Arm : UpperArm, Location : PM1.SortInput, Slot : 0 -----
+[17:51:18:761]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[17:51:18:839]	[RECV] _ACK
+[17:51:21:739]	[RECV] _RDY
+[17:51:21:741]	[OPER] ----- Result : Completed, Description : 
+[17:51:21:854]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 1 -----
+[17:51:21:858]	[SEND] GOTO N 13 R RE Z UP SLOT 1 ARM A
+[17:51:21:950]	[RECV] _ACK
+[17:51:21:952]	[RECV] _RDY
+[17:51:21:953]	[OPER] ----- Result : Completed, Description : 
+[17:51:22:085]	[OPER] ----- Pick, Arm : UpperArm, Location : LP5, Slot : 2 -----
+[17:51:22:089]	[SEND] GOTO N 11 R RE Z UP SLOT 3 ARM A
+[17:51:22:167]	[RECV] _ACK
+[17:51:25:069]	[RECV] _RDY
+[17:51:25:070]	[OPER] ----- Result : Completed, Description : 

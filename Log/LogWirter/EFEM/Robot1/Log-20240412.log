@@ -1,0 +1,237 @@
+[10:06:03:009]	[RECV] _RDY
+[10:07:22:847]	[RECV] _ERR 00009
+[13:47:56:414]	[RECV] _ERR 00009
+[13:47:57:477]	[RECV] _ERR 00009
+[13:47:58:537]	[RECV] _ERR 00009
+[13:47:59:907]	[RECV] _ERR 00009
+[13:48:00:643]	[RECV] _ERR 00009
+[13:50:03:982]	[RECV] _ERR 00009
+[13:50:06:699]	[RECV] _ERR 00009
+[13:51:23:370]	[RECV] _ERR 00009
+[13:51:24:142]	[RECV] _ERR 00009
+[13:51:25:949]	[RECV] _ERR 00009
+[13:51:31:725]	[RECV] _ERR 00009
+[13:51:57:079]	[RECV] _ERR 00009
+[13:51:57:818]	[RECV] _ERR 00009
+[13:52:27:895]	[RECV] _RDY
+[14:04:33:860]	[OPER] ----- Initialize -----
+[14:04:33:862]	[SEND] CLEAR
+[14:04:33:917]	[RECV] _NAK
+[14:04:33:920]	[OPER] ----- Result : Error, Description : 
+[14:05:05:743]	[OPER] ----- Initialize -----
+[14:05:05:743]	[SEND] CLEAR
+[14:05:05:794]	[RECV] _NAK
+[14:05:05:795]	[OPER] ----- Result : Error, Description : 
+[14:05:09:615]	[OPER] ----- Initialize -----
+[14:05:09:615]	[SEND] CLEAR
+[14:05:09:668]	[RECV] _NAK
+[14:05:09:669]	[OPER] ----- Result : Error, Description : 
+[14:05:13:385]	[OPER] ----- Initialize -----
+[14:05:13:385]	[SEND] CLEAR
+[14:05:13:437]	[RECV] _NAK
+[14:05:13:438]	[OPER] ----- Result : Error, Description : 
+[14:05:15:035]	[RECV] _ERR 00009
+[14:05:17:462]	[RECV] _ERR 00009
+[14:05:23:212]	[OPER] ----- Initialize -----
+[14:05:23:212]	[SEND] CLEAR
+[14:05:23:266]	[RECV] _ACK
+[14:05:23:923]	[RECV] _ERR 00009
+[14:05:23:925]	[OPER] ----- Result : Error, Description : 00009
+[14:05:35:446]	[OPER] ----- Initialize -----
+[14:05:35:446]	[SEND] CLEAR
+[14:05:35:498]	[RECV] _ACK
+[14:05:36:619]	[RECV] _RDY
+[14:05:36:625]	[SEND] HOME ALL
+[14:05:36:679]	[RECV] _ACK
+[14:05:45:807]	[RECV] _RDY
+[14:05:45:808]	[OPER] ----- Result : Completed, Description : 
+[14:06:07:915]	[OPER] ----- ClearError -----
+[14:06:07:917]	[SEND] CLEAR
+[14:06:07:970]	[RECV] _ACK
+[14:06:09:111]	[RECV] _RDY
+[14:06:09:113]	[OPER] ----- Result : Completed, Description : 
+[14:06:09:302]	[OPER] ----- ClearError -----
+[14:06:09:304]	[SEND] CLEAR
+[14:06:09:354]	[RECV] _ACK
+[14:06:10:483]	[RECV] _RDY
+[14:06:10:485]	[OPER] ----- Result : Completed, Description : 
+[14:06:16:920]	[OPER] ----- ClearError -----
+[14:06:16:922]	[SEND] CLEAR
+[14:06:16:974]	[RECV] _ACK
+[14:06:18:095]	[RECV] _RDY
+[14:06:18:096]	[OPER] ----- Result : Completed, Description : 
+[14:06:52:021]	[RECV] _ERR 00009
+[14:07:09:682]	[RECV] _RDY
+[14:23:11:606]	[OPER] ----- ClearError -----
+[14:23:11:608]	[SEND] CLEAR
+[14:23:11:658]	[RECV] _NAK
+[14:23:11:659]	[OPER] ----- Result : Error, Description : 
+[15:09:05:335]	[RECV] _ERR 00009
+[15:09:07:277]	[RECV] _ERR 00009
+[15:09:58:880]	[OPER] ----- ClearError -----
+[15:09:58:882]	[SEND] CLEAR
+[15:09:58:934]	[RECV] _ACK
+[15:10:00:049]	[RECV] _RDY
+[15:10:00:050]	[OPER] ----- Result : Completed, Description : 
+[15:10:05:610]	[OPER] ----- ClearError -----
+[15:10:05:612]	[SEND] CLEAR
+[15:10:05:664]	[RECV] _ACK
+[15:10:06:787]	[RECV] _RDY
+[15:10:06:788]	[OPER] ----- Result : Completed, Description : 
+[15:10:10:144]	[OPER] ----- ClearError -----
+[15:10:10:146]	[SEND] CLEAR
+[15:10:10:198]	[RECV] _ACK
+[15:10:11:326]	[RECV] _RDY
+[15:10:11:328]	[OPER] ----- Result : Completed, Description : 
+[15:10:14:497]	[OPER] ----- ClearError -----
+[15:10:14:499]	[SEND] CLEAR
+[15:10:14:550]	[RECV] _ACK
+[15:10:15:679]	[RECV] _RDY
+[15:10:15:681]	[OPER] ----- Result : Completed, Description : 
+[15:10:18:995]	[OPER] ----- ClearError -----
+[15:10:18:997]	[SEND] CLEAR
+[15:10:19:047]	[RECV] _ACK
+[15:10:20:172]	[RECV] _RDY
+[15:10:20:174]	[OPER] ----- Result : Completed, Description : 
+[15:10:23:501]	[OPER] ----- ClearError -----
+[15:10:23:503]	[SEND] CLEAR
+[15:10:23:553]	[RECV] _ACK
+[15:10:24:695]	[RECV] _RDY
+[15:10:24:696]	[OPER] ----- Result : Completed, Description : 
+[15:11:00:710]	[RECV] _ERR 00009
+[15:11:30:897]	[RECV] _RDY
+[17:47:37:480]	[RECV] _ERR 00009
+[17:50:02:653]	[OPER] ----- Initialize -----
+[17:50:02:653]	[SEND] CLEAR
+[17:50:02:705]	[RECV] _ACK
+[17:50:03:819]	[RECV] _RDY
+[17:50:04:064]	[SEND] HOME ALL
+[17:50:04:115]	[RECV] _ACK
+[17:50:15:367]	[RECV] _RDY
+[17:50:15:446]	[OPER] ----- Result : Completed, Description : 
+[17:50:45:024]	[OPER] ----- ClearError -----
+[17:50:45:026]	[SEND] CLEAR
+[17:50:45:077]	[RECV] _ACK
+[17:50:46:218]	[RECV] _RDY
+[17:50:46:220]	[OPER] ----- Result : Completed, Description : 
+[17:50:47:643]	[OPER] ----- ClearError -----
+[17:50:47:645]	[SEND] CLEAR
+[17:50:47:697]	[RECV] _ACK
+[17:50:48:838]	[RECV] _RDY
+[17:50:48:839]	[OPER] ----- Result : Completed, Description : 
+[17:50:51:676]	[OPER] ----- ClearError -----
+[17:50:51:678]	[SEND] CLEAR
+[17:50:51:729]	[RECV] _ACK
+[17:50:52:863]	[RECV] _RDY
+[17:50:52:864]	[OPER] ----- Result : Completed, Description : 
+[17:50:53:039]	[OPER] ----- ClearError -----
+[17:50:53:041]	[SEND] CLEAR
+[17:50:53:093]	[RECV] _ACK
+[17:50:54:220]	[RECV] _RDY
+[17:50:54:222]	[OPER] ----- Result : Completed, Description : 
+[17:50:54:401]	[OPER] ----- ClearError -----
+[17:50:54:403]	[SEND] CLEAR
+[17:50:54:455]	[RECV] _ACK
+[17:50:55:593]	[RECV] _RDY
+[17:50:55:594]	[OPER] ----- Result : Completed, Description : 
+[17:50:55:772]	[OPER] ----- ClearError -----
+[17:50:55:774]	[SEND] CLEAR
+[17:50:55:825]	[RECV] _ACK
+[17:50:56:950]	[RECV] _RDY
+[17:50:56:952]	[OPER] ----- Result : Completed, Description : 
+[17:50:57:128]	[OPER] ----- ClearError -----
+[17:50:57:130]	[SEND] CLEAR
+[17:50:57:182]	[RECV] _ACK
+[17:50:58:323]	[RECV] _RDY
+[17:50:58:324]	[OPER] ----- Result : Completed, Description : 
+[17:52:03:862]	[OPER] ----- Initialize -----
+[17:52:03:862]	[SEND] CLEAR
+[17:52:03:914]	[RECV] _ACK
+[17:52:05:056]	[RECV] _RDY
+[17:52:05:062]	[SEND] HOME ALL
+[17:52:05:115]	[RECV] _ACK
+[17:52:16:206]	[RECV] _RDY
+[17:52:16:207]	[OPER] ----- Result : Completed, Description : 
+[17:52:38:984]	[OPER] ----- ClearError -----
+[17:52:38:986]	[SEND] CLEAR
+[17:52:39:036]	[RECV] _ACK
+[17:52:40:170]	[RECV] _RDY
+[17:52:40:171]	[OPER] ----- Result : Completed, Description : 
+[17:54:05:169]	[OPER] ----- GetLowSpeed -----
+[17:54:05:271]	[SEND] RQ LOSPD ALL
+[17:54:05:337]	[RECV] LOSPD ALL 80
+[17:54:05:372]	[OPER] ----- Result : Completed, Description : 
+[17:54:07:582]	[OPER] ----- GetHighSpeed -----
+[17:54:07:683]	[SEND] RQ HISPD ALL
+[17:54:07:750]	[RECV] HISPD ALL 80
+[17:54:07:784]	[OPER] ----- Result : Completed, Description : 
+[17:54:18:290]	[OPER] ----- GetWaferPresence -----
+[17:54:18:392]	[SEND] RQ WAFER ARM ALL
+[17:54:18:463]	[RECV] WAFER A N B N
+[17:54:18:493]	[OPER] ----- Result : Completed, Description : 
+[17:54:18:597]	[OPER] ----- Pick, Arm : UpperArm, Location : LP6, Slot : 1 -----
+[17:54:19:001]	[SEND] PICK 6 SLOT 2 ARM A
+[17:54:19:066]	[RECV] _ACK
+[17:54:33:419]	[RECV] _RDY
+[17:54:33:506]	[OPER] ----- Result : Completed, Description : 
+[17:54:33:610]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[17:54:33:813]	[SEND] PLACE 14 SLOT 1 ARM A
+[17:54:33:881]	[RECV] _ACK
+[17:54:36:818]	[RECV] _ERR 22105
+[17:54:36:835]	[OPER] ----- Result : Error, Description : 22105
+[17:55:09:450]	[OPER] ----- Initialize -----
+[17:55:09:450]	[SEND] CLEAR
+[17:55:09:502]	[RECV] _ACK
+[17:55:10:623]	[RECV] _RDY
+[17:55:10:861]	[SEND] HOME ALL
+[17:55:10:914]	[RECV] _ACK
+[17:55:40:576]	[RECV] _RDY
+[17:55:52:329]	[OPER] ----- GetWaferPresence -----
+[17:55:52:430]	[SEND] RQ WAFER ARM ALL
+[17:55:52:500]	[RECV] WAFER A Y B N
+[17:55:52:530]	[OPER] ----- Result : Completed, Description : 
+[17:55:52:631]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.CoreInput, Slot : 1 -----
+[17:55:52:832]	[SEND] PLACE 14 SLOT 1 ARM A
+[17:55:52:901]	[RECV] _ACK
+[17:56:03:581]	[RECV] _RDY
+[17:56:03:612]	[OPER] ----- Result : Completed, Description : 
+[17:57:12:839]	[OPER] ----- GetWaferPresence -----
+[17:57:12:939]	[SEND] RQ WAFER ARM ALL
+[17:57:13:009]	[RECV] WAFER A N B N
+[17:57:13:040]	[OPER] ----- Result : Completed, Description : 
+[17:57:13:141]	[OPER] ----- Pick, Arm : UpperArm, Location : LP6, Slot : 2 -----
+[17:57:13:544]	[SEND] PICK 6 SLOT 3 ARM A
+[17:57:13:608]	[RECV] _ACK
+[17:57:25:876]	[RECV] _RDY
+[17:57:25:934]	[OPER] ----- Result : Completed, Description : 
+[17:57:26:034]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 2 -----
+[17:57:26:236]	[SEND] PLACE 13 SLOT 1 ARM A
+[17:57:26:305]	[RECV] _ACK
+[17:57:29:244]	[RECV] _ERR 22105
+[17:57:29:258]	[OPER] ----- Result : Error, Description : 22105
+[17:57:42:828]	[OPER] ----- Initialize -----
+[17:57:42:828]	[SEND] CLEAR
+[17:57:42:878]	[RECV] _ACK
+[17:57:43:993]	[RECV] _RDY
+[17:57:43:998]	[SEND] HOME ALL
+[17:57:44:000]	[OPER] ----- Result : Completed, Description : 
+[17:57:44:053]	[RECV] _ACK
+[17:58:16:561]	[RECV] _RDY
+[17:59:43:056]	[OPER] ----- GetWaferPresence -----
+[17:59:43:157]	[SEND] RQ WAFER ARM ALL
+[17:59:43:227]	[RECV] WAFER A Y B N
+[17:59:43:258]	[OPER] ----- Result : Completed, Description : 
+[17:59:43:358]	[OPER] ----- Place, Arm : UpperArm, Location : PM1.SortInput, Slot : 2 -----
+[17:59:43:560]	[SEND] PLACE 13 SLOT 1 ARM A
+[17:59:43:630]	[RECV] _ACK
+[17:59:55:228]	[RECV] _RDY
+[17:59:55:246]	[OPER] ----- Result : Completed, Description : 
+[18:00:57:657]	[OPER] ----- Initialize -----
+[18:00:57:657]	[SEND] CLEAR
+[18:00:57:709]	[RECV] _ACK
+[18:00:58:843]	[RECV] _RDY
+[18:00:58:849]	[SEND] HOME ALL
+[18:00:58:902]	[RECV] _ACK
+[18:01:31:463]	[RECV] _RDY
+[18:01:31:465]	[OPER] ----- Result : Completed, Description : 
+[18:02:25:729]	[RECV] _ERR 00009

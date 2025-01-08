@@ -1,0 +1,107 @@
+>> FileVersion 1.0.0.0
+GROUP PROCESS_PROPERTY
+	GROUP AtmRobot
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+	GROUP Global
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+	GROUP LoadPort1
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+	GROUP LoadPort2
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+	GROUP LoadPort3
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+	GROUP LoadPort4
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+	GROUP LoadPort5
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+	GROUP LoadPort6
+		GROUP NONE
+			GROUP 0
+				MIN = 
+				MAX = 
+				UNIT = 
+				AUTHORITY = 
+				DATA_TYPE = 
+				DESCRIPTION = 
+				DEFAULT_VALUE = 
+			END
+		END
+	END
+END

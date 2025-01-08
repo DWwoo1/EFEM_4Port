@@ -1,0 +1,6 @@
+[09/12-09:15:09.762] Communicator Initialize 성공
+[09/12-11:11:30.962] Communicator Initialize 종료
+[09/12-13:56:01.321] Communicator Initialize 성공
+[09/12-14:23:37.880] Communicator Initialize 종료
+[09/12-14:32:49.109] Communicator Initialize 성공
+[09/12-14:37:38.953] Communicator Initialize 종료

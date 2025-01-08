@@ -1,0 +1,2 @@
+[17:08:43.541] [OPER] ----- Initialize -----
+[17:08:44.543] [OPER] ----- Result : Completed, Description : 

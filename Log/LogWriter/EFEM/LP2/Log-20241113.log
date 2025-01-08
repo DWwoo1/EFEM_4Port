@@ -1,0 +1,93 @@
+[10:21:46:829]	[OPER] ----- FindLoadingMode -----
+[10:21:46:829]	[OPER] ----- Result : Completed, Description : 
+[10:21:46:832]	[OPER] ----- ChangeToCassette -----
+[10:21:47:829]	[OPER] ----- Result : Completed, Description : 
+[10:21:47:831]	[OPER] ----- Initialize -----
+[10:21:48:832]	[OPER] ----- Result : Completed, Description : 
+[11:22:45:740]	[OPER] ----- FindLoadingMode -----
+[11:22:45:740]	[OPER] ----- Result : Completed, Description : 
+[11:22:45:743]	[OPER] ----- ChangeToCassette -----
+[11:22:46:741]	[OPER] ----- Result : Completed, Description : 
+[11:22:46:741]	[OPER] ----- Initialize -----
+[11:22:47:742]	[OPER] ----- Result : Completed, Description : 
+[11:25:49:101]	[OPER] ----- FindLoadingMode -----
+[11:25:49:101]	[OPER] ----- Result : Completed, Description : 
+[11:25:49:105]	[OPER] ----- ChangeToCassette -----
+[11:25:50:102]	[OPER] ----- Result : Completed, Description : 
+[11:25:50:103]	[OPER] ----- Initialize -----
+[11:25:51:103]	[OPER] ----- Result : Completed, Description : 
+[14:02:46:623]	[OPER] ----- FindLoadingMode -----
+[14:04:40:397]	[OPER] ----- FindLoadingMode -----
+[14:04:40:397]	[OPER] ----- Result : Completed, Description : 
+[14:04:40:401]	[OPER] ----- ChangeToCassette -----
+[14:04:41:397]	[OPER] ----- Result : Completed, Description : 
+[14:04:41:398]	[OPER] ----- Initialize -----
+[14:04:42:399]	[OPER] ----- Result : Completed, Description : 
+[14:39:43:223]	[OPER] ----- FindLoadingMode -----
+[14:39:43:223]	[OPER] ----- Result : Completed, Description : 
+[14:39:43:226]	[OPER] ----- ChangeToCassette -----
+[14:39:44:223]	[OPER] ----- Result : Completed, Description : 
+[14:39:44:224]	[OPER] ----- Initialize -----
+[14:39:45:225]	[OPER] ----- Result : Completed, Description : 
+[14:43:23:262]	[OPER] ----- FindLoadingMode -----
+[14:43:23:262]	[OPER] ----- Result : Completed, Description : 
+[14:43:23:265]	[OPER] ----- ChangeToCassette -----
+[14:43:24:263]	[OPER] ----- Result : Completed, Description : 
+[14:43:24:264]	[OPER] ----- Initialize -----
+[14:43:25:264]	[OPER] ----- Result : Completed, Description : 
+[14:45:25:936]	[OPER] ----- FindLoadingMode -----
+[14:45:25:936]	[OPER] ----- Result : Completed, Description : 
+[14:45:25:939]	[OPER] ----- ChangeToCassette -----
+[14:45:26:937]	[OPER] ----- Result : Completed, Description : 
+[14:45:26:938]	[OPER] ----- Initialize -----
+[14:45:27:939]	[OPER] ----- Result : Completed, Description : 
+[15:24:12:242]	[OPER] ----- FindLoadingMode -----
+[15:24:12:242]	[OPER] ----- Result : Completed, Description : 
+[15:24:12:247]	[OPER] ----- ChangeToCassette -----
+[15:24:13:242]	[OPER] ----- Result : Completed, Description : 
+[15:24:13:244]	[OPER] ----- Initialize -----
+[15:24:14:244]	[OPER] ----- Result : Completed, Description : 
+[15:30:14:171]	[OPER] ----- FindLoadingMode -----
+[15:30:14:171]	[OPER] ----- Result : Completed, Description : 
+[15:30:14:191]	[OPER] ----- ChangeToCassette -----
+[15:30:15:171]	[OPER] ----- Result : Completed, Description : 
+[15:30:15:173]	[OPER] ----- Initialize -----
+[15:30:16:173]	[OPER] ----- Result : Completed, Description : 
+[15:58:16:573]	[OPER] ----- FindLoadingMode -----
+[15:58:16:573]	[OPER] ----- Result : Completed, Description : 
+[15:58:16:577]	[OPER] ----- ChangeToCassette -----
+[15:58:17:574]	[OPER] ----- Result : Completed, Description : 
+[15:58:17:576]	[OPER] ----- Initialize -----
+[15:58:18:576]	[OPER] ----- Result : Completed, Description : 
+[15:59:18:004]	[OPER] ----- FindLoadingMode -----
+[15:59:18:004]	[OPER] ----- Result : Completed, Description : 
+[15:59:18:007]	[OPER] ----- ChangeToCassette -----
+[15:59:19:005]	[OPER] ----- Result : Completed, Description : 
+[15:59:19:006]	[OPER] ----- Initialize -----
+[15:59:20:006]	[OPER] ----- Result : Completed, Description : 
+[16:00:10:325]	[OPER] ----- FindLoadingMode -----
+[16:00:10:325]	[OPER] ----- Result : Completed, Description : 
+[16:00:10:327]	[OPER] ----- ChangeToCassette -----
+[16:00:11:325]	[OPER] ----- Result : Completed, Description : 
+[16:00:11:326]	[OPER] ----- Initialize -----
+[16:00:12:327]	[OPER] ----- Result : Completed, Description : 
+[16:01:01:172]	[OPER] ----- FindLoadingMode -----
+[16:01:01:172]	[OPER] ----- Result : Completed, Description : 
+[16:01:01:180]	[OPER] ----- ChangeToCassette -----
+[16:01:02:174]	[OPER] ----- Result : Completed, Description : 
+[16:01:02:175]	[OPER] ----- Initialize -----
+[16:01:03:175]	[OPER] ----- Result : Completed, Description : 
+[17:04:13:856]	[OPER] ----- FindLoadingMode -----
+[17:04:13:856]	[OPER] ----- Result : Completed, Description : 
+[17:04:13:859]	[OPER] ----- ChangeToCassette -----
+[17:04:14:857]	[OPER] ----- Result : Completed, Description : 
+[17:04:14:858]	[OPER] ----- Initialize -----
+[17:04:15:859]	[OPER] ----- Result : Completed, Description : 
+[17:05:04:211]	[OPER] ----- ChangeAccessModeToManual -----
+[17:05:04:211]	[OPER] ----- Result : Completed, Description : 
+[17:05:05:668]	[OPER] ----- ChangeAccessModeToAuto -----
+[17:05:05:668]	[OPER] ----- Result : Completed, Description : 
+[17:05:07:182]	[OPER] ----- ChangeAccessModeToManual -----
+[17:05:07:182]	[OPER] ----- Result : Completed, Description : 
+[17:06:28:326]	[OPER] ----- ChangeAccessModeToAuto -----
+[17:06:28:327]	[OPER] ----- Result : Completed, Description : 

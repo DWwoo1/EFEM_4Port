@@ -1,0 +1,10 @@
+######### OCCURRUNCE TIME : 09h 45m 11s 545ms
+### OCCURRED EXCEPTION : 사용자가 작업을 취소했습니다
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   위치: FrameOfSystem3.Views.Form_Frame.SetExternalProcess() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Views\Form_Frame.cs:줄 595
+   위치: FrameOfSystem3.Views.Form_Frame..ctor() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Views\Form_Frame.cs:줄 188
+   위치: FrameOfSystem3.Program.Main() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 39
+

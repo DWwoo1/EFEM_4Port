@@ -1,0 +1,117 @@
+[15:53:37:815]	[OPER] ----- Initialize -----
+[15:53:38:816]	[OPER] ----- Result : Completed, Description : 
+[15:53:38:819]	[OPER] ----- ChangeToCassette -----
+[15:53:39:819]	[OPER] ----- Result : Completed, Description : 
+[15:55:42:257]	[OPER] ----- Clamp -----
+[15:55:43:260]	[OPER] ----- Result : Completed, Description : 
+[15:55:43:267]	[OPER] ----- Load -----
+[15:55:50:970]	[OPER] ----- Result : Completed, Description : 
+[15:56:44:390]	[OPER] ----- Initialize -----
+[15:56:45:390]	[OPER] ----- Result : Completed, Description : 
+[15:56:45:393]	[OPER] ----- ChangeToCassette -----
+[15:56:46:394]	[OPER] ----- Result : Completed, Description : 
+[15:57:59:554]	[OPER] ----- Initialize -----
+[15:58:00:555]	[OPER] ----- Result : Completed, Description : 
+[15:58:00:556]	[OPER] ----- ChangeToCassette -----
+[15:58:01:557]	[OPER] ----- Result : Completed, Description : 
+[15:58:37:683]	[OPER] ----- Clamp -----
+[15:58:38:684]	[OPER] ----- Result : Completed, Description : 
+[15:58:38:691]	[OPER] ----- Load -----
+[15:58:46:395]	[OPER] ----- Result : Completed, Description : 
+[16:00:35:231]	[OPER] ----- Initialize -----
+[16:00:36:232]	[OPER] ----- Result : Completed, Description : 
+[16:00:36:235]	[OPER] ----- ChangeToCassette -----
+[16:00:37:235]	[OPER] ----- Result : Completed, Description : 
+[16:00:50:828]	[OPER] ----- Clamp -----
+[16:00:51:828]	[OPER] ----- Result : Completed, Description : 
+[16:00:51:835]	[OPER] ----- Load -----
+[16:00:59:537]	[OPER] ----- Result : Completed, Description : 
+[16:37:53:005]	[OPER] ----- Initialize -----
+[16:37:54:006]	[OPER] ----- Result : Completed, Description : 
+[16:37:54:009]	[OPER] ----- ChangeToCassette -----
+[16:37:55:009]	[OPER] ----- Result : Completed, Description : 
+[16:38:00:238]	[OPER] ----- Clamp -----
+[16:38:01:239]	[OPER] ----- Result : Completed, Description : 
+[16:38:01:246]	[OPER] ----- Load -----
+[16:38:08:951]	[OPER] ----- Result : Completed, Description : 
+[16:42:48:432]	[OPER] ----- Unload -----
+[16:42:55:935]	[OPER] ----- Result : Completed, Description : 
+[16:43:07:005]	[OPER] ----- Clamp -----
+[16:43:08:005]	[OPER] ----- Result : Completed, Description : 
+[16:43:08:012]	[OPER] ----- Load -----
+[16:43:15:714]	[OPER] ----- Result : Completed, Description : 
+[16:43:15:773]	[OPER] ----- Unload -----
+[16:43:23:276]	[OPER] ----- Result : Completed, Description : 
+[16:54:21:069]	[OPER] ----- Clamp -----
+[16:54:22:070]	[OPER] ----- Result : Completed, Description : 
+[16:54:22:077]	[OPER] ----- Load -----
+[16:54:29:780]	[OPER] ----- Result : Completed, Description : 
+[16:54:29:839]	[OPER] ----- Unload -----
+[16:54:37:343]	[OPER] ----- Result : Completed, Description : 
+[16:55:10:462]	[OPER] ----- Clamp -----
+[16:55:11:464]	[OPER] ----- Result : Completed, Description : 
+[16:55:11:471]	[OPER] ----- Load -----
+[16:55:19:174]	[OPER] ----- Result : Completed, Description : 
+[18:37:26:073]	[OPER] ----- Initialize -----
+[18:37:27:073]	[OPER] ----- Result : Completed, Description : 
+[18:37:27:077]	[OPER] ----- ChangeToCassette -----
+[18:37:28:078]	[OPER] ----- Result : Completed, Description : 
+[18:37:42:166]	[OPER] ----- Clamp -----
+[18:37:43:167]	[OPER] ----- Result : Completed, Description : 
+[18:37:43:174]	[OPER] ----- Load -----
+[18:37:50:878]	[OPER] ----- Result : Completed, Description : 
+[19:20:15:203]	[OPER] ----- Initialize -----
+[19:20:16:205]	[OPER] ----- Result : Completed, Description : 
+[19:20:16:208]	[OPER] ----- ChangeToCassette -----
+[19:20:17:208]	[OPER] ----- Result : Completed, Description : 
+[19:20:21:356]	[OPER] ----- Clamp -----
+[19:20:22:356]	[OPER] ----- Result : Completed, Description : 
+[19:20:22:363]	[OPER] ----- Load -----
+[19:20:30:066]	[OPER] ----- Result : Completed, Description : 
+[20:44:27:046]	[RECV] C00010000
+[20:44:27:047]	[RECV] C00000010
+[20:44:27:048]	[RECV] C01000000
+[20:48:53:889]	[OPER] ----- Initialize -----
+[20:48:53:889]	[SEND] RESET
+[20:48:53:933]	[RECV] A
+[20:48:53:936]	[RECV] O
+[20:48:53:941]	[SEND] HOM
+[20:48:53:981]	[RECV] A
+[20:49:05:778]	[RECV] O
+[20:49:05:782]	[SEND] STATUS
+[20:49:05:833]	[RECV] A
+[20:49:05:834]	[RECV] S7350142B
+[20:49:05:836]	[OPER] ----- Result : Completed, Description : 
+[20:49:05:837]	[OPER] ----- ChangeToCassette -----
+[20:49:05:837]	[SEND] RESET
+[20:49:05:879]	[RECV] A
+[20:49:05:880]	[RECV] O
+[20:49:05:883]	[SEND] OC_MODE ON
+[20:49:05:930]	[RECV] A
+[20:49:05:931]	[RECV] O
+[20:49:05:935]	[SEND] STATUS
+[20:49:05:985]	[RECV] A
+[20:49:05:986]	[RECV] S7350142B
+[20:49:05:988]	[OPER] ----- Result : Completed, Description : 
+[20:51:44:673]	[OPER] ----- Initialize -----
+[20:51:44:673]	[SEND] RESET
+[20:51:44:721]	[RECV] A
+[20:51:44:722]	[RECV] O
+[20:51:44:725]	[SEND] HOM
+[20:51:44:768]	[RECV] A
+[20:51:56:028]	[RECV] O
+[20:51:56:031]	[SEND] STATUS
+[20:51:56:083]	[RECV] A
+[20:51:56:084]	[RECV] S7350142B
+[20:51:56:085]	[OPER] ----- Result : Completed, Description : 
+[20:51:56:086]	[OPER] ----- ChangeToCassette -----
+[20:51:56:086]	[SEND] RESET
+[20:51:56:128]	[RECV] A
+[20:51:56:129]	[RECV] O
+[20:51:56:132]	[SEND] OC_MODE ON
+[20:51:56:179]	[RECV] A
+[20:51:56:180]	[RECV] O
+[20:51:56:183]	[SEND] STATUS
+[20:51:56:236]	[RECV] A
+[20:51:56:237]	[RECV] S7350142B
+[20:51:56:238]	[OPER] ----- Result : Completed, Description : 

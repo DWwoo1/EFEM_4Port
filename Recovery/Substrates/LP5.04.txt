@@ -1,0 +1,40 @@
+>> FileVersion 1.0.0.0
+GROUP SubstrateInformation
+	Name = LP5.04
+	LotId = 155727
+	SourceCarrierId = 155727
+	SourcePortId = 5
+	SourceSlot = 4
+	DestinationPortId = 5
+	DestinationSlot = 4
+	Location = LP5.04
+	ProcessJobId = 
+	ControlJobId = 
+	RecipeId = 155727
+	TransPortState = AtSource
+	ProcessingState = NeedsProcessing
+	Usage = 
+	DoNotProcessFlag = 
+	SubstrateType = Core
+	RingId = 
+	PartId = 
+	LotType = 
+	StepSeq = 
+	ChipQty = 
+	BinCode = 
+	RefPositionX = 
+	RefPositionY = 
+	StartingPositionX = 
+	StartingPositionY = 
+	CountX = 
+	CountY = 
+	Angle = 
+	MapData = 
+	SplittedLotId = 
+	IsLastSubstrate = False
+	IdReadingState = NotConfirmed
+	LocationType = LocationTypeLoadPort
+	LoadPortLocationLoadPortName = LP5
+	LoadPortLocationPortId = 5
+	LoadPortLocationSlot = 4
+END

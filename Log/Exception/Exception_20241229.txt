@@ -1,0 +1,195 @@
+######### OCCURRUNCE TIME : 09h 18m 29s 018ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 68
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 90
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 166
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 09h 18m 39s 041ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 68
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 90
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 166
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 09h 18m 49s 061ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 68
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 90
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 166
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 09h 19m 46s 339ms
+### OCCURRED EXCEPTION : 'COM30' 포트에 대한 액세스가 거부되었습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: FrameOfSystem3.Config.ConfigSerial.Open(Int32 nIndexOfItem) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Config\ConfigSerial.cs:줄 180
+   위치: FrameOfSystem3.Views.Config.Config_Serial.Click_OpenOrClose(Object sender, EventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Views\Config\Communication\Config_Serial.cs:줄 574
+   위치: System.Windows.Forms.Control.OnClick(EventArgs e)
+   위치: System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   위치: System.Windows.Forms.Control.WndProc(Message& m)
+   위치: System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   위치: FrameOfSystem3.Program.Main() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 39
+
+######### OCCURRUNCE TIME : 09h 20m 02s 956ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: FrameOfSystem3.Config.ConfigSerial.Open(Int32 nIndexOfItem) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Config\ConfigSerial.cs:줄 180
+   위치: FrameOfSystem3.Views.Config.Config_Serial.Click_OpenOrClose(Object sender, EventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Views\Config\Communication\Config_Serial.cs:줄 574
+   위치: System.Windows.Forms.Control.OnClick(EventArgs e)
+   위치: System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   위치: System.Windows.Forms.Control.WndProc(Message& m)
+   위치: System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   위치: FrameOfSystem3.Program.Main() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 39
+
+######### OCCURRUNCE TIME : 09h 20m 15s 627ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: FrameOfSystem3.Config.ConfigSerial.Open(Int32 nIndexOfItem) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Config\ConfigSerial.cs:줄 180
+   위치: FrameOfSystem3.Views.Config.Config_Serial.Click_OpenOrClose(Object sender, EventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Views\Config\Communication\Config_Serial.cs:줄 574
+   위치: System.Windows.Forms.Control.OnClick(EventArgs e)
+   위치: System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   위치: System.Windows.Forms.Control.WndProc(Message& m)
+   위치: System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   위치: FrameOfSystem3.Program.Main() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 39
+
+######### OCCURRUNCE TIME : 09h 21m 09s 125ms
+### OCCURRED EXCEPTION : 'COM30' 포트에 대한 액세스가 거부되었습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: FrameOfSystem3.Config.ConfigSerial.Open(Int32 nIndexOfItem) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Config\ConfigSerial.cs:줄 180
+   위치: FrameOfSystem3.Views.Config.Config_Serial.Click_OpenOrClose(Object sender, EventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Views\Config\Communication\Config_Serial.cs:줄 574
+   위치: System.Windows.Forms.Control.OnClick(EventArgs e)
+   위치: System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   위치: System.Windows.Forms.Control.WndProc(Message& m)
+   위치: System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   위치: FrameOfSystem3.Program.Main() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 39
+
+######### OCCURRUNCE TIME : 09h 21m 10s 798ms
+### OCCURRED EXCEPTION : 'COM30' 포트에 대한 액세스가 거부되었습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: FrameOfSystem3.Config.ConfigSerial.Open(Int32 nIndexOfItem) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Config\ConfigSerial.cs:줄 180
+   위치: FrameOfSystem3.Views.Config.Config_Serial.Click_OpenOrClose(Object sender, EventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Views\Config\Communication\Config_Serial.cs:줄 574
+   위치: System.Windows.Forms.Control.OnClick(EventArgs e)
+   위치: System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   위치: System.Windows.Forms.Control.WndProc(Message& m)
+   위치: System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   위치: FrameOfSystem3.Program.Main() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 39
+
+######### OCCURRUNCE TIME : 09h 21m 18s 549ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: FrameOfSystem3.Config.ConfigSerial.Open(Int32 nIndexOfItem) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Config\ConfigSerial.cs:줄 180
+   위치: FrameOfSystem3.Views.Config.Config_Serial.Click_OpenOrClose(Object sender, EventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Views\Config\Communication\Config_Serial.cs:줄 574
+   위치: System.Windows.Forms.Control.OnClick(EventArgs e)
+   위치: System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   위치: System.Windows.Forms.Control.WndProc(Message& m)
+   위치: System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   위치: FrameOfSystem3.Program.Main() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 39
+

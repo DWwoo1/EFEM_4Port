@@ -1,0 +1,89 @@
+[14:23:27:574]	[OPER] ----- ChangeToFoup -----
+[14:23:28:587]	[OPER] ----- Result : Completed, Description : 
+[14:23:32:254]	[OPER] ----- ChangeToCassette -----
+[14:23:33:261]	[OPER] ----- Result : Completed, Description : 
+[14:29:53:305]	[OPER] ----- FindLoadingMode -----
+[14:29:53:306]	[OPER] ----- Result : Completed, Description : 
+[14:29:53:309]	[OPER] ----- ChangeToCassette -----
+[14:29:54:307]	[OPER] ----- Result : Completed, Description : 
+[14:29:54:308]	[OPER] ----- Initialize -----
+[14:29:55:309]	[OPER] ----- Result : Completed, Description : 
+[14:30:02:098]	[OPER] ----- FindLoadingMode -----
+[14:30:02:098]	[OPER] ----- Result : Completed, Description : 
+[14:30:02:099]	[OPER] ----- ChangeToCassette -----
+[14:30:03:098]	[OPER] ----- Result : Completed, Description : 
+[14:30:03:099]	[OPER] ----- Initialize -----
+[14:30:04:100]	[OPER] ----- Result : Completed, Description : 
+[14:41:34:656]	[OPER] ----- FindLoadingMode -----
+[14:41:34:657]	[OPER] ----- Result : Completed, Description : 
+[14:41:34:660]	[OPER] ----- ChangeToCassette -----
+[14:41:35:658]	[OPER] ----- Result : Completed, Description : 
+[14:41:35:658]	[OPER] ----- Initialize -----
+[14:41:36:659]	[OPER] ----- Result : Completed, Description : 
+[15:08:40:668]	[OPER] ----- Initialize -----
+[15:08:40:672]	[SEND] s00SET:RESET;
+[15:09:23:560]	[OPER] ----- Initialize -----
+[15:09:23:560]	[SEND] s00SET:RESET;
+[15:14:18:481]	[OPER] ----- ChangeToFoup -----
+[15:14:18:482]	[SEND] s00SET:RESET;
+[15:14:28:554]	[OPER] ----- Result : Timeout, Description : 
+[15:14:38:847]	[OPER] ----- ChangeToFoup -----
+[15:14:38:847]	[SEND] s00SET:RESET;
+[15:14:48:921]	[OPER] ----- Result : Timeout, Description : 
+[15:26:36:213]	[OPER] ----- Initialize -----
+[15:26:36:216]	[SEND] s00SET:RESET;
+[15:26:36:333]	[RECV] ACK:RESET
+[15:26:36:336]	[RECV] INF:RESET
+[15:26:36:521]	[SEND] s00MOV:ABORG;
+[15:26:36:628]	[RECV] ACK:ABORG
+[15:26:41:764]	[RECV] INF:ABORG
+[15:26:41:961]	[SEND] s00GET:STATE;
+[15:26:42:103]	[RECV] ACK:STATE/001000101011001C1100
+[15:26:42:163]	[OPER] ----- Result : Completed, Description : 
+[16:07:06:633]	[OPER] ----- Initialize -----
+[16:07:06:636]	[SEND] s00SET:RESET;
+[16:07:06:754]	[RECV] ACK:RESET
+[16:07:06:755]	[RECV] INF:RESET
+[16:07:06:942]	[SEND] s00MOV:ABORG;
+[16:07:07:050]	[RECV] ACK:ABORG
+[16:07:24:771]	[RECV] INF:ABORG
+[16:07:24:961]	[SEND] s00GET:STATE;
+[16:07:25:104]	[RECV] ACK:STATE/001000101011001C1100
+[16:07:25:162]	[OPER] ----- Result : Completed, Description : 
+[16:08:27:586]	[OPER] ----- Load -----
+[16:08:27:586]	[SEND] s00SET:RESET;
+[16:08:27:699]	[RECV] ACK:RESET
+[16:08:27:700]	[RECV] INF:RESET
+[16:08:27:889]	[SEND] s00GET:PARAM/SLN;
+[16:08:28:024]	[RECV] ACK:PARAM/SLN=+000013
+[16:08:28:191]	[SEND] s00MOV:CLDMP;
+[16:08:28:331]	[RECV] ACK:CLDMP
+[16:08:39:985]	[RECV] INF:CLDMP
+[16:08:40:178]	[SEND] s00GET:STATE;
+[16:08:40:322]	[RECV] ACK:STATE/00100011100111111100
+[16:08:40:480]	[SEND] s00GET:MAPRD;
+[16:08:40:612]	[RECV] ACK:MAPRD/1000000000001
+[16:08:40:681]	[OPER] ----- Result : Completed, Description : 
+[16:28:42:578]	[OPER] ----- Unload -----
+[16:28:42:583]	[SEND] s00SET:RESET;
+[16:28:42:699]	[RECV] ACK:RESET
+[16:28:42:700]	[RECV] INF:RESET
+[16:28:42:888]	[SEND] s00GET:PARAM/SLN;
+[16:28:43:025]	[RECV] ACK:PARAM/SLN=+000013
+[16:28:43:190]	[SEND] s00MOV:CULOD;
+[16:28:43:332]	[RECV] ACK:CULOD
+[16:28:53:173]	[RECV] INF:CULOD
+[16:28:53:365]	[SEND] s00GET:STATE;
+[16:28:53:508]	[RECV] ACK:STATE/001000101011001C1100
+[16:28:53:667]	[SEND] s00GET:MAPRD;
+[16:28:53:807]	[RECV] ACK:MAPRD/1000000000001
+[16:28:53:869]	[OPER] ----- Result : Completed, Description : 
+[16:29:02:266]	[RECV] INF:PODOF
+[16:29:03:217]	[RECV] INF:SMTON
+[16:30:40:646]	[OPER] ----- ChangeToFoup -----
+[16:30:40:647]	[SEND] s00SET:RESET;
+[16:30:40:760]	[RECV] ACK:RESET
+[16:30:40:761]	[RECV] INF:RESET
+[16:30:40:950]	[SEND] s00MOV:PINDW;
+[16:30:41:092]	[RECV] ACK:PINDW
+[16:30:50:722]	[OPER] ----- Result : Timeout, Description : 

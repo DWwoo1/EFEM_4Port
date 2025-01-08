@@ -1,0 +1,66 @@
+[11:25:48:424]	[OPER] ----- Initialize -----
+[11:25:48:424]	[SEND] RESET
+[11:25:48:473]	[RECV] A
+[11:25:48:474]	[RECV] O
+[11:25:48:477]	[SEND] HOM
+[11:25:48:517]	[RECV] A
+[11:26:05:802]	[RECV] O
+[11:26:05:805]	[SEND] STATUS
+[11:26:05:858]	[RECV] A
+[11:26:05:859]	[RECV] S4150142B
+[11:26:05:861]	[OPER] ----- Result : Completed, Description : 
+[11:26:05:862]	[OPER] ----- ChangeToFoup -----
+[11:26:05:862]	[SEND] RESET
+[11:26:05:904]	[RECV] A
+[11:26:05:905]	[RECV] O
+[11:26:05:908]	[SEND] OC_MODE OFF
+[11:26:05:956]	[RECV] A
+[11:26:05:957]	[RECV] O
+[11:26:05:960]	[SEND] STATUS
+[11:26:06:013]	[RECV] A
+[11:26:06:014]	[RECV] S4150142B
+[11:26:06:016]	[OPER] ----- Result : Completed, Description : 
+[11:29:00:288]	[OPER] ----- Initialize -----
+[11:29:00:288]	[SEND] RESET
+[11:29:00:336]	[RECV] A
+[11:29:00:337]	[RECV] O
+[11:29:00:341]	[SEND] HOM
+[11:29:00:380]	[RECV] A
+[11:29:17:660]	[RECV] O
+[11:29:17:663]	[SEND] STATUS
+[11:29:17:716]	[RECV] A
+[11:29:17:717]	[RECV] S4150142B
+[11:29:17:718]	[OPER] ----- Result : Completed, Description : 
+[11:29:17:719]	[OPER] ----- ChangeToFoup -----
+[11:29:17:719]	[SEND] RESET
+[11:29:17:761]	[RECV] A
+[11:29:17:762]	[RECV] O
+[11:29:17:765]	[SEND] OC_MODE OFF
+[11:29:17:813]	[RECV] A
+[11:29:17:814]	[RECV] O
+[11:29:17:817]	[SEND] STATUS
+[11:29:17:869]	[RECV] A
+[11:29:17:870]	[RECV] S4150142B
+[11:29:17:871]	[OPER] ----- Result : Completed, Description : 
+[11:35:09:675]	[OPER] ----- Initialize -----
+[11:35:09:675]	[SEND] RESET
+[11:35:09:724]	[RECV] A
+[11:35:09:725]	[RECV] O
+[11:35:09:728]	[SEND] HOM
+[11:35:09:771]	[RECV] A
+[11:35:27:050]	[RECV] O
+[11:35:27:053]	[SEND] STATUS
+[11:35:27:105]	[RECV] A
+[11:35:27:106]	[RECV] S4150142B
+[11:35:27:107]	[OPER] ----- Result : Completed, Description : 
+[11:35:27:108]	[OPER] ----- ChangeToFoup -----
+[11:35:27:108]	[SEND] RESET
+[11:35:27:150]	[RECV] A
+[11:35:27:151]	[RECV] O
+[11:35:27:154]	[SEND] OC_MODE OFF
+[11:35:27:202]	[RECV] A
+[11:35:27:203]	[RECV] O
+[11:35:27:207]	[SEND] STATUS
+[11:35:27:258]	[RECV] A
+[11:35:27:259]	[RECV] S4150142B
+[11:35:27:260]	[OPER] ----- Result : Completed, Description : 

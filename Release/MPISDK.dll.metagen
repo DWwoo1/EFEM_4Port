@@ -1,0 +1,248 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly MPISDK, Version=1.0.*, Culture=고정 언어(고정 국가): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly INIParser, Version=1.0.*, Culture=고정 언어(고정 국가): 
+	hash=None, flags=None
+Class MPISDK_.COMPENSATION_CONFIG_INFO: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 Control 'get ' : 
+    Int32 CompenIndex 'get ' : 
+  Methods:
+    get_CompenIndex(): PrivateScope, Public, HideBySig, SpecialName
+    get_Control(): PrivateScope, Public, HideBySig, SpecialName
+Class MPISDK_.COMPENSATION_INFO: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double[] Table 'get ' : 
+    Int32[] Distance 'get ' : 
+    Int32[] EndPosition 'get ' : 
+    Int32[] StartPosition 'get ' : 
+    Int32[] InputAxes 'get ' : 
+    Int32 Count 'get ' : 
+  Methods:
+    get_Count(): PrivateScope, Public, HideBySig, SpecialName
+    get_InputAxes(): PrivateScope, Public, HideBySig, SpecialName
+    get_StartPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_EndPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_Distance(): PrivateScope, Public, HideBySig, SpecialName
+    get_Table(): PrivateScope, Public, HideBySig, SpecialName
+    GetInputAxes(Int32[]&): PrivateScope, Public, HideBySig
+    GetAreaInfo(Int32[]&, Int32[]&, Int32[]&): PrivateScope, Public, HideBySig
+    GetTable(Double[]&): PrivateScope, Public, HideBySig
+    SetInfo(Int32[]&, Int32[]&, Int32[]&, Int32[]&, Double[,]&): PrivateScope, Public, HideBySig
+Class MPISDK_.MAPPED_AXIS_INFO: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 MappedAxis 'get ' : 
+    Int32 Control 'get ' : 
+    Int32 IndexOfMotion 'get ' : 
+  Methods:
+    get_IndexOfMotion(): PrivateScope, Public, HideBySig, SpecialName
+    get_Control(): PrivateScope, Public, HideBySig, SpecialName
+    get_MappedAxis(): PrivateScope, Public, HideBySig, SpecialName
+Class MPISDK_.SPEED_PARAM: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double dFinalVelocity 'get set' : 
+    Double dJerkDeceleration 'get set' : 
+    Double dJerkAcceleration 'get set' : 
+    Double dDeceleration 'get set' : 
+    Double dAcceleration 'get set' : 
+    Double dVelocity 'get set' : 
+  Methods:
+    get_dVelocity(): PrivateScope, Public, HideBySig, SpecialName
+    set_dVelocity(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dAcceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dAcceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dDeceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dDeceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dJerkAcceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dJerkAcceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dJerkDeceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dJerkDeceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dFinalVelocity(): PrivateScope, Public, HideBySig, SpecialName
+    set_dFinalVelocity(Double): PrivateScope, Public, HideBySig, SpecialName
+    op_Assign(SPEED_PARAM IsImplicitlyDereferenced IsConst): PrivateScope, Public, HideBySig, SpecialName
+Class MPISDK_.HOME_PARAM: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double dJerkDeceleration 'get set' : 
+    Double dJerkAcceleration 'get set' : 
+    Double dDeceleration 'get set' : 
+    Double dAcceleration 'get set' : 
+    Double dVelocity 'get set' : 
+    Double dAbsoluteHomePosition 'get set' : 
+    Double dHomeOffset 'get set' : 
+    Double dHomeBasePosition 'get set' : 
+    Double dHomeVelocityLast 'get set' : 
+    Double dHomeEscapeDist 'get set' : 
+    Boolean bHomeDirection 'get set' : 
+    Boolean bHomeLogic 'get set' : 
+    MPISDK_.CAPTURE_METHOD enFirstSensor 'get ' : 
+    MPISDK_.CAPTURE_METHOD enDedicatedIn 'get ' : 
+    MPISDK_.CAPTURE_EDGE enCaptureEdge 'get ' : 
+    Int32 nHomeMode 'set' : 
+  Methods:
+    set_nHomeMode(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_enCaptureEdge(): PrivateScope, Public, HideBySig, SpecialName
+    get_enDedicatedIn(): PrivateScope, Public, HideBySig, SpecialName
+    get_enFirstSensor(): PrivateScope, Public, HideBySig, SpecialName
+    get_bHomeLogic(): PrivateScope, Public, HideBySig, SpecialName
+    set_bHomeLogic(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bHomeDirection(): PrivateScope, Public, HideBySig, SpecialName
+    set_bHomeDirection(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_dHomeEscapeDist(): PrivateScope, Public, HideBySig, SpecialName
+    set_dHomeEscapeDist(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dHomeVelocityLast(): PrivateScope, Public, HideBySig, SpecialName
+    set_dHomeVelocityLast(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dHomeBasePosition(): PrivateScope, Public, HideBySig, SpecialName
+    set_dHomeBasePosition(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dHomeOffset(): PrivateScope, Public, HideBySig, SpecialName
+    set_dHomeOffset(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dAbsoluteHomePosition(): PrivateScope, Public, HideBySig, SpecialName
+    set_dAbsoluteHomePosition(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dVelocity(): PrivateScope, Public, HideBySig, SpecialName
+    set_dVelocity(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dAcceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dAcceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dDeceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dDeceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dJerkAcceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dJerkAcceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dJerkDeceleration(): PrivateScope, Public, HideBySig, SpecialName
+    set_dJerkDeceleration(Double): PrivateScope, Public, HideBySig, SpecialName
+    op_Assign(HOME_PARAM IsImplicitlyDereferenced IsConst): PrivateScope, Public, HideBySig, SpecialName
+Class MPISDK_.PARAM_CONFIG: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double dSWLimitPositionPositive 'get set' : 
+    Double dSWLimitPositionNegative 'get set' : 
+    Boolean bUseSecondaryIndex 'get set' : 
+    Boolean bUseServoOn 'get set' : 
+    Boolean bUseSWLimitPositive 'get set' : 
+    Boolean bUseSWLimitNegative 'get set' : 
+    Boolean bUseHWLimitPositive 'get set' : 
+    Boolean bUseHWLimitNegative 'get set' : 
+    Boolean bSWLimitStopModePositive 'get set' : 
+    Boolean bSWLimitStopModeNegative 'get set' : 
+    Boolean bHWLimitStopModePositive 'get set' : 
+    Boolean bHWLimitStopModeNegative 'get set' : 
+    Boolean bHWLimitLogicPositive 'get set' : 
+    Boolean bHWLimitLogicNegative 'get set' : 
+  Methods:
+    get_bHWLimitLogicNegative(): PrivateScope, Public, HideBySig, SpecialName
+    set_bHWLimitLogicNegative(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bHWLimitLogicPositive(): PrivateScope, Public, HideBySig, SpecialName
+    set_bHWLimitLogicPositive(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bHWLimitStopModeNegative(): PrivateScope, Public, HideBySig, SpecialName
+    set_bHWLimitStopModeNegative(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bHWLimitStopModePositive(): PrivateScope, Public, HideBySig, SpecialName
+    set_bHWLimitStopModePositive(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bSWLimitStopModeNegative(): PrivateScope, Public, HideBySig, SpecialName
+    set_bSWLimitStopModeNegative(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bSWLimitStopModePositive(): PrivateScope, Public, HideBySig, SpecialName
+    set_bSWLimitStopModePositive(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bUseHWLimitNegative(): PrivateScope, Public, HideBySig, SpecialName
+    set_bUseHWLimitNegative(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bUseHWLimitPositive(): PrivateScope, Public, HideBySig, SpecialName
+    set_bUseHWLimitPositive(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bUseSWLimitNegative(): PrivateScope, Public, HideBySig, SpecialName
+    set_bUseSWLimitNegative(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bUseSWLimitPositive(): PrivateScope, Public, HideBySig, SpecialName
+    set_bUseSWLimitPositive(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bUseServoOn(): PrivateScope, Public, HideBySig, SpecialName
+    set_bUseServoOn(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_bUseSecondaryIndex(): PrivateScope, Public, HideBySig, SpecialName
+    set_bUseSecondaryIndex(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_dSWLimitPositionNegative(): PrivateScope, Public, HideBySig, SpecialName
+    set_dSWLimitPositionNegative(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_dSWLimitPositionPositive(): PrivateScope, Public, HideBySig, SpecialName
+    set_dSWLimitPositionPositive(Double): PrivateScope, Public, HideBySig, SpecialName
+Class MPISDK_.AnalogIO_.MPIAnalogIO: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Methods:
+    GetInstance(): PrivateScope, Public, Static, HideBySig
+    InitController(): PrivateScope, Public, HideBySig
+    ExitController(): PrivateScope, Public, HideBySig
+    Release(): PrivateScope, Public, HideBySig
+    GetCountOfInputModule(): PrivateScope, Public, HideBySig
+    GetCountOfOutputModule(): PrivateScope, Public, HideBySig
+    GetCountOfInputChannel(Int32&): PrivateScope, Public, HideBySig
+    GetCountOfOutputChannel(Int32&): PrivateScope, Public, HideBySig
+    ReadInput(Int32&): PrivateScope, Public, HideBySig
+    ReadOutput(Int32&): PrivateScope, Public, HideBySig
+    WriteOutput(Int32&, Int32&): PrivateScope, Public, HideBySig
+    ReadInputAll(Int32&, Int32&, Int32[]&): PrivateScope, Public, HideBySig
+    ReadOutputAll(Int32&, Int32&, Int32[]&): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class MPISDK_.DigitalIO_.MPIDigitalIO: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Methods:
+    GetInstance(): PrivateScope, Public, Static, HideBySig
+    InitController(): PrivateScope, Public, HideBySig
+    ExitController(): PrivateScope, Public, HideBySig
+    Release(): PrivateScope, Public, HideBySig
+    GetCountOfInputModule(): PrivateScope, Public, HideBySig
+    GetCountOfOutputModule(): PrivateScope, Public, HideBySig
+    GetCountOfInputChannel(Int32&): PrivateScope, Public, HideBySig
+    GetCountOfOutputChannel(Int32&): PrivateScope, Public, HideBySig
+    WriteOutput(Int32&, Boolean&): PrivateScope, Public, HideBySig
+    ReadInput(Int32&): PrivateScope, Public, HideBySig
+    ReadOutput(Int32&): PrivateScope, Public, HideBySig
+    ReadInputAll(Int32&): PrivateScope, Public, HideBySig
+    ReadOutputAll(Int32&): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class MPISDK_.Motion_.MPIMotion: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Methods:
+    GetInstance(): PrivateScope, Public, Static, HideBySig
+    InitController(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    ExitController(): PrivateScope, Public, HideBySig
+    Release(): PrivateScope, Public, HideBySig
+    IsLinkConnected(): PrivateScope, Public, HideBySig
+    GetCountOfAxis(): PrivateScope, Public, HideBySig
+    SetGantry(Int32&, Int32&, Boolean&, Boolean&): PrivateScope, Public, HideBySig
+    GetMotorStateAll(Int32&, Int32[]&, Double[]&, Double[]&): PrivateScope, Public, HideBySig
+    isMotionDone(Int32&): PrivateScope, Public, HideBySig
+    isHomeDone(Int32&): PrivateScope, Public, HideBySig
+    isMotorOn(Int32&): PrivateScope, Public, HideBySig
+    DoMotorOn(Int32&, Boolean&): PrivateScope, Public, HideBySig
+    DoReset(Int32&): PrivateScope, Public, HideBySig
+    ClearPosition(Int32&): PrivateScope, Public, HideBySig
+    SetActualPosition(Int32&, Double&): PrivateScope, Public, HideBySig
+    GetActualPosition(Int32&): PrivateScope, Public, HideBySig
+    GetActualPositionAll(Int32&, Double[]&): PrivateScope, Public, HideBySig
+    SetCommandPosition(Int32&, Double&): PrivateScope, Public, HideBySig
+    GetCommandPosition(Int32&): PrivateScope, Public, HideBySig
+    GetCommandPositionAll(Int32&, Double[]&): PrivateScope, Public, HideBySig
+    GetPrimaryFeedback(Int32&): PrivateScope, Public, HideBySig
+    GetPositionError(Int32&): PrivateScope, Public, HideBySig
+    SetMotorConfig(Int32&, PARAM_CONFIG&): PrivateScope, Public, HideBySig
+    SetMotorSpeed(Int32&, SPEED_PARAM&): PrivateScope, Public, HideBySig
+    SetMotorHomeSpeed(Int32&, HOME_PARAM&): PrivateScope, Public, HideBySig
+    SetGainTable(Int32&, Int32&): PrivateScope, Public, HideBySig
+    MoveToHome(Int32&, Int32&, Int32&): PrivateScope, Public, HideBySig
+    MoveAbsolutely(Int32&, Double&): PrivateScope, Public, HideBySig
+    MoveRelatively(Int32&, Double&): PrivateScope, Public, HideBySig
+    MoveByList(Int32&, Int32&, Double[]&, SPEED_PARAM[]&): PrivateScope, Public, HideBySig
+    MoveByLinearCoordination(Int32&, Int32[], Int32&, Double[,], SPEED_PARAM[]): PrivateScope, Public, HideBySig
+    MoveAtSpeed(Int32&, Boolean&): PrivateScope, Public, HideBySig
+    OverrideSpeed(Int32&, SPEED_PARAM&): PrivateScope, Public, HideBySig
+    MoveCompare(Int32&, Double&, Int32&, Double&, Boolean&, Boolean&): PrivateScope, Public, HideBySig
+    MoveUntilTouch(Int32&, Int32&, Double&, Int32&, Double&, Boolean&, Double&, Double&): PrivateScope, Public, HideBySig
+    MovePVT(Int32&, Double[]&, Double[]&, Double[]&): PrivateScope, Public, HideBySig
+    StopMotion(Int32&, Boolean&): PrivateScope, Public, HideBySig
+    SetCompensationInfo(Int32[]&, Int32[]&, Int32[]&, Int32[]&, Double[,]&, Double[,]&): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

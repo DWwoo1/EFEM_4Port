@@ -1,0 +1,113 @@
+######### OCCURRUNCE TIME : 09h 42m 08s 394ms
+### OCCURRED EXCEPTION : 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   위치: SSocketItem_.SocketItem.ReceiveCallback(IAsyncResult ar)
+   위치: System.Net.LazyAsyncResult.Complete(IntPtr userToken)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   위치: System.Net.ContextAwareResult.Complete(IntPtr userToken)
+   위치: System.Net.LazyAsyncResult.ProtectedInvokeCallback(Object result, IntPtr userToken)
+   위치: System.Net.Sockets.BaseOverlappedAsyncResult.CompletionPortCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
+   위치: System.Threading._IOCompletionCallback.PerformIOCompletionCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* pOVERLAP)
+
+######### OCCURRUNCE TIME : 09h 43m 16s 956ms
+### OCCURRED EXCEPTION : 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   위치: SSocketItem_.SocketItem.ReceiveCallback(IAsyncResult ar)
+   위치: System.Net.LazyAsyncResult.Complete(IntPtr userToken)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   위치: System.Net.ContextAwareResult.Complete(IntPtr userToken)
+   위치: System.Net.LazyAsyncResult.ProtectedInvokeCallback(Object result, IntPtr userToken)
+   위치: System.Net.Sockets.BaseOverlappedAsyncResult.CompletionPortCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
+   위치: System.Threading._IOCompletionCallback.PerformIOCompletionCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* pOVERLAP)
+
+######### OCCURRUNCE TIME : 09h 48m 21s 351ms
+### OCCURRED EXCEPTION : 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   위치: SSocketItem_.SocketItem.ReceiveCallback(IAsyncResult ar)
+   위치: System.Net.LazyAsyncResult.Complete(IntPtr userToken)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   위치: System.Net.ContextAwareResult.Complete(IntPtr userToken)
+   위치: System.Net.LazyAsyncResult.ProtectedInvokeCallback(Object result, IntPtr userToken)
+   위치: System.Net.Sockets.BaseOverlappedAsyncResult.CompletionPortCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
+   위치: System.Threading._IOCompletionCallback.PerformIOCompletionCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* pOVERLAP)
+
+######### OCCURRUNCE TIME : 09h 54m 09s 055ms
+### OCCURRED EXCEPTION : 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   위치: SSocketItem_.SocketItem.ReceiveCallback(IAsyncResult ar)
+   위치: System.Net.LazyAsyncResult.Complete(IntPtr userToken)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   위치: System.Net.ContextAwareResult.Complete(IntPtr userToken)
+   위치: System.Net.LazyAsyncResult.ProtectedInvokeCallback(Object result, IntPtr userToken)
+   위치: System.Net.Sockets.BaseOverlappedAsyncResult.CompletionPortCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
+   위치: System.Threading._IOCompletionCallback.PerformIOCompletionCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* pOVERLAP)
+
+######### OCCURRUNCE TIME : 10h 01m 49s 163ms
+### OCCURRED EXCEPTION : 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   위치: SSocketItem_.SocketItem.ReceiveCallback(IAsyncResult ar)
+   위치: System.Net.LazyAsyncResult.Complete(IntPtr userToken)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   위치: System.Net.ContextAwareResult.Complete(IntPtr userToken)
+   위치: System.Net.LazyAsyncResult.ProtectedInvokeCallback(Object result, IntPtr userToken)
+   위치: System.Net.Sockets.BaseOverlappedAsyncResult.CompletionPortCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
+   위치: System.Threading._IOCompletionCallback.PerformIOCompletionCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* pOVERLAP)
+
+######### OCCURRUNCE TIME : 10h 16m 01s 007ms
+### OCCURRED EXCEPTION : 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   위치: SSocketItem_.SocketItem.ReceiveCallback(IAsyncResult ar)
+   위치: System.Net.LazyAsyncResult.Complete(IntPtr userToken)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   위치: System.Net.ContextAwareResult.Complete(IntPtr userToken)
+   위치: System.Net.LazyAsyncResult.ProtectedInvokeCallback(Object result, IntPtr userToken)
+   위치: System.Net.Sockets.BaseOverlappedAsyncResult.CompletionPortCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
+   위치: System.Threading._IOCompletionCallback.PerformIOCompletionCallback(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* pOVERLAP)
+
+######### OCCURRUNCE TIME : 14h 16m 33s 138ms
+### OCCURRED EXCEPTION : 길이는 0보다 작을 수 없습니다.
+매개 변수 이름: length
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.String.Substring(Int32 startIndex, Int32 length)
+   위치: System3Log.Main.LogParser.ParseDataToLog(String& strLog, LogData& logData)
+   위치: System3Log.Main.LogMain.FunctionForAddLogTimer(Object sender, ElapsedEventArgs e)
+   위치: System.Timers.Timer.MyTimerCallback(Object state)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.TimerQueueTimer.CallCallback()
+   위치: System.Threading.TimerQueueTimer.Fire()
+   위치: System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+   위치: System.Threading.ThreadPoolWorkQueue.Dispatch()
+

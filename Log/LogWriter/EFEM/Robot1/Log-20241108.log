@@ -1,0 +1,128 @@
+[14:29:52:296]	[OPER] ----- Initialize -----
+[14:29:53:298]	[OPER] ----- Result : Completed, Description : 
+[14:30:01:096]	[OPER] ----- Initialize -----
+[14:30:02:096]	[OPER] ----- Result : Completed, Description : 
+[14:41:33:646]	[OPER] ----- Initialize -----
+[14:41:34:649]	[OPER] ----- Result : Completed, Description : 
+[15:30:23:377]	[OPER] ----- Initialize -----
+[15:30:23:382]	[SEND] SON
+[15:30:23:535]	[RECV] ACK
+[15:30:23:792]	[SEND] RESET
+[15:30:23:998]	[RECV] ACK
+[15:30:24:195]	[SEND] HOME
+[15:31:36:407]	[OPER] ----- Initialize -----
+[15:31:36:407]	[SEND] SON
+[15:31:36:557]	[RECV] ACK
+[15:31:36:810]	[SEND] RESET
+[15:31:37:027]	[RECV] ACK
+[15:31:37:213]	[SEND] HOME
+[15:32:39:481]	[OPER] ----- Grip -----
+[15:32:39:583]	[SEND] ACT ON U
+[15:32:39:727]	[RECV] ACK
+[15:32:39:786]	[OPER] ----- Result : Completed, Description : 
+[15:32:48:317]	[OPER] ----- Grip -----
+[15:32:48:417]	[SEND] ACT ON U
+[15:32:48:556]	[RECV] ACK
+[15:32:48:619]	[OPER] ----- Result : Completed, Description : 
+[15:32:54:067]	[OPER] ----- GetWaferPresence -----
+[15:35:51:553]	[OPER] ----- Initialize -----
+[15:35:58:008]	[SEND] SON
+[15:35:58:150]	[RECV] ACK
+[15:35:58:415]	[SEND] RESET
+[15:35:58:627]	[RECV] ACK
+[15:35:58:818]	[SEND] HOME
+[15:36:37:285]	[OPER] ----- AmpOn -----
+[15:36:37:387]	[SEND] SON
+[15:36:37:524]	[RECV] ACK
+[15:36:37:588]	[OPER] ----- Result : Completed, Description : 
+[15:36:53:002]	[OPER] ----- ClearError -----
+[15:36:53:104]	[SEND] RESET
+[15:36:53:330]	[RECV] ACK
+[15:36:53:406]	[OPER] ----- Result : Completed, Description : 
+[15:36:57:859]	[OPER] ----- Initialize -----
+[15:36:57:859]	[SEND] SON
+[15:36:58:005]	[RECV] ACK
+[15:37:04:533]	[SEND] RESET
+[15:37:04:751]	[RECV] ACK
+[15:37:04:936]	[SEND] HOME
+[15:40:54:859]	[OPER] ----- AmpOn -----
+[15:40:54:960]	[SEND] SON
+[15:40:55:101]	[RECV] _ERR 1000
+[15:41:27:650]	[OPER] ----- ClearError -----
+[15:41:27:751]	[SEND] RESET
+[15:41:27:972]	[RECV] ACK
+[15:41:28:054]	[OPER] ----- Result : Completed, Description : 
+[15:41:36:999]	[OPER] ----- AmpOn -----
+[15:41:37:100]	[SEND] SON
+[15:41:37:221]	[RECV] ACK
+[15:41:37:301]	[OPER] ----- Result : Completed, Description : 
+[15:41:42:617]	[OPER] ----- Initialize -----
+[15:41:42:617]	[SEND] SON
+[15:41:42:746]	[RECV] ACK
+[15:41:43:020]	[SEND] RESET
+[15:41:43:247]	[RECV] ACK
+[15:41:43:423]	[SEND] HOME
+[15:42:20:965]	[OPER] ----- Initialize -----
+[15:42:20:965]	[SEND] SON
+[15:42:21:104]	[RECV] ACK
+[15:42:21:368]	[SEND] RESET
+[15:42:21:574]	[RECV] ACK
+[15:42:21:770]	[SEND] HOME
+[15:42:57:448]	[OPER] ----- Grip -----
+[15:42:57:552]	[SEND] ACT ON U
+[15:42:57:699]	[RECV] ACK
+[15:42:57:754]	[OPER] ----- Result : Completed, Description : 
+[16:08:49:958]	[OPER] ----- AmpOn -----
+[16:08:50:061]	[SEND] SON
+[16:08:50:197]	[RECV] ACK
+[16:08:50:266]	[OPER] ----- Result : Completed, Description : 
+[16:09:01:240]	[OPER] ----- Initialize -----
+[16:09:01:242]	[SEND] SON
+[16:09:01:396]	[RECV] ACK
+[16:09:01:646]	[SEND] RESET
+[16:09:01:847]	[RECV] ACK
+[16:09:02:048]	[SEND] HOME
+[16:09:49:507]	[OPER] ----- ApproachForPick, Arm : UpperArm, Location : LP4.05 -----
+[16:09:49:609]	[SEND] GOTO 10 SLOT 6 ARM U R G1
+[16:10:02:275]	[RECV] DONE
+[16:10:02:299]	[OPER] ----- Result : Completed, Description : 
+[16:10:49:079]	[OPER] ----- Pick, Arm : UpperArm, Location : LP6.00 -----
+[16:10:49:483]	[SEND] PICK 12 SLOT 1 ARM U
+[16:10:59:250]	[RECV] _ERR 2015
+[16:12:28:722]	[OPER] ----- AmpOn -----
+[16:12:28:823]	[SEND] SON
+[16:12:28:975]	[RECV] ACK
+[16:12:29:024]	[OPER] ----- Result : Completed, Description : 
+[16:12:45:206]	[OPER] ----- Initialize -----
+[16:12:45:206]	[SEND] SON
+[16:12:45:341]	[RECV] ACK
+[16:12:45:609]	[SEND] RESET
+[16:12:45:821]	[RECV] ACK
+[16:12:46:012]	[SEND] HOME
+[16:12:46:141]	[RECV] _ERR 1042
+[16:14:02:322]	[OPER] ----- ClearError -----
+[16:14:02:424]	[SEND] RESET
+[16:14:02:646]	[RECV] ACK
+[16:14:02:726]	[OPER] ----- Result : Completed, Description : 
+[16:14:10:244]	[OPER] ----- AmpOn -----
+[16:14:10:345]	[SEND] SON
+[16:14:10:492]	[RECV] ACK
+[16:14:10:546]	[OPER] ----- Result : Completed, Description : 
+[16:14:16:164]	[OPER] ----- Initialize -----
+[16:14:16:164]	[SEND] SON
+[16:14:16:318]	[RECV] ACK
+[16:14:16:567]	[SEND] RESET
+[16:14:16:799]	[RECV] ACK
+[16:14:16:970]	[SEND] HOME
+[16:15:19:312]	[OPER] ----- Pick, Arm : UpperArm, Location : LP6.00 -----
+[16:15:19:715]	[SEND] PICK 6 SLOT 1 ARM U
+[16:15:30:469]	[RECV] DONE
+[16:15:30:489]	[OPER] ----- Result : Completed, Description : 
+[16:15:53:875]	[OPER] ----- Place, Arm : UpperArm, Location : LP6.00 -----
+[16:15:54:078]	[SEND] PLACE 6 SLOT 1 ARM U
+[16:16:03:691]	[RECV] DONE
+[16:16:03:740]	[OPER] ----- Result : Completed, Description : 
+[17:10:24:501]	[OPER] ----- ClearError -----
+[17:10:24:605]	[SEND] RESET
+[17:10:24:836]	[RECV] ACK
+[17:10:24:915]	[OPER] ----- Result : Completed, Description : 

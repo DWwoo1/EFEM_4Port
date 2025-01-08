@@ -1,0 +1,13 @@
+>> FileVersion 1.0.0.0
+GROUP LoadPort6
+	Possible = True
+	MapInfoName = 
+	MapInfoPath = 
+	PortStatus_1 = EMPTY
+	PortStatus_2 = EMPTY
+	PortStatus_3 = EMPTY
+	PortStatus_4 = EMPTY
+	PortStatus_5 = EMPTY
+	PortStatus_6 = EMPTY
+	AccessStatus = NotAccessed
+END

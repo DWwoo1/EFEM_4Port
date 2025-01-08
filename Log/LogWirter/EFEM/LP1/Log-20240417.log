@@ -1,0 +1,33 @@
+[15:53:37:814]	[OPER] ----- Initialize -----
+[15:53:38:816]	[OPER] ----- Result : Completed, Description : 
+[15:53:38:819]	[OPER] ----- ChangeToFoup -----
+[15:53:39:819]	[OPER] ----- Result : Completed, Description : 
+[15:55:42:257]	[OPER] ----- Clamp -----
+[15:55:43:257]	[OPER] ----- Result : Completed, Description : 
+[15:55:43:265]	[OPER] ----- Load -----
+[15:55:50:827]	[OPER] ----- Result : Completed, Description : 
+[20:44:27:039]	[RECV] C00010000
+[20:44:27:040]	[RECV] C00000020
+[20:44:27:041]	[RECV] C01000000
+[20:51:44:670]	[OPER] ----- Initialize -----
+[20:51:44:672]	[SEND] RESET
+[20:51:44:716]	[RECV] A
+[20:51:44:718]	[RECV] O
+[20:51:44:725]	[SEND] HOM
+[20:51:44:763]	[RECV] A
+[20:52:02:501]	[RECV] O
+[20:52:02:504]	[SEND] STATUS
+[20:52:02:556]	[RECV] A
+[20:52:02:557]	[RECV] S4150142B
+[20:52:02:558]	[OPER] ----- Result : Completed, Description : 
+[20:52:02:559]	[OPER] ----- ChangeToFoup -----
+[20:52:02:559]	[SEND] RESET
+[20:52:02:600]	[RECV] A
+[20:52:02:601]	[RECV] O
+[20:52:02:604]	[SEND] OC_MODE OFF
+[20:52:02:653]	[RECV] A
+[20:52:02:654]	[RECV] O
+[20:52:02:658]	[SEND] STATUS
+[20:52:02:710]	[RECV] A
+[20:52:02:711]	[RECV] S4150142B
+[20:52:02:712]	[OPER] ----- Result : Completed, Description : 

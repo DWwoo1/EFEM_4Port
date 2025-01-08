@@ -1,0 +1,112 @@
+[11:39:48:263]	[OPER] ----- Initialize -----
+[11:40:05:412]	[OPER] ----- Initialize -----
+[11:41:59:895]	[OPER] ----- Initialize -----
+[11:41:59:900]	[SEND] RESET
+[11:42:04:898]	[OPER] ----- Result : Timeout, Description : 
+[11:44:29:428]	[OPER] ----- Initialize -----
+[11:44:29:428]	[SEND] RESET
+[11:44:34:429]	[OPER] ----- Result : Timeout, Description : 
+[11:45:12:424]	[OPER] ----- Initialize -----
+[11:45:18:273]	[SEND] RESET
+[11:45:31:448]	[OPER] ----- Result : Timeout, Description : 
+[11:48:07:927]	[OPER] ----- Initialize -----
+[11:48:11:189]	[SEND] RESET
+[11:48:11:335]	[RECV] _ERR 1000
+[11:48:12:927]	[OPER] ----- Result : Timeout, Description : 
+[11:48:59:602]	[OPER] ----- Initialize -----
+[11:48:59:603]	[SEND] RQ STATUS
+[11:48:59:760]	[RECV] 0000110010100110
+[11:49:04:602]	[OPER] ----- Result : Timeout, Description : 
+[11:52:19:980]	[OPER] ----- Initialize -----
+[11:52:19:986]	[SEND] HOME
+[11:52:20:132]	[RECV] _ERR 1000
+[11:53:04:986]	[OPER] ----- Result : Timeout, Description : 
+[11:55:01:393]	[OPER] ----- Initialize -----
+[11:55:01:397]	[SEND] SON
+[11:55:01:557]	[RECV] ACK
+[11:55:06:397]	[OPER] ----- Result : Timeout, Description : 
+[11:57:19:783]	[OPER] ----- Initialize -----
+[11:57:19:783]	[SEND] SON
+[11:57:19:930]	[RECV] ACK
+[11:57:24:785]	[OPER] ----- Result : Timeout, Description : 
+[11:57:54:454]	[OPER] ----- Initialize -----
+[11:57:54:456]	[SEND] SON
+[11:57:54:603]	[RECV] ACK
+[11:57:59:456]	[OPER] ----- Result : Timeout, Description : 
+[11:58:57:179]	[OPER] ----- Initialize -----
+[11:58:57:179]	[SEND] SON
+[11:58:57:334]	[RECV] ACK
+[11:59:02:183]	[OPER] ----- Result : Timeout, Description : 
+[11:59:14:569]	[OPER] ----- Initialize -----
+[11:59:14:569]	[SEND] SON
+[11:59:14:709]	[RECV] ACK
+[11:59:19:571]	[OPER] ----- Result : Timeout, Description : 
+[11:59:54:307]	[OPER] ----- Initialize -----
+[11:59:54:308]	[SEND] SON
+[11:59:54:459]	[RECV] ACK
+[12:01:16:429]	[SEND] HOME
+[12:01:16:572]	[OPER] ----- Result : Timeout, Description : 
+[12:01:17:727]	[RECV] DONE
+[12:01:33:878]	[OPER] ----- Initialize -----
+[12:01:33:878]	[SEND] SON
+[12:01:34:034]	[RECV] ACK
+[12:01:34:039]	[SEND] HOME
+[12:01:35:325]	[RECV] DONE
+[12:01:35:326]	[OPER] ----- Result : Completed, Description : 
+[12:01:51:706]	[OPER] ----- AmpOff -----
+[12:01:51:808]	[SEND] SOFF
+[12:01:51:951]	[RECV] ACK
+[12:02:19:296]	[OPER] ----- Result : Timeout, Description : 
+[12:02:33:500]	[OPER] ----- AmpOff -----
+[12:02:33:601]	[SEND] SOFF
+[12:02:33:751]	[RECV] ACK
+[12:02:48:368]	[OPER] ----- Result : Completed, Description : 
+[12:02:51:797]	[OPER] ----- AmpOn -----
+[12:02:51:899]	[SEND] SON
+[12:02:52:058]	[RECV] ACK
+[12:02:52:100]	[OPER] ----- Result : Completed, Description : 
+[12:02:54:213]	[OPER] ----- AmpOff -----
+[12:02:54:314]	[SEND] SOFF
+[12:02:54:450]	[RECV] ACK
+[12:02:54:515]	[OPER] ----- Result : Completed, Description : 
+[12:02:58:712]	[OPER] ----- Initialize -----
+[12:02:58:712]	[SEND] SON
+[12:02:58:855]	[RECV] ACK
+[12:02:59:115]	[SEND] HOME
+[12:03:00:407]	[RECV] DONE
+[12:03:00:425]	[OPER] ----- Result : Completed, Description : 
+[12:03:08:002]	[OPER] ----- Grip -----
+[12:03:08:104]	[SEND] ACT ON U
+[12:03:58:468]	[OPER] ----- Ungrip -----
+[12:03:58:570]	[SEND] ACT OFF U
+[12:03:58:713]	[RECV] _ERR 1001
+[12:04:56:817]	[OPER] ----- Grip -----
+[12:04:56:917]	[SEND] ACT ON U
+[12:04:57:058]	[RECV] ACK
+[12:06:03:886]	[OPER] ----- Grip -----
+[12:06:03:987]	[SEND] ACT ON U
+[12:06:04:133]	[RECV] ACK
+[12:06:04:188]	[OPER] ----- Result : Completed, Description : 
+[12:06:06:521]	[OPER] ----- Ungrip -----
+[12:06:06:622]	[SEND] ACT OFF U
+[12:06:06:755]	[RECV] ACK
+[12:06:06:824]	[OPER] ----- Result : Completed, Description : 
+[12:06:09:189]	[OPER] ----- ClearError -----
+[12:06:09:290]	[SEND] RESET
+[12:06:09:508]	[RECV] ACK
+[12:07:01:379]	[OPER] ----- ClearError -----
+[12:07:01:480]	[SEND] RESET
+[12:07:01:707]	[RECV] ACK
+[12:07:01:783]	[OPER] ----- Result : Completed, Description : 
+[12:07:07:407]	[OPER] ----- Initialize -----
+[12:07:07:407]	[SEND] SON
+[12:07:07:553]	[RECV] ACK
+[12:07:07:810]	[SEND] HOME
+[12:07:09:075]	[RECV] DONE
+[12:07:09:117]	[OPER] ----- Result : Completed, Description : 
+[12:08:30:733]	[OPER] ----- ApproachForPick, Arm : UpperArm, Location : LP1.00 -----
+[12:08:30:835]	[SEND] GOTO 7 SLOT 1 ARM U R G1
+[12:08:51:103]	[RECV] DONE
+[12:08:51:168]	[OPER] ----- Result : Completed, Description : 
+[17:44:54:855]	[OPER] ----- Initialize -----
+[17:50:16:960]	[OPER] ----- Initialize -----

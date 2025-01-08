@@ -1,0 +1,507 @@
+######### OCCURRUNCE TIME : 08h 09m 28s 446ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 09m 38s 466ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 09m 48s 488ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 22m 28s 386ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 22m 38s 439ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 22m 48s 449ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 36m 18s 573ms
+### OCCURRED EXCEPTION : 'D:\PROJECT\PROGRAM\EFEM_4Port\Release\MotionInterpolation\X1_Y2.itp' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   위치: System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   위치: System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   위치: System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   위치: System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   위치: System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   위치: FileIOManager_.FileIOManager.Execute()
+
+######### OCCURRUNCE TIME : 08h 36m 18s 918ms
+### OCCURRED EXCEPTION : 지정한 키가 사전에 없습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.ThrowHelper.ThrowKeyNotFoundException()
+   위치: System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   위치: EFEM.Defines.Common.AsyncLoggerForEFEM.CleanUpLogsAsync(LogTypes typeOfLog) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\EfemCommon.cs:줄 490
+   위치: EFEM.Defines.Common.AsyncLoggerForEFEM.<ProcessLogsAsync>d__22.MoveNext() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\EfemCommon.cs:줄 438
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Runtime.CompilerServices.AsyncMethodBuilderCore.MoveNextRunner.Run()
+   위치: System.Runtime.CompilerServices.AsyncMethodBuilderCore.<>c__DisplayClass4_0.<OutputAsyncCausalityEvents>b__0()
+   위치: System.Runtime.CompilerServices.TaskAwaiter.<>c__DisplayClass11_0.<OutputWaitEtwEvents>b__0()
+   위치: System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(Action action, Boolean allowInlining, Task& currentTask)
+   위치: System.Threading.Tasks.Task.FinishContinuations()
+   위치: System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   위치: System.Threading.Tasks.Task.DelayPromise.Complete()
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.TimerQueueTimer.CallCallback()
+   위치: System.Threading.TimerQueueTimer.Fire()
+   위치: System.Threading.TimerQueue.FireNextTimers()
+
+######### OCCURRUNCE TIME : 08h 36m 27s 560ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 36m 37s 569ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 08h 36m 47s 580ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 38m 57s 868ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 39m 07s 885ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 39m 17s 938ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 42m 52s 309ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 43m 02s 326ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 43m 12s 354ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 51m 19s 653ms
+### OCCURRED EXCEPTION : 'D:\PROJECT\PROGRAM\EFEM_4Port\Release\MotionInterpolation\X1_Y2.itp' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   위치: System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   위치: System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   위치: System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   위치: System.IO.StreamReader..ctor(String path, Encoding encoding)
+   위치: FileIOManager_.FileIOManager.Read(String strDirectoryPath, String strFileName, String& strFileData, UInt32 nExpiredTimeToRead, Encoding encode)
+   위치: FrameOfSystem3.Config.ConfigMotion.LoadInterpolationData(Int32 nIndexOfItemX, Int32 nIndexOfItemY, MOTION_INTERPOLATION enInterpolation) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Config\ConfigMotion.cs:줄 1530
+   위치: FrameOfSystem3.Config.ConfigMotion.Init() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Config\ConfigMotion.cs:줄 231
+   위치: FrameOfSystem3.Functional.Initializer.DoInitializeSequence() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 692
+   위치: FrameOfSystem3.Task.TaskOperator.DoUndefinedSequence() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Task\TaskOperator.cs:줄 96
+   위치: RunningMain_.RunningMain.DoUndefined()
+   위치: RunningMain_.RunningMain.Execute()
+
+######### OCCURRUNCE TIME : 11h 51m 28s 766ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 51m 38s 785ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 11h 51m 48s 801ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 16h 48m 26s 324ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 16h 48m 36s 332ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 16h 48m 46s 341ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 16h 53m 44s 323ms
+### OCCURRED EXCEPTION : 'D:\PROJECT\PROGRAM\EFEM_4Port\Log\TemporaryLog.txt' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   위치: System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   위치: System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   위치: System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   위치: System.IO.StreamReader..ctor(String path, Encoding encoding)
+   위치: FileIOManager_.FileIOManager.Read(String strDirectoryPath, String strFileName, String& strFileData, UInt32 nExpiredTimeToRead, Encoding encode)
+   위치: FrameOfSystem3.Log.LogManager.LoadTemporaryLog() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Log\Log.cs:줄 314
+   위치: FrameOfSystem3.Log.LogManager.WriteLogThroughSocket(Object sender) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Log\Log.cs:줄 287
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.TimerQueueTimer.CallCallback()
+   위치: System.Threading.TimerQueueTimer.Fire()
+   위치: System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+   위치: System.Threading.ThreadPoolWorkQueue.Dispatch()
+
+######### OCCURRUNCE TIME : 16h 53m 44s 324ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 16h 53m 54s 334ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+
+######### OCCURRUNCE TIME : 16h 54m 04s 341ms
+### OCCURRED EXCEPTION : 시스템 리소스가 부족하기 때문에 요청한 서비스를 완성할 수 없습니다.
+
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Program.cs:줄 86
+   위치: System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   위치: System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   위치: System.IO.Ports.SerialPort.Open()
+   위치: Serial_.SerialItem.Open()
+   위치: Serial_.Serial.Open(Int32 nIndexOfItem)
+   위치: EFEM.Defines.Communicator.Connection.ConnectionSerial.Connect() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 208
+   위치: EFEM.Defines.Communicator.Communicator.OpenPort() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\EFEM Modules\Defines\Communicator.cs:줄 51
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.RetryConnectIfNeed() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 69
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitController.Monitoring() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs:줄 91
+   위치: FrameOfSystem3.ExternalDevice.Serial.FanFilterUnit.FanFilterUnitManager.Execute() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs:줄 167
+   위치: FrameOfSystem3.Functional.Initializer.ExecuteForETC() 파일 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\Functional\Initializer.cs:줄 250
+

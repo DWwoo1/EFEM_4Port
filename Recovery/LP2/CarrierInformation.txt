@@ -1,0 +1,18 @@
+>> FileVersion 1.0.0.0
+GROUP CarrierAttributeInformation
+	LoadTime = 
+	CarrierId = 
+	CarrierAccessStatus = 
+	CarrierIdReadCompletion = 
+	LotInfoCompletion = 
+	StepSeq = 
+	LotType = 
+	PartId = 
+	RecipeId = 
+	SlotInfoCompletion = 
+	TrackInCompletion = 
+	SlotMappingCompletion = 
+	LotMergeCompletion = 
+	LotIdChangeCompletion = 
+	UnloadTime = 
+END

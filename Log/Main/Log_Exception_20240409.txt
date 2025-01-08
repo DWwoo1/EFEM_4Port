@@ -1,0 +1,17 @@
+######### OCCURRUNCE TIME : 13h 55m 35s 858ms
+### OCCURRED EXCEPTION : 길이는 0보다 작을 수 없습니다.
+매개 변수 이름: length
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: System3Log.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e)
+   위치: System.String.Substring(Int32 startIndex, Int32 length)
+   위치: System3Log.Main.LogParser.ParseDataToLog(String& strLog, LogData& logData)
+   위치: System3Log.Main.LogMain.FunctionForAddLogTimer(Object sender, ElapsedEventArgs e)
+   위치: System.Timers.Timer.MyTimerCallback(Object state)
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.TimerQueueTimer.CallCallback()
+   위치: System.Threading.TimerQueueTimer.Fire()
+   위치: System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+   위치: System.Threading.ThreadPoolWorkQueue.Dispatch()
+

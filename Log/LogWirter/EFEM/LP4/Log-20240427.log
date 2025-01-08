@@ -1,0 +1,90 @@
+[14:46:20:096]	[OPER] ----- Initialize -----
+[14:46:20:096]	[SEND] RESET
+[14:46:20:143]	[RECV] A
+[14:46:20:144]	[RECV] O
+[14:46:20:147]	[SEND] HOM
+[14:46:20:192]	[RECV] A
+[14:46:32:067]	[RECV] O
+[14:46:32:070]	[SEND] STATUS
+[14:46:32:121]	[RECV] A
+[14:46:32:122]	[RECV] S7350142B
+[14:46:32:123]	[OPER] ----- Result : Completed, Description : 
+[14:46:32:124]	[OPER] ----- ChangeToCassette -----
+[14:46:32:124]	[SEND] RESET
+[14:46:32:166]	[RECV] A
+[14:46:32:167]	[RECV] O
+[14:46:32:170]	[SEND] OC_MODE ON
+[14:46:32:217]	[RECV] A
+[14:46:32:218]	[RECV] O
+[14:46:32:222]	[SEND] STATUS
+[14:46:32:274]	[RECV] A
+[14:46:32:275]	[RECV] S7350142B
+[14:46:32:276]	[OPER] ----- Result : Completed, Description : 
+[15:00:35:735]	[OPER] ----- Initialize -----
+[15:00:35:735]	[SEND] RESET
+[15:00:35:781]	[RECV] A
+[15:00:35:782]	[RECV] O
+[15:00:35:785]	[SEND] HOM
+[15:00:35:828]	[RECV] A
+[15:00:47:173]	[RECV] O
+[15:00:47:176]	[SEND] STATUS
+[15:00:47:226]	[RECV] A
+[15:00:47:227]	[RECV] S7350142B
+[15:00:47:229]	[OPER] ----- Result : Completed, Description : 
+[15:00:47:230]	[OPER] ----- ChangeToCassette -----
+[15:00:47:230]	[SEND] RESET
+[15:00:47:272]	[RECV] A
+[15:00:47:273]	[RECV] O
+[15:00:47:276]	[SEND] OC_MODE ON
+[15:00:47:323]	[RECV] A
+[15:00:47:324]	[RECV] O
+[15:00:47:328]	[SEND] STATUS
+[15:00:47:379]	[RECV] A
+[15:00:47:380]	[RECV] S7350142B
+[15:00:47:382]	[OPER] ----- Result : Completed, Description : 
+[15:27:04:064]	[RECV] C00010000
+[15:27:04:065]	[RECV] C00000010
+[15:27:24:523]	[OPER] ----- Initialize -----
+[15:27:24:523]	[SEND] RESET
+[15:27:24:573]	[RECV] A
+[15:27:24:574]	[RECV] O
+[15:27:24:577]	[SEND] HOM
+[15:27:24:615]	[RECV] A
+[15:27:36:471]	[RECV] O
+[15:27:36:474]	[SEND] STATUS
+[15:27:36:526]	[RECV] A
+[15:27:36:527]	[RECV] S7350142B
+[15:27:36:529]	[OPER] ----- Result : Completed, Description : 
+[15:27:36:530]	[OPER] ----- ChangeToCassette -----
+[15:27:36:530]	[SEND] RESET
+[15:27:36:573]	[RECV] A
+[15:27:36:574]	[RECV] O
+[15:27:36:578]	[SEND] OC_MODE ON
+[15:27:36:626]	[RECV] A
+[15:27:36:627]	[RECV] O
+[15:27:36:630]	[SEND] STATUS
+[15:27:36:681]	[RECV] A
+[15:27:36:682]	[RECV] S7350142B
+[15:27:36:683]	[OPER] ----- Result : Completed, Description : 
+[15:30:00:810]	[OPER] ----- Initialize -----
+[15:30:00:810]	[SEND] RESET
+[15:30:00:858]	[RECV] A
+[15:30:00:860]	[RECV] O
+[15:30:00:864]	[SEND] HOM
+[15:30:00:905]	[RECV] A
+[15:30:12:258]	[RECV] O
+[15:30:12:261]	[SEND] STATUS
+[15:30:12:313]	[RECV] A
+[15:30:12:314]	[RECV] S7350142B
+[15:30:12:315]	[OPER] ----- Result : Completed, Description : 
+[15:30:12:316]	[OPER] ----- ChangeToCassette -----
+[15:30:12:316]	[SEND] RESET
+[15:30:12:358]	[RECV] A
+[15:30:12:359]	[RECV] O
+[15:30:12:363]	[SEND] OC_MODE ON
+[15:30:12:411]	[RECV] A
+[15:30:12:412]	[RECV] O
+[15:30:12:415]	[SEND] STATUS
+[15:30:12:467]	[RECV] A
+[15:30:12:468]	[RECV] S7350142B
+[15:30:12:469]	[OPER] ----- Result : Completed, Description : 

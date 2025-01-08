@@ -1,0 +1,74 @@
+[17:53:38:631]	[OPER] ----- Initialize -----
+[17:53:45:511]	[OPER] ----- Initialize -----
+[17:53:46:856]	[OPER] ----- Result : Completed, Description : 
+[18:46:08:624]	[OPER] ----- Initialize -----
+[18:46:09:631]	[OPER] ----- Result : Completed, Description : 
+[18:46:45:044]	[OPER] ----- Initialize -----
+[18:48:38:598]	[OPER] ----- Initialize -----
+[18:49:09:746]	[OPER] ----- Result : Completed, Description : 
+[18:49:28:210]	[OPER] ----- Initialize -----
+[18:58:55:659]	[OPER] ----- Initialize -----
+[18:58:59:702]	[OPER] ----- Result : Completed, Description : 
+[18:59:11:407]	[OPER] ----- Initialize -----
+[18:59:48:558]	[OPER] ----- Result : Completed, Description : 
+[19:22:52:337]	[OPER] ----- Initialize -----
+[19:23:02:081]	[OPER] ----- Result : Completed, Description : 
+[19:32:04:743]	[OPER] ----- Initialize -----
+[19:32:11:854]	[SEND] s00SET:RESET;
+[19:32:45:494]	[OPER] ----- Initialize -----
+[19:32:47:091]	[SEND] s00SET:RESET;
+[19:33:19:758]	[OPER] ----- Initialize -----
+[19:34:20:134]	[SEND] s00SET:RESET;
+[19:34:21:222]	[RECV] ACK:RESET;
+[19:37:15:502]	[RECV] ACK:RESET;
+[19:37:35:727]	[OPER] ----- Initialize -----
+[19:37:36:774]	[SEND] s00SET:RESET;
+[19:37:41:960]	[RECV] ACK:RESET;
+[19:40:22:264]	[OPER] ----- Initialize -----
+[19:40:42:697]	[SEND] s00SET:RESET;
+[19:40:49:661]	[RECV] ACK:RESET;
+[19:42:20:089]	[OPER] ----- Initialize -----
+[19:42:22:540]	[SEND] s00SET:RESET;
+[19:42:27:371]	[RECV] ACK:RESET;
+[19:43:05:032]	[OPER] ----- Initialize -----
+[19:43:07:287]	[SEND] s00SET:RESET;
+[19:43:20:748]	[RECV] ACK:RESET;
+[19:44:06:925]	[OPER] ----- Initialize -----
+[19:44:12:890]	[SEND] s00SET:RESET;
+[19:44:19:405]	[RECV] ACK:RESET;
+[19:44:46:710]	[OPER] ----- Initialize -----
+[19:44:50:317]	[SEND] s00SET:RESET;
+[19:44:56:690]	[RECV] ACK:RESET;
+[19:45:22:731]	[OPER] ----- Initialize -----
+[19:45:23:980]	[SEND] s00SET:RESET;
+[19:45:34:649]	[RECV] ACK:RESET;
+[19:48:37:625]	[OPER] ----- Initialize -----
+[19:48:39:546]	[SEND] s00SET:RESET;
+[19:50:12:652]	[RECV] ACK:RESET;
+[19:50:16:437]	[OPER] ----- Initialize -----
+[19:50:18:358]	[SEND] s00SET:RESET;
+[19:52:23:884]	[RECV] ACK:RESET;
+[19:54:26:694]	[OPER] ----- Initialize -----
+[19:54:29:965]	[SEND] s00SET:RESET;
+[19:57:11:367]	[OPER] ----- Initialize -----
+[19:57:13:156]	[SEND] s00SET:RESET;
+[19:58:03:803]	[RECV] ACK:RESET
+[19:59:06:689]	[OPER] ----- Initialize -----
+[19:59:13:428]	[SEND] s00SET:RESET;
+[19:59:30:905]	[RECV] ACK:RESET
+[20:04:59:290]	[OPER] ----- Initialize -----
+[20:04:59:294]	[SEND] s00SET:RESET;
+[20:05:21:307]	[RECV] ACK:RESET
+[20:05:57:328]	[OPER] ----- Initialize -----
+[20:05:57:328]	[SEND] s00SET:RESET;
+[20:06:09:528]	[RECV] ACK:RESET
+[20:06:40:174]	[OPER] ----- Initialize -----
+[20:06:41:485]	[SEND] s00SET:RESET;
+[20:06:50:841]	[RECV] ACK:RESET
+[20:07:14:305]	[SEND] s00MOV:ABORG;
+[20:07:37:045]	[OPER] ----- Initialize -----
+[20:07:37:368]	[SEND] s00SET:RESET;
+[20:07:44:658]	[RECV] ACK:RESET
+[20:07:47:074]	[SEND] s00MOV:ABORG;
+[20:07:57:458]	[RECV] INF:ABORG
+[20:07:58:944]	[SEND] s00GET:STATE;

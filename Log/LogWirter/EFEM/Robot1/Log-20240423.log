@@ -1,0 +1,32 @@
+[12:26:15:434]	[RECV] _ERR 00009
+[13:40:50:742]	[OPER] ----- Initialize -----
+[13:40:50:742]	[SEND] CLEAR
+[13:40:50:797]	[RECV] _ACK
+[13:40:51:913]	[RECV] _RDY
+[13:40:51:918]	[SEND] HOME ALL
+[13:40:51:920]	[OPER] ----- Result : Completed, Description : 
+[13:40:51:973]	[RECV] _ACK
+[13:41:21:863]	[RECV] _RDY
+[14:45:21:406]	[RECV] _ERR 00009
+[14:56:38:428]	[OPER] ----- Initialize -----
+[14:56:38:428]	[SEND] CLEAR
+[14:56:38:480]	[RECV] _ACK
+[14:56:39:619]	[RECV] _RDY
+[14:56:39:624]	[SEND] HOME ALL
+[14:56:39:677]	[RECV] _ACK
+[14:56:50:862]	[RECV] _RDY
+[14:56:50:864]	[OPER] ----- Result : Completed, Description : 
+[22:29:42:380]	[OPER] ----- Initialize -----
+[22:29:42:383]	[SEND] CLEAR
+[22:29:42:439]	[RECV] _ACK
+[22:29:43:113]	[RECV] _ERR 00009
+[22:29:43:118]	[OPER] ----- Result : Error, Description : 00009
+[22:29:50:928]	[OPER] ----- Initialize -----
+[22:29:50:928]	[SEND] CLEAR
+[22:29:50:979]	[RECV] _ACK
+[22:29:52:112]	[RECV] _RDY
+[22:29:52:118]	[SEND] HOME ALL
+[22:29:52:175]	[RECV] _ACK
+[22:30:03:251]	[RECV] _RDY
+[22:30:03:252]	[OPER] ----- Result : Completed, Description : 
+[22:47:06:430]	[RECV] _ERR 00009

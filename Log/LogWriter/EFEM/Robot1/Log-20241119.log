@@ -1,0 +1,344 @@
+[14:11:59:772]	[OPER] ----- Initialize -----
+[14:11:59:777]	[SEND] SON
+[14:11:59:946]	[RECV] _ERR 1000
+[14:12:04:816]	[OPER] ----- Result : Timeout, Description : 
+[14:12:18:939]	[OPER] ----- ClearError -----
+[14:12:19:041]	[SEND] RESET
+[14:12:19:251]	[RECV] ACK
+[14:12:19:345]	[OPER] ----- Result : Completed, Description : 
+[14:12:25:831]	[OPER] ----- Initialize -----
+[14:12:25:831]	[SEND] SON
+[14:12:25:977]	[RECV] ACK
+[14:12:26:234]	[SEND] RESET
+[14:12:26:446]	[RECV] ACK
+[14:12:26:637]	[SEND] HOME
+[14:13:21:613]	[OPER] ----- Initialize -----
+[14:13:21:613]	[SEND] SON
+[14:13:21:751]	[RECV] ACK
+[14:13:22:016]	[SEND] RESET
+[14:13:22:230]	[RECV] ACK
+[14:13:22:419]	[SEND] HOME
+[14:14:27:990]	[OPER] ----- AmpOff -----
+[14:14:28:092]	[SEND] SOFF
+[14:14:28:224]	[RECV] ACK
+[14:14:28:293]	[OPER] ----- Result : Completed, Description : 
+[14:14:31:301]	[OPER] ----- AmpOn -----
+[14:14:31:402]	[SEND] SON
+[14:14:31:546]	[RECV] ACK
+[14:14:31:604]	[OPER] ----- Result : Completed, Description : 
+[14:14:33:400]	[OPER] ----- AmpOff -----
+[14:14:33:501]	[SEND] SOFF
+[14:14:33:658]	[RECV] ACK
+[14:14:33:702]	[OPER] ----- Result : Completed, Description : 
+[14:14:36:772]	[OPER] ----- Grip -----
+[14:14:36:873]	[SEND] ACT ON U
+[14:14:37:021]	[RECV] ACK
+[14:14:37:076]	[OPER] ----- Result : Completed, Description : 
+[14:14:39:467]	[OPER] ----- Initialize -----
+[14:14:39:467]	[SEND] SON
+[14:14:39:603]	[RECV] ACK
+[14:14:39:870]	[SEND] RESET
+[14:14:40:104]	[RECV] ACK
+[14:14:40:273]	[SEND] HOME
+[14:19:25:707]	[OPER] ----- Initialize -----
+[14:19:25:707]	[SEND] SON
+[14:19:25:850]	[RECV] ACK
+[14:19:26:110]	[SEND] RESET
+[14:19:26:328]	[RECV] ACK
+[14:19:26:513]	[SEND] HOME
+[14:29:01:732]	[OPER] ----- Initialize -----
+[14:29:01:737]	[SEND] SON
+[14:29:01:872]	[RECV] _ERR 1000
+[14:29:06:735]	[OPER] ----- Result : Timeout, Description : 
+[14:29:24:734]	[OPER] ----- Initialize -----
+[14:29:24:734]	[SEND] SON
+[14:29:24:873]	[RECV] ACK
+[14:29:24:883]	[SEND] RESET
+[14:29:25:092]	[RECV] ACK
+[14:29:25:095]	[SEND] HOME
+[14:39:33:537]	[OPER] ----- Initialize -----
+[14:39:33:542]	[SEND] SON
+[14:39:33:691]	[RECV] ACK
+[14:39:33:703]	[SEND] RESET
+[14:39:33:919]	[RECV] ACK
+[14:39:33:923]	[SEND] HOME
+[14:40:30:814]	[OPER] ----- AmpOff -----
+[14:40:30:916]	[SEND] SOFF
+[14:40:31:064]	[RECV] ACK
+[14:40:31:118]	[OPER] ----- Result : Completed, Description : 
+[14:41:00:197]	[OPER] ----- Initialize -----
+[14:41:00:197]	[SEND] SON
+[14:41:00:342]	[RECV] ACK
+[14:41:00:600]	[SEND] RESET
+[14:41:00:822]	[RECV] ACK
+[14:41:01:003]	[SEND] HOME
+[14:43:44:235]	[OPER] ----- Initialize -----
+[14:43:44:237]	[SEND] SON
+[14:43:44:369]	[RECV] ACK
+[14:43:44:640]	[SEND] RESET
+[14:43:44:870]	[RECV] ACK
+[14:43:49:985]	[SEND] HOME
+[14:43:50:092]	[OPER] ----- Result : Timeout, Description : 
+[14:43:54:989]	[RECV] DONE
+[14:44:20:664]	[OPER] ----- Initialize -----
+[14:44:20:665]	[SEND] SON
+[14:44:20:813]	[RECV] ACK
+[14:44:20:818]	[SEND] RESET
+[14:44:21:044]	[RECV] ACK
+[14:44:21:246]	[SEND] HOME
+[14:44:21:248]	[OPER] ----- Result : Timeout, Description : 
+[14:44:29:426]	[OPER] ----- Initialize -----
+[14:44:29:426]	[SEND] SON
+[14:44:29:563]	[RECV] ACK
+[14:44:29:568]	[SEND] RESET
+[14:44:29:792]	[RECV] ACK
+[14:44:29:995]	[SEND] HOME
+[14:44:29:997]	[OPER] ----- Result : Timeout, Description : 
+[14:45:01:414]	[OPER] ----- Initialize -----
+[14:45:01:414]	[SEND] SON
+[14:45:01:562]	[RECV] ACK
+[14:45:01:567]	[SEND] RESET
+[14:45:01:797]	[RECV] ACK
+[14:45:01:998]	[SEND] HOME
+[14:45:02:000]	[OPER] ----- Result : Timeout, Description : 
+[14:45:32:091]	[OPER] ----- Initialize -----
+[14:45:32:091]	[SEND] SON
+[14:45:32:242]	[RECV] ACK
+[14:45:32:247]	[SEND] RESET
+[14:45:32:472]	[RECV] ACK
+[14:45:32:675]	[SEND] HOME
+[14:45:32:677]	[OPER] ----- Result : Timeout, Description : 
+[14:45:40:478]	[OPER] ----- Initialize -----
+[14:45:40:478]	[SEND] SON
+[14:45:40:621]	[RECV] ACK
+[14:45:40:626]	[SEND] RESET
+[14:45:40:841]	[RECV] ACK
+[14:45:41:044]	[SEND] HOME
+[14:45:41:046]	[OPER] ----- Result : Timeout, Description : 
+[14:48:05:642]	[OPER] ----- Initialize -----
+[14:48:08:410]	[SEND] SON
+[14:48:08:563]	[RECV] ACK
+[14:48:08:571]	[SEND] RESET
+[14:48:08:793]	[RECV] ACK
+[14:48:08:995]	[SEND] HOME
+[14:48:48:126]	[OPER] ----- Initialize -----
+[14:48:48:128]	[SEND] SON
+[14:48:48:270]	[RECV] ACK
+[14:48:48:275]	[SEND] RESET
+[14:48:48:491]	[RECV] ACK
+[14:48:48:994]	[SEND] HOME
+[14:49:18:995]	[OPER] ----- Result : Timeout, Description : 
+[14:50:08:997]	[OPER] ----- Initialize -----
+[14:50:08:997]	[SEND] SON
+[14:50:09:139]	[RECV] ACK
+[14:50:09:144]	[SEND] RESET
+[14:50:09:369]	[RECV] ACK
+[14:50:09:871]	[SEND] HOME
+[14:51:34:129]	[OPER] ----- Initialize -----
+[14:51:34:130]	[SEND] SON
+[14:51:34:269]	[RECV] ACK
+[14:51:34:474]	[SEND] RESET
+[14:51:34:689]	[RECV] ACK
+[14:51:39:474]	[OPER] ----- Result : Timeout, Description : 
+[14:52:29:371]	[OPER] ----- Initialize -----
+[14:52:29:371]	[SEND] SON
+[14:52:29:512]	[RECV] ACK
+[14:52:29:717]	[SEND] RESET
+[14:52:29:942]	[RECV] ACK
+[14:52:34:718]	[OPER] ----- Result : Timeout, Description : 
+[14:52:55:798]	[OPER] ----- Initialize -----
+[14:52:55:798]	[SEND] SON
+[14:52:55:937]	[RECV] ACK
+[14:52:56:142]	[SEND] RESET
+[14:52:56:368]	[RECV] ACK
+[14:53:01:144]	[OPER] ----- Result : Timeout, Description : 
+[14:53:25:201]	[OPER] ----- Initialize -----
+[14:53:25:201]	[SEND] SON
+[14:53:25:335]	[RECV] ACK
+[14:53:29:360]	[SEND] RESET
+[14:53:29:867]	[RECV] ACK
+[14:53:51:864]	[OPER] ----- Result : Timeout, Description : 
+[14:54:18:079]	[OPER] ----- Initialize -----
+[14:54:18:079]	[SEND] SON
+[14:54:18:216]	[RECV] ACK
+[14:54:42:728]	[SEND] RESET
+[14:54:42:943]	[RECV] ACK
+[14:54:52:731]	[OPER] ----- Result : Timeout, Description : 
+[14:56:37:439]	[OPER] ----- Initialize -----
+[14:56:37:444]	[SEND] SON
+[14:56:37:593]	[RECV] ACK
+[14:56:40:382]	[SEND] RESET
+[14:56:40:593]	[RECV] ACK
+[14:56:50:382]	[OPER] ----- Result : Timeout, Description : 
+[14:59:06:722]	[OPER] ----- Initialize -----
+[14:59:06:723]	[SEND] SON
+[14:59:06:862]	[RECV] ACK
+[14:59:09:594]	[SEND] RESET
+[14:59:09:820]	[RECV] ACK
+[14:59:19:596]	[OPER] ----- Result : Timeout, Description : 
+[15:00:19:398]	[OPER] ----- Initialize -----
+[15:00:19:400]	[SEND] SON
+[15:00:19:543]	[RECV] ACK
+[15:00:21:923]	[SEND] RESET
+[15:00:27:641]	[RECV] ACK
+[15:00:32:635]	[OPER] ----- Result : Timeout, Description : 
+[15:00:48:697]	[OPER] ----- Initialize -----
+[15:00:48:697]	[SEND] SON
+[15:00:48:840]	[RECV] ACK
+[15:00:49:912]	[SEND] RESET
+[15:00:51:725]	[RECV] ACK
+[15:01:00:492]	[OPER] ----- Result : Timeout, Description : 
+[15:01:06:605]	[OPER] ----- Initialize -----
+[15:01:06:605]	[SEND] SON
+[15:01:06:738]	[RECV] ACK
+[15:01:07:978]	[SEND] RESET
+[15:01:08:807]	[RECV] ACK
+[15:01:13:809]	[OPER] ----- Result : Timeout, Description : 
+[15:02:22:384]	[OPER] ----- Initialize -----
+[15:02:22:385]	[SEND] SON
+[15:02:22:510]	[RECV] ACK
+[15:02:22:714]	[SEND] RESET
+[15:02:27:129]	[RECV] ACK
+[15:02:28:639]	[SEND] HOME
+[15:02:29:937]	[RECV] DONE
+[15:02:29:939]	[OPER] ----- Result : Completed, Description : 
+[15:02:36:956]	[OPER] ----- Initialize -----
+[15:02:36:956]	[SEND] SON
+[15:02:37:093]	[RECV] ACK
+[15:02:37:297]	[SEND] RESET
+[15:02:37:515]	[RECV] ACK
+[15:02:38:017]	[SEND] HOME
+[15:03:08:018]	[OPER] ----- Result : Timeout, Description : 
+[15:03:27:305]	[OPER] ----- Initialize -----
+[15:03:27:306]	[SEND] SON
+[15:03:27:447]	[RECV] ACK
+[15:03:27:952]	[SEND] RESET
+[15:03:28:173]	[RECV] ACK
+[15:03:28:677]	[SEND] HOME
+[15:04:03:742]	[OPER] ----- Initialize -----
+[15:04:03:743]	[SEND] SON
+[15:04:03:887]	[RECV] ACK
+[15:04:04:393]	[SEND] RESET
+[15:04:04:617]	[RECV] ACK
+[15:04:09:620]	[SEND] HOME
+[15:04:10:884]	[RECV] DONE
+[15:04:10:886]	[OPER] ----- Result : Completed, Description : 
+[15:04:19:531]	[OPER] ----- Initialize -----
+[15:04:19:531]	[SEND] SON
+[15:04:19:706]	[RECV] ACK
+[15:04:20:212]	[SEND] RESET
+[15:04:20:445]	[RECV] ACK
+[15:04:25:448]	[SEND] HOME
+[15:04:26:739]	[RECV] DONE
+[15:04:26:741]	[OPER] ----- Result : Completed, Description : 
+[15:04:41:070]	[OPER] ----- Initialize -----
+[15:04:41:071]	[SEND] SON
+[15:04:41:213]	[RECV] ACK
+[15:04:41:719]	[SEND] RESET
+[15:04:41:933]	[RECV] ACK
+[15:04:42:935]	[SEND] HOME
+[15:04:44:236]	[RECV] DONE
+[15:04:44:237]	[OPER] ----- Result : Completed, Description : 
+[15:05:14:513]	[OPER] ----- Initialize -----
+[15:05:14:514]	[SEND] SON
+[15:05:14:665]	[RECV] ACK
+[15:05:15:169]	[SEND] RESET
+[15:05:15:386]	[RECV] ACK
+[15:05:15:889]	[SEND] HOME
+[15:05:45:891]	[OPER] ----- Result : Timeout, Description : 
+[15:16:05:527]	[OPER] ----- Initialize -----
+[15:16:05:535]	[SEND] SON
+[15:16:05:696]	[RECV] ACK
+[15:16:05:709]	[SEND] RESET
+[15:16:05:939]	[RECV] ACK
+[15:16:06:642]	[SEND] HOME
+[15:16:07:931]	[RECV] DONE
+[15:16:07:933]	[OPER] ----- Result : Completed, Description : 
+[15:16:32:647]	[OPER] ----- Initialize -----
+[15:16:32:647]	[SEND] SON
+[15:16:32:784]	[RECV] ACK
+[15:16:32:789]	[SEND] RESET
+[15:16:33:015]	[RECV] ACK
+[15:16:33:717]	[SEND] HOME
+[15:16:34:987]	[RECV] DONE
+[15:16:34:989]	[OPER] ----- Result : Completed, Description : 
+[15:16:53:923]	[OPER] ----- Initialize -----
+[15:16:53:923]	[SEND] SON
+[15:16:54:066]	[RECV] ACK
+[15:16:54:072]	[SEND] RESET
+[15:16:54:288]	[RECV] ACK
+[15:16:54:990]	[SEND] HOME
+[15:16:56:287]	[RECV] DONE
+[15:16:56:288]	[OPER] ----- Result : Completed, Description : 
+[15:21:22:398]	[OPER] ----- Initialize -----
+[15:21:22:402]	[SEND] SON
+[15:21:22:537]	[RECV] ACK
+[15:21:22:548]	[SEND] RESET
+[15:21:22:762]	[RECV] ACK
+[15:21:23:464]	[SEND] HOME
+[15:21:24:734]	[RECV] DONE
+[15:21:24:736]	[OPER] ----- Result : Completed, Description : 
+[15:24:32:558]	[OPER] ----- Initialize -----
+[15:24:32:558]	[SEND] SON
+[15:24:32:714]	[RECV] ACK
+[15:24:32:719]	[SEND] RESET
+[15:24:32:935]	[RECV] ACK
+[15:24:33:636]	[SEND] HOME
+[15:24:34:937]	[RECV] DONE
+[15:24:34:939]	[OPER] ----- Result : Completed, Description : 
+[15:26:04:592]	[OPER] ----- Initialize -----
+[15:26:04:592]	[SEND] SON
+[15:26:04:734]	[RECV] ACK
+[15:26:04:739]	[SEND] RESET
+[15:26:04:963]	[RECV] ACK
+[15:26:05:666]	[SEND] HOME
+[15:26:06:935]	[RECV] DONE
+[15:26:06:936]	[OPER] ----- Result : Completed, Description : 
+[15:27:26:255]	[OPER] ----- Initialize -----
+[15:27:26:255]	[SEND] SON
+[15:27:26:413]	[RECV] ACK
+[15:27:26:417]	[SEND] RESET
+[15:27:26:632]	[RECV] ACK
+[15:27:27:334]	[SEND] HOME
+[15:27:28:633]	[RECV] DONE
+[15:27:28:634]	[OPER] ----- Result : Completed, Description : 
+[15:28:37:123]	[OPER] ----- Initialize -----
+[15:28:37:123]	[SEND] SON
+[15:28:37:260]	[RECV] ACK
+[15:28:37:265]	[SEND] RESET
+[15:28:37:480]	[RECV] ACK
+[15:28:38:182]	[SEND] HOME
+[15:28:39:482]	[RECV] DONE
+[15:28:39:484]	[OPER] ----- Result : Completed, Description : 
+[15:30:00:744]	[OPER] ----- Initialize -----
+[15:30:00:744]	[SEND] SON
+[15:30:00:880]	[RECV] ACK
+[15:30:00:887]	[SEND] RESET
+[15:30:01:110]	[RECV] ACK
+[15:30:01:813]	[SEND] HOME
+[15:30:03:083]	[RECV] DONE
+[15:30:03:084]	[OPER] ----- Result : Completed, Description : 
+[15:34:05:467]	[OPER] ----- Initialize -----
+[15:34:05:467]	[SEND] SON
+[15:34:05:604]	[RECV] ACK
+[15:34:05:609]	[SEND] RESET
+[15:34:05:833]	[RECV] ACK
+[15:34:06:536]	[SEND] HOME
+[15:34:07:837]	[RECV] DONE
+[15:34:07:839]	[OPER] ----- Result : Completed, Description : 
+[15:34:32:705]	[OPER] ----- Initialize -----
+[15:34:32:705]	[SEND] SON
+[15:34:32:859]	[RECV] ACK
+[15:34:32:865]	[SEND] RESET
+[15:34:33:079]	[RECV] ACK
+[15:34:33:780]	[SEND] HOME
+[15:34:35:083]	[RECV] DONE
+[15:34:35:084]	[OPER] ----- Result : Completed, Description : 
+[15:39:26:209]	[OPER] ----- Initialize -----
+[15:39:26:209]	[SEND] SON
+[15:39:26:360]	[RECV] ACK
+[15:39:26:366]	[SEND] RESET
+[15:39:26:582]	[RECV] ACK
+[15:39:27:284]	[SEND] HOME
+[15:39:28:583]	[RECV] DONE
+[15:39:28:585]	[OPER] ----- Result : Completed, Description : 

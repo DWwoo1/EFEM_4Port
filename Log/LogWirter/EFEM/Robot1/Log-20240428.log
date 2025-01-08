@@ -1,0 +1,22 @@
+[23:43:48:243]	[OPER] ----- Initialize -----
+[23:43:48:247]	[SEND] CLEAR
+[23:43:48:302]	[RECV] _ACK
+[23:43:49:431]	[RECV] _RDY
+[23:43:49:440]	[SEND] HOME ALL
+[23:43:49:492]	[RECV] _ACK
+[23:44:04:816]	[RECV] _RDY
+[23:44:04:818]	[OPER] ----- Result : Completed, Description : 
+[23:44:40:620]	[OPER] ----- GetWaferPresence -----
+[23:44:40:722]	[SEND] RQ WAFER ARM ALL
+[23:44:40:793]	[RECV] WAFER A N B N
+[23:44:40:823]	[OPER] ----- Result : Completed, Description : 
+[23:55:29:040]	[OPER] ----- ClearError -----
+[23:55:29:042]	[SEND] CLEAR
+[23:55:29:094]	[RECV] _ACK
+[23:55:30:234]	[RECV] _RDY
+[23:55:30:236]	[OPER] ----- Result : Completed, Description : 
+[23:56:51:528]	[OPER] ----- ClearError -----
+[23:56:51:530]	[SEND] CLEAR
+[23:56:51:582]	[RECV] _ACK
+[23:56:52:706]	[RECV] _RDY
+[23:56:52:707]	[OPER] ----- Result : Completed, Description : 

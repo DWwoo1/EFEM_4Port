@@ -1,0 +1,99 @@
+>> FileVersion 1.0.0.0
+GROUP COMMON
+	GROUP PROCESS_FILE_PATH
+		GROUP 0
+			AUTHORITY = 
+			DATA_TYPE = ASCII
+			DEFAULT_VALUE = D:\
+			DESCRIPTION = RecipePath
+			MAX = 1
+			MIN = 0
+			UNIT = 
+			VALUE = D:\PROJECT\EFEM\Source\PROGRAM\Recipe
+		END
+	END
+	GROUP PROCESS_FILE_NAME
+		GROUP 0
+			AUTHORITY = 
+			DATA_TYPE = ASCII
+			DEFAULT_VALUE = TEST
+			DESCRIPTION = RecipeName
+			MAX = 1
+			MIN = 0
+			UNIT = 
+			VALUE = TEST.rcp
+		END
+	END
+	GROUP UseLoadPort_1
+		GROUP 0
+			MIN = 
+			MAX = 
+			VALUE = 
+			UNIT = 
+			AUTHORITY = 
+			DATA_TYPE = BOOL
+			DESCRIPTION = 
+			DEFAULT_VALUE = 
+		END
+	END
+	GROUP UseLoadPort_2
+		GROUP 0
+			MIN = 
+			MAX = 
+			VALUE = 
+			UNIT = 
+			AUTHORITY = 
+			DATA_TYPE = BOOL
+			DESCRIPTION = 
+			DEFAULT_VALUE = 
+		END
+	END
+	GROUP UseLoadPort_3
+		GROUP 0
+			MIN = 
+			MAX = 
+			VALUE = 
+			UNIT = 
+			AUTHORITY = 
+			DATA_TYPE = BOOL
+			DESCRIPTION = 
+			DEFAULT_VALUE = 
+		END
+	END
+	GROUP UseLoadPort_4
+		GROUP 0
+			MIN = 
+			MAX = 
+			VALUE = 
+			UNIT = 
+			AUTHORITY = 
+			DATA_TYPE = BOOL
+			DESCRIPTION = 
+			DEFAULT_VALUE = 
+		END
+	END
+	GROUP UseLoadPort_5
+		GROUP 0
+			MIN = 
+			MAX = 
+			VALUE = 
+			UNIT = 
+			AUTHORITY = 
+			DATA_TYPE = BOOL
+			DESCRIPTION = 
+			DEFAULT_VALUE = 
+		END
+	END
+	GROUP UseLoadPort_6
+		GROUP 0
+			MIN = 
+			MAX = 
+			VALUE = 
+			UNIT = 
+			AUTHORITY = 
+			DATA_TYPE = BOOL
+			DESCRIPTION = 
+			DEFAULT_VALUE = 
+		END
+	END
+END

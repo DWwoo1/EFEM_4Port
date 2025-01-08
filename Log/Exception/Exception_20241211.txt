@@ -1,0 +1,24 @@
+######### OCCURRUNCE TIME : 09h 39m 00s 604ms
+### OCCURRED EXCEPTION : 지정한 키가 사전에 없습니다.
+   위치: System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   위치: System.Environment.get_StackTrace()
+   위치: FrameOfSystem3.Program.WriteLogOnOccurredException(Object source, FirstChanceExceptionEventArgs e) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\Program.cs:줄 86
+   위치: System.ThrowHelper.ThrowKeyNotFoundException()
+   위치: System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   위치: EFEM.Defines.Common.AsyncLoggerForEFEM.CleanUpLogsAsync(LogTypes typeOfLog) 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\EfemCommon.cs:줄 483
+   위치: EFEM.Defines.Common.AsyncLoggerForEFEM.<ProcessLogsAsync>d__22.MoveNext() 파일 D:\PROJECT\PROGRAM\EFEM_LSTEC\EFEM\EFEM\EFEM Modules\Defines\EfemCommon.cs:줄 431
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Runtime.CompilerServices.AsyncMethodBuilderCore.MoveNextRunner.Run()
+   위치: System.Runtime.CompilerServices.AsyncMethodBuilderCore.<>c__DisplayClass4_0.<OutputAsyncCausalityEvents>b__0()
+   위치: System.Runtime.CompilerServices.TaskAwaiter.<>c__DisplayClass11_0.<OutputWaitEtwEvents>b__0()
+   위치: System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(Action action, Boolean allowInlining, Task& currentTask)
+   위치: System.Threading.Tasks.Task.FinishContinuations()
+   위치: System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   위치: System.Threading.Tasks.Task.DelayPromise.Complete()
+   위치: System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   위치: System.Threading.TimerQueueTimer.CallCallback()
+   위치: System.Threading.TimerQueueTimer.Fire()
+   위치: System.Threading.TimerQueue.FireNextTimers()
+
