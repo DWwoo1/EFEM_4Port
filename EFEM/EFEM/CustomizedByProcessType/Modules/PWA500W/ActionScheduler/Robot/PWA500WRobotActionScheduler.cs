@@ -22,7 +22,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         {
             _requestedLoadingLocation = new List<string>();
             _requestedUnloadingLocation = new List<string>();
-            
+
+            _scenarioManager = ScenarioManagerForPWA500W_NRD.Instance;
+
             CoreLoadPortIndex = new List<int>
             {
                 (int)LoadPortType.Core_8_1,
@@ -71,6 +73,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         private readonly Dictionary<RobotArmTypes, RobotWorkingInfo> WorkingInfosToPlace = null;
 
         private readonly string ProcessModuleName;
+        private static ScenarioManagerForPWA500W_NRD _scenarioManager = null;
         #endregion </Fields>
 
         #region <Enum>
@@ -116,11 +119,13 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             switch (type)
             {
                 case SubstrateType.Core_8:
+                case SubstrateType.Core_12:
                     {
                         for (int i = 0; i < CoreLoadPortIndex.Count; ++i)
                         {
                             int portId = _loadPortManager.GetLoadPortPortId(CoreLoadPortIndex[i]);
-                            if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(CoreLoadPortIndex[i]))
+                            if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(CoreLoadPortIndex[i]) &&
+                                false == _loadPortManager.IsLoadPortBusy(CoreLoadPortIndex[i]))
                             {
                                 lpIndex = CoreLoadPortIndex[i];
                                 return true;
@@ -128,15 +133,35 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                         }
                         return false;
                     }
-                case SubstrateType.Core_12:
+                case SubstrateType.Empty:
                     {
-                        for (int i = 0; i < CoreLoadPortIndex.Count; ++i)
+                        if (loading)
                         {
-                            int portId = _loadPortManager.GetLoadPortPortId(CoreLoadPortIndex[i]);
-                            if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(CoreLoadPortIndex[i]))
+                            // TODO : 레시피에서 탐색 후, 수량 비교. 1이면 그 포트 검사/1이상이면 AccessStatus 비교 후 InAccess이면 작업 진행
+                            // 이 부분 모든 코드 확인 필요 - 작업이 이상하게됨
+                            for (int i = 0; i < _loadPortManager.Count; ++i)
                             {
-                                lpIndex = CoreLoadPortIndex[i];
-                                return true;
+                                // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
+                                //var paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
+                                //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
+                                //    paramName.ToString(),
+                                //    SubstrateType.Empty.ToString());
+                                //if (false == subTypeByRecipe.Equals(SubstrateType.Empty.ToString()))
+                                //    continue;
+
+                                SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+                                if (false == convertedSubType.Equals(SubstrateType.Empty))
+                                    continue;
+                                // 2024.09.03. jhlim [END]
+
+                                int portId = _loadPortManager.GetLoadPortPortId(i);
+                                // 2024.12.04. jhlim [DEL]
+                                //if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(i))
+                                // 2024.12.04. jhlim [END]
+                                {
+                                    lpIndex = i;
+                                    return true;
+                                }
                             }
                         }
                         return false;
@@ -176,7 +201,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
             else if (locationName.Contains(Constants.Sort_12_Name))
             {
-                substrateType = SubstrateType.Bin;
+                substrateType = SubstrateType.Empty;
                 return true;
             }
             
