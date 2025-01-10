@@ -197,6 +197,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
             else if (locationName.Contains(Constants.Sort_12_Name))
             {
+                // Bin or Empty
                 if (FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.COMMON, FrameOfSystem3.Recipe.PARAM_COMMON.UseCycleMode.ToString(),
                     false))
                 {
@@ -204,9 +205,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 }
                 else
                 {
-                    substrateType = SubstrateType.Bin;
-                    // Bin은 메시지 받기 전까지는 알 수 없으니 True 리턴한다.
-                    return true;
+                    substrateType = SubstrateType.Empty;
                 }
                 return true;
             }
@@ -238,7 +237,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     //case LoadPortType.Bin_2:
                     //case LoadPortType.Bin_1:
                     //    return string.Empty;
-
+                    case LoadPortType.Sort_12:
+                        return Constants.ProcessModuleSort_12_InputName;
                     case LoadPortType.Core_8_1:
                     case LoadPortType.Core_8_2:
                         return Constants.ProcessModuleCore_8_InputName;
@@ -279,7 +279,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                         return Constants.ProcessModuleCore_8_OutputName;
 
                     case LoadPortType.Core_12:
-                        return Constants.ProcessModuleSort_12_OutputName;
+                        return Constants.ProcessModuleCore_12_OutputName;
 
                     default:
                         break;
@@ -327,9 +327,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                         locationName = Constants.ProcessModuleCore_12_InputName;
                                     }
                                     break;
-                                case SubstrateType.Bin:
+                                case SubstrateType.Empty:
                                     {
-                                        locationName = Constants.ProcessModuleSort_12_OutputName;
+                                        locationName = Constants.ProcessModuleSort_12_InputName;
                                     }
                                     break;
                                 default:
@@ -596,6 +596,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                     {
                                         case SubstrateType.Core_8:
                                         case SubstrateType.Core_12:
+                                        case SubstrateType.Bin:
                                             {
                                                 // Sub 정보를 가져온다.
                                                 // 작업할 자재가 있을 때에만 작업하도록 수정

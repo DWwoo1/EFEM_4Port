@@ -82,6 +82,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
     {
         Core_8,
         Core_12,
+        Empty,
         Bin,
     }
     public enum SubstrateTypeForControl
