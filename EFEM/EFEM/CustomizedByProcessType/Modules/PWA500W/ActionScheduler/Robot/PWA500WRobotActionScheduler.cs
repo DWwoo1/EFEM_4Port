@@ -509,11 +509,283 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             return RobotScheduleType.Selection;
         }
 
+        //protected override RobotScheduleType DecideNextAction()
+        //{
+        //    // 1. 공정 설비의 요청 수집
+        //    bool needLoading = _processGroup.IsLoadingRequested(ProcessModuleIndex, ref _requestedLoadingLocation);
+        //    bool needUnloading = _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref _requestedUnloadingLocation);
+
+        //    switch (_seqNum)
+        //    {
+        //        case (int)SchedulerStep.Start:
+        //            InitWorkingInfo();
+        //            _seqNum = (int)SchedulerStep.CollectData;
+        //            break;
+
+        //        case (int)SchedulerStep.CollectData:
+        //            {
+        //                // 2. 암이 자재를 갖고 있는지 수집
+        //                bool hasAnySubstrate = false;
+        //                _robotManager.GetSubstrates(Index, ref _substrates);
+        //                foreach (var item in _substrates)
+        //                {
+        //                    if (item.Value == null)
+        //                        continue;
+
+        //                    bool targetLocationPrepared = false;
+        //                    Location targetLocation = new Location("");
+        //                    ModuleType locationType = ModuleType.UnknownLocation;
+        //                    if (false == GetWorkingInfoToPlace(item.Value, ref targetLocation, ref locationType))
+        //                    {
+        //                        continue;
+        //                    }
+
+        //                    switch (locationType)
+        //                    {
+        //                        case ModuleType.LoadPort:
+        //                            {
+        //                                LoadPortLocation location = targetLocation as LoadPortLocation;
+        //                                if (location.PortId > 0)
+        //                                {
+        //                                    int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(location.PortId);
+        //                                    targetLocationPrepared = (_carrierServer.HasCarrier(location.PortId) && LoadPortInformations[lpIndex].DoorState);
+        //                                }
+        //                            }
+        //                            break;
+        //                        case ModuleType.ProcessModule:
+        //                            {
+        //                                ProcessModuleLocation location = targetLocation as ProcessModuleLocation;
+        //                                targetLocationPrepared = HasSubstratateToLoadAtProcessModule(location.Name);
+        //                            }
+        //                            break;
+        //                        default:
+        //                            break;
+        //                    }
+
+        //                    hasAnySubstrate |= targetLocationPrepared;
+        //                }
+        //                //foreach (var item in _substrates)
+        //                //{
+        //                //    hasAnySubstrate |= (item.Value != null);
+
+        //                // 결과 1 -> 요청이 전부 없고, 들고 있는 자재도 없으면 할게 없으니 초기 단계로 리턴
+        //                if (false == needLoading && false == needUnloading && false == hasAnySubstrate)
+        //                {
+        //                    return GetNotCompletedStatus();
+        //                }
+
+        //                if (hasAnySubstrate)
+        //                {
+        //                    // 결과 2 -> 자재가 있으면 일단 플레이스를 하려한다.
+        //                    return GetNotCompletedStatus((int)SchedulerStep.SetupWorkInfoToPlace);
+        //                }
+        //                else
+        //                {
+        //                    // 결과 3 -> 자재가 없으면 픽업을 시도한다.
+        //                    return GetNotCompletedStatus((int)SchedulerStep.SetupWorkInfoToPick);
+        //                }
+        //            }
+
+        //        #region <Setup workinginfo to pick>
+        //        case (int)SchedulerStep.SetupWorkInfoToPick:
+        //            {
+        //                // 픽하기 전 로드포트 준비상태를 체크한다.
+        //                // 로딩 요청인 경우
+        //                if (_requestedLoadingLocation.Count > 0)
+        //                {
+        //                    if (false == _turnLoad)
+        //                    {
+        //                        _requestedLoadingLocation.Reverse();
+        //                    }
+        //                    _turnLoad = !_turnLoad;
+        //                }
+
+        //                for (int i = 0; i < _requestedLoadingLocation.Count; ++i)
+        //                {
+        //                    SubstrateType substrateType = SubstrateType.Core_8;
+        //                    if (GetSubstrateTypeByLoadingLocation(_requestedLoadingLocation[i], ref substrateType))
+        //                    {
+        //                        int lpIndex = 0;/*, slot = 0;*/
+        //                        string substrateName = string.Empty;
+        //                        bool hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
+        //                        string locationName = _loadPortManager.GetLoadPortName(lpIndex);
+
+        //                        if (hasCarrier)
+        //                        {
+        //                            List<RobotArmTypes> arms = new List<RobotArmTypes>();
+        //                            if (false == _robotManager.GetAvailableArm(Index, true, ref arms))
+        //                                return GetNotCompletedStatus();
+
+        //                            RobotArmTypes armToWork = arms.First();
+        //                            switch (substrateType)
+        //                            {
+        //                                case SubstrateType.Core_8:
+        //                                case SubstrateType.Core_12:
+        //                                case SubstrateType.Bin:
+        //                                    {
+        //                                        // Sub 정보를 가져온다.
+        //                                        // 작업할 자재가 있을 때에만 작업하도록 수정
+        //                                        LoadPortLocation targetLocation = new LoadPortLocation(-1, -1, "");
+        //                                        if (GetNextSlotInformationToPick(lpIndex, ref targetLocation, ref substrateName))
+        //                                        {
+        //                                            //ProcessModuleLocation targetLocation = new ProcessModuleLocation("", "");
+        //                                            //string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+        //                                            SetWorkingInfoToWork(armToWork, substrateName, targetLocation);
+        //                                            return RobotScheduleType.Pick;
+
+        //                                        }
+
+        //                                        //if (false == GetNextSlotInformationToPick(lpIndex, ref slot, ref substrateName))
+        //                                        //{
+        //                                        //    return GetNotCompletedStatus();
+        //                                        //}
+        //                                        //else
+        //                                        //{
+        //                                        //    SetWorkingInfoToWork(armToWork, substrateName, locationName, slot);
+        //                                        //    return RobotScheduleType.Pick;
+        //                                        //}
+        //                                    }
+        //                                    break;
+
+        //                                default:
+        //                                    return GetNotCompletedStatus();
+        //                            }
+        //                        }
+        //                    }
+        //                }
+
+        //                if (_requestedUnloadingLocation.Count > 0)
+        //                {
+        //                    if (false == _turnUnload)
+        //                    {
+        //                        _requestedUnloadingLocation.Reverse();
+        //                    }
+        //                    _turnUnload = !_turnUnload;
+        //                }
+
+        //                for (int i = 0; i < _requestedUnloadingLocation.Count; ++i)
+        //                {
+        //                    SubstrateType substrateType = SubstrateType.Core_8;
+        //                    // TODO : 요게 좀 애매함.... 
+        //                    if (GetSubstrateTypeByUnloadingLocation(_requestedUnloadingLocation[i], ref substrateType))
+        //                    {
+        //                        int lpIndex = 0;/*, slot = 0;*/
+        //                        bool hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
+        //                        if (false == hasCarrier)
+        //                            continue;
+
+        //                        int portId = _loadPortManager.GetLoadPortPortId(lpIndex);
+        //                        string locationName = GetProcessModuleUnloadingLocationByPortId(portId);
+        //                        if (string.IsNullOrEmpty(locationName))
+        //                            return GetNotCompletedStatus();
+
+        //                        //Substrate substrate = new Substrate("");
+        //                        //if (false == _processGroup.GetSubstrateInEntryWay(ProcessModuleIndex, locationName, ref substrate))
+        //                        //    return GetNotCompletedStatus();
+
+        //                        string substrateName = string.Empty;// substrate.Name;
+        //                        RobotArmTypes armToWork = RobotArmTypes.LowerArm;
+        //                        ProcessModuleLocation targetLocation = new ProcessModuleLocation("", "");
+        //                        string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+        //                        if (_locationServer.GetProcessModuleLocation(processModuleName, _requestedUnloadingLocation[i], ref targetLocation))
+        //                        {
+        //                            SetWorkingInfoToWork(armToWork, substrateName, targetLocation);
+        //                            return RobotScheduleType.Pick;
+        //                        }
+        //                    }
+        //                }
+
+        //                return GetNotCompletedStatus();
+        //            }
+        //        #endregion </Setup workinginfo to pick>
+
+        //        #region <Setup workinginfo to place>
+        //        case (int)SchedulerStep.SetupWorkInfoToPlace:
+        //            {
+        //                LocationTypesToPlace.Clear();
+        //                WorkingInfosToPlace.Clear();
+        //                bool needLoadingToProcessModule = false;
+
+        //                // 로봇이 갖고 있는 자재정보를 받아온다.
+
+        //                #region <Get substrate informations in robot>
+        //                foreach (var item in _substrates)
+        //                {
+        //                    if (item.Value == null)
+        //                        continue;
+
+        //                    Location targetLocation = new Location("");
+        //                    ModuleType locationType = ModuleType.UnknownLocation;
+        //                    if (false == GetWorkingInfoToPlace(item.Value, ref targetLocation, ref locationType))
+        //                    {
+        //                        continue; 
+        //                        //return GetNotCompletedStatus();
+        //                    }
+
+        //                    RobotWorkingInfo info = new RobotWorkingInfo
+        //                    {
+        //                        ActionArm = item.Key,
+        //                        SubstrateName = item.Value.GetName(),
+        //                        Location = targetLocation,
+        //                    };
+
+        //                    // Target Location 을 이용해 PM으로 보낼 자재 중 요청받은 것이 있는지 여부를 확인한다.
+        //                    needLoadingToProcessModule |= HasSubstratateToLoadAtProcessModule(targetLocation.Name);
+
+        //                    LocationTypesToPlace.Add(item.Key, locationType);
+        //                    WorkingInfosToPlace.Add(item.Key, info);
+        //                }
+        //                #endregion </Get substrate informations in robot>
+
+        //                // 작업할 Arm을 첫 인덱스로 초기화
+        //                RobotArmTypes armToWork = WorkingInfosToPlace.First().Key;
+
+        //                // 작업할 위치 유형을 찾는다.
+        //                ModuleType targetLocationType = ModuleType.LoadPort;
+        //                if (needLoadingToProcessModule)
+        //                {
+        //                    targetLocationType = ModuleType.ProcessModule;
+        //                }
+
+        //                foreach (var item in LocationTypesToPlace)
+        //                {
+        //                    if (item.Value.Equals(targetLocationType))
+        //                    {
+        //                        armToWork = item.Key;
+        //                        break;
+        //                    }
+        //                }
+
+        //                _workingInfo = WorkingInfosToPlace[armToWork];
+
+        //                return RobotScheduleType.Place;
+        //            }
+        //            #endregion </Setup workinginfo to place>
+
+        //        case (int)SchedulerStep.CheckLoadPortCondition:
+        //            break;
+
+        //        default:
+        //            break;
+        //    }
+
+        //    return RobotScheduleType.Selection;
+        //}       
+
         protected override RobotScheduleType DecideNextAction()
         {
             // 1. 공정 설비의 요청 수집
+            // PM에서 Loading Request를 EFEM에 보낼 때는, Loading이 필요한 Location이 Empty 상태일 것이다.
+            // PM에서 Unloading Request를 EFEM에 보낼 때는, Unloading이 필요한 Location이 Exist 상태일 것이다.
             bool needLoading = _processGroup.IsLoadingRequested(ProcessModuleIndex, ref _requestedLoadingLocation);
             bool needUnloading = _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref _requestedUnloadingLocation);
+            bool hasCarrier = false;
+            string substrateName = string.Empty;
+            string locationName = string.Empty;
+            ModuleType locationType = ModuleType.UnknownLocation;
+            SubstrateType substrateType = SubstrateType.Core_8;
+            //RobotArmTypes robotArmType = RobotArmTypes.UpperArm;
+            Location targetLocation = new Location("");
 
             switch (_seqNum)
             {
@@ -524,22 +796,23 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
                 case (int)SchedulerStep.CollectData:
                     {
-                        // 2. 암이 자재를 갖고 있는지 수집
-                        bool hasAnySubstrate = false;
+                        bool armAndTargetLocationPrepared = false;
                         _robotManager.GetSubstrates(Index, ref _substrates);
+
                         foreach (var item in _substrates)
                         {
                             if (item.Value == null)
+                            {
                                 continue;
-
-                            bool targetLocationPrepared = false;
-                            Location targetLocation = new Location("");
-                            ModuleType locationType = ModuleType.UnknownLocation;
+                            }
                             if (false == GetWorkingInfoToPlace(item.Value, ref targetLocation, ref locationType))
                             {
                                 continue;
                             }
-
+                            // 여기까지 왔으면 ARM에 Substrate 있고, Place할 location의 정보도 있다.
+                            // Target Location에 Place 가능한지 확인한다.
+                            // Target Location이 준비가 안되어있으면 어떻게 하지..??
+                            // 준비가 안되어있으면 애초에 PM이 요청을 하지 않았을거다.
                             switch (locationType)
                             {
                                 case ModuleType.LoadPort:
@@ -548,33 +821,27 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                         if (location.PortId > 0)
                                         {
                                             int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(location.PortId);
-                                            targetLocationPrepared = (_carrierServer.HasCarrier(location.PortId) && LoadPortInformations[lpIndex].DoorState);
+                                            armAndTargetLocationPrepared = (_carrierServer.HasCarrier(location.PortId) && LoadPortInformations[lpIndex].DoorState);
                                         }
                                     }
                                     break;
                                 case ModuleType.ProcessModule:
                                     {
                                         ProcessModuleLocation location = targetLocation as ProcessModuleLocation;
-                                        targetLocationPrepared = HasSubstratateToLoadAtProcessModule(location.Name);
+                                        armAndTargetLocationPrepared = HasSubstratateToLoadAtProcessModule(location.Name);
                                     }
                                     break;
                                 default:
                                     break;
                             }
-
-                            hasAnySubstrate |= targetLocationPrepared;
                         }
-                        //foreach (var item in _substrates)
-                        //{
-                        //    hasAnySubstrate |= (item.Value != null);
-
                         // 결과 1 -> 요청이 전부 없고, 들고 있는 자재도 없으면 할게 없으니 초기 단계로 리턴
-                        if (false == needLoading && false == needUnloading && false == hasAnySubstrate)
+                        if (false == needLoading && false == needUnloading && false == armAndTargetLocationPrepared)
                         {
                             return GetNotCompletedStatus();
                         }
 
-                        if (hasAnySubstrate)
+                        if (armAndTargetLocationPrepared)
                         {
                             // 결과 2 -> 자재가 있으면 일단 플레이스를 하려한다.
                             return GetNotCompletedStatus((int)SchedulerStep.SetupWorkInfoToPlace);
@@ -585,7 +852,6 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             return GetNotCompletedStatus((int)SchedulerStep.SetupWorkInfoToPick);
                         }
                     }
-
                 #region <Setup workinginfo to pick>
                 case (int)SchedulerStep.SetupWorkInfoToPick:
                     {
@@ -598,17 +864,13 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 _requestedLoadingLocation.Reverse();
                             }
                             _turnLoad = !_turnLoad;
-                        }
 
-                        for (int i = 0; i < _requestedLoadingLocation.Count; ++i)
-                        {
-                            SubstrateType substrateType = SubstrateType.Core_8;
-                            if (GetSubstrateTypeByLoadingLocation(_requestedLoadingLocation[i], ref substrateType))
+                            locationName = _requestedLoadingLocation.First();
+
+                            if (GetSubstrateTypeByLoadingLocation(locationName, ref substrateType))
                             {
                                 int lpIndex = 0;/*, slot = 0;*/
-                                string substrateName = string.Empty;
-                                bool hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
-                                string locationName = _loadPortManager.GetLoadPortName(lpIndex);
+                                hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
 
                                 if (hasCarrier)
                                 {
@@ -621,29 +883,16 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                     {
                                         case SubstrateType.Core_8:
                                         case SubstrateType.Core_12:
-                                        case SubstrateType.Bin:
+                                        case SubstrateType.Empty:
                                             {
                                                 // Sub 정보를 가져온다.
                                                 // 작업할 자재가 있을 때에만 작업하도록 수정
-                                                LoadPortLocation targetLocation = new LoadPortLocation(-1, -1, "");
-                                                if (GetNextSlotInformationToPick(lpIndex, ref targetLocation, ref substrateName))
+                                                LoadPortLocation loadPortLocation = new LoadPortLocation(-1, -1, "");
+                                                if (GetNextSlotInformationToPick(lpIndex, ref loadPortLocation, ref substrateName))
                                                 {
-                                                    //ProcessModuleLocation targetLocation = new ProcessModuleLocation("", "");
-                                                    //string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
-                                                    SetWorkingInfoToWork(armToWork, substrateName, targetLocation);
+                                                    SetWorkingInfoToWork(armToWork, substrateName, loadPortLocation);
                                                     return RobotScheduleType.Pick;
-
                                                 }
-
-                                                //if (false == GetNextSlotInformationToPick(lpIndex, ref slot, ref substrateName))
-                                                //{
-                                                //    return GetNotCompletedStatus();
-                                                //}
-                                                //else
-                                                //{
-                                                //    SetWorkingInfoToWork(armToWork, substrateName, locationName, slot);
-                                                //    return RobotScheduleType.Pick;
-                                                //}
                                             }
                                             break;
 
@@ -661,40 +910,32 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 _requestedUnloadingLocation.Reverse();
                             }
                             _turnUnload = !_turnUnload;
-                        }
 
-                        for (int i = 0; i < _requestedUnloadingLocation.Count; ++i)
-                        {
-                            SubstrateType substrateType = SubstrateType.Core_8;
+                            locationName = _requestedUnloadingLocation.First();
+
                             // TODO : 요게 좀 애매함.... 
-                            if (GetSubstrateTypeByUnloadingLocation(_requestedUnloadingLocation[i], ref substrateType))
+                            if (GetSubstrateTypeByUnloadingLocation(locationName, ref substrateType))
                             {
                                 int lpIndex = 0;/*, slot = 0;*/
-                                bool hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
+                                hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
                                 if (false == hasCarrier)
-                                    continue;
+                                    break;
 
                                 int portId = _loadPortManager.GetLoadPortPortId(lpIndex);
-                                string locationName = GetProcessModuleUnloadingLocationByPortId(portId);
+                                locationName = GetProcessModuleUnloadingLocationByPortId(portId);
                                 if (string.IsNullOrEmpty(locationName))
                                     return GetNotCompletedStatus();
 
-                                //Substrate substrate = new Substrate("");
-                                //if (false == _processGroup.GetSubstrateInEntryWay(ProcessModuleIndex, locationName, ref substrate))
-                                //    return GetNotCompletedStatus();
-
-                                string substrateName = string.Empty;// substrate.Name;
                                 RobotArmTypes armToWork = RobotArmTypes.LowerArm;
-                                ProcessModuleLocation targetLocation = new ProcessModuleLocation("", "");
+                                ProcessModuleLocation processModuleLocation = new ProcessModuleLocation("", "");
                                 string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
-                                if (_locationServer.GetProcessModuleLocation(processModuleName, _requestedUnloadingLocation[i], ref targetLocation))
+                                if (_locationServer.GetProcessModuleLocation(processModuleName, locationName, ref processModuleLocation))
                                 {
-                                    SetWorkingInfoToWork(armToWork, substrateName, targetLocation);
+                                    SetWorkingInfoToWork(armToWork, substrateName, processModuleLocation);
                                     return RobotScheduleType.Pick;
                                 }
                             }
                         }
-
                         return GetNotCompletedStatus();
                     }
                 #endregion </Setup workinginfo to pick>
@@ -714,12 +955,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             if (item.Value == null)
                                 continue;
 
-                            Location targetLocation = new Location("");
-                            ModuleType locationType = ModuleType.UnknownLocation;
                             if (false == GetWorkingInfoToPlace(item.Value, ref targetLocation, ref locationType))
                             {
-                                continue; 
-                                //return GetNotCompletedStatus();
+                                continue;
                             }
 
                             RobotWorkingInfo info = new RobotWorkingInfo
@@ -760,7 +998,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
                         return RobotScheduleType.Place;
                     }
-                    #endregion </Setup workinginfo to place>
+                #endregion </Setup workinginfo to place>
 
                 case (int)SchedulerStep.CheckLoadPortCondition:
                     break;
@@ -770,8 +1008,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
 
             return RobotScheduleType.Selection;
-        }       
-
+        }
         #endregion </Methods>
     }
 }
