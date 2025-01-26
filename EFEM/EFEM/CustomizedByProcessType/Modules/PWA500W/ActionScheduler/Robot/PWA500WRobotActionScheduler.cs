@@ -784,8 +784,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             string locationName = string.Empty;
             ModuleType locationType = ModuleType.UnknownLocation;
             SubstrateType substrateType = SubstrateType.Core_8;
-            //RobotArmTypes robotArmType = RobotArmTypes.UpperArm;
             Location targetLocation = new Location("");
+            RobotArmTypes robotArmType = RobotArmTypes.UpperArm;
+            Substrate substrate = new Substrate("");
 
             switch (_seqNum)
             {
@@ -796,7 +797,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
                 case (int)SchedulerStep.CollectData:
                     {
-                        bool armAndTargetLocationPrepared = false;
+                        bool hasAnySubstrate = false;
+                        //bool armAndTargetLocationPrepared = false;
                         _robotManager.GetSubstrates(Index, ref _substrates);
 
                         foreach (var item in _substrates)
@@ -805,43 +807,47 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             {
                                 continue;
                             }
-                            if (false == GetWorkingInfoToPlace(item.Value, ref targetLocation, ref locationType))
-                            {
-                                continue;
-                            }
-                            // 여기까지 왔으면 ARM에 Substrate 있고, Place할 location의 정보도 있다.
-                            // Target Location에 Place 가능한지 확인한다.
-                            // Target Location이 준비가 안되어있으면 어떻게 하지..??
-                            // 준비가 안되어있으면 애초에 PM이 요청을 하지 않았을거다.
-                            switch (locationType)
-                            {
-                                case ModuleType.LoadPort:
-                                    {
-                                        LoadPortLocation location = targetLocation as LoadPortLocation;
-                                        if (location.PortId > 0)
-                                        {
-                                            int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(location.PortId);
-                                            armAndTargetLocationPrepared = (_carrierServer.HasCarrier(location.PortId) && LoadPortInformations[lpIndex].DoorState);
-                                        }
-                                    }
-                                    break;
-                                case ModuleType.ProcessModule:
-                                    {
-                                        ProcessModuleLocation location = targetLocation as ProcessModuleLocation;
-                                        armAndTargetLocationPrepared = HasSubstratateToLoadAtProcessModule(location.Name);
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
+                            hasAnySubstrate = true;
+
+                            #region 지울예정
+                            //if (false == GetWorkingInfoToPlace(item.Value, ref targetLocation, ref locationType))
+                            //{
+                            //    continue;
+                            //}
+                            //// 여기까지 왔으면 ARM에 Substrate 있고, Place할 location의 정보도 있다.
+                            //// Target Location에 Place 가능한지 확인한다.
+                            //// Target Location이 준비가 안되어있으면 어떻게 하지..??
+                            //// 준비가 안되어있으면 애초에 PM이 요청을 하지 않았을거다.
+                            //switch (locationType)
+                            //{
+                            //    case ModuleType.LoadPort:
+                            //        {
+                            //            LoadPortLocation location = targetLocation as LoadPortLocation;
+                            //            if (location.PortId > 0)
+                            //            {
+                            //                int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(location.PortId);
+                            //                armAndTargetLocationPrepared = (_carrierServer.HasCarrier(location.PortId) && LoadPortInformations[lpIndex].DoorState);
+                            //            }
+                            //        }
+                            //        break;
+                            //    case ModuleType.ProcessModule:
+                            //        {
+                            //            ProcessModuleLocation location = targetLocation as ProcessModuleLocation;
+                            //            armAndTargetLocationPrepared = HasSubstratateToLoadAtProcessModule(location.Name);
+                            //        }
+                            //        break;
+                            //    default:
+                            //        break;
+                            //}
+                            #endregion
                         }
                         // 결과 1 -> 요청이 전부 없고, 들고 있는 자재도 없으면 할게 없으니 초기 단계로 리턴
-                        if (false == needLoading && false == needUnloading && false == armAndTargetLocationPrepared)
+                        if (false == needLoading && false == needUnloading && false == hasAnySubstrate)
                         {
                             return GetNotCompletedStatus();
                         }
 
-                        if (armAndTargetLocationPrepared)
+                        if (hasAnySubstrate)
                         {
                             // 결과 2 -> 자재가 있으면 일단 플레이스를 하려한다.
                             return GetNotCompletedStatus((int)SchedulerStep.SetupWorkInfoToPlace);
@@ -945,10 +951,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     {
                         LocationTypesToPlace.Clear();
                         WorkingInfosToPlace.Clear();
-                        bool needLoadingToProcessModule = false;
+                        bool armAndTargetLocationPrepared = false;
 
                         // 로봇이 갖고 있는 자재정보를 받아온다.
-
                         #region <Get substrate informations in robot>
                         foreach (var item in _substrates)
                         {
@@ -960,34 +965,54 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 continue;
                             }
 
-                            RobotWorkingInfo info = new RobotWorkingInfo
-                            {
-                                ActionArm = item.Key,
-                                SubstrateName = item.Value.GetName(),
-                                Location = targetLocation,
-                            };
-
-                            // Target Location 을 이용해 PM으로 보낼 자재 중 요청받은 것이 있는지 여부를 확인한다.
-                            needLoadingToProcessModule |= HasSubstratateToLoadAtProcessModule(targetLocation.Name);
-
-                            LocationTypesToPlace.Add(item.Key, locationType);
-                            WorkingInfosToPlace.Add(item.Key, info);
+                            robotArmType = item.Key;
+                            substrate = item.Value;
                         }
+                        switch (locationType)
+                        {
+                            case ModuleType.LoadPort:
+                                {
+                                    LoadPortLocation location = targetLocation as LoadPortLocation;
+                                    if (location.PortId > 0)
+                                    {
+                                        int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(location.PortId);
+                                        armAndTargetLocationPrepared = (_carrierServer.HasCarrier(location.PortId) && LoadPortInformations[lpIndex].DoorState);
+                                    }
+                                }
+                                break;
+                            case ModuleType.ProcessModule:
+                                {
+                                    ProcessModuleLocation location = targetLocation as ProcessModuleLocation;
+                                    armAndTargetLocationPrepared = HasSubstratateToLoadAtProcessModule(location.Name);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        if (false == armAndTargetLocationPrepared)
+                        {
+                            return GetNotCompletedStatus();
+                        }
+
+                        RobotWorkingInfo info = new RobotWorkingInfo
+                        {
+                            ActionArm = robotArmType,
+                            SubstrateName = substrate.GetName(),
+                            Location = targetLocation,
+                        };
+
+                        // Target Location 을 이용해 PM으로 보낼 자재 중 요청받은 것이 있는지 여부를 확인한다.
+                        LocationTypesToPlace.Add(robotArmType, locationType);
+                        WorkingInfosToPlace.Add(robotArmType, info);
                         #endregion </Get substrate informations in robot>
 
                         // 작업할 Arm을 첫 인덱스로 초기화
                         RobotArmTypes armToWork = WorkingInfosToPlace.First().Key;
 
                         // 작업할 위치 유형을 찾는다.
-                        ModuleType targetLocationType = ModuleType.LoadPort;
-                        if (needLoadingToProcessModule)
-                        {
-                            targetLocationType = ModuleType.ProcessModule;
-                        }
-
                         foreach (var item in LocationTypesToPlace)
                         {
-                            if (item.Value.Equals(targetLocationType))
+                            if (item.Value.Equals(locationType))
                             {
                                 armToWork = item.Key;
                                 break;
