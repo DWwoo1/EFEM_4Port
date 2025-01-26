@@ -781,12 +781,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             bool needUnloading = _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref _requestedUnloadingLocation);
             bool hasCarrier = false;
             string substrateName = string.Empty;
-            string locationName = string.Empty;
             ModuleType locationType = ModuleType.UnknownLocation;
             SubstrateType substrateType = SubstrateType.Core_8;
             Location targetLocation = new Location("");
-            RobotArmTypes robotArmType = RobotArmTypes.UpperArm;
             Substrate substrate = new Substrate("");
+            RobotArmTypes armToWork = RobotArmTypes.LowerArm;
 
             switch (_seqNum)
             {
@@ -798,9 +797,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 case (int)SchedulerStep.CollectData:
                     {
                         bool hasAnySubstrate = false;
-                        //bool armAndTargetLocationPrepared = false;
-                        _robotManager.GetSubstrates(Index, ref _substrates);
 
+                        _robotManager.GetSubstrates(Index, ref _substrates);
                         foreach (var item in _substrates)
                         {
                             if (item.Value == null)
@@ -808,38 +806,6 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 continue;
                             }
                             hasAnySubstrate = true;
-
-                            #region 지울예정
-                            //if (false == GetWorkingInfoToPlace(item.Value, ref targetLocation, ref locationType))
-                            //{
-                            //    continue;
-                            //}
-                            //// 여기까지 왔으면 ARM에 Substrate 있고, Place할 location의 정보도 있다.
-                            //// Target Location에 Place 가능한지 확인한다.
-                            //// Target Location이 준비가 안되어있으면 어떻게 하지..??
-                            //// 준비가 안되어있으면 애초에 PM이 요청을 하지 않았을거다.
-                            //switch (locationType)
-                            //{
-                            //    case ModuleType.LoadPort:
-                            //        {
-                            //            LoadPortLocation location = targetLocation as LoadPortLocation;
-                            //            if (location.PortId > 0)
-                            //            {
-                            //                int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(location.PortId);
-                            //                armAndTargetLocationPrepared = (_carrierServer.HasCarrier(location.PortId) && LoadPortInformations[lpIndex].DoorState);
-                            //            }
-                            //        }
-                            //        break;
-                            //    case ModuleType.ProcessModule:
-                            //        {
-                            //            ProcessModuleLocation location = targetLocation as ProcessModuleLocation;
-                            //            armAndTargetLocationPrepared = HasSubstratateToLoadAtProcessModule(location.Name);
-                            //        }
-                            //        break;
-                            //    default:
-                            //        break;
-                            //}
-                            #endregion
                         }
                         // 결과 1 -> 요청이 전부 없고, 들고 있는 자재도 없으면 할게 없으니 초기 단계로 리턴
                         if (false == needLoading && false == needUnloading && false == hasAnySubstrate)
@@ -870,10 +836,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 _requestedLoadingLocation.Reverse();
                             }
                             _turnLoad = !_turnLoad;
-
-                            locationName = _requestedLoadingLocation.First();
-
-                            if (GetSubstrateTypeByLoadingLocation(locationName, ref substrateType))
+                        }
+                        for (int i = 0; i < _requestedLoadingLocation.Count; i++)
+                        {
+                            //locationName = _requestedLoadingLocation.First();
+                            if (GetSubstrateTypeByLoadingLocation(_requestedLoadingLocation[i], ref substrateType))
                             {
                                 int lpIndex = 0;/*, slot = 0;*/
                                 hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
@@ -884,7 +851,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                     if (false == _robotManager.GetAvailableArm(Index, true, ref arms))
                                         return GetNotCompletedStatus();
 
-                                    RobotArmTypes armToWork = arms.First();
+                                    armToWork = arms.First();
                                     switch (substrateType)
                                     {
                                         case SubstrateType.Core_8:
@@ -916,11 +883,12 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 _requestedUnloadingLocation.Reverse();
                             }
                             _turnUnload = !_turnUnload;
-
-                            locationName = _requestedUnloadingLocation.First();
-
-                            // TODO : 요게 좀 애매함.... 
-                            if (GetSubstrateTypeByUnloadingLocation(locationName, ref substrateType))
+                        }
+                        for (int i = 0; i < _requestedUnloadingLocation.Count; i++)
+                        {
+                            // TODO : 요게 좀 애매함....
+                            // PM에서 Substrate를 Pick하기 전에 Pick할 Substrate를 Carrier에 Place를 할 수 있는지 먼저 확인한다.
+                            if (GetSubstrateTypeByUnloadingLocation(_requestedUnloadingLocation[i], ref substrateType))
                             {
                                 int lpIndex = 0;/*, slot = 0;*/
                                 hasCarrier = HasCarriers(substrateType, true, ref lpIndex);
@@ -928,14 +896,14 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                     break;
 
                                 int portId = _loadPortManager.GetLoadPortPortId(lpIndex);
-                                locationName = GetProcessModuleUnloadingLocationByPortId(portId);
+                                string locationName = GetProcessModuleUnloadingLocationByPortId(portId);
                                 if (string.IsNullOrEmpty(locationName))
                                     return GetNotCompletedStatus();
 
-                                RobotArmTypes armToWork = RobotArmTypes.LowerArm;
                                 ProcessModuleLocation processModuleLocation = new ProcessModuleLocation("", "");
                                 string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
-                                if (_locationServer.GetProcessModuleLocation(processModuleName, locationName, ref processModuleLocation))
+                                substrateName = string.Empty;
+                                if (_locationServer.GetProcessModuleLocation(processModuleName, _requestedUnloadingLocation[i], ref processModuleLocation))
                                 {
                                     SetWorkingInfoToWork(armToWork, substrateName, processModuleLocation);
                                     return RobotScheduleType.Pick;
@@ -951,6 +919,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     {
                         LocationTypesToPlace.Clear();
                         WorkingInfosToPlace.Clear();
+                        RobotArmTypes robotArmType = RobotArmTypes.LowerArm;
                         bool armAndTargetLocationPrepared = false;
 
                         // 로봇이 갖고 있는 자재정보를 받아온다.
@@ -1007,7 +976,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                         #endregion </Get substrate informations in robot>
 
                         // 작업할 Arm을 첫 인덱스로 초기화
-                        RobotArmTypes armToWork = WorkingInfosToPlace.First().Key;
+                        armToWork = WorkingInfosToPlace.First().Key;
 
                         // 작업할 위치 유형을 찾는다.
                         foreach (var item in LocationTypesToPlace)
