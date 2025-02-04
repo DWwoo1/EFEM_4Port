@@ -274,11 +274,10 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
                     {
                         case SubstrateType.Core_8:
                         case SubstrateType.Core_12:
+                        case SubstrateType.Bin_12:
                             _temporaryCoreList.Add(_temporaryList[i]);
                             break;
-                        case SubstrateType.Bin:
-                            _temporarySortList.Add(_temporaryList[i]);
-                            break;
+
                         default:
                             break;
                     }

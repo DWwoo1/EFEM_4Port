@@ -316,20 +316,12 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 {
                     case SubstrateType.Core_8:
                     case SubstrateType.Core_12:
+                    case SubstrateType.Bin_12:
                         {
                             ++countCore;
                             if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
                             {
                                 ++countCoreCompleted;
-                            }
-                        }
-                        break;
-                    case SubstrateType.Bin:
-                        {
-                            ++countEmpty;
-                            if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
-                            {
-                                ++countBin;
                             }
                         }
                         break;

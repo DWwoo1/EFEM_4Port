@@ -44,7 +44,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             switch (portId)
             {
                 case 1:
-                    Attributes[substrateType] = SubstrateType.Bin.ToString();
+                    Attributes[substrateType] = SubstrateType.Bin_12.ToString();
                     break;
                 case 2:
                     Attributes[substrateType] = SubstrateType.Core_8.ToString();

@@ -326,8 +326,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CustomizedByProcessType\Modules\PWA500W\ActionScheduler\LoadPort\PWA500WCoreLoadPortActionScheduler.cs" />
-    <Compile Include="CustomizedByProcessType\Modules\PWA500W\ActionScheduler\LoadPort\PWA500WEmptyTapeLoadPortActionScheduler.cs" />
-    <Compile Include="CustomizedByProcessType\Modules\PWA500W\ActionScheduler\LoadPort\PWA500WLoadPortActionScheduler.cs" />
+    <Compile Include="CustomizedByProcessType\Modules\PWA500W\ActionScheduler\LoadPort\PWA500WSortingLoadPortActionScheduler.cs" />
     <Compile Include="CustomizedByProcessType\Modules\PWA500W\ActionScheduler\Robot\PWA500WRobotActionScheduler.cs" />
     <Compile Include="CustomizedByProcessType\Modules\PWA500W\Carrier\PWA500WCarrierAttributes.cs" />
     <Compile Include="CustomizedByProcessType\Modules\PWA500W\Defines\PWA500WDefines.cs" />

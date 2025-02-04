@@ -82,16 +82,13 @@ namespace EFEM.CustomizedByProcessType.PWA500W
     {
         Core_8,
         Core_12,
-        Empty,
-        Bin,
+        Bin_12,
     }
     public enum SubstrateTypeForControl
     {
         Core_8,
         Core_12,
-        EmptyTape,
-        Bin,
-        //All
+        Bin_12,
     }
     public enum WCFServiceIndex
     {

@@ -607,14 +607,17 @@ namespace FrameOfSystem3.Task
 
                 if (false == substrateType.Equals(convertedSubType))
                     continue;
-                if (substrateType == SubstrateType.Bin)
-                {
-                    if (FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.COMMON, FrameOfSystem3.Recipe.PARAM_COMMON.UseCycleMode.ToString(), false))
-                        substrateType = SubstrateType.Core_8;
-                }
+
+                // 2025.01.31. by dwlim [DEL] 안쓸거같아서 주석처리. 나중에 확인해보고 지우자
+                //if (substrateType == SubstrateType.Bin_12)
+                //{
+                //    if (FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.COMMON, FrameOfSystem3.Recipe.PARAM_COMMON.UseCycleMode.ToString(), false))
+                //        substrateType = SubstrateType.Core_8;
+                //}
 
                 if (substrateType == SubstrateType.Core_8 ||
-                    substrateType == SubstrateType.Core_12)
+                    substrateType == SubstrateType.Core_12 ||
+                    substrateType == SubstrateType.Bin_12)
                 {
                     if (sourcePortId > 0)
                     {
@@ -697,15 +700,15 @@ namespace FrameOfSystem3.Task
                             return _carrierServer.HasCarrier(targetPortId);
                         }
 
-                    case SubstrateType.Bin:
+                    case SubstrateType.Bin_12:
                         {
-                            // TODO : 하드코딩
-                            if (Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseCycleMode.ToString(),
-                                false))
-                            {
-                                //targetPortId = 4;
-                                targetType = SubstrateType.Core_8;
-                            }
+                            //// TODO : 하드코딩
+                            //if (Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseCycleMode.ToString(),
+                            //    false))
+                            //{
+                            //    //targetPortId = 4;
+                            //    targetType = SubstrateType.Core_8;
+                            //}
 
                             if (sourceSlot < 0)
                             {
@@ -747,46 +750,47 @@ namespace FrameOfSystem3.Task
             {
                 case SubstrateType.Core_8:
                 case SubstrateType.Core_12:
+                case SubstrateType.Bin_12:
                     portId = sourcePortId;
                     return _carrierServer.HasCarrier(sourcePortId);
 
-                case SubstrateType.Bin:
-                    {
-                        // TODO : 하드코딩
-                        if (Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseCycleMode.ToString(),
-                            false))
-                        {
-                            portId = 4;
-                            targetType = SubstrateType.Core_8;
-                            return _carrierServer.HasCarrier(sourcePortId);
-                        }
-                        else
-                        {
-                            for (int i = 0; i < _loadPortManager.Count; ++i)
-                            {
-                                // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
-                                //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
-                                //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
-                                //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
-                                //    paramName.ToString(),
-                                //    SubstrateType.Empty.ToString());
+                //case SubstrateType.Bin:
+                //    {
+                //        // TODO : 하드코딩
+                //        if (Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseCycleMode.ToString(),
+                //            false))
+                //        {
+                //            portId = 4;
+                //            targetType = SubstrateType.Core_8;
+                //            return _carrierServer.HasCarrier(sourcePortId);
+                //        }
+                //        else
+                //        {
+                //            for (int i = 0; i < _loadPortManager.Count; ++i)
+                //            {
+                //                // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
+                //                //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
+                //                //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
+                //                //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
+                //                //    paramName.ToString(),
+                //                //    SubstrateType.Empty.ToString());
 
-                                //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
-                                //    continue;
-                                SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
-                                // 2024.09.03. jhlim [END]
+                //                //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
+                //                //    continue;
+                //                SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+                //                // 2024.09.03. jhlim [END]
 
-                                if (false == targetType.Equals(convertedSubType))
-                                    continue;
+                //                if (false == targetType.Equals(convertedSubType))
+                //                    continue;
 
-                                portId = _loadPortManager.GetLoadPortPortId(i);
-                                if (_carrierServer.HasCarrier(portId))
-                                    return true;
-                            }
-                        }
+                //                portId = _loadPortManager.GetLoadPortPortId(i);
+                //                if (_carrierServer.HasCarrier(portId))
+                //                    return true;
+                //            }
+                //        }
 
-                        return false;
-                    }
+                //        return false;
+                //    }
 
                 default:
                     return false;
@@ -801,32 +805,33 @@ namespace FrameOfSystem3.Task
             {
                 case SubstrateType.Core_8:
                 case SubstrateType.Core_12:
+                case SubstrateType.Bin_12:
                     return sourcePortId;
 
-                case SubstrateType.Bin:
-                    {
-                        for (int i = 0; i < _loadPortManager.Count; ++i)
-                        {
-                            // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
-                            //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
-                            //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
-                            //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
-                            //    paramName.ToString(),
-                            //    SubstrateType.Empty.ToString());
+                //case SubstrateType.Bin:
+                //    {
+                //        for (int i = 0; i < _loadPortManager.Count; ++i)
+                //        {
+                //            // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
+                //            //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
+                //            //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
+                //            //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
+                //            //    paramName.ToString(),
+                //            //    SubstrateType.Empty.ToString());
 
-                            //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
-                            //    continue;
-                            SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
-                            // 2024.09.03. jhlim [END]
+                //            //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
+                //            //    continue;
+                //            SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+                //            // 2024.09.03. jhlim [END]
 
-                            if (false == targetType.Equals(convertedSubType))
-                                continue;
+                //            if (false == targetType.Equals(convertedSubType))
+                //                continue;
 
-                            return _loadPortManager.GetLoadPortPortId(i);
-                        }
+                //            return _loadPortManager.GetLoadPortPortId(i);
+                //        }
 
-                        return -1;
-                    }
+                //        return -1;
+                //    }
 
                 default:
                     return -1;
@@ -838,7 +843,7 @@ namespace FrameOfSystem3.Task
             portId = -1; slot = -1;
             switch (subType)
             {
-                case SubstrateType.Bin:
+                case SubstrateType.Bin_12:
                     {
                         int lpIndex = -1;
                         for (int i = 0; i < _loadPortManager.Count; ++i)
@@ -958,7 +963,7 @@ namespace FrameOfSystem3.Task
                         }
                         return -1;
                     }
-                case SubstrateType.Bin:
+                case SubstrateType.Bin_12:
                     {
                         return FindDestinationPortBySubstrateType(substrate, subType);
                     }
@@ -977,6 +982,7 @@ namespace FrameOfSystem3.Task
             {
                 case SubstrateType.Core_8:
                 case SubstrateType.Core_12:
+                case SubstrateType.Bin_12:
                     {
                         bool notAvailableSlotFirst = (_loadPortManager.GetCarrierLoadingType(lpIndex).Equals(LoadPortLoadingMode.Cassette));
                         for (int i = 0; i < capacity; ++i)
@@ -997,14 +1003,6 @@ namespace FrameOfSystem3.Task
                         return -1;
                     }
 
-                case SubstrateType.Bin:
-                    {
-                        int slot = -1;
-                        GetNextSlotInformationToPlace(lpIndex, ref slot);
-
-                        return slot;
-                    }
-
                 default:
                     return -1;
             }
@@ -1013,38 +1011,39 @@ namespace FrameOfSystem3.Task
         private int FindDestinationPortBySubstrateType(Substrate substrate, SubstrateType subType)
         {
             if (subType.Equals(SubstrateType.Core_8) ||
-                subType.Equals(SubstrateType.Core_12))
+                subType.Equals(SubstrateType.Core_12) ||
+                subType.Equals(SubstrateType.Bin_12))
             {
                 return substrate.GetSourcePortId();
             }
 
             //int portId = -1;
-            for (int i = 0; i < _loadPortManager.Count; ++i)
-            {
-                // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
-                //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
-                //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
-                //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
-                //    paramName.ToString(),
-                //    SubstrateType.Empty.ToString());
+            //for (int i = 0; i < _loadPortManager.Count; ++i)
+            //{
+            //    // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
+            //    //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
+            //    //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
+            //    //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
+            //    //    paramName.ToString(),
+            //    //    SubstrateType.Empty.ToString());
 
-                //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
-                //    continue;
-                SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
-                // 2024.09.03. jhlim [END]
+            //    //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
+            //    //    continue;
+            //    SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+            //    // 2024.09.03. jhlim [END]
 
-                if (false == subType.Equals(convertedSubType))
-                    continue;
+            //    if (false == subType.Equals(convertedSubType))
+            //        continue;
 
-                switch (convertedSubType)
-                {
-                    case SubstrateType.Bin:
-                        return _loadPortManager.GetLoadPortPortId(i);
+            //    switch (convertedSubType)
+            //    {
+            //        case SubstrateType.Bin:
+            //            return _loadPortManager.GetLoadPortPortId(i);
 
-                    default:
-                        break;
-                }
-            }
+            //        default:
+            //            break;
+            //    }
+            //}
 
             return -1;
         }

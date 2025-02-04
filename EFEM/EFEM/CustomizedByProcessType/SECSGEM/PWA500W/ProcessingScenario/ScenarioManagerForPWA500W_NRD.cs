@@ -915,7 +915,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                     return SubstrateType.Core_12;
 
                 case SubstrateTypeForUI.Sort_12:
-                    return SubstrateType.Bin;
+                    return SubstrateType.Bin_12;
 
                 default:
                     return SubstrateType.Core_8;
