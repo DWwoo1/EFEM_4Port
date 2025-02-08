@@ -100,13 +100,63 @@ namespace EFEM.Modules
 
             return pmIndex;
         }
+        public bool SetEquipmentState(int moduleIndex, EQUIPMENT_STATE status)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
+
+            ProcessModules[moduleIndex].EquipmentState = status;
+            return true;
+        }
+        public EQUIPMENT_STATE GetEquipmentState(int moduleIndex)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return EQUIPMENT_STATE.UNDEFINED;
+
+            return ProcessModules[moduleIndex].EquipmentState;
+        }
+        public bool IsSimulationMode(int moduleIndex)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
+
+            return ProcessModules[moduleIndex].IsSimulation;
+        }
+        public bool SetRecipeId(int moduleIndex, string recipeId)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
+
+            ProcessModules[moduleIndex].RecipeId = recipeId;
+            return true;
+        }
+        public string GetRecipeId(int moduleIndex)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return string.Empty;
+
+            return ProcessModules[moduleIndex].RecipeId;
+        }
+        public bool SetLotId(int moduleIndex, string lotID)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
+
+            ProcessModules[moduleIndex].LotId = lotID;
+            return true;
+        }
+        public string GetLotId(int moduleIndex)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return string.Empty;
+
+            return ProcessModules[moduleIndex].LotId;
+        }
         #endregion </Process Module>
 
         #region <Communication>
 
         #region <SMEMA>
-
-        #region <Send>
         public void ResetSignalsAll()
         {
             foreach (var item in ProcessModules)
@@ -131,8 +181,44 @@ namespace EFEM.Modules
             ProcessModules[moduleIndex].SetUnloadingSignal(location, enabled);
             return true;
         }
-        #endregion </Send>
+        public bool IsLoadingRequested(int moduleIndex, string locationName)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
 
+            List<string> locations = new List<string>();
+            if (false == IsLoadingRequested(moduleIndex, ref locations))
+                return false;
+
+            return locations.Contains(locationName);
+        }
+        public bool IsLoadingRequested(int moduleIndex, ref List<string> locationNames)
+        {
+            locationNames.Clear();
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
+
+            return ProcessModules[moduleIndex].IsLoadingRequested(ref locationNames);
+        }
+        public bool IsUnloadingRequested(int moduleIndex, string locationName)
+        {
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
+
+            List<string> locations = new List<string>();
+            if (false == IsUnloadingRequested(moduleIndex, ref locations))
+                return false;
+
+            return locations.Contains(locationName);
+        }
+        public bool IsUnloadingRequested(int moduleIndex, ref List<string> locationNames)
+        {
+            locationNames.Clear();
+            if (false == ProcessModules.ContainsKey(moduleIndex))
+                return false;
+
+            return ProcessModules[moduleIndex].IsUnloadingRequested(ref locationNames);
+        }
         #endregion </SMEMA>
 
         #region <WCF>
@@ -162,12 +248,18 @@ namespace EFEM.Modules
             if (false == ProcessModules.ContainsKey(moduleIndex))
                 return false;
 
+            if (IsSimulationMode(moduleIndex))
+                return true;
+
             return ProcessModules[moduleIndex].SendMessage(location, title, messagePairs);
         }
         public bool SendMessage(int moduleIndex, Location location, string title, string substrateName)
         {
             if (false == ProcessModules.ContainsKey(moduleIndex))
                 return false;
+
+            if (IsSimulationMode(moduleIndex))
+                return true;
 
             return ProcessModules[moduleIndex].SendMessage(location, title, substrateName);
         }
@@ -176,12 +268,18 @@ namespace EFEM.Modules
             if (false == ProcessModules.ContainsKey(moduleIndex))
                 return CommunicationResult.Error;
 
+            if (IsSimulationMode(moduleIndex))
+                return CommunicationResult.Ack;
+
             return CommunicationResult.Ack;
         }
         public bool GetSendingResult(int moduleIndex, Location location, string title, ref Dictionary<string, string> receivedData)
         {
             if (false == ProcessModules.ContainsKey(moduleIndex))
                 return false;
+
+            if (IsSimulationMode(moduleIndex))
+                return true;
 
             return ProcessModules[moduleIndex].GetSendingResult(location, title, ref receivedData);
         }
@@ -193,6 +291,9 @@ namespace EFEM.Modules
             if (false == ProcessModules.ContainsKey(moduleIndex))
                 return false;
 
+            if (IsSimulationMode(moduleIndex))
+                return true;
+
             ProcessModules[moduleIndex].SetAckToReceivedMessage(location, title, result, description);
             return true;
         }
@@ -201,12 +302,18 @@ namespace EFEM.Modules
             if (false == ProcessModules.ContainsKey(moduleIndex))
                 return CommunicationResult.Error;
 
+            if (IsSimulationMode(moduleIndex))
+                return CommunicationResult.Ack;
+
             return ProcessModules[moduleIndex].IsMessageReceived(location, title);
         }
         public bool GetReceivedData(int moduleIndex, Location location, string title, ref Dictionary<string, string> receivedData)
         {
             if (false == ProcessModules.ContainsKey(moduleIndex))
                 return false;
+            
+            if (IsSimulationMode(moduleIndex))
+                return true;
 
             return ProcessModules[moduleIndex].GetReceivedData(location, title, ref receivedData);
         }
@@ -315,89 +422,6 @@ namespace EFEM.Modules
         //}
         #endregion </Substrate>
 
-        public bool SetEquipmentState(int moduleIndex, EQUIPMENT_STATE status)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return false;
-
-            ProcessModules[moduleIndex].EquipmentState = status;
-            return true;
-        }
-        public EQUIPMENT_STATE GetEquipmentState(int moduleIndex)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return EQUIPMENT_STATE.UNDEFINED;
-
-            return ProcessModules[moduleIndex].EquipmentState;
-        }
-        public bool SetRecipeId(int moduleIndex, string recipeId)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return false;
-
-            ProcessModules[moduleIndex].RecipeId = recipeId;
-            return true;
-        }
-        public string GetRecipeId(int moduleIndex)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return string.Empty;
-
-            return ProcessModules[moduleIndex].RecipeId;
-        }
-        public bool SetLotId(int moduleIndex, string lotID)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return false;
-
-            ProcessModules[moduleIndex].LotId = lotID;
-            return true;
-        }
-        public string GetLotId(int moduleIndex)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return string.Empty;
-
-            return ProcessModules[moduleIndex].LotId;
-        }
-        public bool IsLoadingRequested(int moduleIndex, string locationName)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return false;
-
-            List<string> locations = new List<string>();
-            if (false == IsLoadingRequested(moduleIndex, ref locations))
-                return false;
-
-            return locations.Contains(locationName);
-        }
-        public bool IsLoadingRequested(int moduleIndex, ref List<string> locationNames)
-        {
-            locationNames.Clear();
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return false;
-
-            return ProcessModules[moduleIndex].IsLoadingRequested(ref locationNames);
-        }
-        public bool IsUnloadingRequested(int moduleIndex, string locationName)
-        {
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return false;
-
-            List<string> locations = new List<string>();
-            if (false == IsUnloadingRequested(moduleIndex, ref locations))
-                return false;
-
-            return locations.Contains(locationName);
-        }
-        public bool IsUnloadingRequested(int moduleIndex, ref List<string> locationNames)
-        {
-            locationNames.Clear();
-            if (false == ProcessModules.ContainsKey(moduleIndex))
-                return false;
-
-            return ProcessModules[moduleIndex].IsUnloadingRequested(ref locationNames);
-        }
         public void ExecuteAll()
         {
             foreach (var item in ProcessModules)

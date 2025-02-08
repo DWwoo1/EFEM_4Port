@@ -25,13 +25,16 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
             _scenarioManager = ScenarioManagerForPWA500W_NRD.Instance;
 
-            CoreLoadPortIndex = new List<int>
+            CoreLoadPort_8_Index = new List<int>
             {
                 (int)LoadPortType.Core_8_1,
                 (int)LoadPortType.Core_8_2,
-                (int)LoadPortType.Core_12,
             };
 
+            CoreLoadPort_12_Index = new List<int>
+            {
+                (int)LoadPortType.Core_12,
+            };
             //EmptyTapeLoadPortIndex = (int)LoadPortType.EmptyTape;
 
             BinLoadPortIndex = new List<int>
@@ -65,7 +68,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         private List<string> _requestedLoadingLocation;
         private List<string> _requestedUnloadingLocation;
 
-        private readonly List<int> CoreLoadPortIndex = null;
+        private readonly List<int> CoreLoadPort_8_Index = null;
+        private readonly List<int> CoreLoadPort_12_Index = null;
         private readonly List<int> BinLoadPortIndex = null;
 
         private readonly Dictionary<int, int> LoadPortPorts = null;
@@ -74,6 +78,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
         private readonly string ProcessModuleName;
         private static ScenarioManagerForPWA500W_NRD _scenarioManager = null;
+
+        private List<Substrate> _substratesAtProcessModule = null;
         #endregion </Fields>
 
         #region <Enum>
@@ -120,16 +126,114 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             {
                 case SubstrateType.Core_8:
                 case SubstrateType.Core_12:
-                case SubstrateType.Bin_12:
                     {
+                        List<int> CoreLoadPortIndex = null;
+
+                        if (type.Equals(SubstrateType.Core_8))
+                        {
+                            CoreLoadPortIndex = new List<int>(CoreLoadPort_8_Index);
+                        }
+                        else if (type.Equals(SubstrateType.Core_12))
+                        {
+                            CoreLoadPortIndex = new List<int>(CoreLoadPort_12_Index);
+                        }
+
+                        // 1. Access된 Carrier가 있는지 먼저 검색
+                        int inAccessedCarrierIndex = -1;
                         for (int i = 0; i < CoreLoadPortIndex.Count; ++i)
                         {
                             int portId = _loadPortManager.GetLoadPortPortId(CoreLoadPortIndex[i]);
-                            if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(CoreLoadPortIndex[i]) &&
-                                false == _loadPortManager.IsLoadPortBusy(CoreLoadPortIndex[i]))
+                            if (_carrierServer.GetCarrierAccessingStatus(portId).Equals(CarrierAccessStates.InAccessed))
                             {
-                                lpIndex = CoreLoadPortIndex[i];
+                                inAccessedCarrierIndex = CoreLoadPortIndex[i];
+                                break;
+                            }
+                        }
+
+                        if (inAccessedCarrierIndex >= 0)
+                        {
+                            // 1-1. Access된 캐리어가 있으면 작업이 가능한 상태인지 검사
+                            int portId = _loadPortManager.GetLoadPortPortId(inAccessedCarrierIndex);
+                            if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(inAccessedCarrierIndex) &&
+                                false == _loadPortManager.IsLoadPortBusy(inAccessedCarrierIndex))
+                            {
+                                lpIndex = inAccessedCarrierIndex;
                                 return true;
+                            }
+                        }
+                        else
+                        {
+                            string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+
+                            // 1-2. Access된 캐리어가 없으면, 작업 가능한 것 중 아무거나 선택
+                            for (int i = 0; i < CoreLoadPortIndex.Count; ++i)
+                            {
+                                int portId = _loadPortManager.GetLoadPortPortId(CoreLoadPortIndex[i]);
+                                if (false == _carrierServer.HasCarrier(portId) ||
+                                    false == IsLoadPortTransferStatusBlocked(CoreLoadPortIndex[i]) ||
+                                    _loadPortManager.IsLoadPortBusy(CoreLoadPortIndex[i]))
+                                    continue;
+
+                                // 모든 자재가 NeedProcessing 상태면 -> TrackIn 해야하는 상황에 공정 설비에 공테이프가 없으면 투입하지 말아야한다.
+                                if (_substrateManager.AreAllSubstratesNeedProcessing(portId))
+                                {
+                                    if (false == _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref _substratesAtProcessModule) ||
+                                        _substratesAtProcessModule.Count <= 0)
+                                        continue;
+                                }
+
+                                lpIndex = CoreLoadPortIndex[i];
+
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                case SubstrateType.Bin_12:
+                    {
+                        if (loading)
+                        {
+                            string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+
+                            // TODO : Consume 이벤트를 적용하게 되면, EmptyWafer도 Core와 동일하게 공정 설비에 다른 Lot 자재가 있는 경우 투입하지 않도록 수정 필요하다.
+                            for (int i = 0; i < _loadPortManager.Count; ++i)
+                            {
+                                SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+                                if (false == convertedSubType.Equals(SubstrateType.Bin_12))
+                                    continue;
+
+                                int portId = _loadPortManager.GetLoadPortPortId(i);
+                                if (false == _carrierServer.HasCarrier(portId) || false == IsLoadPortTransferStatusBlocked(i)
+                                    || _loadPortManager.IsLoadPortBusy(i))
+                                    continue;
+
+                                string lotId = _carrierServer.GetCarrierLotId(portId);
+                                if (_substrateManager.GetSubstratesAtProcessModule(processModuleName, ref _substratesAtProcessModule))
+                                {
+                                    for (int subs = 0; subs < _substratesAtProcessModule.Count; ++subs)
+                                    {
+                                        string subType = _substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.SubstrateType);
+                                        if (false == Enum.TryParse(subType, out SubstrateType substrateTypeAtProcessModule))
+                                            continue;
+
+                                        if (false == substrateTypeAtProcessModule.Equals(SubstrateType.Bin_12))
+                                            continue;
+
+                                        if (_substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId) != null &&
+                                            false == _substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId).Equals(lotId))
+                                        {
+                                            return false;
+                                        }
+                                    }
+
+                                    lpIndex = i;
+                                    return true;
+                                }
+                                else
+                                {
+                                    lpIndex = i;
+                                    return true;
+                                }
                             }
                         }
                         return false;

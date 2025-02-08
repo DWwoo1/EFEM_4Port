@@ -72,7 +72,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
         #region <Override Methods>       
         public override void SetLoadingSignal(string location, bool enabled)
         {
-            if (Simulation && false == enabled)
+            if (IsSimulation && false == enabled)
             {
                 if (false == TickForLoading.ContainsKey(location))
                     return;
@@ -91,7 +91,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
 
         public override void SetUnloadingSignal(string location, bool enabled)
         {
-            if (Simulation && false == enabled)
+            if (IsSimulation && false == enabled)
             {
                 if (false == TickForUnloading.ContainsKey(location))
                     return;
@@ -110,7 +110,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
         protected override void MappingCommunicatorPortByLocation(string[] locations, ref int[] ports)
         {
             int simulationOffset = 0;
-            if (Simulation)
+            if (IsSimulation)
                 simulationOffset = 5;
 
             for (int i = 0; i < locations.Length; ++i)
@@ -146,7 +146,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
         }
         protected override bool IsLoadingRequestReceived(ref List<string> locationNames)
         {
-            if (Simulation)
+            if (IsSimulation)
             {
                 return GetLoadingRequestForSimulator(ref locationNames);
             }
@@ -155,7 +155,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
         }
         protected override bool IsUnloadingRequestReceived(ref List<string> locationNames)
         {
-            if (Simulation)
+            if (IsSimulation)
             {
                 return GetUnloadingRequestForSimulator(ref locationNames);
             }
@@ -164,7 +164,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
         }
         protected override void Executing()
         {
-            if (Simulation)
+            if (IsSimulation)
             {
                 UpdateProcessStates();
                 MoveSubstrateLocationLoadToUnloadForSimulator();

@@ -591,38 +591,38 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
                 }
                 
                 // LP에도 남아있는 경우
-                var transferStatus = _selectedSubstrate.GetTransferStatus();
-                switch (transferStatus)
-                {
-                    case SubstrateTransferStates.AtSource:
-                    case SubstrateTransferStates.AtWork:
-                        {
-                            int portId = _selectedSubstrate.GetSourcePortId();
-                            int slot = _selectedSubstrate.GetSourceSlot();
+                //var transferStatus = _selectedSubstrate.GetTransferStatus();
+                //switch (transferStatus)
+                //{
+                //    case SubstrateTransferStates.AtSource:
+                //    case SubstrateTransferStates.AtWork:
+                //        {
+                //            int portId = _selectedSubstrate.GetSourcePortId();
+                //            int slot = _selectedSubstrate.GetSourceSlot();
 
-                            LoadPortLocation lpLocation = new LoadPortLocation(portId, slot, "");
-                            if (_locationServer.GetLoadPortSlotLocation(portId, slot, ref lpLocation))
-                            {
-                                string name = _substrateManager.GetSubstrateNameAtLoadPort(portId, slot);
-                                _substrateManager.RemoveSubstrate(name, lpLocation);
-                            }
-                        }
-                        break;
-                    case SubstrateTransferStates.AtDestination:
-                        {
-                            int portId = _selectedSubstrate.GetDestinationPortId();
-                            int slot = _selectedSubstrate.GetDestinationSlot();
-                            LoadPortLocation lpLocation = new LoadPortLocation(portId, slot, "");
-                            if (_locationServer.GetLoadPortSlotLocation(portId, slot, ref lpLocation))
-                            {
-                                string name = _substrateManager.GetSubstrateNameAtLoadPort(portId, slot);
-                                _substrateManager.RemoveSubstrate(name, lpLocation);
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                //            LoadPortLocation lpLocation = new LoadPortLocation(portId, slot, "");
+                //            if (_locationServer.GetLoadPortSlotLocation(portId, slot, ref lpLocation))
+                //            {
+                //                string name = _substrateManager.GetSubstrateNameAtLoadPort(portId, slot);
+                //                _substrateManager.RemoveSubstrate(name, lpLocation);
+                //            }
+                //        }
+                //        break;
+                //    case SubstrateTransferStates.AtDestination:
+                //        {
+                //            int portId = _selectedSubstrate.GetDestinationPortId();
+                //            int slot = _selectedSubstrate.GetDestinationSlot();
+                //            LoadPortLocation lpLocation = new LoadPortLocation(portId, slot, "");
+                //            if (_locationServer.GetLoadPortSlotLocation(portId, slot, ref lpLocation))
+                //            {
+                //                string name = _substrateManager.GetSubstrateNameAtLoadPort(portId, slot);
+                //                _substrateManager.RemoveSubstrate(name, lpLocation);
+                //            }
+                //        }
+                //        break;
+                //    default:
+                //        break;
+                //}
 
                 _substrateManager.RemoveSubstrate(targetSubstrateName, location);
                 _selectedSubstrate = null;

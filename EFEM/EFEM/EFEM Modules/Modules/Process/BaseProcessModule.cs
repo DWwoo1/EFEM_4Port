@@ -24,7 +24,7 @@ namespace EFEM.Modules.ProcessModule
         {
             Name = name;
             ModuleIndex = moduleIndex;
-            Simulation = simulation;
+            IsSimulation = simulation;
             Logger = new ProcessModuleLogger(name);
 
             EquipmentState = EQUIPMENT_STATE.UNDEFINED;
@@ -70,7 +70,6 @@ namespace EFEM.Modules.ProcessModule
             }
 
             _receivedData = new ConcurrentDictionary<int, Dictionary<string, string>>();
-            
         }
         #endregion </Constructors>
 
@@ -82,7 +81,6 @@ namespace EFEM.Modules.ProcessModule
         protected Communicator.BaseProcessModuleCommunicator _communicator = null;
         protected readonly Dictionary<string, int> PortIdByLocation = null;
         protected readonly ProcessModuleLogger Logger = null;
-        protected readonly bool Simulation;
         protected bool _requestExit = false;
 
         private static SubstrateManager _substrateManager = null;
@@ -98,6 +96,7 @@ namespace EFEM.Modules.ProcessModule
         #region <Properties>
         public string Name { get; private set; }
         public int ModuleIndex { get; private set; }
+        public bool IsSimulation { get; protected set; }
         public string LotId { get; set; }
         public EQUIPMENT_STATE EquipmentState { get; set; }
         public string RecipeId { get; set; }

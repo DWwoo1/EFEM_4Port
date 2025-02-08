@@ -57,9 +57,14 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         public const string CountY = "CountY";
         public const string Angle = "Angle";
         public const string MapData = "MapData";
-        
+
+        public const string ParentLotId = "ParentLotId";
         public const string SplittedLotId = "SplittedLotId";
         public const string IsLastSubstrate = "IsLastSubstrate";
+
+        public const string BinUnloadingStep = "BinUnloadingStep";
+        public const string IsTrackOutCompleted = "IsTrackOutCompleted";
+
         //public const string SubstrateTypeCore = "Core";
         //public const string SubstrateTypeEmpty = "Empty";
         //public const string SubstrateTypeBin1 = "Bin1";
