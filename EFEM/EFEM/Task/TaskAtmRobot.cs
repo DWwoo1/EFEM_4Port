@@ -320,25 +320,10 @@ namespace FrameOfSystem3.Task
                         bool hasInvalidSubstrate = false;
                         if (tasks != null || false == isManualOperation)
                         {
-                            bool needToCheck = false;
+                            //bool needToCheck = false;
                             if (false == isManualOperation)
                             {
-                                needToCheck = true;
-                            }
-                            else
-                            {
-                                for (int i = 0; i < tasks.Length && isManualOperation; ++i)
-                                {
-                                    if (tasks[i].Equals(GetTaskName()))
-                                    {
-                                        needToCheck = true;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (needToCheck)
-                            {
+                                //needToCheck = true;
                                 Dictionary<RobotArmTypes, Substrate> substrateAtArm = new Dictionary<RobotArmTypes, Substrate>();
                                 if (_robotManager.GetSubstrates(RobotIndex, ref substrateAtArm))
                                 {
@@ -355,6 +340,38 @@ namespace FrameOfSystem3.Task
                                     }
                                 }
                             }
+
+                            // 2025.02.07.jhlim [DEL] 아래 구문 때문에 매뉴얼 동작 시 정보가 이상하면 자재 정보 편집하지 않는 이상 이도저도 못하는 상태가 된다.
+                            //else
+                            //{
+                            //    for (int i = 0; i < tasks.Length && isManualOperation; ++i)
+                            //    {
+                            //        if (tasks[i].Equals(GetTaskName()))
+                            //        {
+                            //            needToCheck = true;
+                            //            break;
+                            //        }
+                            //    }
+                            //}
+
+                            //if (needToCheck)
+                            //{
+                            //    Dictionary<RobotArmTypes, Substrate> substrateAtArm = new Dictionary<RobotArmTypes, Substrate>();
+                            //    if (_robotManager.GetSubstrates(RobotIndex, ref substrateAtArm))
+                            //    {
+                            //        foreach (var item in substrateAtArm)
+                            //        {
+                            //            if (item.Value == null)
+                            //                continue;
+
+                            //            if (item.Value.GetSourcePortId() <= 0)
+                            //            {
+                            //                hasInvalidSubstrate = true;
+                            //                break;
+                            //            }
+                            //        }
+                            //    }
+                            //}
                         }
 
                         if (hasInvalidSubstrate)

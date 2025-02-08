@@ -264,11 +264,11 @@ namespace FrameOfSystem3.Task
         #region <Utilities>
         private void MappingDoorLockSensor()
         {
-            GetAirAlarmSignalList(out List<int> signals);
-            for (int i = 0; i < signals.Count; ++i)
+			GetDoorLockSensorSignalList(out List<int> signals);
+			// GetAirAlarmSignalList(out List<int> signals);
+			for (int i = 0; i < signals.Count; ++i)
             {
                 DoorOpenedSensors[signals[i]] = false;
-
             }
         }
         private void MappingFanAlarmSensor()

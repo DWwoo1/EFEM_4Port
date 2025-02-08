@@ -892,64 +892,64 @@ namespace FrameOfSystem3.Functional
                             #region <LoadPorts - PWA-500Bin>
                             else
                             {
-                                switch (Work.AppConfigManager.Instance.InterfaceTypePIO)
-                                {
-                                    case Define.DefineEnumProject.AppConfig.EN_PIO_INTERFACE_TYPE.E84:
-                                        {
-                                            const int Offset = 8;
+                            switch (Work.AppConfigManager.Instance.InterfaceTypePIO)
+                            {
+                                case Define.DefineEnumProject.AppConfig.EN_PIO_INTERFACE_TYPE.E84:
+                                    {
+                                        const int Offset = 8;
 
-                                            int interLockOffset = i / (countLoadPort / 2);
-                                            int saftyInterLockIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.PROTECTION_BAR_LP_1_2_3 + interLockOffset;
+                                        int interLockOffset = i / (countLoadPort / 2);
+                                        int saftyInterLockIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.PROTECTION_BAR_LP_1_2_3 + interLockOffset;
                                         
-                                            int baseInputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.LP1_PIO_VALID + i * Offset;
-                                            int baseOutputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_OUT.LP1_PIO_L_REQ + i * Offset;
+                                        int baseInputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.LP1_PIO_VALID + i * Offset;
+                                        int baseOutputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_OUT.LP1_PIO_L_REQ + i * Offset;
 
-                                            Dictionary<int, Tuple<int, string>> inputs = new Dictionary<int, Tuple<int, string>>();
-                                            Dictionary<int, Tuple<int, string>> outputs = new Dictionary<int, Tuple<int, string>>();
-                                            for (int index = 0; index < Offset; ++index)
-                                            {
-                                                EFEM.Defines.LoadPort.E84InputSignals inputSignalEnums = EFEM.Defines.LoadPort.E84InputSignals.Valid + index;
-                                                inputs[index] = new Tuple<int, string>(index + baseInputIndex, inputSignalEnums.ToString());
-
-                                                EFEM.Defines.LoadPort.E84OutputSignals outputSignalEnums = EFEM.Defines.LoadPort.E84OutputSignals.LoadRequest + index;
-                                                outputs[index] = new Tuple<int, string>(index + baseOutputIndex, outputSignalEnums.ToString());
-                                            }
-
-                                            amhsControl = new EFEM.Defines.LoadPort.E84Handler(i, saftyInterLockIndex, inputs, outputs);
-                                            amhsControl.AssignActionModeChangeBeforeCarrierLoad(EFEM.Modules.LoadPortManager.Instance.ChangeLoadPortMode);
-                                        }
-                                        break;
-                                    case Define.DefineEnumProject.AppConfig.EN_PIO_INTERFACE_TYPE.E23:
+                                        Dictionary<int, Tuple<int, string>> inputs = new Dictionary<int, Tuple<int, string>>();
+                                        Dictionary<int, Tuple<int, string>> outputs = new Dictionary<int, Tuple<int, string>>();
+                                        for (int index = 0; index < Offset; ++index)
                                         {
-                                            const int Offset = 8;
+                                            EFEM.Defines.LoadPort.E84InputSignals inputSignalEnums = EFEM.Defines.LoadPort.E84InputSignals.Valid + index;
+                                            inputs[index] = new Tuple<int, string>(index + baseInputIndex, inputSignalEnums.ToString());
 
-                                            int interLockOffset = i / (countLoadPort / 2);
-                                            int saftyInterLockIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.PROTECTION_BAR_LP_1_2_3 + interLockOffset;
-                                        
-                                            int baseInputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.LP1_PIO_VALID + i * Offset;
-                                            int baseOutputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_OUT.LP1_PIO_L_REQ + i * Offset;
-
-                                            Dictionary<int, Tuple<int, string>> inputs = new Dictionary<int, Tuple<int, string>>();
-                                            Dictionary<int, Tuple<int, string>> outputs = new Dictionary<int, Tuple<int, string>>();
-                                            for (int index = 0; index < Offset; ++index)
-                                            {
-                                                EFEM.Defines.LoadPort.E23InputSignals inputSignalEnums = EFEM.Defines.LoadPort.E23InputSignals.Valid + index;
-                                                inputs[index] = new Tuple<int, string> (index + baseInputIndex, inputSignalEnums.ToString());
-
-                                                EFEM.Defines.LoadPort.E23OutputSignals outputSignalEnums = EFEM.Defines.LoadPort.E23OutputSignals.LoadRequest + index;
-                                                outputs[index] = new Tuple<int, string>(index + baseOutputIndex, outputSignalEnums.ToString());
-                                            }
-
-                                            amhsControl = new EFEM.Defines.LoadPort.CustomizedE23(i, saftyInterLockIndex, inputs, outputs);
-                                            amhsControl.AssignActionModeChangeBeforeCarrierLoad(EFEM.Modules.LoadPortManager.Instance.ChangeLoadPortMode);
+                                            EFEM.Defines.LoadPort.E84OutputSignals outputSignalEnums = EFEM.Defines.LoadPort.E84OutputSignals.LoadRequest + index;
+                                            outputs[index] = new Tuple<int, string>(index + baseOutputIndex, outputSignalEnums.ToString());
                                         }
-                                        break;
-                                    default:
-                                        break;
-                                }
+
+                                        amhsControl = new EFEM.Defines.LoadPort.E84Handler(i, saftyInterLockIndex, inputs, outputs);
+                                        amhsControl.AssignActionModeChangeBeforeCarrierLoad(EFEM.Modules.LoadPortManager.Instance.ChangeLoadPortMode);
+                                    }
+                                    break;
+                                case Define.DefineEnumProject.AppConfig.EN_PIO_INTERFACE_TYPE.E23:
+                                    {
+                                        const int Offset = 8;
+
+                                        int interLockOffset = i / (countLoadPort / 2);
+                                        int saftyInterLockIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.PROTECTION_BAR_LP_1_2_3 + interLockOffset;
+                                        
+                                        int baseInputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.LP1_PIO_VALID + i * Offset;
+                                        int baseOutputIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_OUT.LP1_PIO_L_REQ + i * Offset;
+
+                                        Dictionary<int, Tuple<int, string>> inputs = new Dictionary<int, Tuple<int, string>>();
+                                        Dictionary<int, Tuple<int, string>> outputs = new Dictionary<int, Tuple<int, string>>();
+                                        for (int index = 0; index < Offset; ++index)
+                                        {
+                                            EFEM.Defines.LoadPort.E23InputSignals inputSignalEnums = EFEM.Defines.LoadPort.E23InputSignals.Valid + index;
+                                            inputs[index] = new Tuple<int, string> (index + baseInputIndex, inputSignalEnums.ToString());
+
+                                            EFEM.Defines.LoadPort.E23OutputSignals outputSignalEnums = EFEM.Defines.LoadPort.E23OutputSignals.LoadRequest + index;
+                                            outputs[index] = new Tuple<int, string>(index + baseOutputIndex, outputSignalEnums.ToString());
+                                        }
+
+                                        amhsControl = new EFEM.Defines.LoadPort.CustomizedE23(i, saftyInterLockIndex, inputs, outputs);
+                                        amhsControl.AssignActionModeChangeBeforeCarrierLoad(EFEM.Modules.LoadPortManager.Instance.ChangeLoadPortMode);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                             }
                             #endregion </LoadPorts - PWA-500Bin>
-
+                            
                             Work.AppConfigManager.Instance.LoadPortLocationNames.TryGetValue(i, out Dictionary<string, string> locationNames);
                             EFEM.Modules.LoadPortManager.Instance.AssignLoadPorts(new EFEM.Modules.LoadPort.LoadPortOperator(portId,
                                 name,

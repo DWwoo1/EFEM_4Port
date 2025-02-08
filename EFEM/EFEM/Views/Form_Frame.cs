@@ -890,36 +890,5 @@ namespace FrameOfSystem3.Views
 			SECSGEM.ScenarioOperator.Instance.Exit();
         }
         #endregion
-
-        const int WM_SYSCOLORCHANGE = 0x0015;    // 시스템 색상 변경 메시지
-        const int WM_DISPLAYCHANGE = 0x007E;     // 디스플레이 설정 변경 메시지
-        const int WM_USERPREFERENCESCHANGING = 0x0050; // 사용자 환경 설정 변경 메시지
-
-        protected override void WndProc(ref System.Windows.Forms.Message m)
-        {
-            // 시스템 색상 변경 메시지 처리 (테마 변경)
-            if (m.Msg == WM_SYSCOLORCHANGE)
-            {
-                // 테마 변경 이벤트 무시
-                return;  // 아무 작업도 하지 않고 메시지를 차단
-            }
-
-            // 디스플레이 설정 변경 메시지 처리
-            if (m.Msg == WM_DISPLAYCHANGE)
-            {
-                // 디스플레이 설정 변경 이벤트 무시
-                return;  // 아무 작업도 하지 않고 메시지를 차단
-            }
-
-            // 사용자 환경 설정 변경 메시지 처리
-            if (m.Msg == WM_USERPREFERENCESCHANGING)
-            {
-                // 사용자 환경 설정 변경 이벤트 무시
-                return;  // 아무 작업도 하지 않고 메시지를 차단
-            }
-
-            // 기본 메시지 처리 (다른 메시지는 정상적으로 처리)
-            base.WndProc(ref m);
-        }
     }
 }

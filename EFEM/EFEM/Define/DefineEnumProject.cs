@@ -489,7 +489,8 @@ namespace Define
                 FLUX_CLEANING_DIRECTION,
                 ALIGN_POINT_TYPE,
 
-                WAFER_TYPE,
+                WAFER_TYPE_BIN,
+                WAFER_TYPE_500W,
                 ARM_TYPE,
 
                 SUBSTRATE_TRANSFER_STATE,
