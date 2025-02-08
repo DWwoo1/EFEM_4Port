@@ -10,31 +10,25 @@ namespace FrameOfSystem3.Functional
 {
 	public partial class SelectionList
 	{
-        // 2025.01.07. by dwlim [MOD] Process Module 분리로 인한 이름 변경
-        private enum WaferType_PWA500BIN
+        // 2025.02.08. by dwlim [MOD] 
+        private enum WaferType
         {
-            Core,
-            Empty,
-            StageCenter,
-            StageLeft,
-            StageRight,
-            //Bin1,
-            //Bin2,
-            //Bin3
-        }
-        // 2025.01.07. by dwlim [MOD] Process Module 분리로 인한 추가
-        private enum WaferType_PWA500W
-        {
-            CORE_8,
-            CORE_12,
-            SORT_12,
+            Core_8,
+            Core_12,
+            Sort_12
+
+            // PWA-500Bin꺼
+            //Core,
+            //Empty,
+            //StageCenter,
+            //StageLeft,
+            //StageRight,
         }
 
         private void MakeListByProjectEnum()
 		{  
             m_DicOfList.Add(EN_SELECTIONLIST.ARM_TYPE, Enum.GetNames(typeof(EFEM.Defines.AtmRobot.RobotArmTypes)));
-            m_DicOfList.Add(EN_SELECTIONLIST.WAFER_TYPE_PWA500BIN, Enum.GetNames(typeof(WaferType_PWA500BIN)));
-            m_DicOfList.Add(EN_SELECTIONLIST.WAFER_TYPE_PWA500W, Enum.GetNames(typeof(WaferType_PWA500W)));
+            m_DicOfList.Add(EN_SELECTIONLIST.WAFER_TYPE, Enum.GetNames(typeof(WaferType)));
 
             m_DicOfList.Add(EN_SELECTIONLIST.SUBSTRATE_TRANSFER_STATE, Enum.GetNames(typeof(EFEM.Defines.MaterialTracking.SubstrateTransferStates)));
             m_DicOfList.Add(EN_SELECTIONLIST.SUBSTRATE_PROCESSING_STATE, Enum.GetNames(typeof(EFEM.Defines.MaterialTracking.ProcessingStates)));

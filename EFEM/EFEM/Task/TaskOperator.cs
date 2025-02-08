@@ -1122,6 +1122,11 @@ namespace FrameOfSystem3.Task
                     }
                 }
             }
+            else
+            {
+                if (false == messageBox.ShowWarningMessage("SECS/GEM이 Off 상태 입니다. 계속 진행할까요?", Views.Functional.Form_MessageBox.EN_STYLE.OkCancel, TitleWarning, indexOfBuzzer, true))
+                    return false;
+            }
             #endregion </SECSGEM Status>
 
             return true;

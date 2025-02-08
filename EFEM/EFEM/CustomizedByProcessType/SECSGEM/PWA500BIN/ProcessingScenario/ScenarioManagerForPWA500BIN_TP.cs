@@ -12,6 +12,7 @@ using TickCounter_;
 using FrameOfSystem3.Recipe;
 using FrameOfSystem3.SECSGEM.DefineSecsGem;
 
+using EFEM.Defines.Common;
 using EFEM.MaterialTracking;
 using EFEM.Defines.LoadPort;
 using EFEM.Modules;
@@ -30,6 +31,12 @@ namespace FrameOfSystem3.SECSGEM.Scenario
             _processGroup = ProcessModuleGroup.Instance;
             _recipe = Recipe.Recipe.GetInstance();
 
+            TraceDataRecoveryFilePath = string.Format(@"{0}\..\Recovery\TraceData\FdcValues.ini", Define.DefineConstant.FilePath.FILEPATH_EXE);
+            var dirName = Path.GetDirectoryName(TraceDataRecoveryFilePath);
+            if (false == Directory.Exists(dirName))
+                Directory.CreateDirectory(dirName);
+
+            _lotHistoryLog = LotHistoryLog.Instance;
         }
         #endregion </Constructors>
 
@@ -40,6 +47,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         private static CarrierManagementServer _carrierServer = null;
         private static ProcessModuleGroup _processGroup = null;
         private static LoadPortManager _loadPortManager = null;
+        private static LotHistoryLog _lotHistoryLog = null;
 
         private static Recipe.Recipe _recipe = null;
         private Func<string, string, string, string, string[], string[], EN_MESSAGE_RESULT, bool, bool> _funcToSendClientMessage = null;
@@ -57,6 +65,9 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         //private readonly TickCounter TicksForCarrierUnload = new TickCounter();
         //private QueuedScenarioInfo _dequeuedScenarioToCarrierUnload = null;
         //private readonly ConcurrentQueue<QueuedScenarioInfo> CarrierUnloadingReservation = new ConcurrentQueue<QueuedScenarioInfo>();
+        private const string SectionName = "VariableValues";
+        private readonly string TraceDataRecoveryFilePath = string.Empty;
+        private string _pathForPms = string.Empty;
         #endregion </Fields>
 
         #region <Properties>
@@ -74,7 +85,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         {
             get
             {
-                return (false == _recipe.GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGem.ToString(), false));
+                return false;// (false == _recipe.GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGem.ToString(), false));
             }
         }
         private int HandlingRequestDelayEachLoadPorts
@@ -84,6 +95,15 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 return _recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.HandlingRequestDelayEachLoadPorts.ToString(), 5000);
             }
         }
+        public string PmsFullPath
+        {
+            get
+            {
+                return _pathForPms;
+            }
+        }
+        public bool HasScenarioError { get; set; }
+        public ScenarioListTypes FailedScenarioTypes { get; set; }
         #endregion </Properties>
 
         #region <Methods>
@@ -232,6 +252,43 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         }
         #endregion </OHT Handling>
 
+        #region <Trace Data Recovery>
+        public bool ReadVariableValuesFromFile(ref Dictionary<long, string> dataToUpdate)
+        {
+            if (false == File.Exists(TraceDataRecoveryFilePath))
+            {
+                WriteVariableValuesToFile(dataToUpdate);
+                return false;
+            }
+
+            Functional.IniControl ini = new Functional.IniControl(TraceDataRecoveryFilePath);
+            ini.sectionName = SectionName;
+            List<long> ids = dataToUpdate.Keys.ToList();
+            for(int i = 0; i < ids.Count; ++i)
+            {
+                long id = ids[i];
+                dataToUpdate[id] = ini.GetString(id.ToString(), "0");
+            }            
+
+            return true;
+        }
+
+        public void WriteVariableValuesToFile(Dictionary<long, string> dataToUpdate)
+        {
+            if (File.Exists(TraceDataRecoveryFilePath))
+                File.Delete(TraceDataRecoveryFilePath);
+
+            Functional.IniControl ini = new Functional.IniControl(TraceDataRecoveryFilePath);
+            ini.sectionName = SectionName;
+            var dataToWrite = dataToUpdate.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            foreach (var item in dataToWrite)
+            {
+                long id = item.Key;
+                ini.WriteString(id.ToString(), item.Value);
+            }
+        }
+        #endregion </Trace Data Recovery>
+
         public string GetModelName()
         {
             return Work.AppConfigManager.Instance.MachineName;
@@ -349,11 +406,11 @@ namespace FrameOfSystem3.SECSGEM.Scenario
 
 
                 //Dictionary<string, string> additionalParams = null;
-                string fileName = string.Empty, fullPath = string.Empty;
+                string fileName = string.Empty;
                 portId = substrate.GetDestinationPortId();
                 slot = substrate.GetDestinationSlot();
                 fileName = GetPMSFileName(lotId, substrateId);
-                if (false == MakePMSFile(lotId, substrateId, fileName, pmsFileBody, ref fullPath))
+                if (false == MakePMSFile(lotId, substrateId, fileName, pmsFileBody, ref _pathForPms))
                     return scenarioParams;
 
                 //additionalParams = new Dictionary<string, string>
@@ -381,7 +438,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 scenarioParams[UploadCoreOrBinFileKeys.KeyParamOperatorId] = userId;
                 scenarioParams[UploadCoreOrBinFileKeys.KeyChipQty] = chipQty.ToString();
                 scenarioParams[UploadCoreOrBinFileKeys.KeyPMSFileName] = fileName;
-                scenarioParams[UploadCoreOrBinFileKeys.KeyPMSFileBody] = fullPath;
+                scenarioParams[UploadCoreOrBinFileKeys.KeyPMSFileBody] = PmsFullPath;
 
                 scenarioParams[UploadCoreOrBinFileKeys.KeySubstrateName] = substrateId;
 
@@ -454,6 +511,11 @@ namespace FrameOfSystem3.SECSGEM.Scenario
             return scenarioParams;
         }
 
+        private void SetScenarioError(ScenarioListTypes failedScenario)
+        {
+            FailedScenarioTypes = failedScenario;
+            HasScenarioError = true;
+        }
 
         public void ExecuteAfterScenarioCompletion(ScenarioListTypes typeOfScenario,
             Dictionary<string, string> scenarioParams,
@@ -598,6 +660,9 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                                          string.Empty, string.Empty,
                                          messageContentToSend.Keys.ToArray(), messageContentToSend.Values.ToArray(),
                                          result, true);
+
+                                if (UseCoreMapHandlingOnly)
+                                    return;
                             }
                             else
                             {
@@ -630,9 +695,9 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                                 return;
 
                             // Work_start 이후 발생하도록 수정 필요 -> ResponseDownloadMapFile 후 WaferSplitEvent 발생하도록 수정 필요
-                            int portId = substrate.GetSourcePortId();
-                            if (false == _carrierServer.HasCarrier(portId))
-                                return;
+                            //int portId = substrate.GetSourcePortId();
+                            //if (false == _carrierServer.HasCarrier(portId))
+                            //    return;
 
                             string isLastString = substrate.GetAttribute(PWA500BINSubstrateAttributes.IsLastSubstrate);
                             bool.TryParse(isLastString, out bool isLast);
@@ -668,9 +733,14 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                                 messageContentToSend.Keys.ToArray(), messageContentToSend.Values.ToArray(),
                                 result, true);
                         }
-                        if (result.Equals(EN_MESSAGE_RESULT.NG))
-                            return;
                         #endregion
+
+                        if (result.Equals(EN_MESSAGE_RESULT.NG))
+                        {
+                            SetScenarioError(typeOfScenario);
+                            //FrameOfSystem3.Task.TaskOperator.GetInstance().SetOperation(RunningMain_.OPERATION_EQUIPMENT.STOP);
+                            return;
+                        }
 
                         // 2024.08.18 : [START] 코어맵 핸들링만 사용하는 경우 이후 시나리오를 무시한다.
                         if (UseCoreMapHandlingOnly)
@@ -687,7 +757,6 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                             return;
                         if (false == additionalParams.TryGetValue(AdditionalParamKeys.KeyUserId, out string userId))
                             return;
-
                         #region
 
                         // Process End
@@ -711,6 +780,18 @@ namespace FrameOfSystem3.SECSGEM.Scenario
 
                                 _actionToEnqueueScenarioAsync(ScenarioListTypes.SCENARIO_PROCESS_END, scenarioParam, null);
                             }
+
+                            string carrierId = _carrierServer.GetCarrierId(portId);
+                            _lotHistoryLog.WriteSubstrateHistoryForWorkEnd(portId, carrierId, substrateId, qty);
+
+                            // 2025.02.04. jhlim [ADD] 트랙아웃 이미 진행되었는지 검사
+                            string isTrackoutCompleted = substrate.GetAttribute(PWA500BINSubstrateAttributes.IsTrackOutCompleted);
+                            if (isTrackoutCompleted.Equals(bool.TrueString))
+                            {
+                                // 문자열이 True면 트랙아웃 패스
+                                return;
+                            }                            
+                            // 2025.02.04. jhlim [END]
                         }
                         #endregion
 
@@ -721,10 +802,40 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                         #endregion
                     }
                     break;
+                case ScenarioListTypes.SCENARIO_REQ_CORE_WAFER_TRACK_OUT:
+                    {
+                        if (additionalParams == null || 
+                            false == additionalParams.TryGetValue(AdditionalParamKeys.KeySubstrateId, out string substrateId))
+                            return;
+
+                        Substrate substrate = new Substrate("");
+                        if (_substrateManager.GetSubstrateByName(substrateId, ref substrate))
+                        {
+                            int portId = substrate.GetSourcePortId();
+                            string lotId = substrate.GetLotId();
+
+                            string carrierId = substrate.GetSourceCarrierId();
+                            string chipQty = substrate.GetAttribute(PWA500BINSubstrateAttributes.ChipQty);
+                            var isLast = substrate.GetAttribute(PWA500BINSubstrateAttributes.IsLastSubstrate);
+                            _lotHistoryLog.WriteSubstrateHistoryForTrackOut(portId, carrierId, substrateId, lotId, chipQty, isLast.Equals(bool.TrueString));
+
+                            // 2025.02.04. jhlim [ADD] 트랙아웃 진행 했다고 속성을 설정한다.
+                            substrate.SetAttribute(PWA500BINSubstrateAttributes.IsTrackOutCompleted, bool.TrueString);
+                            // 2025.02.04. jhlim [END]
+                        }
+                    }
+                    break;
 
                 case ScenarioListTypes.SCENARIO_REQ_CORE_WAFER_SPLIT:
                 case ScenarioListTypes.SCENARIO_REQ_CORE_WAFER_SPLIT_LAST:
                     {
+                        if (result.Equals(EN_MESSAGE_RESULT.NG))
+                        {
+                            SetScenarioError(typeOfScenario);
+                            //FrameOfSystem3.Task.TaskOperator.GetInstance().SetOperation(RunningMain_.OPERATION_EQUIPMENT.STOP);
+                            return;
+                        }
+
                         if (false == scenarioParams.TryGetValue(AssignSubstrateLotIdKeys.KeyParamWaferId, out string substrateId))
                             return;
 
@@ -733,6 +844,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                             return;
 
                         string targetLotId;
+                        int portId = substrate.GetSourcePortId();
                         if (typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_WAFER_SPLIT))
                         {
                             if (false == resultOfScenario.TryGetValue(AssignSubstrateLotIdKeys.KeyResultLotId, out targetLotId))
@@ -740,13 +852,18 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                         }
                         else
                         {
-                            int portId = substrate.GetSourcePortId();
                             if (false == _carrierServer.HasCarrier(portId))
                                 return;
 
                             targetLotId = _carrierServer.GetCarrierLotId(portId);
                         }
+                        
+                        string oldLotId = substrate.GetLotId();
+                        string carrierId = _carrierServer.GetCarrierId(portId);
+                        _lotHistoryLog.WriteSubstrateHistoryForWaferSplit(portId, carrierId, substrateId, oldLotId, targetLotId, typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_WAFER_SPLIT_LAST));
+                        
                         substrate.SetLotId(targetLotId);
+                        
 
                         if (false == isManual && additionalParams != null)
                         {
@@ -791,6 +908,13 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 case ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_FULL_SPLIT_FIRST:
                 case ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_FULL_SPLIT:
                     {
+                        if (result.Equals(EN_MESSAGE_RESULT.NG))
+                        {
+                            SetScenarioError(typeOfScenario);
+                            //FrameOfSystem3.Task.TaskOperator.GetInstance().SetOperation(RunningMain_.OPERATION_EQUIPMENT.STOP);
+                            return;
+                        }
+
                         if (false == isManual)
                         {
                             #region
@@ -836,18 +960,19 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                         {
                             return;
                         }
+
                         Substrate binSubstrate = new Substrate("");
                         if (_substrateManager.GetSubstrateByName(substrateId, ref binSubstrate))
                         {
-                            string chipQtyToIncreaseByString;
-                            if (false == scenarioParams.TryGetValue(SplitCoreChipKeys.KeyParamSplitChipQty, out chipQtyToIncreaseByString))
-                                chipQtyToIncreaseByString = "0";
+                            string chipQtyToSplit;
+                            if (false == scenarioParams.TryGetValue(SplitCoreChipKeys.KeyParamSplitChipQty, out chipQtyToSplit))
+                                chipQtyToSplit = "0";
 
                             if (typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_SPLIT_FIRST) ||
                                 typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_FULL_SPLIT_FIRST))
                             {
                                 binSubstrate.SetLotId(lotId);
-                                binSubstrate.SetAttribute(PWA500BINSubstrateAttributes.ChipQty, chipQtyToIncreaseByString);
+                                binSubstrate.SetAttribute(PWA500BINSubstrateAttributes.ChipQty, chipQtyToSplit);
                             }
                             else
                             {
@@ -865,7 +990,25 @@ namespace FrameOfSystem3.SECSGEM.Scenario
 
                                 string lotIdForParent = binSubstrate.GetLotId();
                                 // 토탈이 아닌 증가되는 양만 머지한다. 여기서 수량이 계속 증가되는듯..
-                                ExecuteScenarioToChipMerge(lotIdForParent, lotId, coreSubstrateId, substrateId, binType, chipQtyToIncreaseByString/*totalQty.ToString()*/);
+                                ExecuteScenarioToChipMerge(lotIdForParent, lotId, coreSubstrateId, substrateId, binType, chipQtyToSplit/*totalQty.ToString()*/);
+                            }
+
+
+                            Substrate coreSubstrate = new Substrate("");
+                            if (_substrateManager.GetSubstrateByName(coreSubstrateId, ref coreSubstrate))
+                            {
+                                int corePortId = coreSubstrate.GetSourcePortId();
+                                int binPortId = binSubstrate.GetSourcePortId();
+
+                                bool splitFirst = typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_SPLIT_FIRST) ||
+                                    typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_FULL_SPLIT_FIRST);
+
+                                bool splitFully = typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_FULL_SPLIT_FIRST) ||
+                                    typeOfScenario.Equals(ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_FULL_SPLIT);
+
+                                string carrierId = _carrierServer.GetCarrierId(corePortId);                  
+                                
+                                _lotHistoryLog.WriteSubstrateHistoryForChipSplit(corePortId, carrierId, coreSubstrateId, binPortId, substrateId, chipQtyToSplit, binType, lotId, splitFirst, splitFully);
                             }
                         }
                         #endregion
@@ -1076,6 +1219,8 @@ namespace FrameOfSystem3.SECSGEM.Scenario
             _actionToEnqueueScenarioAsync(scenario, scenarioParam, additionalParams);
             return true;
         }
+        
+        // 코어밖에 올 수가 없다. -> Bin은 로봇에서 발생
         private bool ExecuteScenarioToTrackOut(string substrateId, int chipQty, string userId, bool isCore)
         {
             if (_actionToEnqueueScenarioAsync == null)
@@ -1092,7 +1237,10 @@ namespace FrameOfSystem3.SECSGEM.Scenario
             }
             var scenarioParams = MakeScenarioParamToTrackOut(substrateId, userId, isCore);
 
-            _actionToEnqueueScenarioAsync(scenario, scenarioParams, null);
+            Dictionary<string, string> additionalParams = new Dictionary<string, string>();
+            additionalParams[AdditionalParamKeys.KeySubstrateId] = substrateId;
+
+            _actionToEnqueueScenarioAsync(scenario, scenarioParams, additionalParams);
 
             return true;
         }
@@ -1377,7 +1525,6 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         {
             if (false == _carrierServer.HasCarrier(portId))
                 return null;
-
 
             string carrierId = _carrierServer.GetCarrierId(portId);
             string lotId = _carrierServer.GetCarrierLotId(portId);

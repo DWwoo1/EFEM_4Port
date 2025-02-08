@@ -80,11 +80,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             _temporarySubstrate = new Substrate("");
             _substratesInArm = new Dictionary<RobotArmTypes, Substrate>();
 
-            _temporaryList = new List<Substrate>();
-            _temporaryCoreList = new List<Substrate>();
-            _temporarySortList = new List<Substrate>();
-            CoreSubstrates = new List<Substrate>();
-            SortSubstrates = new List<Substrate>();
+            _substratesAtProcessModule = new List<Substrate>();
+            _coreSubstratesAtProcessModule = new List<Substrate>();
+            _sortSubstratesAtProcessModule = new List<Substrate>();
             
             _selectedSubstrate = new Substrate("");
             _selectionList = Form_SelectionList.GetInstance();
@@ -135,16 +133,13 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
         #endregion </Substrate from LoadPort>
 
         #region <Substrates in Process Module>
-        private const int ColumnSubstrateIndex = 0;
-        private const int ColumnSubstrateName = 1;
+        private const int ColumnSubstrateName = 0;
         private const int ColumnRequestEnabled = 0;
         private const int ColumnRequestLocation = 1;
 
-        private List<Substrate> _temporaryList = null;
-        private List<Substrate> _temporaryCoreList = null;
-        private List<Substrate> _temporarySortList = null;
-        private readonly List<Substrate> CoreSubstrates = null;
-        private readonly List<Substrate> SortSubstrates = null;
+        private List<Substrate> _substratesAtProcessModule = null;
+        private List<Substrate> _coreSubstratesAtProcessModule = null;
+        private List<Substrate> _sortSubstratesAtProcessModule = null;
         #endregion </Substrates in Process Module>
 
         #region <Substrates In Robot>
@@ -176,8 +171,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
                 item.Value.ActivateView();
             }
 
-            CoreSubstrates.Clear();
-            SortSubstrates.Clear();
             gvCoreSubstrateList.ClearSelection();
             gvSortSubstrateList.ClearSelection();
             _selectedLocationName = string.Empty;
@@ -689,85 +682,71 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
         }
         private void UpdateSortGridView()
         {
-            bool updateAll = false;
-            if (SortSubstrates.Count != _temporarySortList.Count)
+            bool isCleared = false;
+            if (gvSortSubstrateList.Rows.Count != _sortSubstratesAtProcessModule.Count)
             {
-                SortSubstrates.Clear();
                 gvSortSubstrateList.Rows.Clear();
-                updateAll = true;
+                isCleared = true;
             }
 
-            for (int i = 0; i < _temporarySortList.Count; ++i)
+            for (int i = 0; i < _sortSubstratesAtProcessModule.Count; ++i)
             {
-                if (updateAll || SortSubstrates[i].GetName() != _temporarySortList[i].GetName())
+                if (isCleared || gvSortSubstrateList[0, i].Value.ToString() != _sortSubstratesAtProcessModule[i].GetName())
                 {
-                    if (updateAll)
+                    if (isCleared)
                     {
-                        SortSubstrates.Add(_temporarySortList[i]);
                         gvSortSubstrateList.Rows.Add();
-                        gvSortSubstrateList[ColumnSubstrateIndex, i].Value = (i + 1).ToString();
-                    }
-                    else
-                    {
-                        SortSubstrates[i] = _temporarySortList[i];
                     }
 
-                    gvSortSubstrateList[ColumnSubstrateName, i].Value = _temporarySortList[i].GetName();
+                    gvSortSubstrateList[ColumnSubstrateName, i].Value = _sortSubstratesAtProcessModule[i].GetName();
                 }
             }
         }
         private void UpdateCoreGridView()
         {
-            bool updateAll = false;
-            if (CoreSubstrates.Count != _temporaryCoreList.Count)
+            bool isCleared = false;
+            if (gvCoreSubstrateList.Rows.Count != _coreSubstratesAtProcessModule.Count)
             {
-                CoreSubstrates.Clear();
                 gvCoreSubstrateList.Rows.Clear();
-                updateAll = true;
+                isCleared = true;
             }
 
-            for (int i = 0; i < _temporaryCoreList.Count; ++i)
+            for (int i = 0; i < _coreSubstratesAtProcessModule.Count; ++i)
             {
-                if (updateAll || CoreSubstrates[i].GetName() != _temporaryCoreList[i].GetName())
+                if (isCleared || gvCoreSubstrateList[0, i].Value.ToString() != _coreSubstratesAtProcessModule[i].GetName())
                 {
-                    if (updateAll)
+                    if (isCleared)
                     {
-                        CoreSubstrates.Add(_temporaryCoreList[i]);
                         gvCoreSubstrateList.Rows.Add();
-                        gvCoreSubstrateList[ColumnSubstrateIndex, i].Value = (i + 1).ToString();
-                    }
-                    else
-                    {
-                        CoreSubstrates[i] = _temporaryCoreList[i];
                     }
 
-                    gvCoreSubstrateList[ColumnSubstrateName, i].Value = _temporaryCoreList[i].GetName();
+                    gvCoreSubstrateList[ColumnSubstrateName, i].Value = _coreSubstratesAtProcessModule[i].GetName();
                 }
             }
         }
         public void RefreshSubstrateList()
         {
-            if (_substrateManager.GetSubstratesAtProcessModule(ProcessModuleName, ref _temporaryList))
+            if (_substrateManager.GetSubstratesAtProcessModule(ProcessModuleName, ref _substratesAtProcessModule))
             //if (_processGroup.GetSubstrates(ProcessModuleIndex, ref _temporaryList))
             {
-                _temporaryCoreList.Clear();
-                _temporarySortList.Clear();
-                for (int i = 0; i < _temporaryList.Count; ++i)
+                _coreSubstratesAtProcessModule.Clear();
+                _sortSubstratesAtProcessModule.Clear();
+                for (int i = 0; i < _substratesAtProcessModule.Count; ++i)
                 {
-                    string subType = _temporaryList[i].GetAttribute(PWA500BINSubstrateAttributes.SubstrateType);
+                    string subType = _substratesAtProcessModule[i].GetAttribute(PWA500BINSubstrateAttributes.SubstrateType);
                     if (false == Enum.TryParse(subType, out SubstrateType convertedSubType))
                         continue;
 
                     switch (convertedSubType)
                     {
                         case SubstrateType.Core:
-                            _temporaryCoreList.Add(_temporaryList[i]);
+                            _coreSubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
                             break;
                         case SubstrateType.Empty:
                         case SubstrateType.Bin1:
                         case SubstrateType.Bin2:
                         case SubstrateType.Bin3:
-                            _temporarySortList.Add(_temporaryList[i]);
+                            _sortSubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
                             break;
                         default:
                             break;

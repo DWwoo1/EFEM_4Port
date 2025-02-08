@@ -174,7 +174,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.Setup.PWA500BIN
             this.lblWaferType.ParameterStored = false;
             this.lblWaferType.ParameterType = FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT;
             this.lblWaferType.ParameterUNIT = "";
-            this.lblWaferType.SelectionList = Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.WAFER_TYPE_PWA500BIN;
+            this.lblWaferType.SelectionList = Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.WAFER_TYPE;
             this.lblWaferType.Size = new System.Drawing.Size(159, 35);
             this.lblWaferType.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
             this.lblWaferType.SubFontColor = System.Drawing.Color.Gray;

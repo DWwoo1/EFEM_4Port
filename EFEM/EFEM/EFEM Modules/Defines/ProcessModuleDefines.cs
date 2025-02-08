@@ -118,7 +118,7 @@ namespace EFEM.Defines.ProcessModule
     }
     public class ProcessModuleLogger : ModuleLogger
     {
-        public ProcessModuleLogger(string name) : base(LogTypes.ProcessModule, name) 
+        public ProcessModuleLogger(string name) : base(BaseLogTypes.LogTypeProcessModule, name, true) 
         {
             BuilderToWrite = new StringBuilder();
         }

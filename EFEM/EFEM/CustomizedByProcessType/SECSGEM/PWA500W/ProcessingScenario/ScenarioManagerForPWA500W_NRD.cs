@@ -72,7 +72,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         {
             get
             {
-                return (false == _recipe.GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGem.ToString(), false));
+                return false;// (false == _recipe.GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGem.ToString(), false));
             }
         }
         #endregion </Properties>

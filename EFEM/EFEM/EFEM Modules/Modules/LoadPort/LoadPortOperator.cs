@@ -20,7 +20,7 @@ namespace EFEM.Modules.LoadPort
             PortId = portId;
             Name = name;
 
-            LogTypes typeOfLog = LogTypes.LoadPort1 + portId - 1;
+            string typeOfLog = string.Format("{0}{1}", BaseLogTypes.LogTypeLoadPort, portId);
             Logger = new LoadPortLogger(typeOfLog, Name);
             State = new LoadPortStateInformation();
             StateTransitionManager = new StateTransitionManager(portId, ref State);

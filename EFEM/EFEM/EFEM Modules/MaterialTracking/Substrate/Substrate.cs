@@ -106,7 +106,7 @@ namespace EFEM.MaterialTracking
             }
             catch (Exception ex)
             {
-                EFEMLogger.Instance.WriteLog(string.Format("LoadRecoveryData Exception > {0}, {1}, {2}",
+                DebugLogger.Instance.WriteDebugLog(string.Format("LoadRecoveryData Exception > {0}, {1}, {2}",
                     fileNameWithExtension, ex.Message, ex.StackTrace));
 
                 return false;
@@ -126,7 +126,7 @@ namespace EFEM.MaterialTracking
             }
             catch (Exception ex)
             {
-                EFEMLogger.Instance.WriteLog(string.Format("SaveRecoveryData Exception > {0}, {1}, {2}",
+                DebugLogger.Instance.WriteDebugLog(string.Format("SaveRecoveryData Exception > {0}, {1}, {2}",
                     fileNameWithExtension, ex.Message, ex.StackTrace));
 
                 return false;
@@ -145,7 +145,7 @@ namespace EFEM.MaterialTracking
             }
             catch (Exception ex)
             {
-                EFEMLogger.Instance.WriteLog(string.Format("DeleteRecoveryData Exception > {0}, {1}, {2}",
+                DebugLogger.Instance.WriteDebugLog(string.Format("DeleteRecoveryData Exception > {0}, {1}, {2}",
                     fileNameWithExtension, ex.Message, ex.StackTrace));
 
                 return false;

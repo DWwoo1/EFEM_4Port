@@ -33,10 +33,56 @@ using System.Runtime.InteropServices;
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("2.12.33.44")]
+[assembly: AssemblyFileVersion("2.14.36.50")]
 
 // Version : [호환성.추가.변경.개선]
 #region <VERSION HISTORY>
+
+#region <2.14.36.50>
+// 1. FDC ESD 누락 개선
+#endregion </2.14.36.50>
+
+#region <2.14.36.49>
+// 1. Substrate Attribute 추가함
+#endregion </2.14.36.49>
+
+#region <2.14.35.49>
+// 1. Substrate History Carrier에 같이 기록되도록 변경
+#endregion </2.14.35.49>
+
+#region <2.14.34.49>
+// 1. Substrate List Concurrent로 변경하여 컬렉션 변경 에러 개선
+// 2. EFEM에서 레시피 업로드 시 파일 없어도 현재 레시피 복사 후 올리도록 개선
+#endregion </2.14.34.49>
+
+#region <2.14.34.48>
+// 1. SecsMessage 버그 개선
+#endregion </2.14.34.48>
+
+#region <2.14.34.47>
+// 1. 예외추가
+#endregion </2.14.34.47>
+
+#region <2.14.34.46>
+// 1. Ring Id를 이용해 Substrate를 찾을 때 Attribute를 이용해 찾도록 개선
+#endregion </2.14.34.46>
+
+#region <2.14.33.46>
+// 1. RobotActionScheduler의 Hascarrier Empty Tape Loading 조건 개선
+#endregion </2.14.33.46>
+
+#region <2.14.33.45>
+// 1. 500BIN LotHistory Backup Path 변경
+#endregion </2.14.33.45>
+
+#region <2.14.33.44>
+// 1. 500BIN LotHistory 추가
+#endregion </2.14.33.44>
+
+#region <2.13.33.44>
+// 1. 500BIN TraceDataRecovery 추가
+// 2. 500BIN Customized에 RecipeHandling 추가
+#endregion </2.13.33.44>
 
 #region <2.12.33.44>
 // 1. 500W 작업 시작

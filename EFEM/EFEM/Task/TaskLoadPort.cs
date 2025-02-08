@@ -53,7 +53,6 @@ namespace FrameOfSystem3.Task
             _loadPortSchedulerManager = LoadPortActionSchedulerManager.Instance;
             _rfidManager = RFIDManager.Instance;
             _substrateManager = SubstrateManager.Instance;
-            _processGroup = ProcessModuleGroup.Instance;        // 2025.01.07. by dwlim [ADD] Loading Mode를 안쓰는 안쓰는 Process Module이 있어서, 구분 위한 추가
 
             if (Enum.TryParse(strTaskName, out EN_TASK_LIST taskType))
             {
@@ -136,7 +135,6 @@ namespace FrameOfSystem3.Task
         protected static LoadPortActionSchedulerManager _loadPortSchedulerManager = null;
         protected static RFIDManager _rfidManager = null;
         protected static SubstrateManager _substrateManager = null;
-        protected static ProcessModuleGroup _processGroup = null;       // 2025.01.07. by dwlim [ADD] Loading Mode를 안쓰는 안쓰는 Process Module이 있어서, 구분 위한 추가
 
         protected LoadPortLoadingMode _loadingMode;
         protected Func<int, CommandResults> _manualActionToExecute = null;
@@ -144,8 +142,7 @@ namespace FrameOfSystem3.Task
         protected RunningMain_.TaskData _taskData;
 
         protected bool _receivedCancelCarrier = false;
-        protected const string Initialize = "INITIALIZE";
-        protected string _processModuleName;
+        protected const string Initialize = "INITIALIZE";        
 
         private QueuedScenarioInfo _executingScenario;
         private CommandResults _commandResult = new CommandResults(string.Empty, CommandResult.Invalid);
@@ -220,11 +217,6 @@ namespace FrameOfSystem3.Task
                             case CommandResult.Proceed:
                                 break;
                             case CommandResult.Completed:
-                                if (_processModuleName == Define.DefineEnumProject.AppConfig.EN_PROCESS_TYPE.DIE_TRANSFER.ToString())
-                                {
-                                    m_nSeqNum = (int)STEP_INITIALIZE.INITIALIZE;
-                                    break;
-                                }
                                 ++m_nSeqNum;
                                 break;
                             case CommandResult.Skipped:
@@ -1280,7 +1272,8 @@ namespace FrameOfSystem3.Task
                         }
                         
                         // 2024.12.23. jhlim [ADD] RFID 관련 플래그 초기화 위치 이동
-                        _rfidManager.InitAction(LoadPortIndex, _loadingMode);
+                        _loadingMode = _loadPortManager.GetCarrierLoadingType(LoadPortIndex);
+                        _rfidManager.InitAction(LoadPortIndex, _loadPortManager.GetCarrierLoadingType(LoadPortIndex));
                         // 2024.12.23. jhlim [END]
                         if (false == _loadPortManager.GetCarrierLoadingType(LoadPortIndex).Equals(LoadPortLoadingMode.Foup))
                         {
@@ -1691,12 +1684,25 @@ namespace FrameOfSystem3.Task
                     break;
 
                 case (int)STEP_CARRIER_UNLOADING.CHECK_READY:
-                    _loadPortManager.InitLoadPortAction(LoadPortIndex);
-                    if (manual)
                     {
-                        SetDelayForSequence(500);   // 버튼 후딜레이가 있는듯.. 로드포트 비지 상태가 되어 바로 명령이 들어가면 Nack 된다.
+                        _loadPortManager.InitLoadPortAction(LoadPortIndex);
+                        if (manual)
+                        {
+                            SetDelayForSequence(500);   // 버튼 후딜레이가 있는듯.. 로드포트 비지 상태가 되어 바로 명령이 들어가면 Nack 된다.
+                        }
+
+                        var status = _loadPortManager.GetLoadPortState(LoadPortIndex);
+                        if (false == status.DoorState &&
+                            false == status.DockState &&
+                            false == status.ClampState)
+                        {
+                            m_nSeqNum = (int)STEP_CARRIER_UNLOADING.UPDATE_LINK;
+                        }
+                        else
+                        {
+                            m_nSeqNum = (int)STEP_CARRIER_UNLOADING.EXECUTE_QUEUED_SCENARIO_BEFORE_END;
+                        }
                     }
-                    m_nSeqNum = (int)STEP_CARRIER_UNLOADING.EXECUTE_QUEUED_SCENARIO_BEFORE_END;
                     break;
 
                 case (int)STEP_CARRIER_UNLOADING.EXECUTE_QUEUED_SCENARIO_BEFORE_END:

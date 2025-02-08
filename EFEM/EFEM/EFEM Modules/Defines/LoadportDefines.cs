@@ -199,7 +199,7 @@ namespace EFEM.Defines.LoadPort
     #region <Class&Struct>
     public class LoadPortLogger : ModuleLogger
     {
-        public LoadPortLogger(LogTypes typeOfLog, string name) : base(typeOfLog, name) { }
+        public LoadPortLogger(string typeOfLog, string name) : base(typeOfLog, name, true) { }
 
         public void WriteOperationStartLog(LoadPortCommands command)
         {

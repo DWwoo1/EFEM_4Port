@@ -56,7 +56,7 @@ namespace EFEM.Defines.AtmRobot
     #region <Classes>
     public class AtmRobotLogger : ModuleLogger
     {
-        public AtmRobotLogger(string name) : base(LogTypes.AtmRobot, name) { }
+        public AtmRobotLogger(string name) : base(BaseLogTypes.LogTypeAtmRobot, name, true) { }
 
         public void WriteOperationStartLog(RobotCommands command, RobotArmTypes arm, string location)
         {

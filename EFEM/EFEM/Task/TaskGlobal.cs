@@ -126,6 +126,7 @@ namespace FrameOfSystem3.Task
 
 			MonitoringFanFilterUnit();
 			CheckRemoteCommandError();
+			ExecuteOnAlways();
 		}
 
 		#region sequence
@@ -263,7 +264,7 @@ namespace FrameOfSystem3.Task
         #region <Utilities>
         private void MappingDoorLockSensor()
         {
-            GetDoorLockSensorSignalList(out List<int> signals);
+            GetAirAlarmSignalList(out List<int> signals);
             for (int i = 0; i < signals.Count; ++i)
             {
                 DoorOpenedSensors[signals[i]] = false;
@@ -485,6 +486,8 @@ namespace FrameOfSystem3.Task
         #endregion /task unique
 
         #region <SecsGem>
+		protected abstract void ExecuteOnAlways();
+
         //      private bool UpdateScenarioParam(string scenario, Dictionary<string, string> datas)
         //      {
         //          return _scenarioOperator.UpdateScenarioParam(scenario, datas);

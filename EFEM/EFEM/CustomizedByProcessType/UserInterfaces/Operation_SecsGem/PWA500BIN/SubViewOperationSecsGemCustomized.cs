@@ -152,18 +152,58 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
             //        value = gvMessageToSend[1, row].Value.ToString();
             //    DataToSend[key] = value;
             //}
+            bool includeUpdateParam = true;
+            ScenarioListTypes scenarioTypeToExecute;
 
-            if (false == Enum.TryParse(_selectedScenario, out ScenarioListTypes convertedScenarioName))
-                return;
+            if (sender.Equals(btnDownloadRecipe) || sender.Equals(btnUploadRecipe))
+            {
+                includeUpdateParam = false;
+                if (sender.Equals(btnDownloadRecipe))
+                {
+                    scenarioTypeToExecute = ScenarioListTypes.SCENARIO_REQ_RECIPE_DOWNLOAD;
+                }
+                else
+                {
+                    scenarioTypeToExecute = ScenarioListTypes.SCENARIO_REQ_RECIPE_UPLOAD;
+                }
+                var paramList = _scenarioOperator.GetScenarioParameterList(scenarioTypeToExecute);
+                if (paramList == null)
+                    return;
+
+                Dictionary<string, string> paramsToUpdate = new Dictionary<string, string>();
+                for (int i = 0; i < paramList.Count; ++i)
+                {
+                    string paramName = paramList[i];
+                    string paramValue = string.Empty;
+                    if (paramName.Equals(RecipeHandlingKeys.KeyParamRecipeId))
+                    {
+                        paramValue = lblSelectedRecipeName.Text;
+                    }
+                    else if (paramName.Equals(RecipeHandlingKeys.KeyUseCommunicationToPM))
+                    {
+                        paramValue = bool.TrueString;
+                    }
+
+                    paramsToUpdate[paramName] = paramValue;
+                }
+                _scenarioOperator.UpdateScenarioParam(scenarioTypeToExecute, paramsToUpdate);
+            }
+            else
+            {
+                if (false == Enum.TryParse(_selectedScenario, out scenarioTypeToExecute))
+                    return;
+            }
 
             Enabled = false;
-            var waitResponse = System.Threading.Tasks.Task.Run(() => ExecuteScenarioAsync(convertedScenarioName));
+            var waitResponse = System.Threading.Tasks.Task.Run(() => ExecuteScenarioAsync(scenarioTypeToExecute, includeUpdateParam));
             var result = await waitResponse;
             Enabled = true;
 
-            string message = string.Format("Scenario : {0}\r\nResult : {1}", _selectedScenario, result.ToString());
+            string message = string.Format("Scenario : {0}\r\nResult : {1}", scenarioTypeToExecute, result.ToString());
             _messageBox.ShowMessage(message);
         }
+
+
         //private void BtnExecuteScenarioClicked(object sender, EventArgs e)
         //{
         //    if (false == _messageBox.ShowMessage(string.Format("{0} scenario run?", _selectedScenario)))
@@ -365,33 +405,36 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
             if (false == EnableUIControl)
                 return;
 
-            // 여기부터 작성
-            // 여기서 레시피 선택 창 띄우고, 선택하면 데이터 테이블 채워주자
-            if (false == Enum.TryParse(_selectedScenario, out ScenarioListTypes convertedScenarioName))
-                return;
-
+            if (_keyboard.CreateForm(lblSelectedRecipeName.Text, 200, false, "Recipe name to handling"))
+            {
+                string result = string.Empty;
+                _keyboard.GetResult(ref result);                
+                lblSelectedRecipeName.Text = result;
+            }
         }
         #endregion </UI Events>
 
         #region <Internal>
-        private EN_SCENARIO_RESULT ExecuteScenarioAsync(ScenarioListTypes scenario)
+        private EN_SCENARIO_RESULT ExecuteScenarioAsync(ScenarioListTypes scenario, bool includeUpdateScenario)
         {
             EN_SCENARIO_RESULT result;
             TickCounter_.TickCounter tick = new TickCounter_.TickCounter();
 
-            DataToSend.Clear();
-            for (int row = 0; row < gvMessageToSend.Rows.Count; ++row)
-            {
-                string key = gvMessageToSend[0, row].Value.ToString();
-                string value = string.Empty;
-                if (gvMessageToSend[1, row].Value != null)
-                    value = gvMessageToSend[1, row].Value.ToString();
-                DataToSend[key] = value;
-            }
-
-
             _scenarioOperator.InitScenarioAll();
-            _scenarioOperator.UpdateScenarioParam(scenario, DataToSend);
+            if (includeUpdateScenario)
+            {
+                DataToSend.Clear();
+                for (int row = 0; row < gvMessageToSend.Rows.Count; ++row)
+                {
+                    string key = gvMessageToSend[0, row].Value.ToString();
+                    string value = string.Empty;
+                    if (gvMessageToSend[1, row].Value != null)
+                        value = gvMessageToSend[1, row].Value.ToString();
+                    DataToSend[key] = value;
+                }
+
+                _scenarioOperator.UpdateScenarioParam(scenario, DataToSend);
+            }
             tick.SetTickCount(30000);
             while (true)
             {

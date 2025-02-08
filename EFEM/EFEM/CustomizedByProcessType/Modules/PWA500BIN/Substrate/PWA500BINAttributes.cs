@@ -19,7 +19,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
             Attributes[PWA500BINSubstrateAttributes.PartId] = string.Empty;
             Attributes[PWA500BINSubstrateAttributes.LotType] = string.Empty;
             Attributes[PWA500BINSubstrateAttributes.StepSeq] = string.Empty;
-            Attributes[PWA500BINSubstrateAttributes.ChipQty] = string.Empty;
+            Attributes[PWA500BINSubstrateAttributes.ChipQty] = "0";
             Attributes[PWA500BINSubstrateAttributes.BinCode] = string.Empty;
             
             Attributes[PWA500BINSubstrateAttributes.RefPositionX] = string.Empty;
@@ -30,8 +30,11 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
             Attributes[PWA500BINSubstrateAttributes.CountY] = string.Empty;
             Attributes[PWA500BINSubstrateAttributes.Angle] = string.Empty;
             Attributes[PWA500BINSubstrateAttributes.MapData] = string.Empty;
+            Attributes[PWA500BINSubstrateAttributes.ParentLotId] = string.Empty;
             Attributes[PWA500BINSubstrateAttributes.SplittedLotId] = string.Empty;
-            Attributes[PWA500BINSubstrateAttributes.IsLastSubstrate] = "False";
+            Attributes[PWA500BINSubstrateAttributes.IsLastSubstrate] = bool.FalseString;
+            Attributes[PWA500BINSubstrateAttributes.IsTrackOutCompleted] = bool.FalseString;
+            Attributes[PWA500BINSubstrateAttributes.BinUnloadingStep] = "0";
             //SetAttributes(SubstrateType., string.Empty);
         }
 

@@ -209,7 +209,9 @@ namespace EFEM.ActionScheduler.LoadPortActionSchedulers
                 case LoadPortTransferStates.TransferBlocked:
                     if (ShouldUnloadCarrier())
                     {
-                        if (_loadPortInformation.DoorState)
+                        if (_loadPortInformation.DoorState ||
+                            _loadPortInformation.DockState ||
+                            _loadPortInformation.ClampState)
                         {
                             return CARRIER_PORT_TYPE.ACTION_UNLOAD;
                         }

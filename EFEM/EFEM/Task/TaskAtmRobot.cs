@@ -200,11 +200,11 @@ namespace FrameOfSystem3.Task
                         break;
 
                     _robotManager.InitAtmRobotAction(RobotIndex);
-                    if (_robotManager.IsRobotAlarm(RobotIndex))
-                    {
-                        ++m_nSeqNum;
-                    }
-                    else
+                    //if (_robotManager.IsRobotAlarm(RobotIndex))
+                    //{
+                    //    ++m_nSeqNum;
+                    //}
+                    //else
                     {
                         m_nSeqNum = (int)STEP_INITIALIZE.PREPARE;
                     }

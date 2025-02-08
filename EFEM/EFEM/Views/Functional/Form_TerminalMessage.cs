@@ -41,13 +41,13 @@ namespace FrameOfSystem3.Views.Functional
         private const int MAX_LENGTH = 32767;
         //private StringBuilder m_logSb = new StringBuilder(33000);
         private Dictionary<string, string> _messages = new Dictionary<string, string>();
-        private static readonly string TIME_FORMAT = "yyyy/MM/dd HH:mm:ss";
+        private static readonly string TIME_FORMAT = "yyyy/MM/dd HH:mm:ss.fff";
         #endregion
 
         #region <Private methods>
         private void AddMessage(string message)
         {
-            if (_messages.Count > 10)
+            if (_messages.Count > 20)
             {
                 string temp = String.Empty;
                 _messages.Remove(_messages.First().Key);

@@ -255,35 +255,48 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
             //    if (false == _wcfManager.ConnectToService(index))
             //        return false;
             //}
-
+            foreach (var item in CommunicateInformation.ServiceInfo)
+            {
+                Task.Run(() => _wcfManager.OpenServiceHost(item.Key));
+            }
             return true;
         }
         public override bool ExitCommunication()
         {
             _requestExit = true;
 
-            foreach (var item in CommunicateInformation.ServiceInfo)
-            {
-                item.Value.ConnectionStatus = _wcfManager.IsOpened(item.Key);
-                if (item.Value.ConnectionStatus)
-                {
-                    Task.Run(() => _wcfManager.CloseServiceHost(item.Key));
-                }
-            }
-
-            foreach (var item in CommunicateInformation.ClientInfo)
-            {
-                item.Value.ConnectionStatus = _wcfManager.IsConnectedToService(item.Key);
-                if (item.Value.ConnectionStatus)
-                {
-                    Task.Run(() => _wcfManager.DisconnectFromService(item.Key));
-                }
-            }
+            //ExitCommunications();
 
             return true;
         }
+        //private async void ExitCommunications()
+        //{
+        //    foreach (var item in CommunicateInformation.ServiceInfo)
+        //    {
+        //        item.Value.ConnectionStatus = _wcfManager.IsOpened(item.Key);
+        //        if (item.Value.ConnectionStatus)
+        //        {
+        //            var waitResponse = Task.Run(() => _wcfManager.CloseServiceHost(item.Key));
+        //            var result = await waitResponse;
+        //        }
+        //    }
+
+        //    foreach (var item in CommunicateInformation.ClientInfo)
+        //    {
+        //        item.Value.ConnectionStatus = _wcfManager.IsConnectedToService(item.Key);
+        //        if (item.Value.ConnectionStatus)
+        //        {
+        //            var waitResponse = Task.Run(() => _wcfManager.DisconnectFromService(item.Key));
+        //            var result = await waitResponse;
+        //        }
+        //    }
+
+        //}
         private void UpdateServiceStatusAll()
         {
+            if (_requestExit)
+                return;
+
             foreach (var item in CommunicateInformation.ServiceInfo)
             {
                 bool needSkip = false;
@@ -318,17 +331,17 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
                 if (needSkip)
                     continue;
 
-                if (false == item.Value.ConnectionStatus)
-                {
-                    if (item.Value.IsTryConnectionCompleted)
-                    {
-                        item.Value.TryConnectToServiceAsync = Task.Run(() => _wcfManager.OpenServiceHost(item.Key));
-                    }
-                }
-                else
-                {
-                    item.Value.ResetInterval();
-                }
+                //if (false == item.Value.ConnectionStatus)
+                //{
+                //    if (item.Value.IsTryConnectionCompleted)
+                //    {
+                //        item.Value.TryConnectToServiceAsync = Task.Run(() => _wcfManager.OpenServiceHost(item.Key));
+                //    }
+                //}
+                //else
+                //{
+                //    item.Value.ResetInterval();
+                //}
 
                 #region <기존>
                 //item.Value.ConnectionStatus = _wcfManager.IsOpened(item.Key);

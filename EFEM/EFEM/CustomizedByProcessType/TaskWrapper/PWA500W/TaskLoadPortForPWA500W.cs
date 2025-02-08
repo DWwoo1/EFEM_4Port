@@ -25,7 +25,6 @@ namespace FrameOfSystem3.Task
             : base(nIndexOfTask, strTaskName, new TaskLoadPortRecovery500W(strTaskName, nIndexOfTask))
         {
             _recovery = _recoveryData as TaskLoadPortRecovery500W;
-            _processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);    // 2025.01.07. by dwlim [ADD] Loading Mode를 안쓰는 안쓰는 Process Module이 있어서, 구분 위한 추가
         }
         #endregion </Constructors>
 

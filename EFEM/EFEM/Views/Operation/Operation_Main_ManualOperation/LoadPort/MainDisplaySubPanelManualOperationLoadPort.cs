@@ -495,12 +495,26 @@ namespace FrameOfSystem3.Views.Operation.SubPanelManualOperation.LoadPort
             }
             else
             {
-                if (Enum.TryParse(actionName, out TaskLoadPort.TASK_ACTION _))
+                if (Enum.TryParse(actionName, out TaskLoadPort.TASK_ACTION actionToEnum))
                 {
                     EN_TASK_LIST taskName = EN_TASK_LIST.LoadPort1 + _selectedLoadPortIndex;
-                    string[] taskToExecute = { taskName.ToString() };
-                    string[] action = { actionName };
-                    _taskOperator.SetOperation(ref taskToExecute, ref action);
+                    if (actionToEnum.Equals(TaskLoadPort.TASK_ACTION.WAIT_FOR_UNLOADING))
+                    {
+                        string[] taskToExecute = { taskName.ToString() };
+                        string[][] actionsToExecute =
+                            {
+                            new string[] { TaskLoadPort.TASK_ACTION.CARRIER_UNLOADING.ToString() },
+                            new string[] { TaskLoadPort.TASK_ACTION.WAIT_FOR_UNLOADING.ToString() }
+                            };
+
+                        _taskOperator.SetOperation(ref taskToExecute, ref actionsToExecute, 1);
+                    }
+                    else
+                    {
+                        string[] taskToExecute = { taskName.ToString() };
+                        string[] actionsToExecute = { actionName };
+                        _taskOperator.SetOperation(ref taskToExecute, ref actionsToExecute);
+                    }
                 }
             }
         }

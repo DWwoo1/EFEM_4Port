@@ -90,6 +90,7 @@ namespace FrameOfSystem3.SECSGEM.DefineSecsGem
         #endregion </Properties>
 
         #region Method
+        public abstract string GetValueStringAll();
         public abstract string GetValueString();
         public abstract string GetTargetValueString(int nTarget);
         #endregion
@@ -137,8 +138,32 @@ namespace FrameOfSystem3.SECSGEM.DefineSecsGem
         {
             return _value[0];
         }
+        public override string GetValueStringAll()
+        {
+            if (_value == null)
+                return string.Empty;
+
+            string messageToReturn = string.Empty;
+            for (int i = 0; i < _value.Length; ++i)
+            {
+                if (string.IsNullOrEmpty(messageToReturn))
+                {
+                    messageToReturn = _value[i].ToString();
+                }
+                else
+                {
+                    messageToReturn = string.Format("{0} {1}", messageToReturn, _value[i].ToString());
+                }
+            }
+
+            return messageToReturn;
+        }
+
         public override string GetValueString()
         {
+            if (_value == null)
+                return string.Empty;
+
             return _value[0].ToString();
         }
         public T GetTargetValue(int nTarget)

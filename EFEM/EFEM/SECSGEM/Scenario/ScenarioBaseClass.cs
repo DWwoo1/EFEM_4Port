@@ -166,13 +166,15 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         #endregion
 
         #region Virtual Method
-        public virtual void UpdateReceiveMessage(List<SemiObject> listOfReceive)
+        public virtual bool UpdateReceiveMessage(List<SemiObject> listOfReceive)
         {
             Receiving = false;
+            return true;
         }
-        public virtual void UpdateReceiveMessage(string rcmdName, string[] cpNames, string[] cpValues)
+        public virtual bool UpdateReceiveMessage(string rcmdName, string[] cpNames, string[] cpValues)
         {
             Receiving = false;
+            return true;
         }
         #endregion
 

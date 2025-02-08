@@ -29,13 +29,12 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.PASSWORD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.lblLowerArmSubstrateInfo = new Sys3Controls.Sys3Label();
             this.lblUpperArmSubstrateInfo = new Sys3Controls.Sys3Label();
@@ -60,7 +59,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.pnLoadPort6 = new System.Windows.Forms.Panel();
             this.lblLoadPort6 = new Sys3Controls.Sys3Label();
             this.gvManualAction = new Sys3Controls.Sys3GroupBoxContainer();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
@@ -79,10 +77,10 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.btnReplaceFromLP = new Sys3Controls.Sys3button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.gvCoreSubstrateList = new Sys3Controls.Sys3DoubleBufferedDataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gvSortSubstrateList = new Sys3Controls.Sys3DoubleBufferedDataGridView();
+            this.PASSWORD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvCoreSubstrateList = new Sys3Controls.Sys3DoubleBufferedDataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
@@ -102,19 +100,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.tableLayoutPanel17.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCoreSubstrateList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSortSubstrateList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCoreSubstrateList)).BeginInit();
             this.SuspendLayout();
-            // 
-            // PASSWORD
-            // 
-            this.PASSWORD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PASSWORD.HeaderText = "BIN NAME";
-            this.PASSWORD.MaxInputLength = 20;
-            this.PASSWORD.Name = "PASSWORD";
-            this.PASSWORD.ReadOnly = true;
-            this.PASSWORD.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PASSWORD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // tableLayoutPanel13
             // 
@@ -661,18 +649,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.gvManualAction.UseLabelBorder = true;
             this.gvManualAction.UseTitle = true;
             // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.ID.Frozen = true;
-            this.ID.HeaderText = "INDEX";
-            this.ID.MaxInputLength = 20;
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ID.Width = 60;
-            // 
             // tableLayoutPanel14
             // 
             this.tableLayoutPanel14.ColumnCount = 1;
@@ -1184,8 +1160,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Controls.Add(this.gvCoreSubstrateList, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.gvSortSubstrateList, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.gvManualAction, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.gvSortSubstrateList, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(896, 0);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
@@ -1194,84 +1170,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(224, 524);
             this.tableLayoutPanel5.TabIndex = 3;
-            // 
-            // gvCoreSubstrateList
-            // 
-            this.gvCoreSubstrateList.AllowUserToAddRows = false;
-            this.gvCoreSubstrateList.AllowUserToDeleteRows = false;
-            this.gvCoreSubstrateList.AllowUserToResizeColumns = false;
-            this.gvCoreSubstrateList.AllowUserToResizeRows = false;
-            this.gvCoreSubstrateList.BackgroundColor = System.Drawing.Color.White;
-            this.gvCoreSubstrateList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            this.gvCoreSubstrateList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvCoreSubstrateList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.gvCoreSubstrateList.ColumnHeadersHeight = 30;
-            this.gvCoreSubstrateList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.gvCoreSubstrateList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gvCoreSubstrateList.DefaultCellStyle = dataGridViewCellStyle8;
-            this.gvCoreSubstrateList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvCoreSubstrateList.EnableHeadersVisualStyles = false;
-            this.gvCoreSubstrateList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            this.gvCoreSubstrateList.Location = new System.Drawing.Point(3, 351);
-            this.gvCoreSubstrateList.MultiSelect = false;
-            this.gvCoreSubstrateList.Name = "gvCoreSubstrateList";
-            this.gvCoreSubstrateList.ReadOnly = true;
-            this.gvCoreSubstrateList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 11F);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvCoreSubstrateList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.gvCoreSubstrateList.RowHeadersVisible = false;
-            this.gvCoreSubstrateList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.gvCoreSubstrateList.RowTemplate.Height = 23;
-            this.gvCoreSubstrateList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvCoreSubstrateList.Size = new System.Drawing.Size(218, 170);
-            this.gvCoreSubstrateList.TabIndex = 21131;
-            this.gvCoreSubstrateList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GvEditProcessModuleCellClicked);
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn3.Frozen = true;
-            this.dataGridViewTextBoxColumn3.HeaderText = "INDEX";
-            this.dataGridViewTextBoxColumn3.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn3.Width = 60;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "CORE NAME";
-            this.dataGridViewTextBoxColumn4.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // gvSortSubstrateList
             // 
@@ -1282,27 +1183,26 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.gvSortSubstrateList.BackgroundColor = System.Drawing.Color.White;
             this.gvSortSubstrateList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.gvSortSubstrateList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvSortSubstrateList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvSortSubstrateList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.gvSortSubstrateList.ColumnHeadersHeight = 30;
             this.gvSortSubstrateList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gvSortSubstrateList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
             this.PASSWORD});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gvSortSubstrateList.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvSortSubstrateList.DefaultCellStyle = dataGridViewCellStyle5;
             this.gvSortSubstrateList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gvSortSubstrateList.EnableHeadersVisualStyles = false;
             this.gvSortSubstrateList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
@@ -1311,14 +1211,14 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.gvSortSubstrateList.Name = "gvSortSubstrateList";
             this.gvSortSubstrateList.ReadOnly = true;
             this.gvSortSubstrateList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("맑은 고딕", 11F);
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvSortSubstrateList.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 11F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvSortSubstrateList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.gvSortSubstrateList.RowHeadersVisible = false;
             this.gvSortSubstrateList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gvSortSubstrateList.RowTemplate.Height = 23;
@@ -1326,6 +1226,79 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.gvSortSubstrateList.Size = new System.Drawing.Size(218, 168);
             this.gvSortSubstrateList.TabIndex = 21130;
             this.gvSortSubstrateList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GvEditProcessModuleCellClicked);
+            // 
+            // PASSWORD
+            // 
+            this.PASSWORD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PASSWORD.HeaderText = "BIN NAME";
+            this.PASSWORD.MaxInputLength = 20;
+            this.PASSWORD.Name = "PASSWORD";
+            this.PASSWORD.ReadOnly = true;
+            this.PASSWORD.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.PASSWORD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // gvCoreSubstrateList
+            // 
+            this.gvCoreSubstrateList.AllowUserToAddRows = false;
+            this.gvCoreSubstrateList.AllowUserToDeleteRows = false;
+            this.gvCoreSubstrateList.AllowUserToResizeColumns = false;
+            this.gvCoreSubstrateList.AllowUserToResizeRows = false;
+            this.gvCoreSubstrateList.BackgroundColor = System.Drawing.Color.White;
+            this.gvCoreSubstrateList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            this.gvCoreSubstrateList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvCoreSubstrateList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.gvCoreSubstrateList.ColumnHeadersHeight = 30;
+            this.gvCoreSubstrateList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.gvCoreSubstrateList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvCoreSubstrateList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.gvCoreSubstrateList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gvCoreSubstrateList.EnableHeadersVisualStyles = false;
+            this.gvCoreSubstrateList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            this.gvCoreSubstrateList.Location = new System.Drawing.Point(3, 351);
+            this.gvCoreSubstrateList.MultiSelect = false;
+            this.gvCoreSubstrateList.Name = "gvCoreSubstrateList";
+            this.gvCoreSubstrateList.ReadOnly = true;
+            this.gvCoreSubstrateList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 11F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvCoreSubstrateList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.gvCoreSubstrateList.RowHeadersVisible = false;
+            this.gvCoreSubstrateList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.gvCoreSubstrateList.RowTemplate.Height = 23;
+            this.gvCoreSubstrateList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gvCoreSubstrateList.Size = new System.Drawing.Size(218, 170);
+            this.gvCoreSubstrateList.TabIndex = 21131;
+            this.gvCoreSubstrateList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GvEditProcessModuleCellClicked);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "CORE NAME";
+            this.dataGridViewTextBoxColumn1.MaxInputLength = 20;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MainDisplaySubPanelManualOperationEditor500BIN
             // 
@@ -1356,15 +1329,13 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             this.tableLayoutPanel17.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gvCoreSubstrateList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSortSubstrateList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCoreSubstrateList)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridViewTextBoxColumn PASSWORD;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private Sys3Controls.Sys3Label lblLowerArmSubstrateInfo;
         private Sys3Controls.Sys3Label lblUpperArmSubstrateInfo;
@@ -1389,7 +1360,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
         private System.Windows.Forms.Panel pnLoadPort6;
         private Sys3Controls.Sys3Label lblLoadPort6;
         private Sys3Controls.Sys3GroupBoxContainer gvManualAction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel16;
@@ -1408,9 +1378,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
         private Sys3Controls.Sys3button btnReplaceFromLP;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private Sys3Controls.Sys3DoubleBufferedDataGridView gvCoreSubstrateList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private Sys3Controls.Sys3DoubleBufferedDataGridView gvSortSubstrateList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PASSWORD;
+        private Sys3Controls.Sys3DoubleBufferedDataGridView gvCoreSubstrateList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }

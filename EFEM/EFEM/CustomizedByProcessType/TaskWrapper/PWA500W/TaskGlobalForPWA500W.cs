@@ -27,6 +27,10 @@ namespace FrameOfSystem3.Task
         #region <Methods>
 
         #region <Overrides>
+        protected override void ExecuteOnAlways()
+        {
+        }
+
         protected override void GetDoorLockSensorSignalList(out List<int> indexOfSignals)
         {
             indexOfSignals = new List<int>
@@ -73,6 +77,7 @@ namespace FrameOfSystem3.Task
             };
         }
         #endregion </Overrides>
+
         #endregion </Methods>
     }
 }

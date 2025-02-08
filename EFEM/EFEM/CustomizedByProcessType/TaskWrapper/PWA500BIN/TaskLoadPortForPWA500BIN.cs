@@ -53,8 +53,6 @@ namespace FrameOfSystem3.Task
 
             _recovery = _recoveryData as TaskLoadPortRecovery500BIN;
 
-            _processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex); // 2025.01.07. by dwlim [ADD] Loading Mode를 안쓰는 안쓰는 Process Module이 있어서, 구분 위한 추가
-
             #region <Assign Digital IO>
             int relIndexOutput = LoadPortIndex * 2;
             int indexCassetteOutput = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_OUT.LP1_MANUAL_CASSETTE + relIndexOutput;
@@ -86,6 +84,10 @@ namespace FrameOfSystem3.Task
 
             //CarrierPresenceIndex = (int)Define.DefineEnumProject.DigitalIO.PWA500BIN.EN_DIGITAL_IN.LP1_PRESENT_STATUS + relIndexInput;
             #endregion </Assign Digital IO>
+
+            _lotHistoryLog = LotHistoryLog.Instance;
+            string name = _loadPortManager.GetLoadPortName(LoadPortIndex);
+            _lotHistoryLog.AddLogInfo(PortId, name);
         }
         #endregion </Constructors>
 
@@ -100,7 +102,6 @@ namespace FrameOfSystem3.Task
         private readonly Enum ScenarioTypeToCarrierUnload;
 
         private const int CarrierMaxCapacity = 25;
-        private const int ProcessModuleIndex = 0;       // 2025.01.07. by dwlim [ADD] Loading Mode를 안쓰는 안쓰는 Process Module이 있어서, 구분 위한 추가
         private const int DelayBeforeIdReadScenario = 3000;
 
         private CommandResults _commandResult = new CommandResults("", CommandResult.Invalid);
@@ -114,7 +115,7 @@ namespace FrameOfSystem3.Task
         private string _carrierIdToWrite = string.Empty;
 
         private static ScenarioManagerForPWA500BIN_TP _scenarioManager = null;
-        
+        private static LotHistoryLog _lotHistoryLog = null;
         private readonly ConcurrentDictionary<LoadPortMode, bool> TriggerChangingMode;
         #endregion </Fields>
 
@@ -248,56 +249,8 @@ namespace FrameOfSystem3.Task
                 return _commandResult;
             }
 
-            var result = _scenarioOperator.ExecuteScenario(ScenarioTypeToRequestLotInfo);
-            _commandResult.ActionName = ScenarioTypeToRequestLotInfo.ToString();
-            switch (result)
-            {
-                case EN_SCENARIO_RESULT.PROCEED:
-                    _commandResult.CommandResult = CommandResult.Proceed;
-                    break;
-                case EN_SCENARIO_RESULT.COMPLETED:
-                    {
-                        #region <Lot Info 갱신>
-                        var scenarioResult = _scenarioOperator.GetScenarioResultData(ScenarioTypeToRequestLotInfo);
-                        _lotId = scenarioResult[LotInfoKeys.KeyResultLotId];
-                        _partId = scenarioResult[LotInfoKeys.KeyResultPartId];
-                        _stepSeq = scenarioResult[LotInfoKeys.KeyResultStepSeq];
-                        _lotType = scenarioResult[LotInfoKeys.KeyResultLotType];
-                        _recipeId = scenarioResult[LotInfoKeys.KeyResultRecipeId];
+            _commandResult = RunScenario(ScenarioTypeToRequestLotInfo);
 
-                        if (string.IsNullOrEmpty(_lotId) ||
-                            string.IsNullOrEmpty(_partId) ||
-                            string.IsNullOrEmpty(_stepSeq) ||
-                            string.IsNullOrEmpty(_lotType))
-                        {
-                            _commandResult.CommandResult = CommandResult.Error;
-                            _commandResult.Description = "Scenario Result Error";
-                            break;
-                        }
-
-                        if (MySubstrateType.Equals(SubstrateType.Core) ||
-                            MySubstrateType.Equals(SubstrateType.Empty))
-                        {
-                            _carrierServer.SetCarrierLotId(PortId, _lotId);
-                            _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyPartId, _partId);
-                            _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyStepSeq, _stepSeq);
-                        }
-                        #endregion </Lot Info 갱신>
-
-                        _commandResult.CommandResult = CommandResult.Completed;
-                    }
-                    break;
-                case EN_SCENARIO_RESULT.ERROR:
-                    _commandResult.CommandResult = CommandResult.Error;
-                    _commandResult.Description = "Scenario Error";
-                    break;
-                case EN_SCENARIO_RESULT.TIMEOUT_ERROR:
-                    _commandResult.CommandResult = CommandResult.Timeout;
-                    _commandResult.Description = "Scenario Timeout";
-                    break;
-                default:
-                    break;
-            }
             return _commandResult;
         }
         protected override bool UpdateParamToSlotMapVarification()
@@ -319,7 +272,7 @@ namespace FrameOfSystem3.Task
                 return false;
             }
 
-            InitResult(ScenarioTypeToRequestLotInfo);
+            InitResult(ScenarioTypeToSlotVerification);
 
             var param = new Dictionary<string, string>
             {
@@ -346,135 +299,8 @@ namespace FrameOfSystem3.Task
                 return _commandResult;
             }
 
-            var result = _scenarioOperator.ExecuteScenario(ScenarioTypeToSlotVerification);
-            _commandResult.ActionName = ScenarioTypeToSlotVerification.ToString();
-            switch (result)
-            {
-                case EN_SCENARIO_RESULT.PROCEED:
-                    _commandResult.CommandResult = CommandResult.Proceed;
-                    break;
-                case EN_SCENARIO_RESULT.COMPLETED:
-                    {
-                        _commandResult.CommandResult = CommandResult.Completed;
-                        var scenarioResult = _scenarioOperator.GetScenarioResultData(ScenarioTypeToSlotVerification);
-                        if (false == scenarioResult.TryGetValue(SlotMapVefiricationKeys.KeyIsCancelCarrier, out string isCancelCarrier))
-                            break;
-
-                        bool.TryParse(isCancelCarrier, out _receivedCancelCarrier);
-                        if (_receivedCancelCarrier)
-                        {
-                            _commandResult.CommandResult = CommandResult.Skipped;
-                        }
-                        else
-                        {
-                            var status = _carrierServer.GetCarrierSlotMap(PortId);
-                            var substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
-                            string statusKeyForSplit = string.Format("{0}_", SlotMapVefiricationKeys.KeyResultStatus);
-                            foreach (var item in scenarioResult)
-                            {
-                                if (item.Key.Contains(statusKeyForSplit))
-                                {
-                                    string[] statusKey = item.Key.Split('_');
-                                    if (statusKey.Length != 2)
-                                        continue;
-
-                                    if (false == int.TryParse(statusKey[1], out int index))
-                                        continue;
-
-                                    if (index < 0 || index > status.Length - 1)
-                                        continue;
-
-                                    if (item.Value == "4")       // Exist
-                                    {
-                                        if (false == status[index].Equals(CarrierSlotMapStates.CorrectlyOccupied))
-                                        {
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            string keyForLotId = string.Format("{0}_{1}", SlotMapVefiricationKeys.KeyResultLotId, index);
-                                            string keyForSubstrateId = string.Format("{0}_{1}", SlotMapVefiricationKeys.KeyResultName, index);
-                                            if (substrates.ContainsKey(index))
-                                            {
-                                                if (scenarioResult.ContainsKey(keyForLotId))
-                                                {
-                                                    substrates[index].SetLotId(scenarioResult[keyForLotId]);
-                                                }
-                                                if (scenarioResult.ContainsKey(keyForSubstrateId))
-                                                {
-                                                    // 2024.12.29. jhlim [MOD] Ring Id를 고유하게 만들기 위함 : CarrierId_LP{포트번호}.{슬롯번호} 형식
-                                                    substrates[index].SetAttribute(PWA500BINSubstrateAttributes.RingId, substrates[index].GetName());
-                                                    //substrates[index].SetName(scenarioResult[keyForSubstrateId]);
-                                                    //substrates[index].SetAttribute(PWA500BINSubstrateAttributes.RingId, scenarioResult[keyForSubstrateId]);
-                                                    // 2024.12.29. jhlim [END]
-                                                }
-
-                                                #region <Lot Info 갱신>
-                                                substrates[index].SetRecipeId(_recipeId);
-                                                substrates[index].SetAttribute(PWA500BINSubstrateAttributes.PartId, _partId);
-                                                substrates[index].SetAttribute(PWA500BINSubstrateAttributes.StepSeq, _stepSeq);
-                                                substrates[index].SetAttribute(PWA500BINSubstrateAttributes.LotType, _lotType);
-                                                #endregion </Lot Info 갱신>
-                                            }
-                                            //substrates[]
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // 서버에서는 없다고 하는데 실제로 있는 경우(이미 나가있는 자재 포함)
-                                        if (status[index].Equals(EFEM.Defines.LoadPort.CarrierSlotMapStates.CorrectlyOccupied))
-                                        {
-                                            Substrate temporarySubstrate;
-                                            if (substrates.ContainsKey(index))
-                                            {
-                                                temporarySubstrate = substrates[index];
-                                            }
-                                            else
-                                            {
-                                                string carrierId = _carrierServer.GetCarrierId(PortId);
-                                                temporarySubstrate = new Substrate("");
-                                                if (false == _substrateManager.GetSubstrateBySourceCarrierInfo(PortId, index, carrierId, ref temporarySubstrate))
-                                                    continue;
-                                            }
-
-                                            #region <Lot Info 갱신>
-                                            temporarySubstrate.SetRecipeId(_recipeId);
-                                            // 2024.12.29. jhlim [DEL] Ring Id를 고유하게 만들기 위함 : CarrierId_LP{포트번호}.{슬롯번호} 형식
-                                            if (string.IsNullOrEmpty(temporarySubstrate.GetAttribute(PWA500BINSubstrateAttributes.RingId)))
-                                            {
-                                                temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.RingId, temporarySubstrate.GetName());
-                                            }
-                                            // 2024.12.29. jhlim [END]
-
-                                            temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.PartId, _partId);
-                                            temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.StepSeq, _stepSeq);
-                                            temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.LotType, _lotType);
-                                            #endregion </Lot Info 갱신>
-
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            // 정상
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    break;
-                case EN_SCENARIO_RESULT.ERROR:
-                    _commandResult.CommandResult = CommandResult.Error;
-                    _commandResult.Description = "Scenario Error";
-                    break;
-                case EN_SCENARIO_RESULT.TIMEOUT_ERROR:
-                    _commandResult.CommandResult = CommandResult.Timeout;
-                    _commandResult.Description = "Scenario Timeout";
-                    break;
-                default:
-                    break;
-            }
-            return _commandResult;
+            _commandResult = RunScenario(ScenarioTypeToSlotVerification);
+            return _commandResult;          
         }
         protected override bool EnqueueScenraioBeforeActionCompletion(out QueuedScenarioInfo scenarioInfo)
         {
@@ -483,7 +309,7 @@ namespace FrameOfSystem3.Task
             if (false == _scenarioOperator.UseScenario)
                 return false;
 
-            if (false == _recovery.AccessStatus.Equals(CarrierAccessStates.CarrierCompleted))
+            if (false == _carrierServer.GetCarrierAccessingStatus(PortId).Equals(CarrierAccessStates.CarrierCompleted))
                 return false;
 
             Dictionary<string, string> scenarioParam = new Dictionary<string, string>();
@@ -495,8 +321,6 @@ namespace FrameOfSystem3.Task
                 case SubstrateType.Core:
                     {
                         needExecuteMerge = GetSubstrateToMerge(out _);
-                        //bool useFullSort = !GetParameter(Define.DefineEnumProject.Task.Global.PARAM_GLOBAL.UseFullSortMode, false);
-                        //needExecuteMerge = (false == useFullSort);
                     }
                     break;
                 case SubstrateType.Empty:
@@ -563,7 +387,9 @@ namespace FrameOfSystem3.Task
                     case ScenarioListTypes.SCENARIO_REQ_LOT_ID_MERGE_AND_CHANGE_BIN_3:
                         {
                             if (false == result.Equals(EN_SCENARIO_RESULT.COMPLETED))
+                            {
                                 return;
+                            }
 
                             if (false == MySubstrateType.Equals(SubstrateType.Empty))
                             {
@@ -571,7 +397,6 @@ namespace FrameOfSystem3.Task
                                 if (false == ApplyResultOfMergingLot(scenarioResult))
                                     return;
 
-                                // TODO : 여기도 시나리오 매니저로 옮겨야할듯
                                 // 2024.09.29. jhlim [MOD] 고객사 요청으로 순서 변경(랏 머지&체인지 후 매핑 진행)
                                 Dictionary<string, string> param = new Dictionary<string, string>();
                                 if (false == MakeScenarioParamForSlotMapping(ref param))
@@ -601,7 +426,30 @@ namespace FrameOfSystem3.Task
                                 return;
 
                             _recovery.LotCompleted = true;
+                            string carrierId = _carrierServer.GetCarrierId(PortId);
+                            List<string> substrates = null;
+                            if (PortId != 4)
+                            {
+                                var temporarySubstrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
+                                if(temporarySubstrates != null)
+                                {
+                                    substrates = new List<string>();
+                                    foreach (var item in temporarySubstrates)
+                                    {
+                                        substrates.Add(item.Value.GetName());
+                                    }
+                                }
+                            }
 
+                            bool isCore = typeOfScenario.Equals(ScenarioListTypes.SCENARIO_SLOT_WAFER_MAPPING_CORE_1) ||
+                                typeOfScenario.Equals(ScenarioListTypes.SCENARIO_SLOT_WAFER_MAPPING_CORE_2);
+
+                            string lotId = _carrierServer.GetCarrierLotId(PortId);
+                            if (false == isCore)
+                            {
+                                lotId = _carrierIdToWrite;
+                            }
+                            _lotHistoryLog.BackupCarrierHistory(PortId, carrierId, lotId, substrates, isCore);
                             //if (PortId == 4)
                             //{
                             //    // Empty는 Merge 를 진행하지 않는다. -> 끝나네.. 할게없다.
@@ -915,8 +763,9 @@ namespace FrameOfSystem3.Task
                     break;
                 case EN_SCENARIO_RESULT.COMPLETED:
                     _commandResult.CommandResult = CommandResult.Completed;
+                    ExecuteAfterScenarioCompletedForHistory(scenario);
                     break;
-                case EN_SCENARIO_RESULT.ERROR:
+                case EN_SCENARIO_RESULT.ERROR:                    
                     _commandResult.CommandResult = CommandResult.Error;
                     _commandResult.Description = "Scenario Error";
                     break;
@@ -924,6 +773,7 @@ namespace FrameOfSystem3.Task
                     _commandResult.CommandResult = CommandResult.Timeout;
                     _commandResult.Description = "Scenario Timeout";
                     break;
+
                 default:
                     break;
             }
@@ -985,7 +835,7 @@ namespace FrameOfSystem3.Task
                         if (substrates.Count <= 0)
                             return false;
                         var substrateFirst = substrates.First();
-                        lotId = substrateFirst.Value.GetLotId();// 
+                        lotId = substrateFirst.Value.GetLotId();
                     }
                     break;
                 default:
@@ -999,6 +849,8 @@ namespace FrameOfSystem3.Task
             scenarioParam[SlotMappingKeys.KeyParamLotId] = lotId;
             scenarioParam[SlotMappingKeys.KeyParamCarrierId] = carrierId;
 
+            Dictionary<int, Tuple<string, string>> substratesToMapping = new Dictionary<int, Tuple<string, string>>();
+
             string[] substrateIds = new string[CarrierMaxCapacity];
             string[] substrateQtys = new string[CarrierMaxCapacity];
             for (int i = 0; i < CarrierMaxCapacity; ++i)
@@ -1011,6 +863,8 @@ namespace FrameOfSystem3.Task
                     qty = substrate.GetAttribute(PWA500BINSubstrateAttributes.ChipQty);
                     if (qty.Equals("0"))
                         qty = string.Empty;
+
+                    substratesToMapping[i] = Tuple.Create(id, qty);
                 }
                 substrateIds[i] = id;
                 substrateQtys[i] = qty;
@@ -1027,6 +881,8 @@ namespace FrameOfSystem3.Task
                 string keyForQty = string.Format("{0}{1}_{2}", SlotMappingKeys.KeyParamSlotQtyPre, i + 1, SlotMappingKeys.KeyParamSlotQtyPost);
                 scenarioParam[keyForQty] = substrateQtys[i];
             }
+
+            _lotHistoryLog.WriteHistoryForSlotMapping(PortId, carrierId, substratesToMapping);
 
             return true;
         }
@@ -1075,6 +931,24 @@ namespace FrameOfSystem3.Task
             var firstSubstrate = substrates.First();
             switch (MySubstrateType)
             {
+                case SubstrateType.Core:
+                    {
+                        bool hasParentLotId = false;
+                        foreach (var item in substrates)
+                        {
+                            if (item.Value.GetLotId().Equals(lotId))
+                            {
+                                hasParentLotId = true;
+                                break;
+                            }
+                        }
+
+                        if (false == hasParentLotId)
+                        {
+                            lotId = firstSubstrate.Value.GetLotId();
+                        }
+                    }
+                    break;
                 case SubstrateType.Bin1:
                 case SubstrateType.Bin2:
                 case SubstrateType.Bin3:
@@ -1148,17 +1022,21 @@ namespace FrameOfSystem3.Task
 
             _carrierIdToWrite = lotId;
 
+            Dictionary<int, string> lotIdToMerge = new Dictionary<int, string>();
+
             // 새로 부여 받은 LotId로 모든 자재의 LotId를 갱신한다.
             var substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
             foreach (var item in substrates)
             {
+                lotIdToMerge[item.Key] = item.Value.GetLotId();
+
                 item.Value.SetLotId(lotId);
             }
 
+            string carrierId = _carrierServer.GetCarrierId(PortId);
+            _lotHistoryLog.WriteHistoryForMerge(PortId, carrierId, lotId, lotIdToMerge);
+
             return true;
-        }
-        private void ClearCarrierInfo()
-        {
         }
         private void AssignSubstrateInfoByCarrierRFIDInfo(string lotId)
         {
@@ -1170,6 +1048,188 @@ namespace FrameOfSystem3.Task
                 {
                     item.Value.SetLotId(lotId);
                     item.Value.SetAttribute(PWA500BINSubstrateAttributes.RingId, item.Value.GetName());
+                }
+
+                string prevParentLotId = item.Value.GetAttribute(PWA500BINSubstrateAttributes.ParentLotId);
+                if (string.IsNullOrEmpty(prevParentLotId))
+                {
+                    item.Value.SetAttribute(PWA500BINSubstrateAttributes.ParentLotId, lotId);
+                }
+            }
+        }
+        private void ExecuteAfterScenarioCompletedForHistory(Enum scenario)
+        {
+            if (scenario.Equals(ScenarioTypeToIdRead))
+            {
+                _lotHistoryLog.WriteHistoryForIdRead(PortId, 
+                    _carrierServer.GetCarrierId(PortId),
+                    _carrierServer.GetCarrierLotId(PortId));
+            }
+            else
+            {
+                if (PortId > 3)
+                {
+                    if (scenario.Equals(ScenarioTypeToRequestLotInfo))
+                    {
+                        #region <Lot Info 갱신>
+                        var scenarioResult = _scenarioOperator.GetScenarioResultData(ScenarioTypeToRequestLotInfo);
+                        _lotId = scenarioResult[LotInfoKeys.KeyResultLotId];
+                        _partId = scenarioResult[LotInfoKeys.KeyResultPartId];
+                        _stepSeq = scenarioResult[LotInfoKeys.KeyResultStepSeq];
+                        _lotType = scenarioResult[LotInfoKeys.KeyResultLotType];
+                        _recipeId = scenarioResult[LotInfoKeys.KeyResultRecipeId];
+
+                        if (string.IsNullOrEmpty(_lotId) ||
+                            string.IsNullOrEmpty(_partId) ||
+                            string.IsNullOrEmpty(_stepSeq) ||
+                            string.IsNullOrEmpty(_lotType))
+                        {
+                            _commandResult.CommandResult = CommandResult.Error;
+                            _commandResult.Description = "Scenario Result Error";
+                            return;
+                        }
+
+                        if (MySubstrateType.Equals(SubstrateType.Core) ||
+                            MySubstrateType.Equals(SubstrateType.Empty))
+                        {
+                            _carrierServer.SetCarrierLotId(PortId, _lotId);
+                            _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyPartId, _partId);
+                            _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyStepSeq, _stepSeq);
+                        }
+
+                        string carrierId = _carrierServer.GetCarrierId(PortId);
+                        _lotHistoryLog.WriteHistoryForLotInfo(PortId, carrierId, _lotId, _partId, _stepSeq, _lotType);
+                        #endregion </Lot Info 갱신>
+                    }
+                    else if (scenario.Equals(ScenarioTypeToSlotVerification))
+                    {
+                        #region <Slot Info 갱신>
+                        var scenarioResult = _scenarioOperator.GetScenarioResultData(ScenarioTypeToSlotVerification);
+                        if (false == scenarioResult.TryGetValue(SlotMapVefiricationKeys.KeyIsCancelCarrier, out string isCancelCarrier))
+                            return;
+
+                        bool.TryParse(isCancelCarrier, out _receivedCancelCarrier);
+                        if (_receivedCancelCarrier)
+                        {
+                            // TODO : Cancel Carrier Logging 필요
+                            _commandResult.CommandResult = CommandResult.Skipped;
+                        }
+                        else
+                        {
+                            Dictionary<int, string> scenarioResultForStatus = new Dictionary<int, string>();
+
+                            var status = _carrierServer.GetCarrierSlotMap(PortId);
+                            var substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
+                            string statusKeyForSplit = string.Format("{0}_", SlotMapVefiricationKeys.KeyResultStatus);
+                            foreach (var item in scenarioResult)
+                            {
+                                if (item.Key.Contains(statusKeyForSplit))
+                                {
+                                    string[] statusKey = item.Key.Split('_');
+                                    if (statusKey.Length != 2)
+                                        continue;
+
+                                    if (false == int.TryParse(statusKey[1], out int index))
+                                        continue;
+
+                                    if (index < 0 || index > status.Length - 1)
+                                        continue;
+
+                                    if (item.Value == "4")       // Exist
+                                    {
+                                        scenarioResultForStatus[index] = item.Value;
+
+                                        if (false == status[index].Equals(CarrierSlotMapStates.CorrectlyOccupied))
+                                        {
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            string keyForLotId = string.Format("{0}_{1}", SlotMapVefiricationKeys.KeyResultLotId, index);
+                                            string keyForSubstrateId = string.Format("{0}_{1}", SlotMapVefiricationKeys.KeyResultName, index);
+                                            if (substrates.ContainsKey(index))
+                                            {
+                                                if (scenarioResult.ContainsKey(keyForLotId))
+                                                {
+                                                    substrates[index].SetLotId(scenarioResult[keyForLotId]);
+
+                                                    if (string.IsNullOrEmpty(substrates[index].GetAttribute(PWA500BINSubstrateAttributes.ParentLotId)))
+                                                    {
+                                                        substrates[index].SetAttribute(PWA500BINSubstrateAttributes.ParentLotId, scenarioResult[keyForLotId]);
+                                                    }
+                                                }
+                                                if (scenarioResult.ContainsKey(keyForSubstrateId))
+                                                {
+                                                    // 2024.12.29. jhlim [MOD] Ring Id를 고유하게 만들기 위함 : CarrierId_LP{포트번호}.{슬롯번호} 형식
+                                                    substrates[index].SetAttribute(PWA500BINSubstrateAttributes.RingId, substrates[index].GetName());
+                                                    //substrates[index].SetName(scenarioResult[keyForSubstrateId]);
+                                                    //substrates[index].SetAttribute(PWA500BINSubstrateAttributes.RingId, scenarioResult[keyForSubstrateId]);
+                                                    // 2024.12.29. jhlim [END]
+                                                }
+
+                                                #region <Lot Info 갱신>
+                                                substrates[index].SetRecipeId(_recipeId);
+                                                substrates[index].SetAttribute(PWA500BINSubstrateAttributes.PartId, _partId);
+                                                substrates[index].SetAttribute(PWA500BINSubstrateAttributes.StepSeq, _stepSeq);
+                                                substrates[index].SetAttribute(PWA500BINSubstrateAttributes.LotType, _lotType);
+                                                #endregion </Lot Info 갱신>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // 서버에서는 없다고 하는데 실제로 있는 경우(이미 나가있는 자재 포함)
+                                        if (status[index].Equals(EFEM.Defines.LoadPort.CarrierSlotMapStates.CorrectlyOccupied))
+                                        {
+                                            Substrate temporarySubstrate;
+                                            if (substrates.ContainsKey(index))
+                                            {
+                                                temporarySubstrate = substrates[index];
+                                            }
+                                            else
+                                            {
+                                                string carrierId = _carrierServer.GetCarrierId(PortId);
+                                                temporarySubstrate = new Substrate("");
+                                                if (false == _substrateManager.GetSubstrateBySourceCarrierInfo(PortId, index, carrierId, ref temporarySubstrate))
+                                                    continue;
+                                            }
+
+                                            #region <Lot Info 갱신>
+                                            temporarySubstrate.SetRecipeId(_recipeId);
+                                            // 2024.12.29. jhlim [DEL] Ring Id를 고유하게 만들기 위함 : CarrierId_LP{포트번호}.{슬롯번호} 형식
+                                            if (string.IsNullOrEmpty(temporarySubstrate.GetAttribute(PWA500BINSubstrateAttributes.RingId)))
+                                            {
+                                                temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.RingId, temporarySubstrate.GetName());
+                                            }
+                                            // 2024.12.29. jhlim [END]
+
+                                            temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.PartId, _partId);
+                                            temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.StepSeq, _stepSeq);
+                                            temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.LotType, _lotType);
+                                            if (string.IsNullOrEmpty(temporarySubstrate.GetAttribute(PWA500BINSubstrateAttributes.ParentLotId)))
+                                            {
+                                                string parentLotId = _carrierServer.GetCarrierLotId(PortId);
+                                                temporarySubstrate.SetAttribute(PWA500BINSubstrateAttributes.ParentLotId, parentLotId);
+                                            }
+
+                                            #endregion </Lot Info 갱신>
+
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            // 정상
+                                        }
+                                    }
+                                }
+                            }
+
+                            string currentCarrierId = _carrierServer.GetCarrierId(PortId);
+                            _lotHistoryLog.WriteHistoryForSlotMap(PortId, currentCarrierId, scenarioResultForStatus);
+                        }
+                        #endregion </Slot Info 갱신>
+                    }
+
                 }
             }
         }

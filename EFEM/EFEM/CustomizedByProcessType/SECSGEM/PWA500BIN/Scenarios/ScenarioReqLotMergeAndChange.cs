@@ -293,7 +293,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
             _paramValue = paramValues as ScenarioReqLotMergeAndChangeParamValues;
         }
 
-        public sealed override void UpdateReceiveMessage(List<SemiObject> listOfReceive)
+        public sealed override bool UpdateReceiveMessage(List<SemiObject> listOfReceive)
         {
             ObjectNames objectName;
             if (UpdateReceivedSecsMessage(listOfReceive, out objectName))
@@ -306,7 +306,11 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
                 {
                     Permission = EN_SCENARIO_PERMISSION_RESULT.ERROR;
                 }
+
+                return true;
             }
+
+            return false;
         }
 
         public bool UpdateReceivedSecsMessage(List<SemiObject> listOfReceive, out ObjectNames objectName)

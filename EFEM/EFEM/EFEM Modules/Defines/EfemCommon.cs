@@ -14,48 +14,68 @@ using System.Threading.Tasks;
 namespace EFEM.Defines.Common
 {
     #region <Class>
-    public class EFEMLogger
-    {
-        private EFEMLogger()
-        {
-            _logger = AsyncLoggerForEFEM.Instance;
-            TypeOfLogger = LogTypes.Temp;
+    //public class EFEMLogger
+    //{
+    //    private EFEMLogger()
+    //    {
+    //        _logger = AsyncLoggerForEFEM.Instance;
+    //        TypeOfLogger = BaseLogTypes.LogTypeTemp;
 
-            FilePath = string.Format(@"EFEM\Main\Main");
-        }
-        private static EFEMLogger _instance = null;
-        private readonly string FilePath = null;
-        private static AsyncLoggerForEFEM _logger = null;
-        private readonly LogTypes TypeOfLogger;
-        public static EFEMLogger Instance
+    //        FilePath = string.Format(@"EFEM\Main\Main");
+    //    }
+    //    private static EFEMLogger _instance = null;
+    //    private readonly string FilePath = null;
+    //    private static AsyncLoggerForEFEM _logger = null;
+    //    private readonly string TypeOfLogger;
+    //    public static EFEMLogger Instance
+    //    {
+    //        get
+    //        {
+    //            if (_instance == null)
+    //                _instance = new EFEMLogger();
+
+    //            return _instance;
+    //        }
+    //    }
+
+    //    public void WriteLog(string messageToLog)
+    //    {
+    //        _logger.EnqueueLog(TypeOfLogger, messageToLog);
+    //    }
+    //}
+
+    public class DebugLogger : ModuleLogger
+    {
+        private DebugLogger() : base(BaseLogTypes.LogTypeDebug, BaseLogTypes.LogTypeDebug, true) { }
+        private static DebugLogger _instance = null;
+        public static DebugLogger Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new EFEMLogger();
+                    _instance = new DebugLogger();
 
                 return _instance;
             }
         }
 
-        public void WriteLog(string messageToLog)
+        public void WriteDebugLog(string message)
         {
-            _logger.EnqueueLog(TypeOfLogger, messageToLog);
+            WriteLog(message);
         }
     }
-
     public class ModuleLogger
     {
-        public ModuleLogger(LogTypes typeOfLog, string filePath)
+        public ModuleLogger(string typeOfLog, string filePath, bool useCleanUp)
         {
             _logger = AsyncLoggerForEFEM.Instance;
             TypeOfLog = typeOfLog;
             
-            _logger.AddLogTypes(typeOfLog, filePath);
+            _logger.AddLogTypes(typeOfLog, filePath, useCleanUp);
             //FilePath = string.Format(@"EFEM\{0}\Log", name);
         }
 
-        private readonly LogTypes TypeOfLog;
+        private readonly string TypeOfLog;
         protected LogTitleTypes _logType;
 
         //private readonly string FilePath = null;
@@ -253,9 +273,17 @@ namespace EFEM.Defines.Common
                 if (item != null && item.Attribute(AttributeValue) != null)
                 {
                     // 값이 변경된 경우
-                    if (item.Attribute(AttributeValue).Value != kvp.Value)
+                    string value = string.Empty;
+                    if (item.Attribute(AttributeValue) != null)
                     {
-                        item.SetAttributeValue(AttributeValue, kvp.Value); // 값 업데이트
+                        if (item.Attribute(AttributeValue).Value != kvp.Value)
+                        {
+                            item.SetAttributeValue(AttributeValue, kvp.Value); // 값 업데이트
+                        }
+                    }
+                    else
+                    {
+                        item.SetAttributeValue(AttributeValue, value); // 값 업데이트
                     }
                 }
                 else
@@ -271,7 +299,22 @@ namespace EFEM.Defines.Common
         }
 
     }
-
+    public static class BaseLogTypes
+    {
+        public const string LogTypeDebug = "Debug";
+        public const string LogTypeLoadPort = "LoadPort";
+        public const string LogTypeAtmRobot = "AtmRobot";
+        public const string LogTypeProcessModule = "ProcessModule";
+        public const string LogTypeSecsGem = "SecsGem";
+    }
+    
+    public class LogInfo
+    {
+        public StreamWriter StreamWriters;
+        public string LogDirectories;
+        public DateTime LastBackupDate;
+        public bool UseCleanUp;
+    }
     public class AsyncLoggerForEFEM
     {
         #region <Constructors>
@@ -279,25 +322,18 @@ namespace EFEM.Defines.Common
         {
             BasePath = string.Format(@"{0}\EFEM", Define.DefineConstant.FilePath.FILEPATH_LOG);
 
-            LogDirectories = new Dictionary<LogTypes, string>();
-            LogToWrite = new ConcurrentDictionary<LogTypes, ConcurrentQueue<Tuple<DateTime, string>>>();
-            StreamWriters = new Dictionary<LogTypes, StreamWriter>();
-            LastBackupDate = new Dictionary<LogTypes, DateTime>();
+            LogInfos = new Dictionary<string, LogInfo>();
+            LogToWrite = new ConcurrentDictionary<string, ConcurrentQueue<Tuple<DateTime, string>>>();
 
             // 로그 파일 경로가 존재하지 않으면 생성
             if (false == Directory.Exists(BasePath))
             {
                 Directory.CreateDirectory(BasePath);
             }
-            
-            LogToWrite[LogTypes.Temp] = new ConcurrentQueue<Tuple<DateTime, string>>();
-            LogDirectories[LogTypes.Temp] = BasePath;
-            LastBackupDate[LogTypes.Temp] = new DateTime();
-            //AddLogTypes(LogTypes.Temp, BasePath);
+
+            AddLogTypes(BaseLogTypes.LogTypeDebug, BaseLogTypes.LogTypeDebug, true);
 
             WriteLogAsync = ProcessLogsAsync();
-
-            //Task.Run(() => ProcessLogsAsync());
         }
         #endregion </Constructors>
 
@@ -313,10 +349,12 @@ namespace EFEM.Defines.Common
         private readonly Task WriteLogAsync = null;
 
         private const int BackUpHour = 22;
-        private readonly Dictionary<LogTypes, StreamWriter> StreamWriters;
-        private readonly Dictionary<LogTypes, string> LogDirectories;
-        private readonly Dictionary<LogTypes, DateTime> LastBackupDate;
-        private readonly ConcurrentDictionary<LogTypes, ConcurrentQueue<Tuple<DateTime, string>>> LogToWrite;
+        private readonly Dictionary<string, LogInfo> LogInfos;
+        //private readonly Dictionary<string, StreamWriter> StreamWriters;
+        //private readonly Dictionary<string, string> LogDirectories;
+        //private readonly Dictionary<string, DateTime> LastBackupDate;
+        //private readonly Dictionary<string, bool> UseCleanUp;
+        private readonly ConcurrentDictionary<string, ConcurrentQueue<Tuple<DateTime, string>>> LogToWrite;
         #endregion </Fields>
 
         #region <Properties>
@@ -335,20 +373,23 @@ namespace EFEM.Defines.Common
         #region <Methods>
 
         #region <External>
-        public void AddLogTypes(LogTypes typeOfLog, string filePath)
+        public void AddLogTypes(string typeOfLog, string filePath, bool useCleanUp)
         {
             if (false == LogToWrite.ContainsKey(typeOfLog))
             {
                 LogToWrite[typeOfLog] = new ConcurrentQueue<Tuple<DateTime, string>>();
             }
+            LogInfo info = new LogInfo();
+            info.LogDirectories = string.Format(@"{0}\{1}", BasePath, filePath);
+            info.LastBackupDate = new DateTime();
+            info.UseCleanUp = useCleanUp;            
 
-            LogDirectories[typeOfLog] = string.Format(@"{0}\{1}", BasePath, filePath);
-            LastBackupDate[typeOfLog] = new DateTime();
-            
-            if (false == Directory.Exists(LogDirectories[typeOfLog]))
-                Directory.CreateDirectory(LogDirectories[typeOfLog]);
+            if (false == Directory.Exists(info.LogDirectories))
+                Directory.CreateDirectory(info.LogDirectories);
+
+            LogInfos[typeOfLog] = info;
         }
-        public void EnqueueLog(LogTypes typeOfLog, string message)
+        public void EnqueueLog(string typeOfLog, string message)
         {
             var logEntry = Tuple.Create(DateTime.Now, message);
 
@@ -365,53 +406,50 @@ namespace EFEM.Defines.Common
         #endregion </External>
 
         #region <Internal>
-        private void CreateLogFilePath(LogTypes typeOfLog, DateTime date, ref string createdPath)
+        private void CreateLogFilePath(string typeOfLog, DateTime date, ref string createdPath)
         {
-            if (false == LogDirectories.ContainsKey(typeOfLog))            
+            if (false == LogInfos.ContainsKey(typeOfLog))            
             {
-                typeOfLog = LogTypes.Temp;
+                typeOfLog = BaseLogTypes.LogTypeDebug;
             }
 
-            _temporaryDir = LogDirectories[typeOfLog];
+            _temporaryDir = LogInfos[typeOfLog].LogDirectories;
             if (false == Directory.Exists(_temporaryDir))
                 Directory.CreateDirectory(_temporaryDir);
 
             createdPath = string.Format(@"{0}\{1:0000}{2:00}{3:00}.txt", _temporaryDir, date.Year, date.Month, date.Day);
         }
 
-        private void CreateStreamWriter(LogTypes typeOfLog, string filePath)
+        private void CreateStreamWriter(string typeOfLog, string filePath)
         {
-            StreamWriters[typeOfLog] = new StreamWriter(filePath, true) { AutoFlush = true };            
+            if (false == LogInfos.ContainsKey(typeOfLog))
+                return;
+
+            LogInfos[typeOfLog].StreamWriters = new StreamWriter(filePath, true) { AutoFlush = true };            
         }
-        private bool IsStreamWriterClosed(LogTypes typeOfLog)
+        private bool IsStreamWriterClosed(string typeOfLog)
         {
-            if (false == StreamWriters.ContainsKey(typeOfLog))
+            if (false == LogInfos.ContainsKey(typeOfLog))
                 return true;
 
-            return StreamWriters[typeOfLog] == null;
+            return LogInfos[typeOfLog].StreamWriters == null;
         }
         private void CloseStreamWritersAll()
         {
-            foreach (var item in StreamWriters)
+            foreach (var item in LogInfos)
             {
-                if (item.Value != null)
-                {
-                    item.Value.Close();
-                    item.Value.Dispose();
-                    
-                    StreamWriters[item.Key] = null;
-                }
+                CloseStreamWriter(item.Key);
             }           
         }
-        private void CloseStreamWriter(LogTypes typeOfLog)
+        private void CloseStreamWriter(string typeOfLog)
         {
-            if (StreamWriters.ContainsKey(typeOfLog))
+            if (LogInfos.ContainsKey(typeOfLog))
             {
-                if (StreamWriters[typeOfLog] != null)
+                if (LogInfos[typeOfLog].StreamWriters != null)
                 {
-                    StreamWriters[typeOfLog].Close();
-                    StreamWriters[typeOfLog].Dispose();
-                    StreamWriters[typeOfLog] = null;
+                    LogInfos[typeOfLog].StreamWriters.Close();
+                    LogInfos[typeOfLog].StreamWriters.Dispose();
+                    LogInfos[typeOfLog].StreamWriters = null;
                 }
             }
         }
@@ -443,16 +481,16 @@ namespace EFEM.Defines.Common
                     return;
             }
         }
-        private void WriteLineToFile(LogTypes typeOfLog, string path, string message)
+        private void WriteLineToFile(string typeOfLog, string path, string message)
         {
             if (IsStreamWriterClosed(typeOfLog))
             {
                 CreateStreamWriter(typeOfLog, path);
             }
 
-            StreamWriters[typeOfLog].WriteLine(message);
+            LogInfos[typeOfLog].StreamWriters.WriteLine(message);
         }
-        private void WriteLog(LogTypes typeOfLog, DateTime logDate, string message)
+        private void WriteLog(string typeOfLog, DateTime logDate, string message)
         {
             try
             {
@@ -464,7 +502,7 @@ namespace EFEM.Defines.Common
                     CloseStreamWriter(typeOfLog);
                 }                
 
-                var logEntry = String.Format("[{0:d2}:{1:d2}:{2:d2}.{3:d3}] {4}",
+                var logEntry = string.Format("[{0:d2}:{1:d2}:{2:d2}.{3:d3}] {4}",
                     logDate.Hour,
                     logDate.Minute,
                     logDate.Second,
@@ -475,30 +513,34 @@ namespace EFEM.Defines.Common
             }
             catch (Exception ex)
             {
-                CreateLogFilePath(LogTypes.Temp, logDate, ref _temporaryPath);
-                WriteLineToFile(LogTypes.Temp, _temporaryPath, $"##### { ex.Message } : { ex.StackTrace } #####");                
+                CreateLogFilePath(BaseLogTypes.LogTypeDebug, logDate, ref _temporaryPath);
+                WriteLineToFile(BaseLogTypes.LogTypeDebug, _temporaryPath, $"##### { ex.Message } : { ex.StackTrace } #####");                
             }
         }
 
-        private void CleanUpLogsAsync(LogTypes typeOfLog)
+        private void CleanUpLogsAsync(string typeOfLog)
         {
-            if (false == LogDirectories.ContainsKey(typeOfLog))
+            if (false == LogInfos.ContainsKey(typeOfLog))
+                return;
+
+            if (false == LogInfos.ContainsKey(typeOfLog) ||
+                false == LogInfos[typeOfLog].UseCleanUp)
                 return;
 
             DateTime today = DateTime.Today;
             // 백업한 날짜와 현재 날짜가 같거나, 현재 시간이 타겟 시간이 아니면 넘긴다.
-            if (LastBackupDate[typeOfLog].Date.Equals(today) ||
+            if (LogInfos[typeOfLog].LastBackupDate.Date.Equals(today) ||
                 DateTime.Now.Hour != BackUpHour)
                 return;
 
-            LastBackupDate[typeOfLog] = DateTime.Now;
+            LogInfos[typeOfLog].LastBackupDate = DateTime.Now;
 
             try
             {
-                string tempFolderPath = Path.Combine(LogDirectories[typeOfLog], "Temp");
+                string tempFolderPath = Path.Combine(LogInfos[typeOfLog].LogDirectories, "Temp");
 
-                string zipFileName = Path.Combine(LogDirectories[typeOfLog], $"{typeOfLog.ToString()}.zip");
-                var logFiles = Directory.GetFiles(LogDirectories[typeOfLog]);
+                string zipFileName = Path.Combine(LogInfos[typeOfLog].LogDirectories, $"{typeOfLog}.zip");
+                var logFiles = Directory.GetFiles(LogInfos[typeOfLog].LogDirectories);
                 for (int i = 0; i < logFiles.Length; ++i)
                 {
                     string fileNameOnly = Path.GetFileNameWithoutExtension(logFiles[i]);
@@ -542,7 +584,7 @@ namespace EFEM.Defines.Common
                             }
                             catch (Exception ex)
                             {
-                                EnqueueLog(LogTypes.Temp, string.Format("### File Delete Failed : {0}, {1}", ex.Message, ex.StackTrace));
+                                EnqueueLog(BaseLogTypes.LogTypeDebug, string.Format("### File Delete Failed : {0}, {1}", ex.Message, ex.StackTrace));
                             }
                         }
                     }
@@ -555,7 +597,7 @@ namespace EFEM.Defines.Common
             }
             catch (Exception ex)
             {
-                EnqueueLog(LogTypes.Temp, string.Format("### Backup Failed : {0}, {1}", ex.Message, ex.StackTrace));
+                EnqueueLog(BaseLogTypes.LogTypeDebug, string.Format("### Backup Failed : {0}, {1}", ex.Message, ex.StackTrace));
             }
         }
 
@@ -567,9 +609,9 @@ namespace EFEM.Defines.Common
             }
         }
         #endregion </Internal>
+
         #endregion </Methods>
     }
-
     #endregion </Class>
 
     #region <Enumerations>
@@ -589,19 +631,14 @@ namespace EFEM.Defines.Common
         Proceed,
         Error,
     }
-    public enum LogTypes
-    {
-        Temp,
-        LoadPort1,
-        LoadPort2,
-        LoadPort3,
-        LoadPort4,
-        LoadPort5,
-        LoadPort6,
-        AtmRobot,
-        ProcessModule,
-        SecsGem
-    }
+    //public enum LogTypes
+    //{
+    //    Temp,
+    //    LoadPort,
+    //    AtmRobot,
+    //    ProcessModule,
+    //    SecsGem
+    //}
     public enum LogTitleTypes
     {
         OPER,

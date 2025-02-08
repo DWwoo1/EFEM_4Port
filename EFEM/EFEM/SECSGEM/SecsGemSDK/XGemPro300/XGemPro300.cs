@@ -220,11 +220,15 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
         #region <Alarm>
         public override void SetAlarm(int nAlarm)
         {
+            WriteLog(string.Format("[EQ ==> XGEM] Report Alarm : {0}", nAlarm));
+
             _gemDriver.GEMSetAlarm(nAlarm, 1);
         }
 
         public override void ClearAlarm(int nAlarm)
         {
+            WriteLog(string.Format("[EQ ==> XGEM] Clear Alarm : {0}", nAlarm));
+
             _gemDriver.GEMSetAlarm(nAlarm, 0);
         }
         #endregion </Alarm>
@@ -278,12 +282,40 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
                         arrVidValues[i] = string.Empty;
                 }
 
-                _gemDriver.GEMSetEventEx(nEventID, arrVids.Length, arrVids, arrVidValues);
-                string strLog = string.Format("[EQ ==> XGEM] S6F11 : {0}, Vids : ", nEventID);
-                for (int i = 0; i < arrVids.Length; ++i)
+                string eventId = string.Empty;
+                foreach (var item in CollectionEventList)
                 {
-                    strLog = string.Format("{0}[{1} : {2}] ", strLog, arrVids[i], arrVidValues[i]);
+                    if (item.Value.Id.Equals(nEventID))
+                    {
+                        eventId = item.Key;
+                        break;
+                    }
                 }
+
+                _gemDriver.GEMSetEventEx(nEventID, arrVids.Length, arrVids, arrVidValues);
+                string strLog = string.Format("[EQ ==> XGEM] S6F11 : {0}({1})", eventId, nEventID);
+
+                if (arrVids != null && arrVidValues != null)
+                {
+                    strLog = string.Format("{0}, Vids :", strLog);
+
+                    for (int i = 0; i < arrVids.Length; ++i)
+                    {
+                        foreach (var item in StatusVariableList)
+                        {
+                            if (arrVids[i].Equals(item.Value.Id))
+                            {
+                                strLog = string.Format("{0} [{1}({2}):{3}]", strLog, item.Key, arrVids[i], arrVidValues[i]);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //for (int i = 0; i < arrVids.Length; ++i)
+                //{
+                //    strLog = string.Format("{0}[{1} : {2}] ", strLog, arrVids[i], arrVidValues[i]);
+                //}
 
                 WriteLog(strLog);
 
@@ -755,6 +787,8 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
                     result));
             }
 
+            string logToWrite = string.Empty;
+
             int count = structureForAck.Count;
             EN_ITEM_FORMAT errorFormat;
             for (int i = 0; i < count; ++i)
@@ -906,6 +940,8 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
 
                     return false;
                 }
+
+                logToWrite = string.Format("{0} [{1}:{2}]", logToWrite, obj.Format.ToString(), obj.GetValueStringAll());
             }
 
             result = _gemDriver.SendSECSMessage(pObjectId, stream, function, pSystemByte);
@@ -918,6 +954,8 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
 
                 return false;
             }
+
+            WriteLog(string.Format("[EQ ==> XGEM] Success to sending message ObjectID({0}), S{1}F{2} : {3}, Sysbyte({4})", pObjectId, stream, function, logToWrite, pSystemByte));
 
             return true;
         }

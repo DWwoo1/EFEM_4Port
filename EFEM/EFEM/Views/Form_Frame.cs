@@ -165,8 +165,8 @@ namespace FrameOfSystem3.Views
 		#endregion
 
 		#region Timer
-		System.Windows.Forms.Timer m_pTimerForUpdateGUI						= new Timer();
-		System.Windows.Forms.Timer m_pTimerForAlarm							= new Timer();
+		System.Windows.Forms.Timer m_pTimerForUpdateGUI						= new System.Windows.Forms.Timer();
+		System.Windows.Forms.Timer m_pTimerForAlarm							= new System.Windows.Forms.Timer();
         #endregion
 
         #endregion
@@ -810,11 +810,11 @@ namespace FrameOfSystem3.Views
             }
             else
             {
-				m_instanceTerminal.EnqueueTerminalMessage(strMessage);
+                m_instanceTerminal.EnqueueTerminalMessage(strMessage);
             }
         }
 
-		private Functional.Form_OperatorCall m_instanceOperatorCallForm = Functional.Form_OperatorCall.GetInstance();
+        private Functional.Form_OperatorCall m_instanceOperatorCallForm = Functional.Form_OperatorCall.GetInstance();
 		private delegate bool deleOperatorCall_Called(SECSGEM.DefineSecsGem.EN_OPCALL_LEVEL enLevel, string strOperatorId, bool bBuzzer, string strMsg);
 		private bool ShowOperatorCallForm(SECSGEM.DefineSecsGem.EN_OPCALL_LEVEL enLevel, string strOperatorId, bool bBuzzer, string strMsg)
 		{
@@ -864,8 +864,8 @@ namespace FrameOfSystem3.Views
                             clientIndex = 9;
                         }
                         driver = new SECSGEM.SecsGemDll.XGemPro300WithWCF(1, new int[] { clientIndex });
-                        cfgPath = string.Format(@"{0}{1}\{2}", SECSGEM.DefineSecsGem.PATH.FILE_PATH_CFG, customer, AppConfigManager.Instance.ProcessType.ToString());
-                        recipePath = @"D:\PROJECT\EFEM\PWA-500BIN\Source\PROGRAM\Recipe\EFEM\RMS";//string.Format(@"\\127.0.0.1\EFEM\RMS");
+                        cfgPath = string.Format(@"{0}{1}\{2}", SECSGEM.DefineSecsGem.PATH.FILE_PATH_CFG, customer, AppConfigManager.Instance.ProcessType.ToString());                        
+                        recipePath = string.Format(@"{0}\EFEM\RMS", Define.DefineConstant.FilePath.FILEPATH_RECIPE);//string.Format(@"\\127.0.0.1\EFEM\RMS");
                         break;
 
                     }
@@ -890,5 +890,36 @@ namespace FrameOfSystem3.Views
 			SECSGEM.ScenarioOperator.Instance.Exit();
         }
         #endregion
+
+        const int WM_SYSCOLORCHANGE = 0x0015;    // 시스템 색상 변경 메시지
+        const int WM_DISPLAYCHANGE = 0x007E;     // 디스플레이 설정 변경 메시지
+        const int WM_USERPREFERENCESCHANGING = 0x0050; // 사용자 환경 설정 변경 메시지
+
+        protected override void WndProc(ref System.Windows.Forms.Message m)
+        {
+            // 시스템 색상 변경 메시지 처리 (테마 변경)
+            if (m.Msg == WM_SYSCOLORCHANGE)
+            {
+                // 테마 변경 이벤트 무시
+                return;  // 아무 작업도 하지 않고 메시지를 차단
+            }
+
+            // 디스플레이 설정 변경 메시지 처리
+            if (m.Msg == WM_DISPLAYCHANGE)
+            {
+                // 디스플레이 설정 변경 이벤트 무시
+                return;  // 아무 작업도 하지 않고 메시지를 차단
+            }
+
+            // 사용자 환경 설정 변경 메시지 처리
+            if (m.Msg == WM_USERPREFERENCESCHANGING)
+            {
+                // 사용자 환경 설정 변경 이벤트 무시
+                return;  // 아무 작업도 하지 않고 메시지를 차단
+            }
+
+            // 기본 메시지 처리 (다른 메시지는 정상적으로 처리)
+            base.WndProc(ref m);
+        }
     }
 }

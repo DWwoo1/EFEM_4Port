@@ -134,7 +134,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario.Common
             return EN_SCENARIO_RESULT.PROCEED;
         }
 
-        public sealed override void UpdateReceiveMessage(List<SemiObject> listOfReceive)
+        public sealed override bool UpdateReceiveMessage(List<SemiObject> listOfReceive)
         {
             if (UpdateReceivedSecsMessage(listOfReceive))
             {
@@ -146,7 +146,9 @@ namespace FrameOfSystem3.SECSGEM.Scenario.Common
                 {
                     Permission = EN_SCENARIO_PERMISSION_RESULT.ERROR;
                 }
+                return true;
             }
+            return false;
         }
         
         protected abstract bool UpdateReceivedSecsMessage(List<SemiObject> listOfReceive);

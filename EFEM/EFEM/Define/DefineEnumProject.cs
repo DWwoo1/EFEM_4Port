@@ -490,8 +490,6 @@ namespace Define
                 ALIGN_POINT_TYPE,
 
                 WAFER_TYPE,
-                WAFER_TYPE_PWA500BIN,   // 2025.01.07. by dwlim [MOD] Process Module 분리로 인한 추가
-                WAFER_TYPE_PWA500W,     // 2025.01.07. by dwlim [ADD] Process Module 분리로 인한 추가
                 ARM_TYPE,
 
                 SUBSTRATE_TRANSFER_STATE,

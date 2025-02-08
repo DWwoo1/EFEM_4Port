@@ -77,7 +77,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
             }
 
             _temporaryList = new List<Substrate>();
-            Substrates = new List<Substrate>();
 
             _robotStateInformation = new RobotStateInformation();
 
@@ -123,8 +122,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
         #region <Constants>
         private const int RobotIndex = 0;
         private const int ProcessModuleIndex = 0;
-        private const int ColumnIndex = 0;
-        private const int ColumnSubstrateName = 1;
 
         private const string TitleBinLoadPort = "BIN LOADPORT";
         private const string TitleEmptyLoadPort = "EMPTY LOADPORT";
@@ -155,7 +152,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
         #endregion </Substrate from LoadPort>
 
         #region <Substrate in Process Module>
-        private readonly List<Substrate> Substrates = null;
         private List<Substrate> _temporaryList = null;
         #endregion <Substrate in Process Module>
 
@@ -405,9 +401,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
                 return;
 
             bool needRedraw = false;
-            if (_temporaryList.Count != Substrates.Count)
+            if (_temporaryList.Count != gvSubstrateList.Rows.Count)
             {
-                Substrates.Clear();
                 gvSubstrateList.Rows.Clear();
 
                 needRedraw = true;
@@ -415,20 +410,14 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
 
             for (int i = 0; i < _temporaryList.Count; ++i)
             {
-                if (needRedraw || Substrates[i].GetName() != _temporaryList[i].GetName())
+                if (needRedraw || gvSubstrateList[0, i].Value.ToString() != _temporaryList[i].GetName())
                 {
                     if (needRedraw)
                     {
-                        Substrates.Add(_temporaryList[i]);
                         gvSubstrateList.Rows.Add();
-                        gvSubstrateList[ColumnIndex, i].Value = (i + 1).ToString();
-                    }
-                    else
-                    {
-                        Substrates[i] = _temporaryList[i];
                     }
 
-                    gvSubstrateList[ColumnSubstrateName, i].Value = _temporaryList[i].GetName();
+                    gvSubstrateList[0, i].Value = _temporaryList[i].GetName();
                 }
             }
         }

@@ -482,6 +482,12 @@ namespace FrameOfSystem3.Views.Operation
 			if (false == System.Diagnostics.Debugger.IsAttached)
 				return;
 
+            //string oldName = "CARRIER06_LP6.01";
+            //string newName = "TEMP";
+            //EFEM.MaterialTracking.Substrate substrate = new EFEM.MaterialTracking.Substrate("");
+            //EFEM.MaterialTracking.SubstrateManager.Instance.GetSubstrateAtProcessModule(newName, ref substrate);
+            //substrate.SetName(oldName);
+
             //string path = @"\\127.0.0.1\efem\RMS\Upload\Test_Recipe";
             //byte[] byteArrayToUpload = System.IO.File.ReadAllBytes(path);
             //string writeLog = string.Empty;
