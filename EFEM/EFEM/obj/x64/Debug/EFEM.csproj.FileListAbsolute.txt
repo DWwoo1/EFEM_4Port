@@ -462,3 +462,4 @@ D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.csproj.CoreCompileInp
 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.csproj.CopyComplete
 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.exe
 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.pdb
+D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.csproj.AssemblyReference.cache
