@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Define.DefineEnumProject.Task.Global;
 using Define.DefineEnumProject.DigitalIO.PWA500W;
+using FrameOfSystem3.SECSGEM.Scenario;
 
 namespace FrameOfSystem3.Task
 {
@@ -14,11 +16,13 @@ namespace FrameOfSystem3.Task
         public TaskGlobalForPWA500W(int nIndexOfTask, string strTaskName)
             : base(nIndexOfTask, strTaskName)
         {
-
+            _scenarioManager = ScenarioManagerForPWA500W_NRD.Instance;
         }
         #endregion </Constructors>
 
         #region <Fields>
+        private ScenarioManagerForPWA500W_NRD _scenarioManager = null;
+        private bool _hasCommunicationAlarmWithPM = false;
         #endregion </Fields>
 
         #region <Properties>
@@ -29,6 +33,30 @@ namespace FrameOfSystem3.Task
         #region <Overrides>
         protected override void ExecuteOnAlways()
         {
+            if (_scenarioManager.HasScenarioError)
+            {
+                _scenarioManager.HasScenarioError = false;
+                string[] arAlarmSubInfo = { GetTaskName(), _scenarioManager.FailedScenarioTypes.ToString() };
+                GenerateSequenceAlarm((int)ALARM_GLOBAL.WrongScenarioCirculation, false, ref arAlarmSubInfo);
+            }
+
+            // 작업 도중 공정설비 통신 안 될 시 에러를 발생시킨다.
+            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.EXECUTING)
+            {
+                if (false == TaskOperator.GetInstance().IsProcessModuleConnected())
+                {
+                    if (false == _hasCommunicationAlarmWithPM)
+                    {
+                        _hasCommunicationAlarmWithPM = true;
+                        GenerateAlarm((int)ALARM_GLOBAL.COMMUNICATION_ERROR_WITH_PM);
+                    }
+                }
+                else
+                {
+                    _hasCommunicationAlarmWithPM = false;
+                }
+            }
+
         }
 
         protected override void GetDoorLockSensorSignalList(out List<int> indexOfSignals)

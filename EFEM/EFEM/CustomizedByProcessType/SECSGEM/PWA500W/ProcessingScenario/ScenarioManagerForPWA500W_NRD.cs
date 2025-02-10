@@ -55,6 +55,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         //private readonly TickCounter TicksForCarrierUnload = new TickCounter();
         //private QueuedScenarioInfo _dequeuedScenarioToCarrierUnload = null;
         //private readonly ConcurrentQueue<QueuedScenarioInfo> CarrierUnloadingReservation = new ConcurrentQueue<QueuedScenarioInfo>();
+        private string _pathForPms = string.Empty;
         #endregion </Fields>
 
         #region <Properties>
@@ -75,6 +76,22 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 return false;// (false == _recipe.GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGem.ToString(), false));
             }
         }
+        private int HandlingRequestDelayEachLoadPorts
+        {
+            get
+            {
+                return _recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.HandlingRequestDelayEachLoadPorts.ToString(), 5000);
+            }
+        }
+        public string PmsFullPath
+        {
+            get
+            {
+                return _pathForPms;
+            }
+        }
+        public bool HasScenarioError { get; set; }
+        public ScenarioListTypes FailedScenarioTypes { get; set; }
         #endregion </Properties>
 
         #region <Methods>
