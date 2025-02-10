@@ -1144,58 +1144,90 @@ namespace FrameOfSystem3.Task
                             break;
 
                         #region <Data 확인>
-                        if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SubstrateName, out string substrateName))
-                        {
-                            return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
-                                _subStepInterface, string.Format("{0} : {1}",
-                                ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SubstrateName));
-                        }
-
-                        if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.LotId, out string lotId))
-                        {
-                            return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
-                                _subStepInterface, string.Format("{0} : {1}",
-                                ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.LotId));
-                        }
-
-                        if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.RecipeId, out string recipeId))
-                        {
-                            return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
-                                _subStepInterface, string.Format("{0} : {1}",
-                                ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.RecipeId));
-                        }
-
-                        if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.RingId, out string ringId))
-                        {
-                            return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
-                                _subStepInterface, string.Format("{0} : {1}",
-                                ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.RingId));
-                        }
-
-                        if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.PortId, out string portId))
-                        {
-                            return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
-                                _subStepInterface, string.Format("{0} : {1}",
-                                ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.PortId));
-                        }
-
-                        if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SlotId, out string slot))
-                        {
-                            return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
-                                _subStepInterface, string.Format("{0} : {1}",
-                                ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SlotId));
-                        }
-
-                        if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SubstrateType, out string subType) ||
-                            false == Enum.TryParse(subType, out SubstrateType convertedType))
-                        {
-                            return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
-                                _subStepInterface, string.Format("{0} : {1}",
-                                ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SubstrateType));
-                        }
-
-                        bool hasCarrier = false;
                         Substrate substrate = new Substrate("");
+                        SubstrateType convertedType;
+                        string substrateName, lotId, recipeId, ringId, portId, slot, subType;
+                        if (false == _processGroup.IsSimulationMode(ProcessModuleIndex))
+                        {
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SubstrateName, out substrateName))
+                            {
+                                return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                                    _subStepInterface, string.Format("{0} : {1}",
+                                    ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SubstrateName));
+                            }
+
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.LotId, out lotId))
+                            {
+                                return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                                    _subStepInterface, string.Format("{0} : {1}",
+                                    ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.LotId));
+                            }
+
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.RecipeId, out recipeId))
+                            {
+                                return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                                    _subStepInterface, string.Format("{0} : {1}",
+                                    ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.RecipeId));
+                            }
+
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.RingId, out ringId))
+                            {
+                                return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                                    _subStepInterface, string.Format("{0} : {1}",
+                                    ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.RingId));
+                            }
+
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.PortId, out portId))
+                            {
+                                return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                                    _subStepInterface, string.Format("{0} : {1}",
+                                    ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.PortId));
+                            }
+
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SlotId, out slot))
+                            {
+                                return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                                    _subStepInterface, string.Format("{0} : {1}",
+                                    ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SlotId));
+                            }
+
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SubstrateType, out subType) ||
+                                false == Enum.TryParse(subType, out convertedType))
+                            {
+                                return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                                    _subStepInterface, string.Format("{0} : {1}",
+                                    ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SubstrateType));
+                            }
+                        }
+                        else
+                        {
+                            var processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+                            var substrates = new List<Substrate>();
+                            _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref substrates);
+                            substrate = substrates.First();
+                            substrateName = substrate.GetName();
+                            lotId = substrate.GetLotId();
+                            recipeId = substrate.GetRecipeId();
+                            portId = substrate.GetSourcePortId().ToString();
+                            slot = substrate.GetSourceSlot().ToString();
+                            subType = substrate.GetAttribute(PWA500WSubstrateAttributes.SubstrateType);
+                            Enum.TryParse(subType, out convertedType);
+                            switch (convertedType)
+                            {
+                                case SubstrateType.Core_8:
+                                    convertedType = SubstrateType.Core_8;
+                                    break;
+                                case SubstrateType.Core_12:
+                                    convertedType = SubstrateType.Core_12;
+                                    break;
+                                default:
+                                    convertedType = SubstrateType.Bin_12;
+                                    break;
+                            }
+                            subType = convertedType.ToString();
+                            ringId = substrate.GetAttribute(PWA500WSubstrateAttributes.RingId);
+                        }
+                        bool hasCarrier = false;
 
                         if (false == FindSubstrateByAttribute(substrateName, portId, slot, ref substrate))
                         {

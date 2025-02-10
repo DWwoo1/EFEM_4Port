@@ -57,7 +57,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                 { pnLoadPort1.TabIndex, pnLoadPort1 },
                 { pnLoadPort2.TabIndex, pnLoadPort2 },
                 { pnLoadPort3.TabIndex, pnLoadPort3 },
-                { pnLoadPort4.TabIndex, pnLoadPort4 },
+                { pnLoadPort4.TabIndex, pnLoadPort4 }
             };
 
             LoadPortSlots = new Dictionary<int, SummaryLoadPortState_Slot>();

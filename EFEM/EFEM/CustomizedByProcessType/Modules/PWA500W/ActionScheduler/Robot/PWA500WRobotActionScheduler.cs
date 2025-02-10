@@ -122,22 +122,22 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         }
         private bool HasCarriers(SubstrateType type, bool loading, ref int lpIndex)
         {
-            List<int> LoadPortIndex = null;
+            List<int> loadPortIndex = null;
             switch (type)
             {
                 case SubstrateType.Core_8:
                     {
-                        LoadPortIndex = new List<int>(CoreLoadPort_8_Index);
+                        loadPortIndex = new List<int>(CoreLoadPort_8_Index);
                         break;
                     }
                 case SubstrateType.Core_12:
                     {
-                        LoadPortIndex = new List<int>(CoreLoadPort_12_Index);
+                        loadPortIndex = new List<int>(CoreLoadPort_12_Index);
                         break;
                     }
                 case SubstrateType.Bin_12:
                     {
-                        LoadPortIndex = new List<int>(BinLoadPortIndex);
+                        loadPortIndex = new List<int>(BinLoadPortIndex);
                         break;
                     }
                 default:
@@ -146,12 +146,12 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
             // 1. Access된 Carrier가 있는지 먼저 검색
             int inAccessedCarrierIndex = -1;
-            for (int i = 0; i < LoadPortIndex.Count; ++i)
+            for (int i = 0; i < loadPortIndex.Count; ++i)
             {
-                int portId = _loadPortManager.GetLoadPortPortId(LoadPortIndex[i]);
+                int portId = _loadPortManager.GetLoadPortPortId(loadPortIndex[i]);
                 if (_carrierServer.GetCarrierAccessingStatus(portId).Equals(CarrierAccessStates.InAccessed))
                 {
-                    inAccessedCarrierIndex = LoadPortIndex[i];
+                    inAccessedCarrierIndex = loadPortIndex[i];
                     break;
                 }
             }
@@ -172,12 +172,12 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
 
                 // 1-2. Access된 캐리어가 없으면, 작업 가능한 것 중 아무거나 선택
-                for (int i = 0; i < LoadPortIndex.Count; ++i)
+                for (int i = 0; i < loadPortIndex.Count; ++i)
                 {
-                    int portId = _loadPortManager.GetLoadPortPortId(LoadPortIndex[i]);
+                    int portId = _loadPortManager.GetLoadPortPortId(loadPortIndex[i]);
                     if (false == _carrierServer.HasCarrier(portId) ||
-                        false == IsLoadPortTransferStatusBlocked(LoadPortIndex[i]) ||
-                        _loadPortManager.IsLoadPortBusy(LoadPortIndex[i]))
+                        false == IsLoadPortTransferStatusBlocked(loadPortIndex[i]) ||
+                        _loadPortManager.IsLoadPortBusy(loadPortIndex[i]))
                         continue;
 
                     // 모든 자재가 NeedProcessing 상태면 -> TrackIn 해야하는 상황에 공정 설비에 공테이프가 없으면 투입하지 말아야한다.
@@ -188,7 +188,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             continue;
                     }
 
-                    lpIndex = LoadPortIndex[i];
+                    lpIndex = loadPortIndex[i];
 
                     return true;
                 }

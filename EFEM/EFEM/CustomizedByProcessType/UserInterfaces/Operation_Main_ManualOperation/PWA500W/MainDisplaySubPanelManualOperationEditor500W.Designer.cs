@@ -42,10 +42,10 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.pnLoadPort4 = new System.Windows.Forms.Panel();
+            this.pnLoadPort3 = new System.Windows.Forms.Panel();
             this.lblLoadPort4 = new Sys3Controls.Sys3Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.pnLoadPort3 = new System.Windows.Forms.Panel();
+            this.pnLoadPort4 = new System.Windows.Forms.Panel();
             this.lblLoadPort3 = new Sys3Controls.Sys3Label();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.pnLoadPort1 = new System.Windows.Forms.Panel();
@@ -247,7 +247,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             // 
             this.tableLayoutPanel11.ColumnCount = 1;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.Controls.Add(this.pnLoadPort4, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.pnLoadPort3, 0, 1);
             this.tableLayoutPanel11.Controls.Add(this.lblLoadPort4, 0, 0);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(451, 3);
@@ -258,15 +258,15 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.tableLayoutPanel11.Size = new System.Drawing.Size(218, 518);
             this.tableLayoutPanel11.TabIndex = 6;
             // 
-            // pnLoadPort4
+            // pnLoadPort3
             // 
-            this.pnLoadPort4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnLoadPort4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnLoadPort4.Location = new System.Drawing.Point(0, 25);
-            this.pnLoadPort4.Margin = new System.Windows.Forms.Padding(0);
-            this.pnLoadPort4.Name = "pnLoadPort4";
-            this.pnLoadPort4.Size = new System.Drawing.Size(218, 493);
-            this.pnLoadPort4.TabIndex = 3;
+            this.pnLoadPort3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnLoadPort3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnLoadPort3.Location = new System.Drawing.Point(0, 25);
+            this.pnLoadPort3.Margin = new System.Windows.Forms.Padding(0);
+            this.pnLoadPort3.Name = "pnLoadPort3";
+            this.pnLoadPort3.Size = new System.Drawing.Size(218, 493);
+            this.pnLoadPort3.TabIndex = 2;
             // 
             // lblLoadPort4
             // 
@@ -311,7 +311,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             // 
             this.tableLayoutPanel9.ColumnCount = 1;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Controls.Add(this.pnLoadPort3, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.pnLoadPort4, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.lblLoadPort3, 0, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(675, 3);
@@ -322,15 +322,15 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.tableLayoutPanel9.Size = new System.Drawing.Size(218, 518);
             this.tableLayoutPanel9.TabIndex = 4;
             // 
-            // pnLoadPort3
+            // pnLoadPort4
             // 
-            this.pnLoadPort3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnLoadPort3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnLoadPort3.Location = new System.Drawing.Point(0, 25);
-            this.pnLoadPort3.Margin = new System.Windows.Forms.Padding(0);
-            this.pnLoadPort3.Name = "pnLoadPort3";
-            this.pnLoadPort3.Size = new System.Drawing.Size(218, 493);
-            this.pnLoadPort3.TabIndex = 2;
+            this.pnLoadPort4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnLoadPort4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnLoadPort4.Location = new System.Drawing.Point(0, 25);
+            this.pnLoadPort4.Margin = new System.Windows.Forms.Padding(0);
+            this.pnLoadPort4.Name = "pnLoadPort4";
+            this.pnLoadPort4.Size = new System.Drawing.Size(218, 493);
+            this.pnLoadPort4.TabIndex = 3;
             // 
             // lblLoadPort3
             // 
@@ -1231,10 +1231,10 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
-        private System.Windows.Forms.Panel pnLoadPort4;
+        private System.Windows.Forms.Panel pnLoadPort3;
         private Sys3Controls.Sys3Label lblLoadPort4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.Panel pnLoadPort3;
+        private System.Windows.Forms.Panel pnLoadPort4;
         private Sys3Controls.Sys3Label lblLoadPort3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.Panel pnLoadPort1;
