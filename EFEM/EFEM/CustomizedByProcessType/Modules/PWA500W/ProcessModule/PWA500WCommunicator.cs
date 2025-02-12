@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using WCFManager_;
 
+using Define.DefineEnumProject.DigitalIO.PWA500W;
+
 using EFEM.Defines.Common;
 using EFEM.Modules.ProcessModule.Communicator;
 
@@ -182,17 +184,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             for (int i = 0; i < LocationNames.Length; ++i)
             {
                 string entryway = LocationNames[i];
-                if (entryway.Equals(Constants.ProcessModuleCore_8_InputName))       // EQ 2
+                if (entryway.Equals(Constants.ProcessModuleCore_8_InputName))       // ST - 5, EQ 1 - 8
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.EQ_2_HANDSHAKE;
+                    signalInfos[entryway] = (int)EN_DIGITAL_IN.EQ_1_8_PLACE_HANDSHAKE;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleCore_12_InputName))  // EQ 1
+                else if (entryway.Equals(Constants.ProcessModuleCore_12_InputName))  // ST - 7, EQ 1 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.EQ_1_HANDSHAKE;
+                    signalInfos[entryway] = (int)EN_DIGITAL_IN.EQ_1_12_PLACE_HANDSHAKE;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleSort_12_InputName))  // EQ 1
+                else if (entryway.Equals(Constants.ProcessModuleSort_12_InputName))  // ST - 9, EQ 2 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.EQ_1_HANDSHAKE;
+                    signalInfos[entryway] = (int)EN_DIGITAL_IN.EQ_2_12_PLACE_HANDSHAKE;
                 }
             }
         }
@@ -202,17 +204,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             for (int i = 0; i < LocationNames.Length; ++i)
             {
                 string entryway = LocationNames[i];
-                if (entryway.Equals(Constants.ProcessModuleCore_8_OutputName)) // EQ 3
+                if (entryway.Equals(Constants.ProcessModuleCore_8_OutputName)) // ST - 6, EQ 1 - 8
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.EQ_3_HANDSHAKE;
+                    signalInfos[entryway] = (int)EN_DIGITAL_IN.EQ_1_8_PICK_HANDSHAKE;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleCore_12_OutputName)) // EQ 4
+                else if (entryway.Equals(Constants.ProcessModuleCore_12_OutputName)) // ST - 8, EQ 1 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.EQ_4_HANDSHAKE;
+                    signalInfos[entryway] = (int)EN_DIGITAL_IN.EQ_1_12_PICK_HANDSHAKE;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleSort_12_OutputName)) // EQ 4
+                else if (entryway.Equals(Constants.ProcessModuleSort_12_OutputName)) // ST - 10, EQ 2 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.EQ_4_HANDSHAKE;
+                    signalInfos[entryway] = (int)EN_DIGITAL_IN.EQ_2_12_PICK_HANDSHAKE;
                 }
             }
         }
@@ -222,17 +224,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             for (int i = 0; i < LocationNames.Length; ++i)
             {
                 string entryway = LocationNames[i];
-                if (entryway.Equals(Constants.ProcessModuleCore_8_InputName))       // EQ 2
+                if (entryway.Equals(Constants.ProcessModuleCore_8_InputName))       // ST - 5, EQ 1 - 8
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_2;
+                    signalInfos[entryway] = (int)EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_1_8_PLACE;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleCore_12_InputName))  // EQ 1
+                else if (entryway.Equals(Constants.ProcessModuleCore_12_InputName))  // ST - 7, EQ 1 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_1;
+                    signalInfos[entryway] = (int)EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_1_12_PLACE;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleSort_12_InputName))  // EQ 1
+                else if (entryway.Equals(Constants.ProcessModuleSort_12_InputName))  // ST - 9, EQ 2 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_1;
+                    signalInfos[entryway] = (int)EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_2_12_PLACE;
                 }
             }
         }
@@ -242,17 +244,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             for (int i = 0; i < LocationNames.Length; ++i)
             {
                 string entryway = LocationNames[i];
-                if (entryway.Equals(Constants.ProcessModuleCore_8_OutputName)) // EQ 3
+                if (entryway.Equals(Constants.ProcessModuleCore_8_OutputName)) // ST - 6, EQ 1 - 8
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_3;
+                    signalInfos[entryway] = (int)EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_1_8_PICK;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleCore_12_OutputName)) // EQ 4
+                else if (entryway.Equals(Constants.ProcessModuleCore_12_OutputName)) // ST - 8, EQ 1 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_4;
+                    signalInfos[entryway] = (int)EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_1_12_PICK;
                 }
-                else if (entryway.Equals(Constants.ProcessModuleSort_12_OutputName)) // EQ 4
+                else if (entryway.Equals(Constants.ProcessModuleSort_12_OutputName)) // ST - 10, EQ 2 - 12
                 {
-                    //signalInfos[entryway] = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_4;
+                    signalInfos[entryway] = (int)EN_DIGITAL_OUT.ATM_ROBOT_HANDSHAKE_EQ_2_12_PICK;
                 }
             }
         }

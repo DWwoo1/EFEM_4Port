@@ -40,6 +40,8 @@ namespace FrameOfSystem3.Functional
             m_DicOfList.Add(EN_SELECTIONLIST.SUBSTRATE_PROCESSING_STATE, Enum.GetNames(typeof(EFEM.Defines.MaterialTracking.ProcessingStates)));
             m_DicOfList.Add(EN_SELECTIONLIST.SUBSTRATE_ID_READING_STATE, Enum.GetNames(typeof(EFEM.Defines.MaterialTracking.IdReadingStates)));
             m_DicOfList.Add(EN_SELECTIONLIST.SUBSTRATE_TYPE, Enum.GetNames(typeof(EFEM.CustomizedByProcessType.PWA500BIN.SubstrateType)));
+            // 2025.02.11 dwlim [ADD] 500W 추가
+            m_DicOfList.Add(EN_SELECTIONLIST.SUBSTRATE_TYPE_500W, Enum.GetNames(typeof(EFEM.CustomizedByProcessType.PWA500W.SubstrateType)));
             // m_DicOfList.Add(EN_SELECTIONLIST.WORK_DIRECTION			, Enum.GetNames(typeof(Define.DefineEnumProject.Map.EN_WORK_DIRECTION)));
         }
     }

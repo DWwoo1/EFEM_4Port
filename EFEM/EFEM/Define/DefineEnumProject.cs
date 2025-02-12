@@ -499,6 +499,7 @@ namespace Define
 
                 // PWA500BIN Only
                 SUBSTRATE_TYPE,
+                SUBSTRATE_TYPE_500W,    // 2025.02.11 dwlim [ADD] 500W 추가
                 #endregion project only
             }
         }

@@ -1107,7 +1107,6 @@ namespace FrameOfSystem3.Task
                             m_nSeqNum = (int)STEP_WAIT_FOR_UNLOADING.END;
                             break;
                         }
-                        // TODO : 2025.02.10 dwlim [ADD] Simulation Mode에서 STEP 안넘어가서 임시 추가 
                         if (_taskOperator.IsDryRunMode() || _taskOperator.IsSimulationMode()
                             /*|| _recipe.GetValue(Recipe.EN_RECIPE_TYPE.COMMON, Recipe.PARAM_COMMON.UseCycleMode.ToString(), false)*/)
                         {

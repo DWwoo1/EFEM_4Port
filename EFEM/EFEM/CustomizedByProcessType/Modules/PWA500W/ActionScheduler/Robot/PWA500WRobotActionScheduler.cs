@@ -126,75 +126,213 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             switch (type)
             {
                 case SubstrateType.Core_8:
-                    {
-                        loadPortIndex = new List<int>(CoreLoadPort_8_Index);
-                        break;
-                    }
-                case SubstrateType.Core_12:
-                    {
-                        loadPortIndex = new List<int>(CoreLoadPort_12_Index);
-                        break;
-                    }
-                case SubstrateType.Bin_12:
-                    {
-                        loadPortIndex = new List<int>(BinLoadPortIndex);
-                        break;
-                    }
-                default:
-                    return false;
-            }
-
-            // 1. Access된 Carrier가 있는지 먼저 검색
-            int inAccessedCarrierIndex = -1;
-            for (int i = 0; i < loadPortIndex.Count; ++i)
-            {
-                int portId = _loadPortManager.GetLoadPortPortId(loadPortIndex[i]);
-                if (_carrierServer.GetCarrierAccessingStatus(portId).Equals(CarrierAccessStates.InAccessed))
-                {
-                    inAccessedCarrierIndex = loadPortIndex[i];
+                    loadPortIndex = new List<int>(CoreLoadPort_8_Index);
                     break;
-                }
+                case SubstrateType.Core_12:
+                    loadPortIndex = new List<int>(CoreLoadPort_12_Index);
+                    break;
+                default:
+                    break;
             }
-
-            if (inAccessedCarrierIndex >= 0)
+            if (type.Equals(SubstrateType.Core_8) || type.Equals(SubstrateType.Core_12))
             {
-                // 1-1. Access된 캐리어가 있으면 작업이 가능한 상태인지 검사
-                int portId = _loadPortManager.GetLoadPortPortId(inAccessedCarrierIndex);
-                if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(inAccessedCarrierIndex) &&
-                    false == _loadPortManager.IsLoadPortBusy(inAccessedCarrierIndex))
-                {
-                    lpIndex = inAccessedCarrierIndex;
-                    return true;
-                }
-            }
-            else
-            {
-                string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
-
-                // 1-2. Access된 캐리어가 없으면, 작업 가능한 것 중 아무거나 선택
+                // 1. Access된 Carrier가 있는지 먼저 검색
+                int inAccessedCarrierIndex = -1;
                 for (int i = 0; i < loadPortIndex.Count; ++i)
                 {
                     int portId = _loadPortManager.GetLoadPortPortId(loadPortIndex[i]);
-                    if (false == _carrierServer.HasCarrier(portId) ||
-                        false == IsLoadPortTransferStatusBlocked(loadPortIndex[i]) ||
-                        _loadPortManager.IsLoadPortBusy(loadPortIndex[i]))
-                        continue;
-
-                    // 모든 자재가 NeedProcessing 상태면 -> TrackIn 해야하는 상황에 공정 설비에 공테이프가 없으면 투입하지 말아야한다.
-                    if (_substrateManager.AreAllSubstratesNeedProcessing(portId))
+                    if (_carrierServer.GetCarrierAccessingStatus(portId).Equals(CarrierAccessStates.InAccessed))
                     {
-                        if (false == _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref _substratesAtProcessModule) ||
-                            _substratesAtProcessModule.Count <= 0)
-                            continue;
+                        inAccessedCarrierIndex = loadPortIndex[i];
+                        break;
                     }
-
-                    lpIndex = loadPortIndex[i];
-
-                    return true;
                 }
+
+                if (inAccessedCarrierIndex >= 0)
+                {
+                    // 1-1. Access된 캐리어가 있으면 작업이 가능한 상태인지 검사
+                    int portId = _loadPortManager.GetLoadPortPortId(inAccessedCarrierIndex);
+                    if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(inAccessedCarrierIndex) &&
+                        false == _loadPortManager.IsLoadPortBusy(inAccessedCarrierIndex))
+                    {
+                        lpIndex = inAccessedCarrierIndex;
+                        return true;
+                    }
+                }
+                else
+                {
+                    string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+
+                    // 1-2. Access된 캐리어가 없으면, 작업 가능한 것 중 아무거나 선택
+                    for (int i = 0; i < loadPortIndex.Count; ++i)
+                    {
+                        int portId = _loadPortManager.GetLoadPortPortId(loadPortIndex[i]);
+                        if (false == _carrierServer.HasCarrier(portId) ||
+                            false == IsLoadPortTransferStatusBlocked(loadPortIndex[i]) ||
+                            _loadPortManager.IsLoadPortBusy(loadPortIndex[i]))
+                            continue;
+
+                        // 모든 자재가 NeedProcessing 상태면 -> TrackIn 해야하는 상황에 공정 설비에 공테이프가 없으면 투입하지 말아야한다.
+                        if (_substrateManager.AreAllSubstratesNeedProcessing(portId))
+                        {
+                            if (false == _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref _substratesAtProcessModule) ||
+                                _substratesAtProcessModule.Count <= 0)
+                                continue;
+                        }
+
+                        lpIndex = loadPortIndex[i];
+
+                        return true;
+                    }
+                }
+
+                return false;
             }
-            return false;
+            else if (type.Equals(SubstrateType.Bin_12))
+            {
+                if (loading)
+                {
+                    string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+
+                    // TODO : Consume 이벤트를 적용하게 되면, EmptyWafer도 Core와 동일하게 공정 설비에 다른 Lot 자재가 있는 경우 투입하지 않도록 수정 필요하다.
+                    for (int i = 0; i < _loadPortManager.Count; ++i)
+                    {
+                        SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+                        if (false == convertedSubType.Equals(SubstrateType.Bin_12))
+                            continue;
+
+                        int portId = _loadPortManager.GetLoadPortPortId(i);
+                        if (false == _carrierServer.HasCarrier(portId) || false == IsLoadPortTransferStatusBlocked(i)
+                            || _loadPortManager.IsLoadPortBusy(i))
+                            continue;
+
+                        string lotId = _carrierServer.GetCarrierLotId(portId);
+                        if (_substrateManager.GetSubstratesAtProcessModule(processModuleName, ref _substratesAtProcessModule))
+                        {
+                            for (int subs = 0; subs < _substratesAtProcessModule.Count; ++subs)
+                            {
+                                string subType = _substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.SubstrateType);
+                                if (false == Enum.TryParse(subType, out SubstrateType substrateTypeAtProcessModule))
+                                    continue;
+
+                                if (false == substrateTypeAtProcessModule.Equals(SubstrateType.Bin_12))
+                                    continue;
+
+                                if (_substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId) != null &&
+                                    false == _substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId).Equals(lotId))
+                                {
+                                    return false;
+                                }
+                            }
+
+                            lpIndex = i;
+                            return true;
+                        }
+                        else
+                        {
+                            lpIndex = i;
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+            else
+            {
+                return false;
+                //if (loading)
+                //{
+                //    for (int i = 0; i < BinLoadPortIndex.Count; ++i)
+                //    {
+                //        int portId = _loadPortManager.GetLoadPortPortId(BinLoadPortIndex[i]);
+                //        if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(BinLoadPortIndex[i]) &&
+                //            _loadPortManager.IsLoadPortBusy(BinLoadPortIndex[i]))
+                //        {
+                //            lpIndex = BinLoadPortIndex[i];
+                //            return true;
+                //        }
+                //    }
+                //}
+            }
         }
+
+
+        //private bool HasCarriers(SubstrateType type, bool loading, ref int lpIndex)
+        //{
+        //    List<int> loadPortIndex = null;
+        //    switch (type)
+        //    {
+        //        case SubstrateType.Core_8:
+        //            {
+        //                loadPortIndex = new List<int>(CoreLoadPort_8_Index);
+        //                break;
+        //            }
+        //        case SubstrateType.Core_12:
+        //            {
+        //                loadPortIndex = new List<int>(CoreLoadPort_12_Index);
+        //                break;
+        //            }
+        //        case SubstrateType.Bin_12:
+        //            {
+        //                loadPortIndex = new List<int>(BinLoadPortIndex);
+        //                break;
+        //            }
+        //        default:
+        //            return false;
+        //    }
+
+        //    // 1. Access된 Carrier가 있는지 먼저 검색
+        //    int inAccessedCarrierIndex = -1;
+        //    for (int i = 0; i < loadPortIndex.Count; ++i)
+        //    {
+        //        int portId = _loadPortManager.GetLoadPortPortId(loadPortIndex[i]);
+        //        if (_carrierServer.GetCarrierAccessingStatus(portId).Equals(CarrierAccessStates.InAccessed))
+        //        {
+        //            inAccessedCarrierIndex = loadPortIndex[i];
+        //            break;
+        //        }
+        //    }
+
+        //    if (inAccessedCarrierIndex >= 0)
+        //    {
+        //        // 1-1. Access된 캐리어가 있으면 작업이 가능한 상태인지 검사
+        //        int portId = _loadPortManager.GetLoadPortPortId(inAccessedCarrierIndex);
+        //        if (_carrierServer.HasCarrier(portId) && IsLoadPortTransferStatusBlocked(inAccessedCarrierIndex) &&
+        //            false == _loadPortManager.IsLoadPortBusy(inAccessedCarrierIndex))
+        //        {
+        //            lpIndex = inAccessedCarrierIndex;
+        //            return true;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+
+        //        // 1-2. Access된 캐리어가 없으면, 작업 가능한 것 중 아무거나 선택
+        //        for (int i = 0; i < loadPortIndex.Count; ++i)
+        //        {
+        //            int portId = _loadPortManager.GetLoadPortPortId(loadPortIndex[i]);
+        //            if (false == _carrierServer.HasCarrier(portId) ||
+        //                false == IsLoadPortTransferStatusBlocked(loadPortIndex[i]) ||
+        //                _loadPortManager.IsLoadPortBusy(loadPortIndex[i]))
+        //                continue;
+
+        //            // 모든 자재가 NeedProcessing 상태면 -> TrackIn 해야하는 상황에 공정 설비에 공테이프가 없으면 투입하지 말아야한다.
+        //            if (_substrateManager.AreAllSubstratesNeedProcessing(portId))
+        //            {
+        //                if (false == _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref _substratesAtProcessModule) ||
+        //                    _substratesAtProcessModule.Count <= 0)
+        //                    continue;
+        //            }
+
+        //            lpIndex = loadPortIndex[i];
+
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
         private bool GetSubstrateTypeByLoadingLocation(string locationName, ref SubstrateType substrateType)
         {
             if (locationName.Contains(Constants.Core_8_Name))
