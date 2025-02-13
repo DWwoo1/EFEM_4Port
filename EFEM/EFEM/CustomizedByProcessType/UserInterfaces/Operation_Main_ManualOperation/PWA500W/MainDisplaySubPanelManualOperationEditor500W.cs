@@ -79,7 +79,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             _substratesInArm = new Dictionary<RobotArmTypes, Substrate>();
 
             _substratesAtProcessModule = new List<Substrate>();
-            _coreSubstratesAtProcessModule = new List<Substrate>();
+            _core_8_SubstratesAtProcessModule = new List<Substrate>();
+            _core_12_SubstratesAtProcessModule = new List<Substrate>();
             _sortSubstratesAtProcessModule = new List<Substrate>();
 
             _selectedSubstrate = new Substrate("");
@@ -129,12 +130,13 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
         #endregion </Substrate from LoadPort>
 
         #region <Substrates in Process Module>
-        private const int ColumnSubstrateName = 0;
+        private const int ColumnSubstrateName = 1;
         private const int ColumnRequestEnabled = 0;
         private const int ColumnRequestLocation = 1;
 
         private List<Substrate> _substratesAtProcessModule = null;
-        private List<Substrate> _coreSubstratesAtProcessModule = null;
+        private List<Substrate> _core_8_SubstratesAtProcessModule = null;
+        private List<Substrate> _core_12_SubstratesAtProcessModule = null;
         private List<Substrate> _sortSubstratesAtProcessModule = null;
         #endregion </Substrates in Process Module>
 
@@ -687,7 +689,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
 
             for (int i = 0; i < _sortSubstratesAtProcessModule.Count; ++i)
             {
-                if (isCleared || gvSortSubstrateList[0, i].Value.ToString() != _sortSubstratesAtProcessModule[i].GetName())
+                if (isCleared || gvSortSubstrateList[ColumnSubstrateName, i].Value.ToString() != _sortSubstratesAtProcessModule[i].GetName())
                 {
                     if (isCleared)
                     {
@@ -700,23 +702,42 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
         }
         private void UpdateCoreGridView()
         {
+            int coreSubstratesAtProcessModuleCount = _core_8_SubstratesAtProcessModule.Count + _core_12_SubstratesAtProcessModule.Count;
+            int core_8_IndexCount = _core_8_SubstratesAtProcessModule.Count;
+            int gvIndexCount = gvCoreSubstrateList.Rows.Count;
             bool isCleared = false;
-            if (gvCoreSubstrateList.Rows.Count != _coreSubstratesAtProcessModule.Count)
+
+            if (gvIndexCount != coreSubstratesAtProcessModuleCount)
             {
                 gvCoreSubstrateList.Rows.Clear();
                 isCleared = true;
+                gvIndexCount = 0;
             }
 
-            for (int i = 0; i < _coreSubstratesAtProcessModule.Count; ++i)
+            for (int i = 0; i < _core_8_SubstratesAtProcessModule.Count; ++i)
             {
-                if (isCleared || gvCoreSubstrateList[0, i].Value.ToString() != _coreSubstratesAtProcessModule[i].GetName())
+                if (isCleared || gvCoreSubstrateList[ColumnSubstrateName, i].Value.ToString() != _core_8_SubstratesAtProcessModule[i].GetName())
                 {
                     if (isCleared)
                     {
                         gvCoreSubstrateList.Rows.Add();
+                        gvIndexCount++;
                     }
 
-                    gvCoreSubstrateList[ColumnSubstrateName, i].Value = _coreSubstratesAtProcessModule[i].GetName();
+                    gvCoreSubstrateList[ColumnSubstrateName, i].Value = _core_8_SubstratesAtProcessModule[i].GetName();
+                }
+            }
+            for (int i = 0; i < _core_12_SubstratesAtProcessModule.Count; ++i)
+            {
+                if (isCleared || gvCoreSubstrateList[ColumnSubstrateName, i + core_8_IndexCount].Value.ToString() != _core_12_SubstratesAtProcessModule[i].GetName())
+                {
+                    if (isCleared)
+                    {
+                        gvCoreSubstrateList.Rows.Add();
+                        gvIndexCount++;
+                    }
+
+                    gvCoreSubstrateList[ColumnSubstrateName, i + core_8_IndexCount].Value = _core_12_SubstratesAtProcessModule[i].GetName();
                 }
             }
         }
@@ -725,7 +746,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             if (_substrateManager.GetSubstratesAtProcessModule(ProcessModuleName, ref _substratesAtProcessModule))
             //if (_processGroup.GetSubstrates(ProcessModuleIndex, ref _temporaryList))
             {
-                _coreSubstratesAtProcessModule.Clear();
+                _core_8_SubstratesAtProcessModule.Clear();
+                _core_12_SubstratesAtProcessModule.Clear();
                 _sortSubstratesAtProcessModule.Clear();
                 for (int i = 0; i < _substratesAtProcessModule.Count; ++i)
                 {
@@ -736,8 +758,10 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                     switch (convertedSubType)
                     {
                         case SubstrateType.Core_8:
+                            _core_8_SubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
+                            break;
                         case SubstrateType.Core_12:
-                            _coreSubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
+                            _core_12_SubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
                             break;
                         case SubstrateType.Bin_12:
                             _sortSubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);

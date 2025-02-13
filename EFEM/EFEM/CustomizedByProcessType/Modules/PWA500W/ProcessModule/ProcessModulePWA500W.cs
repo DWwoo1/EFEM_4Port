@@ -302,10 +302,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
             //return locationNames.Count > 0;
         }
+        // 2025.02.13 dwlim [MOD] 500W의 Substrate Type에 맞게 수정 
         private void MoveSubstrateLocationLoadToUnloadForSimulator()
         {
-            int countCore = 0, countEmpty = 0;
-            int countCoreCompleted = 0, countBin = 0;
+            int countCore_8 = 0, countCore_12 =0, countBin = 0;
+            int countCore_8_Completed = 0, countCore_12_Completed = 0, countBinCompleted = 0;
             foreach (var item in Substrates)
             {
                 string subType = item.Value.GetAttribute(PWA500WSubstrateAttributes.SubstrateType);
@@ -315,13 +316,29 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 switch (convertedType)
                 {
                     case SubstrateType.Core_8:
-                    case SubstrateType.Core_12:
-                    case SubstrateType.Bin_12:
                         {
-                            ++countCore;
+                            ++countCore_8;
                             if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
                             {
-                                ++countCoreCompleted;
+                                ++countCore_8_Completed;
+                            }
+                        }
+                        break;
+                    case SubstrateType.Core_12:
+                        {
+                            ++countCore_12;
+                            if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
+                            {
+                                ++countCore_12_Completed;
+                            }
+                        }
+                        break;
+                    case SubstrateType.Bin_12:
+                        {
+                            ++countBin;
+                            if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
+                            {
+                                ++countBinCompleted;
                             }
                         }
                         break;
@@ -330,13 +347,14 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 }               
             }
 
-            HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_8_InputName] = (countCore < MaxCapacityCore);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (countCoreCompleted >= 1);
-            HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_12_InputName] = (countCore < MaxCapacityCore);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_12_OutputName] = (countCoreCompleted >= 1);
-            HandlingLoadRequestedForSimulator[Constants.ProcessModuleSort_12_InputName] = (countEmpty < MaxCapacityBin);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleSort_12_OutputName] = (countBin >= 1);
+            HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_8_InputName] = (countCore_8 < MaxCapacityCore);
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (countCore_8_Completed >= 1);
+            HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_12_InputName] = (countCore_12 < MaxCapacityCore);
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_12_OutputName] = (countCore_12_Completed >= 1);
+            HandlingLoadRequestedForSimulator[Constants.ProcessModuleSort_12_InputName] = (countBin < MaxCapacityBin);
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleSort_12_OutputName] = (countBinCompleted >= 1);
         }
+        // 2025.02.13 dwlim [END]
         #endregion </Simulation Only>
 
         #region <WCF>

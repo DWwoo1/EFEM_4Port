@@ -50,10 +50,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     Attributes[substrateType] = SubstrateType.Bin_12.ToString();
                     break;
                 case 2:
-                    Attributes[substrateType] = SubstrateType.Core_8.ToString();
+                    Attributes[substrateType] = SubstrateType.Core_12.ToString();
                     break;
                 case 3:
-                    Attributes[substrateType] = SubstrateType.Core_12.ToString();
+                case 4:
+                    Attributes[substrateType] = SubstrateType.Core_8.ToString();
                     break;
                 default:
                     break;
