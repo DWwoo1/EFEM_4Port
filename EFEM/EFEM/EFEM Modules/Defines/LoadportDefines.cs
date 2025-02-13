@@ -138,8 +138,13 @@ namespace EFEM.Defines.LoadPort
     public enum LoadPortLoadingMode
     {
         Unknown = -1,
+#if PWA500W             // TODO : 2025.02.13. dwlim [MOD] Loading Mode 처음에 Foup으로 하기위해서 임시 변경 나중에 바꾸자
+        Foup = 0,
+        Cassette = 1,
+#else
         Cassette = 0,
         Foup = 1,
+#endif
     }
 
     public enum VarificationResults

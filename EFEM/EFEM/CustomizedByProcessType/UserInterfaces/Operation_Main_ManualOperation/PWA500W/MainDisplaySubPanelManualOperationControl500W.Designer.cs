@@ -52,8 +52,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.sys3GroupBoxContainer2 = new Sys3Controls.Sys3GroupBoxContainer();
             this.gvSubstrateList = new Sys3Controls.Sys3DoubleBufferedDataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PASSWORD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gvManualAction = new Sys3Controls.Sys3GroupBoxContainer();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.btnStopAction = new Sys3Controls.Sys3button();
@@ -65,6 +63,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.btnPlaceBinWafer = new Sys3Controls.Sys3button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.PASSWORD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
@@ -513,7 +512,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.gvSubstrateList.ColumnHeadersHeight = 30;
             this.gvSubstrateList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gvSubstrateList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
             this.PASSWORD});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -546,28 +544,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.gvSubstrateList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvSubstrateList.Size = new System.Drawing.Size(212, 287);
             this.gvSubstrateList.TabIndex = 21128;
-            // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.ID.Frozen = true;
-            this.ID.HeaderText = "NUM";
-            this.ID.MaxInputLength = 20;
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ID.Width = 51;
-            // 
-            // PASSWORD
-            // 
-            this.PASSWORD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PASSWORD.HeaderText = "NAME";
-            this.PASSWORD.MaxInputLength = 20;
-            this.PASSWORD.Name = "PASSWORD";
-            this.PASSWORD.ReadOnly = true;
-            this.PASSWORD.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PASSWORD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // gvManualAction
             // 
@@ -951,6 +927,16 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             this.tableLayoutPanel6.Size = new System.Drawing.Size(896, 581);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
+            // PASSWORD
+            // 
+            this.PASSWORD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PASSWORD.HeaderText = "NAME";
+            this.PASSWORD.MaxInputLength = 20;
+            this.PASSWORD.Name = "PASSWORD";
+            this.PASSWORD.ReadOnly = true;
+            this.PASSWORD.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.PASSWORD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // MainDisplaySubPanelManualOperationControl500W
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -998,8 +984,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private Sys3Controls.Sys3GroupBoxContainer sys3GroupBoxContainer2;
         private Sys3Controls.Sys3DoubleBufferedDataGridView gvSubstrateList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PASSWORD;
         private Sys3Controls.Sys3GroupBoxContainer gvManualAction;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private Sys3Controls.Sys3button btnStopAction;
@@ -1011,5 +995,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
         private Sys3Controls.Sys3button btnPlaceBinWafer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PASSWORD;
     }
 }

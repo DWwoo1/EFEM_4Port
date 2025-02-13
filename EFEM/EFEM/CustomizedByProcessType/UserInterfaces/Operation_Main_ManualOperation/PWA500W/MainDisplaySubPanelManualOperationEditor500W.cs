@@ -130,13 +130,13 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
         #endregion </Substrate from LoadPort>
 
         #region <Substrates in Process Module>
-        private const int ColumnSubstrateName = 1;
+        private const int ColumnSubstrateName = 0;
         private const int ColumnRequestEnabled = 0;
         private const int ColumnRequestLocation = 1;
 
         private List<Substrate> _substratesAtProcessModule = null;
-        private List<Substrate> _core_8_SubstratesAtProcessModule = null;
-        private List<Substrate> _core_12_SubstratesAtProcessModule = null;
+        private List<Substrate> _core_8_SubstratesAtProcessModule = null;   // 2025.02.13 dwlim [ADD] 500W에 맞게 수정
+        private List<Substrate> _core_12_SubstratesAtProcessModule = null;  // 2025.02.13 dwlim [ADD] 500W에 맞게 수정
         private List<Substrate> _sortSubstratesAtProcessModule = null;
         #endregion </Substrates in Process Module>
 
