@@ -299,7 +299,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         }
         public bool MakePMSFile(string lotId, string substrateId, string fileName, string body, ref string fullPath)
         {
-            fullPath = string.Format(@"{0}\PMS\{1}\{2,00:d2}\{3,00:d2}\{4}\{5}\{6}", Define.DefineConstant.FilePath.FILEPATH_LOG,
+            fullPath = string.Format(@"{0}\PMS\{1}\{2,00:d2}\{3,00:d2}\{4}\{5}\{6}.PMS", Define.DefineConstant.FilePath.FILEPATH_LOG,
                 DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
                 lotId, substrateId,
                 fileName);
@@ -757,6 +757,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                             return;
                         if (false == additionalParams.TryGetValue(AdditionalParamKeys.KeyUserId, out string userId))
                             return;
+
                         #region
 
                         // Process End
@@ -798,7 +799,11 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                         if (chipQty <= 0)
                             return;
                         
-                        ExecuteScenarioToTrackOut(substrateId, chipQty, userId, true);
+                        if (false == ExecuteScenarioToTrackOut(substrateId, chipQty, userId, true))
+                        {
+                            SetScenarioError(typeOfScenario);
+                            return;
+                        }
                         #endregion
                     }
                     break;
@@ -1236,6 +1241,8 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 scenario = ScenarioListTypes.SCENARIO_REQ_CORE_WAFER_TRACK_OUT;
             }
             var scenarioParams = MakeScenarioParamToTrackOut(substrateId, userId, isCore);
+            if (scenarioParams == null)
+                return false;
 
             Dictionary<string, string> additionalParams = new Dictionary<string, string>();
             additionalParams[AdditionalParamKeys.KeySubstrateId] = substrateId;

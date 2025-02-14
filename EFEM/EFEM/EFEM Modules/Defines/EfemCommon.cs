@@ -231,7 +231,6 @@ namespace EFEM.Defines.Common
         #region <Methods>
         #endregion </Methods>
 
-
         public Dictionary<string, string> LoadDictionaryFromFile(string filePath)
         {
             if (!File.Exists(filePath))

@@ -212,7 +212,7 @@ namespace FrameOfSystem3.Views.Operation
             var tabButtonList = new Dictionary<Sys3Controls.Sys3button, string>
             {
                 { btnSubPanelSummary, MainDisplaySubPanels.Summary.ToString() },
-                { btnSubPanelManualOperation, MainDisplaySubPanels.ManualOperation.ToString() }
+                { btnSubPanelManualOperation, MainDisplaySubPanels.ManualOperation.ToString() },
             };
 
             PanelInstance.InitializeSubPanels(pnSubMainView, addPanelList, tabButtonList);

@@ -86,6 +86,7 @@ namespace FrameOfSystem3.Views
 		Views.Operation.Operation_StateMonitor	m_viewOperationMonitor			= new Operation.Operation_StateMonitor();
 		Views.Operation.Operation_Tracking		m_viewOperationTracking			= new Operation.Operation_Tracking();
         Views.Operation.Operation_SecsGem       m_viewOperationSecsGem          = new Operation.Operation_SecsGem();
+        Views.Operation.Operation_History       m_viewOperationHistory          = new Operation.Operation_History();
 		#endregion
 
 		#region Recipe
@@ -363,6 +364,7 @@ namespace FrameOfSystem3.Views
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MONITORING, m_viewOperationMonitor);
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_TRACKING, m_viewOperationTracking);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_SECSGEM, m_viewOperationSecsGem);
+            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_LOT_HISTORY, m_viewOperationHistory);
 			#endregion
 
 			#region Recipe

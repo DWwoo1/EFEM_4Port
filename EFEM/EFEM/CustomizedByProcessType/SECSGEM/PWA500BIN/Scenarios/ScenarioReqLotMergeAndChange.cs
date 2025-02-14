@@ -33,8 +33,8 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
             long eventIdForMerge,
             List<long> variablesForMerge,
             long eventIdForChange,
-            List<long> variablesForChange,            
-            uint timeOut = 5000)
+            List<long> variablesForChange,
+            uint timeOut = 10000)
             : base(name, timeOut)
         {
             _receiveMessageFormat = new List<SemiObject>();

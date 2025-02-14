@@ -369,6 +369,7 @@ namespace Define
                 OPERATION_MONITORING,
                 OPERATION_TRACKING,
                 OPERATION_SECSGEM,
+                OPERATION_LOT_HISTORY,
                 OPERATION_EFEM_SIMULATOR,
 
                 RECIPE_MAIN = 100,
@@ -499,7 +500,8 @@ namespace Define
 
                 // PWA500BIN Only
                 SUBSTRATE_TYPE,
-                SUBSTRATE_TYPE_500W,    // 2025.02.11 dwlim [ADD] 500W 추가
+                // PWA500W Only
+                SUBSTRATE_TYPE_500W,
                 #endregion project only
             }
         }

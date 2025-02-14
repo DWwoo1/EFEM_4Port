@@ -388,6 +388,42 @@
     <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_Display\PWA500W\SummaryRobotInfo.Designer.cs">
       <DependentUpon>SummaryRobotInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\MainDisplaySubPanelLotHistoryDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\MainDisplaySubPanelLotHistoryDisplayer.Designer.cs">
+      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryCurruntWorking500BIN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryCurruntWorking500BIN.Designer.cs">
+      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryLotHistory500BIN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryLotHistory500BIN.Designer.cs">
+      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.Designer.cs">
+      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.Designer.cs">
+      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.Designer.cs">
+      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_ManualOperation\PWA500BIN\MainDisplaySubPanelManualOperation500BIN.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -992,6 +1028,12 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MapManager\CarrierMapManager.cs" />
+    <Compile Include="Views\Operation\Operation_History.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Operation\Operation_History.Designer.cs">
+      <DependentUpon>Operation_History.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Operation\Operation_Main_Display\LoadPortSummary\SummaryLoadPortState_State.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1207,6 +1249,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_Display\PWA500W\SummaryRobotInfo.resx">
       <DependentUpon>SummaryRobotInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\MainDisplaySubPanelLotHistoryDisplayer.resx">
+      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryCurruntWorking500BIN.resx">
+      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryLotHistory500BIN.resx">
+      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.resx">
+      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.resx">
+      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.resx">
+      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_ManualOperation\PWA500BIN\MainDisplaySubPanelManualOperation500BIN.resx">
       <DependentUpon>MainDisplaySubPanelManualOperation500BIN.cs</DependentUpon>
@@ -1459,6 +1519,9 @@
     <EmbeddedResource Include="Views\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Operation\Operation_History.resx">
+      <DependentUpon>Operation_History.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Operation\Operation_Main_Display\LoadPortSummary\SummaryLoadPortState_State.resx">
       <DependentUpon>SummaryLoadPortState_State.cs</DependentUpon>
     </EmbeddedResource>
@@ -1702,7 +1765,6 @@
   <ItemGroup>
     <Folder Include="Controller\Motion\" />
     <Folder Include="Controller\Vision\" />
-    <Folder Include="Views\Operation\Operation_Main_Monitoring\" />
     <Folder Include="Views\Setup\ProcessModules\" />
     <Folder Include="WorkInformation\" />
   </ItemGroup>

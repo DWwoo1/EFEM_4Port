@@ -86,8 +86,8 @@ namespace FrameOfSystem3.Task
             #endregion </Assign Digital IO>
 
             _lotHistoryLog = LotHistoryLog.Instance;
-            string name = _loadPortManager.GetLoadPortName(LoadPortIndex);
-            _lotHistoryLog.AddLogInfo(PortId, name);
+            
+            _lotHistoryLog.AddLogInfo(PortId, LoadPortName);
         }
         #endregion </Constructors>
 
@@ -149,7 +149,8 @@ namespace FrameOfSystem3.Task
         }
         protected override void ExecuteAtAlways()
         {
-            if (EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE) || EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
+            if (EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE) ||
+                EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
             {
                 foreach (var item in TriggerChangingMode)
                 {
@@ -168,7 +169,7 @@ namespace FrameOfSystem3.Task
         protected override void GetAtmRobotTaskName(out List<string> taskNames)
         {
             taskNames = new List<string>();
-            taskNames.Add("AtmRobot");
+            taskNames.Add(Define.DefineEnumProject.Task.EN_TASK_LIST.AtmRobot.ToString());
         }
         protected override void ExecuteOnCarrierPlaced()
         {
@@ -192,10 +193,13 @@ namespace FrameOfSystem3.Task
 
             InitResult(ScenarioTypeToIdRead);
 
+            string carrierId = _carrierServer.GetCarrierId(PortId);
+            _lotHistoryLog.ClearPreviousHistory(PortId, carrierId, LoadPortName);
+
             var param = new Dictionary<string, string>
             {
                 [RFIDReadKeys.KeyParamLotId] = _carrierServer.GetCarrierLotId(PortId),
-                [RFIDReadKeys.KeyParamCarrierId] = _carrierServer.GetCarrierId(PortId),
+                [RFIDReadKeys.KeyParamCarrierId] = carrierId,
                 [RFIDReadKeys.KeyParamPortId] = _scenarioManager.GetPortName(PortId),
                 [RFIDReadKeys.KeyParamOperatorId] = "AUTO"
             };
@@ -330,6 +334,7 @@ namespace FrameOfSystem3.Task
                     needExecuteMerge = true;
                     break;
             }
+
             if (false == needExecuteMerge)
             {
                 if (false == MakeScenarioParamForSlotMapping(ref scenarioParam))
@@ -393,15 +398,18 @@ namespace FrameOfSystem3.Task
 
                             if (false == MySubstrateType.Equals(SubstrateType.Empty))
                             {
+                                #region <머지할 랏을 받아온다.>
                                 var scenarioResult = _scenarioOperator.GetScenarioResultData(typeOfScenario);
                                 if (false == ApplyResultOfMergingLot(scenarioResult))
                                     return;
+                                #endregion </머지할 랏을 받아온다.>
 
                                 // 2024.09.29. jhlim [MOD] 고객사 요청으로 순서 변경(랏 머지&체인지 후 매핑 진행)
                                 Dictionary<string, string> param = new Dictionary<string, string>();
                                 if (false == MakeScenarioParamForSlotMapping(ref param))
                                     return;
 
+                                _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyLotMergeCompletion, bool.TrueString);
                                 EnqueueScenario(ScenarioTypeToSlotMapping, param, null);
                                 // 2024.09.29. jhlim [END]
 
@@ -450,6 +458,8 @@ namespace FrameOfSystem3.Task
                                 lotId = _carrierIdToWrite;
                             }
                             _lotHistoryLog.BackupCarrierHistory(PortId, carrierId, lotId, substrates, isCore);
+                            _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyLotIdChangeCompletion, bool.TrueString);
+
                             //if (PortId == 4)
                             //{
                             //    // Empty는 Merge 를 진행하지 않는다. -> 끝나네.. 할게없다.
@@ -532,8 +542,6 @@ namespace FrameOfSystem3.Task
 
                         _scenarioManager.EnqueueScenarioCarrierHandlingAsync(PortId, _loadingMode, binLotId, typeOfScenario);
                         return true;
-                        //var param = _scenarioManager.MakeParamToOHTHandling(PortId, _loadingMode, binLotId, typeOfScenario);
-                        //return _scenarioOperator.UpdateScenarioParam(ScenarioTypeToCarrierLoad, param);
                     }
 
                 default:
@@ -902,6 +910,68 @@ namespace FrameOfSystem3.Task
 
             return true;
         }
+        private bool GetMergedLotId(ref string mergedLotId)
+        {
+            // 1~6 포트 모두 진행
+            mergedLotId = _carrierServer.GetCarrierLotId(PortId);
+
+            // 2024.10.23. jhlim [MOD] 코어는 머지할 자재를 모두 가져오는 것이 아닌, 자재 정보를 통해 선별된 것만 가져온다.
+            Dictionary<int, Substrate> substrates;
+            if (MySubstrateType.Equals(SubstrateType.Core))
+            {
+                GetSubstrateToMerge(out substrates);
+            }
+            else
+            {
+                substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
+            }
+            // 2024.10.23. jhlim [END]
+
+            if (substrates.Count <= 0)
+                return false;
+
+            var firstSubstrate = substrates.First();
+            switch (MySubstrateType)
+            {
+                case SubstrateType.Core:
+                    {
+                        bool hasParentLotId = false;
+                        foreach (var item in substrates)
+                        {
+                            if (item.Value.GetLotId().Equals(mergedLotId))
+                            {
+                                hasParentLotId = true;
+                                break;
+                            }
+                        }
+
+                        if (false == hasParentLotId)
+                        {
+                            foreach (var item in substrates)
+                            {
+                                string chipQtyString = item.Value.GetAttribute(PWA500BINSubstrateAttributes.ChipQty);
+                                if (false == string.IsNullOrEmpty(chipQtyString) &&
+                                    false == chipQtyString.Equals("0"))
+                                {
+                                    mergedLotId = firstSubstrate.Value.GetLotId();
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    return true;
+
+                case SubstrateType.Bin1:
+                case SubstrateType.Bin2:
+                case SubstrateType.Bin3:
+                    // Bin의 경우 첫 번째 Lot 이름을 대표이름으로 병합한다. -> LotId Change 이후 새로운 Lot Id 부여받음
+                    mergedLotId = firstSubstrate.Value.GetLotId();
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
         private bool MakeScenarioParamForMergeLot(ref Dictionary<string, string> scenarioParam)
         {
             if (scenarioParam == null)
@@ -943,9 +1013,19 @@ namespace FrameOfSystem3.Task
                             }
                         }
 
+                        // 모랏이 없으면, 수량이 0개가 아닌 자재 중 하나를 골라 머지한다.
                         if (false == hasParentLotId)
                         {
-                            lotId = firstSubstrate.Value.GetLotId();
+                            foreach (var item in substrates)
+                            {
+                                string chipQtyString = item.Value.GetAttribute(PWA500BINSubstrateAttributes.ChipQty);
+                                if (false == string.IsNullOrEmpty(chipQtyString) &&
+                                    false == chipQtyString.Equals("0"))
+                                {
+                                    lotId = firstSubstrate.Value.GetLotId();
+                                    return true;
+                                }
+                            }
                         }
                     }
                     break;

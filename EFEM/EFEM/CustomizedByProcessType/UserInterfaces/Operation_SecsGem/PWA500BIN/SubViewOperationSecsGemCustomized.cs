@@ -58,6 +58,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
             CoreSubstrates = new Dictionary<int, Substrate>();
             BinSubstrates = new Dictionary<int, Substrate>();
 
+            _substrates = new List<Substrate>();
+
             var types = Enum.GetValues(typeof(ScenarioListTypes));
             foreach (var item in types)
             {
@@ -94,6 +96,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
         private readonly Dictionary<int, string> CoreCarriers = null;
         private readonly Dictionary<int, string> BinCarriers = null;
         private readonly Dictionary<int, string> EmptyCarriers = null;
+        private List<Substrate> _substrates = null;
 
         private Substrate _selectedCoreSubstrate = null;
         private Substrate _selectedBinOrEmptySubstrate = null;
@@ -602,23 +605,26 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
             BinSubstrates.Clear();
             CoreSubstrates.Clear();
 
-            var substrates = _substrateManager.GetSubstratesAll();
-            for(int i = 0; i < substrates.Count; ++i)
+            _substrates.Clear();
+            if (false == _substrateManager.GetSubstratesAll(ref _substrates))
+                return;
+
+            for(int i = 0; i < _substrates.Count; ++i)
             {
-                string substrateTypeString = substrates[i].GetAttribute(PWA500BINSubstrateAttributes.SubstrateType);
+                string substrateTypeString = _substrates[i].GetAttribute(PWA500BINSubstrateAttributes.SubstrateType);
                 if (false == Enum.TryParse(substrateTypeString, out SubstrateType substrateType))
                     continue;
 
                 switch (substrateType)
                 {
                     case SubstrateType.Core:
-                        CoreSubstrates[CoreSubstrates.Count] = substrates[i];
+                        CoreSubstrates[CoreSubstrates.Count] = _substrates[i];
                         break;
                     case SubstrateType.Empty:
                     case SubstrateType.Bin1:
                     case SubstrateType.Bin2:
                     case SubstrateType.Bin3:
-                        BinSubstrates[BinSubstrates.Count] = substrates[i];
+                        BinSubstrates[BinSubstrates.Count] = _substrates[i];
                         break;
                     default:
                         break;
@@ -796,7 +802,10 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
             UpdateGridViewByAppliedData();
         }
         private void UpdateSubstrateScenarioData(ScenarioListTypes scenario, Substrate substrate1, Substrate substrate2)
-        {            
+        {
+            if (substrate1 == null)
+                return;
+
             int portId = substrate1.GetSourcePortId();
             int slotId = substrate1.GetSourceSlot() + 1;
             

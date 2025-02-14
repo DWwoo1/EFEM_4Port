@@ -57,6 +57,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             WorkingInfosToPlace = new Dictionary<RobotArmTypes, RobotWorkingInfo>();
             LocationTypesToPlace = new Dictionary<RobotArmTypes, ModuleType>();
             ProcessModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+
+            _substratesAtProcessModule = new List<Substrate>();
         }
         #endregion </Constructors>
 

@@ -61,6 +61,7 @@ namespace FrameOfSystem3.Task
             }
 
             PortId = _loadPortManager.GetLoadPortPortId(LoadPortIndex);
+            LoadPortName = _loadPortManager.GetLoadPortName(LoadPortIndex);
 
             #region <Attach Deligates>
             _loadPortManager.AttachMechanicalButtonEventHandlers(LoadPortIndex, LoadPortButtonTypes.Load,
@@ -120,6 +121,7 @@ namespace FrameOfSystem3.Task
 
         protected readonly int LoadPortIndex;
         protected readonly int PortId;
+        protected readonly string LoadPortName;
         protected bool _prevInitializationState = false;
         protected bool _prevPlacementErrorState = false;
         protected bool _prevCarrierOutErrorState = false;
@@ -365,16 +367,19 @@ namespace FrameOfSystem3.Task
                     return ActionScheduling();
 
                 case TASK_ACTION.WAIT_FOR_LOADING:
-                    return ActionWaitForLoading();
+                    return ActionWaitForLoading(true);
 
                 case TASK_ACTION.WAIT_FOR_UNLOADING:
-                    return ActionWaitForUnloading();
+                    return ActionWaitForUnloading(true);
 
                 case TASK_ACTION.CARRIER_LOADING:
                     return ActionCarrierLoading(true);
 
                 case TASK_ACTION.CARRIER_UNLOADING:
-                    return ActionCarrierUnloading(true);
+                    return ActionCarrierUnloading(true, false);
+
+                case TASK_ACTION.CARRIER_UNLOADING_BEFORE_AMHS:
+                    return ActionCarrierUnloading(true, true);
 
                 #region <Manual Only>
                 case TASK_ACTION.CHANGE_LOADPORT_LOADING_MODE_TO_FOUP:
@@ -410,16 +415,16 @@ namespace FrameOfSystem3.Task
                     return ActionScheduling();
 
                 case TASK_ACTION.WAIT_FOR_LOADING:
-                    return ActionWaitForLoading();
+                    return ActionWaitForLoading(false);
 
                 case TASK_ACTION.WAIT_FOR_UNLOADING:
-                    return ActionWaitForUnloading();
+                    return ActionWaitForUnloading(false);
 
                 case TASK_ACTION.CARRIER_LOADING:
-                    return ActionCarrierLoading();
+                    return ActionCarrierLoading(false);
 
                 case TASK_ACTION.CARRIER_UNLOADING:
-                    return ActionCarrierUnloading();
+                    return ActionCarrierUnloading(false, false);
 
                 #region <Manual Only>
                 case TASK_ACTION.CHANGE_LOADPORT_LOADING_MODE_TO_FOUP:
@@ -811,7 +816,7 @@ namespace FrameOfSystem3.Task
 
             return false;
         }
-        protected virtual bool ActionWaitForLoading()
+        protected virtual bool ActionWaitForLoading(bool isManual)
         {
             if (m_nSeqNum >= (int)STEP_WAIT_FOR_LOADING.START &&
                 m_nSeqNum < (int)STEP_WAIT_FOR_LOADING.SAFTY_INTERLOCK_DETECTED)
@@ -833,7 +838,8 @@ namespace FrameOfSystem3.Task
                     }
 
                     if (_loadPortManager.GetAccessMode(LoadPortIndex).Equals(LoadPortAccessMode.Auto) &&
-                        false == _taskOperator.IsDryRunMode())
+                        false == _taskOperator.IsDryRunMode() ||
+                        isManual)
                     {
                         _loadPortManager.InitializeAMHSSignals(LoadPortIndex);
                         m_nSeqNum = (int)STEP_WAIT_FOR_LOADING.CALL_OHT_CARRIER_TO_LOAD;
@@ -984,7 +990,7 @@ namespace FrameOfSystem3.Task
             }
             return false;
         }
-        protected virtual bool ActionWaitForUnloading()
+        protected virtual bool ActionWaitForUnloading(bool isManual)
         {
             if (m_nSeqNum >= (int)STEP_WAIT_FOR_UNLOADING.START &&
                 m_nSeqNum < (int)STEP_WAIT_FOR_UNLOADING.SAFTY_INTERLOCK_DETECTED)
@@ -1005,7 +1011,8 @@ namespace FrameOfSystem3.Task
                         break;
                     }
                     if (_loadPortManager.GetAccessMode(LoadPortIndex).Equals(LoadPortAccessMode.Auto) &&
-                        false == _taskOperator.IsDryRunMode())
+                        false == _taskOperator.IsDryRunMode() ||
+                        isManual)
                     {
                         _loadPortManager.InitializeAMHSSignals(LoadPortIndex);
 
@@ -1249,10 +1256,6 @@ namespace FrameOfSystem3.Task
                         break;
                     }
 
-                    if (IsSimulation() && _recipe.GetValue(Recipe.EN_RECIPE_TYPE.COMMON, Recipe.PARAM_COMMON.UseSecsGem.ToString(), true))
-                    {
-                        //SetDelayForSequence(PortId * 2000);
-                    }
                     m_nSeqNum = (int)STEP_CARRIER_LOADING.CHECK_READY;
                     break;
 
@@ -1668,7 +1671,7 @@ namespace FrameOfSystem3.Task
 
             return false;
         }
-        protected virtual bool ActionCarrierUnloading(bool manual = false)
+        protected virtual bool ActionCarrierUnloading(bool manual, bool reportForcefully)
         {
             switch (m_nSeqNum)
             {
@@ -1691,7 +1694,8 @@ namespace FrameOfSystem3.Task
                         }
 
                         var status = _loadPortManager.GetLoadPortState(LoadPortIndex);
-                        if (false == status.DoorState &&
+                        if (false == reportForcefully &&
+                            false == status.DoorState &&
                             false == status.DockState &&
                             false == status.ClampState)
                         {
@@ -1707,18 +1711,44 @@ namespace FrameOfSystem3.Task
                 case (int)STEP_CARRIER_UNLOADING.EXECUTE_QUEUED_SCENARIO_BEFORE_END:
                     {
                         InitQueuedScenario();
-                        if (false == _carrierServer.GetCarrierAccessingStatus(PortId).Equals(CarrierAccessStates.CarrierCompleted))
+
+                        var accessStatus = _carrierServer.GetCarrierAccessingStatus(PortId);
+                        if (accessStatus.Equals(CarrierAccessStates.CarrierCompleted) || reportForcefully)
+                        {
+                            // 강제 이벤트 전송이어도 작업하지 않았거나, 중단된 캐리어는 보고하지 않는다.
+                            if (accessStatus.Equals(CarrierAccessStates.NotAccessed) ||
+                                accessStatus.Equals(CarrierAccessStates.CarrierStopped))
+                            {
+                                m_nSeqNum = (int)STEP_CARRIER_UNLOADING.UNLOAD_CARRIER;
+                                break;
+                            }
+                            else
+                            {
+                                if (EnqueueScenraioBeforeActionCompletion(out QueuedScenarioInfo scenarioListToEnque))
+                                {
+                                    EnqueueScenario(scenarioListToEnque.Scenario, scenarioListToEnque.ScenarioParams, scenarioListToEnque.AdditionalParams);
+                                }
+                            }
+                        }
+                        else
                         {
                             m_nSeqNum = (int)STEP_CARRIER_UNLOADING.UNLOAD_CARRIER;
                             break;
                         }
-                        else
-                        {
-                            if (EnqueueScenraioBeforeActionCompletion(out QueuedScenarioInfo scenarioListToEnque))
-                            {
-                                EnqueueScenario(scenarioListToEnque.Scenario, scenarioListToEnque.ScenarioParams, scenarioListToEnque.AdditionalParams);
-                            }
-                        }
+
+                        //if (false == _carrierServer.GetCarrierAccessingStatus(PortId).Equals(CarrierAccessStates.CarrierCompleted))
+                        //{
+                        //    m_nSeqNum = (int)STEP_CARRIER_UNLOADING.UNLOAD_CARRIER;
+                        //    break;
+                        //}
+                        //else
+                        //{
+                        //    if (EnqueueScenraioBeforeActionCompletion(out QueuedScenarioInfo scenarioListToEnque))
+                        //    {
+                        //        EnqueueScenario(scenarioListToEnque.Scenario, scenarioListToEnque.ScenarioParams, scenarioListToEnque.AdditionalParams);
+                        //    }
+                        //}
+
                         ++m_nSeqNum;
                     }
                     break;
@@ -2282,6 +2312,7 @@ namespace FrameOfSystem3.Task
             WAIT_FOR_UNLOADING,
             CARRIER_LOADING,
             CARRIER_UNLOADING,
+            CARRIER_UNLOADING_BEFORE_AMHS,
             CHANGE_LOADPORT_LOADING_MODE_TO_FOUP,
             CHANGE_LOADPORT_LOADING_MODE_TO_CASSETTE,
             CHANGE_LOADPORT_ACCESSE_MODE_TO_AUTO,

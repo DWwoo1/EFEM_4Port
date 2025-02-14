@@ -28,14 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.m_btnInitialize = new Sys3Controls.Sys3button();
-            this.m_btnRun = new Sys3Controls.Sys3button();
             this.m_labelRunMode = new Sys3Controls.Sys3Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.m_btnStop = new Sys3Controls.Sys3button();
             this.gbOperationButton = new Sys3Controls.Sys3GroupBoxContainer();
-            this.btnMonitoringAnalog = new Sys3Controls.Sys3button();
-            this.btnMonitoringDigital = new Sys3Controls.Sys3button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnTest = new Sys3Controls.Sys3button();
             this.btnSubPanelManualOperation = new Sys3Controls.Sys3button();
@@ -46,6 +41,11 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.pnSubMainView = new System.Windows.Forms.Panel();
+            this.m_btnInitialize = new Sys3Controls.Sys3button();
+            this.m_btnStop = new Sys3Controls.Sys3button();
+            this.m_btnRun = new Sys3Controls.Sys3button();
+            this.btnMonitoringAnalog = new Sys3Controls.Sys3button();
+            this.btnMonitoringDigital = new Sys3Controls.Sys3button();
             this.tableLayoutPanel6.SuspendLayout();
             this.gbOperationButton.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -54,90 +54,6 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // m_btnInitialize
-            // 
-            this.m_btnInitialize.BorderWidth = 5;
-            this.m_btnInitialize.ButtonClicked = false;
-            this.m_btnInitialize.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnInitialize.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnInitialize.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnInitialize.Description = "";
-            this.m_btnInitialize.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnInitialize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_btnInitialize.EdgeRadius = 5;
-            this.m_btnInitialize.GradientAngle = 60F;
-            this.m_btnInitialize.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
-            this.m_btnInitialize.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(65)))), ((int)(((byte)(200)))));
-            this.m_btnInitialize.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnInitialize.ImagePosition = new System.Drawing.Point(15, 20);
-            this.m_btnInitialize.ImageSize = new System.Drawing.Point(25, 25);
-            this.m_btnInitialize.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_White;
-            this.m_btnInitialize.Location = new System.Drawing.Point(1, 73);
-            this.m_btnInitialize.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-            this.m_btnInitialize.MainFontColor = System.Drawing.Color.White;
-            this.m_btnInitialize.Margin = new System.Windows.Forms.Padding(1);
-            this.m_btnInitialize.Name = "m_btnInitialize";
-            this.m_btnInitialize.Size = new System.Drawing.Size(146, 71);
-            this.m_btnInitialize.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnInitialize.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnInitialize.SubText = "";
-            this.m_btnInitialize.TabIndex = 0;
-            this.m_btnInitialize.Text = "INITIALIZE";
-            this.m_btnInitialize.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
-            this.m_btnInitialize.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnInitialize.ThemeIndex = 0;
-            this.m_btnInitialize.UseBorder = true;
-            this.m_btnInitialize.UseClickedEmphasizeTextColor = false;
-            this.m_btnInitialize.UseCustomizeClickedColor = false;
-            this.m_btnInitialize.UseEdge = true;
-            this.m_btnInitialize.UseHoverEmphasizeCustomColor = false;
-            this.m_btnInitialize.UseImage = true;
-            this.m_btnInitialize.UserHoverEmpahsize = true;
-            this.m_btnInitialize.UseSubFont = false;
-            this.m_btnInitialize.Click += new System.EventHandler(this.Click_OperationButton);
-            // 
-            // m_btnRun
-            // 
-            this.m_btnRun.BorderWidth = 5;
-            this.m_btnRun.ButtonClicked = false;
-            this.m_btnRun.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnRun.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnRun.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnRun.Description = "";
-            this.m_btnRun.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnRun.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_btnRun.EdgeRadius = 5;
-            this.m_btnRun.GradientAngle = 60F;
-            this.m_btnRun.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnRun.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnRun.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnRun.ImagePosition = new System.Drawing.Point(20, 20);
-            this.m_btnRun.ImageSize = new System.Drawing.Point(25, 25);
-            this.m_btnRun.LoadImage = global::FrameOfSystem3.Properties.Resources.Start_white;
-            this.m_btnRun.Location = new System.Drawing.Point(149, 73);
-            this.m_btnRun.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-            this.m_btnRun.MainFontColor = System.Drawing.Color.White;
-            this.m_btnRun.Margin = new System.Windows.Forms.Padding(1);
-            this.m_btnRun.Name = "m_btnRun";
-            this.m_btnRun.Size = new System.Drawing.Size(146, 71);
-            this.m_btnRun.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnRun.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnRun.SubText = "";
-            this.m_btnRun.TabIndex = 1;
-            this.m_btnRun.Text = "RUN";
-            this.m_btnRun.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
-            this.m_btnRun.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnRun.ThemeIndex = 0;
-            this.m_btnRun.UseBorder = true;
-            this.m_btnRun.UseClickedEmphasizeTextColor = false;
-            this.m_btnRun.UseCustomizeClickedColor = false;
-            this.m_btnRun.UseEdge = true;
-            this.m_btnRun.UseHoverEmphasizeCustomColor = false;
-            this.m_btnRun.UseImage = true;
-            this.m_btnRun.UserHoverEmpahsize = true;
-            this.m_btnRun.UseSubFont = false;
-            this.m_btnRun.Click += new System.EventHandler(this.Click_OperationButton);
             // 
             // m_labelRunMode
             // 
@@ -1692,48 +1608,6 @@
             this.tableLayoutPanel6.Size = new System.Drawing.Size(444, 145);
             this.tableLayoutPanel6.TabIndex = 1496;
             // 
-            // m_btnStop
-            // 
-            this.m_btnStop.BorderWidth = 5;
-            this.m_btnStop.ButtonClicked = false;
-            this.m_btnStop.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnStop.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnStop.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnStop.Description = "";
-            this.m_btnStop.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_btnStop.EdgeRadius = 5;
-            this.m_btnStop.GradientAngle = 60F;
-            this.m_btnStop.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(115)))));
-            this.m_btnStop.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.m_btnStop.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnStop.ImagePosition = new System.Drawing.Point(20, 20);
-            this.m_btnStop.ImageSize = new System.Drawing.Point(25, 25);
-            this.m_btnStop.LoadImage = global::FrameOfSystem3.Properties.Resources.Stop_white;
-            this.m_btnStop.Location = new System.Drawing.Point(297, 73);
-            this.m_btnStop.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-            this.m_btnStop.MainFontColor = System.Drawing.Color.White;
-            this.m_btnStop.Margin = new System.Windows.Forms.Padding(1);
-            this.m_btnStop.Name = "m_btnStop";
-            this.m_btnStop.Size = new System.Drawing.Size(146, 71);
-            this.m_btnStop.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnStop.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnStop.SubText = "";
-            this.m_btnStop.TabIndex = 2;
-            this.m_btnStop.Text = "STOP";
-            this.m_btnStop.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
-            this.m_btnStop.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnStop.ThemeIndex = 0;
-            this.m_btnStop.UseBorder = true;
-            this.m_btnStop.UseClickedEmphasizeTextColor = false;
-            this.m_btnStop.UseCustomizeClickedColor = false;
-            this.m_btnStop.UseEdge = true;
-            this.m_btnStop.UseHoverEmphasizeCustomColor = false;
-            this.m_btnStop.UseImage = true;
-            this.m_btnStop.UserHoverEmpahsize = true;
-            this.m_btnStop.UseSubFont = false;
-            this.m_btnStop.Click += new System.EventHandler(this.Click_OperationButton);
-            // 
             // gbOperationButton
             // 
             this.gbOperationButton.BackGroundColor = System.Drawing.Color.WhiteSmoke;
@@ -1758,90 +1632,6 @@
             this.gbOperationButton.ThemeIndex = 0;
             this.gbOperationButton.UseLabelBorder = true;
             this.gbOperationButton.UseTitle = true;
-            // 
-            // btnMonitoringAnalog
-            // 
-            this.btnMonitoringAnalog.BorderWidth = 2;
-            this.btnMonitoringAnalog.ButtonClicked = false;
-            this.btnMonitoringAnalog.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.btnMonitoringAnalog.CustomClickedGradientFirstColor = System.Drawing.Color.AliceBlue;
-            this.btnMonitoringAnalog.CustomClickedGradientSecondColor = System.Drawing.Color.RoyalBlue;
-            this.btnMonitoringAnalog.Description = "";
-            this.btnMonitoringAnalog.DisabledColor = System.Drawing.Color.DarkGray;
-            this.btnMonitoringAnalog.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnMonitoringAnalog.EdgeRadius = 5;
-            this.btnMonitoringAnalog.GradientAngle = 70F;
-            this.btnMonitoringAnalog.GradientFirstColor = System.Drawing.Color.White;
-            this.btnMonitoringAnalog.GradientSecondColor = System.Drawing.Color.White;
-            this.btnMonitoringAnalog.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.btnMonitoringAnalog.ImagePosition = new System.Drawing.Point(7, 7);
-            this.btnMonitoringAnalog.ImageSize = new System.Drawing.Point(30, 30);
-            this.btnMonitoringAnalog.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_black;
-            this.btnMonitoringAnalog.Location = new System.Drawing.Point(160, 0);
-            this.btnMonitoringAnalog.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-            this.btnMonitoringAnalog.MainFontColor = System.Drawing.Color.DarkBlue;
-            this.btnMonitoringAnalog.Margin = new System.Windows.Forms.Padding(0);
-            this.btnMonitoringAnalog.Name = "btnMonitoringAnalog";
-            this.btnMonitoringAnalog.Size = new System.Drawing.Size(160, 45);
-            this.btnMonitoringAnalog.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            this.btnMonitoringAnalog.SubFontColor = System.Drawing.Color.DarkBlue;
-            this.btnMonitoringAnalog.SubText = "STATUS";
-            this.btnMonitoringAnalog.TabIndex = 20541;
-            this.btnMonitoringAnalog.Text = "ANALOG";
-            this.btnMonitoringAnalog.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.btnMonitoringAnalog.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_RIGHT;
-            this.btnMonitoringAnalog.ThemeIndex = 0;
-            this.btnMonitoringAnalog.UseBorder = false;
-            this.btnMonitoringAnalog.UseClickedEmphasizeTextColor = false;
-            this.btnMonitoringAnalog.UseCustomizeClickedColor = true;
-            this.btnMonitoringAnalog.UseEdge = false;
-            this.btnMonitoringAnalog.UseHoverEmphasizeCustomColor = false;
-            this.btnMonitoringAnalog.UseImage = false;
-            this.btnMonitoringAnalog.UserHoverEmpahsize = false;
-            this.btnMonitoringAnalog.UseSubFont = false;
-            this.btnMonitoringAnalog.Click += new System.EventHandler(this.BtnMonitoringSubPanelClicked);
-            // 
-            // btnMonitoringDigital
-            // 
-            this.btnMonitoringDigital.BorderWidth = 2;
-            this.btnMonitoringDigital.ButtonClicked = true;
-            this.btnMonitoringDigital.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.btnMonitoringDigital.CustomClickedGradientFirstColor = System.Drawing.Color.AliceBlue;
-            this.btnMonitoringDigital.CustomClickedGradientSecondColor = System.Drawing.Color.RoyalBlue;
-            this.btnMonitoringDigital.Description = "";
-            this.btnMonitoringDigital.DisabledColor = System.Drawing.Color.DarkGray;
-            this.btnMonitoringDigital.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnMonitoringDigital.EdgeRadius = 5;
-            this.btnMonitoringDigital.GradientAngle = 70F;
-            this.btnMonitoringDigital.GradientFirstColor = System.Drawing.Color.White;
-            this.btnMonitoringDigital.GradientSecondColor = System.Drawing.Color.White;
-            this.btnMonitoringDigital.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.btnMonitoringDigital.ImagePosition = new System.Drawing.Point(7, 7);
-            this.btnMonitoringDigital.ImageSize = new System.Drawing.Point(30, 30);
-            this.btnMonitoringDigital.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_black;
-            this.btnMonitoringDigital.Location = new System.Drawing.Point(0, 0);
-            this.btnMonitoringDigital.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-            this.btnMonitoringDigital.MainFontColor = System.Drawing.Color.White;
-            this.btnMonitoringDigital.Margin = new System.Windows.Forms.Padding(0);
-            this.btnMonitoringDigital.Name = "btnMonitoringDigital";
-            this.btnMonitoringDigital.Size = new System.Drawing.Size(160, 45);
-            this.btnMonitoringDigital.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            this.btnMonitoringDigital.SubFontColor = System.Drawing.Color.DarkBlue;
-            this.btnMonitoringDigital.SubText = "";
-            this.btnMonitoringDigital.TabIndex = 20540;
-            this.btnMonitoringDigital.Text = "DIGITAL";
-            this.btnMonitoringDigital.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.btnMonitoringDigital.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_RIGHT;
-            this.btnMonitoringDigital.ThemeIndex = 0;
-            this.btnMonitoringDigital.UseBorder = false;
-            this.btnMonitoringDigital.UseClickedEmphasizeTextColor = false;
-            this.btnMonitoringDigital.UseCustomizeClickedColor = true;
-            this.btnMonitoringDigital.UseEdge = false;
-            this.btnMonitoringDigital.UseHoverEmphasizeCustomColor = false;
-            this.btnMonitoringDigital.UseImage = false;
-            this.btnMonitoringDigital.UserHoverEmpahsize = false;
-            this.btnMonitoringDigital.UseSubFont = false;
-            this.btnMonitoringDigital.Click += new System.EventHandler(this.BtnMonitoringSubPanelClicked);
             // 
             // panel4
             // 
@@ -1872,12 +1662,12 @@
             this.btnTest.ImagePosition = new System.Drawing.Point(37, 25);
             this.btnTest.ImageSize = new System.Drawing.Point(30, 30);
             this.btnTest.LoadImage = null;
-            this.btnTest.Location = new System.Drawing.Point(555, 0);
+            this.btnTest.Location = new System.Drawing.Point(604, 0);
             this.btnTest.MainFont = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnTest.MainFontColor = System.Drawing.Color.White;
             this.btnTest.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(129, 45);
+            this.btnTest.Size = new System.Drawing.Size(80, 45);
             this.btnTest.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.btnTest.SubFontColor = System.Drawing.Color.Black;
             this.btnTest.SubText = "";
@@ -1915,17 +1705,17 @@
             this.btnSubPanelManualOperation.ImagePosition = new System.Drawing.Point(37, 25);
             this.btnSubPanelManualOperation.ImageSize = new System.Drawing.Point(30, 30);
             this.btnSubPanelManualOperation.LoadImage = null;
-            this.btnSubPanelManualOperation.Location = new System.Drawing.Point(207, 0);
+            this.btnSubPanelManualOperation.Location = new System.Drawing.Point(221, 0);
             this.btnSubPanelManualOperation.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnSubPanelManualOperation.MainFontColor = System.Drawing.Color.White;
             this.btnSubPanelManualOperation.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.btnSubPanelManualOperation.Name = "btnSubPanelManualOperation";
-            this.btnSubPanelManualOperation.Size = new System.Drawing.Size(207, 45);
+            this.btnSubPanelManualOperation.Size = new System.Drawing.Size(221, 45);
             this.btnSubPanelManualOperation.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.btnSubPanelManualOperation.SubFontColor = System.Drawing.Color.Black;
             this.btnSubPanelManualOperation.SubText = "";
             this.btnSubPanelManualOperation.TabIndex = 20537;
-            this.btnSubPanelManualOperation.Tag = "OPERATION";
+            this.btnSubPanelManualOperation.Tag = "";
             this.btnSubPanelManualOperation.Text = "MANUAL OPERATION";
             this.btnSubPanelManualOperation.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.btnSubPanelManualOperation.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
@@ -1963,7 +1753,7 @@
             this.btnSubPanelSummary.MainFontColor = System.Drawing.Color.White;
             this.btnSubPanelSummary.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.btnSubPanelSummary.Name = "btnSubPanelSummary";
-            this.btnSubPanelSummary.Size = new System.Drawing.Size(207, 45);
+            this.btnSubPanelSummary.Size = new System.Drawing.Size(221, 45);
             this.btnSubPanelSummary.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.btnSubPanelSummary.SubFontColor = System.Drawing.Color.Black;
             this.btnSubPanelSummary.SubText = "";
@@ -2065,6 +1855,216 @@
             this.pnSubMainView.Padding = new System.Windows.Forms.Padding(3);
             this.pnSubMainView.Size = new System.Drawing.Size(1140, 720);
             this.pnSubMainView.TabIndex = 1486;
+            // 
+            // m_btnInitialize
+            // 
+            this.m_btnInitialize.BorderWidth = 5;
+            this.m_btnInitialize.ButtonClicked = false;
+            this.m_btnInitialize.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.m_btnInitialize.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.m_btnInitialize.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.m_btnInitialize.Description = "";
+            this.m_btnInitialize.DisabledColor = System.Drawing.Color.DarkGray;
+            this.m_btnInitialize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_btnInitialize.EdgeRadius = 5;
+            this.m_btnInitialize.GradientAngle = 60F;
+            this.m_btnInitialize.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
+            this.m_btnInitialize.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(65)))), ((int)(((byte)(200)))));
+            this.m_btnInitialize.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.m_btnInitialize.ImagePosition = new System.Drawing.Point(15, 20);
+            this.m_btnInitialize.ImageSize = new System.Drawing.Point(25, 25);
+            this.m_btnInitialize.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_White;
+            this.m_btnInitialize.Location = new System.Drawing.Point(1, 73);
+            this.m_btnInitialize.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
+            this.m_btnInitialize.MainFontColor = System.Drawing.Color.White;
+            this.m_btnInitialize.Margin = new System.Windows.Forms.Padding(1);
+            this.m_btnInitialize.Name = "m_btnInitialize";
+            this.m_btnInitialize.Size = new System.Drawing.Size(146, 71);
+            this.m_btnInitialize.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.m_btnInitialize.SubFontColor = System.Drawing.Color.Black;
+            this.m_btnInitialize.SubText = "";
+            this.m_btnInitialize.TabIndex = 0;
+            this.m_btnInitialize.Text = "INITIALIZE";
+            this.m_btnInitialize.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
+            this.m_btnInitialize.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.m_btnInitialize.ThemeIndex = 0;
+            this.m_btnInitialize.UseBorder = true;
+            this.m_btnInitialize.UseClickedEmphasizeTextColor = false;
+            this.m_btnInitialize.UseCustomizeClickedColor = false;
+            this.m_btnInitialize.UseEdge = true;
+            this.m_btnInitialize.UseHoverEmphasizeCustomColor = false;
+            this.m_btnInitialize.UseImage = true;
+            this.m_btnInitialize.UserHoverEmpahsize = true;
+            this.m_btnInitialize.UseSubFont = false;
+            this.m_btnInitialize.Click += new System.EventHandler(this.Click_OperationButton);
+            // 
+            // m_btnStop
+            // 
+            this.m_btnStop.BorderWidth = 5;
+            this.m_btnStop.ButtonClicked = false;
+            this.m_btnStop.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.m_btnStop.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.m_btnStop.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.m_btnStop.Description = "";
+            this.m_btnStop.DisabledColor = System.Drawing.Color.DarkGray;
+            this.m_btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_btnStop.EdgeRadius = 5;
+            this.m_btnStop.GradientAngle = 60F;
+            this.m_btnStop.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(115)))));
+            this.m_btnStop.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.m_btnStop.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.m_btnStop.ImagePosition = new System.Drawing.Point(20, 20);
+            this.m_btnStop.ImageSize = new System.Drawing.Point(25, 25);
+            this.m_btnStop.LoadImage = global::FrameOfSystem3.Properties.Resources.Stop_white;
+            this.m_btnStop.Location = new System.Drawing.Point(297, 73);
+            this.m_btnStop.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
+            this.m_btnStop.MainFontColor = System.Drawing.Color.White;
+            this.m_btnStop.Margin = new System.Windows.Forms.Padding(1);
+            this.m_btnStop.Name = "m_btnStop";
+            this.m_btnStop.Size = new System.Drawing.Size(146, 71);
+            this.m_btnStop.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.m_btnStop.SubFontColor = System.Drawing.Color.Black;
+            this.m_btnStop.SubText = "";
+            this.m_btnStop.TabIndex = 2;
+            this.m_btnStop.Text = "STOP";
+            this.m_btnStop.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
+            this.m_btnStop.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.m_btnStop.ThemeIndex = 0;
+            this.m_btnStop.UseBorder = true;
+            this.m_btnStop.UseClickedEmphasizeTextColor = false;
+            this.m_btnStop.UseCustomizeClickedColor = false;
+            this.m_btnStop.UseEdge = true;
+            this.m_btnStop.UseHoverEmphasizeCustomColor = false;
+            this.m_btnStop.UseImage = true;
+            this.m_btnStop.UserHoverEmpahsize = true;
+            this.m_btnStop.UseSubFont = false;
+            this.m_btnStop.Click += new System.EventHandler(this.Click_OperationButton);
+            // 
+            // m_btnRun
+            // 
+            this.m_btnRun.BorderWidth = 5;
+            this.m_btnRun.ButtonClicked = false;
+            this.m_btnRun.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.m_btnRun.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.m_btnRun.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.m_btnRun.Description = "";
+            this.m_btnRun.DisabledColor = System.Drawing.Color.DarkGray;
+            this.m_btnRun.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_btnRun.EdgeRadius = 5;
+            this.m_btnRun.GradientAngle = 60F;
+            this.m_btnRun.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
+            this.m_btnRun.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
+            this.m_btnRun.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.m_btnRun.ImagePosition = new System.Drawing.Point(20, 20);
+            this.m_btnRun.ImageSize = new System.Drawing.Point(25, 25);
+            this.m_btnRun.LoadImage = global::FrameOfSystem3.Properties.Resources.Start_white;
+            this.m_btnRun.Location = new System.Drawing.Point(149, 73);
+            this.m_btnRun.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
+            this.m_btnRun.MainFontColor = System.Drawing.Color.White;
+            this.m_btnRun.Margin = new System.Windows.Forms.Padding(1);
+            this.m_btnRun.Name = "m_btnRun";
+            this.m_btnRun.Size = new System.Drawing.Size(146, 71);
+            this.m_btnRun.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.m_btnRun.SubFontColor = System.Drawing.Color.Black;
+            this.m_btnRun.SubText = "";
+            this.m_btnRun.TabIndex = 1;
+            this.m_btnRun.Text = "RUN";
+            this.m_btnRun.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
+            this.m_btnRun.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.m_btnRun.ThemeIndex = 0;
+            this.m_btnRun.UseBorder = true;
+            this.m_btnRun.UseClickedEmphasizeTextColor = false;
+            this.m_btnRun.UseCustomizeClickedColor = false;
+            this.m_btnRun.UseEdge = true;
+            this.m_btnRun.UseHoverEmphasizeCustomColor = false;
+            this.m_btnRun.UseImage = true;
+            this.m_btnRun.UserHoverEmpahsize = true;
+            this.m_btnRun.UseSubFont = false;
+            this.m_btnRun.Click += new System.EventHandler(this.Click_OperationButton);
+            // 
+            // btnMonitoringAnalog
+            // 
+            this.btnMonitoringAnalog.BorderWidth = 2;
+            this.btnMonitoringAnalog.ButtonClicked = false;
+            this.btnMonitoringAnalog.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.btnMonitoringAnalog.CustomClickedGradientFirstColor = System.Drawing.Color.AliceBlue;
+            this.btnMonitoringAnalog.CustomClickedGradientSecondColor = System.Drawing.Color.RoyalBlue;
+            this.btnMonitoringAnalog.Description = "";
+            this.btnMonitoringAnalog.DisabledColor = System.Drawing.Color.DarkGray;
+            this.btnMonitoringAnalog.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnMonitoringAnalog.EdgeRadius = 5;
+            this.btnMonitoringAnalog.GradientAngle = 70F;
+            this.btnMonitoringAnalog.GradientFirstColor = System.Drawing.Color.White;
+            this.btnMonitoringAnalog.GradientSecondColor = System.Drawing.Color.White;
+            this.btnMonitoringAnalog.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.btnMonitoringAnalog.ImagePosition = new System.Drawing.Point(7, 7);
+            this.btnMonitoringAnalog.ImageSize = new System.Drawing.Point(30, 30);
+            this.btnMonitoringAnalog.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_black;
+            this.btnMonitoringAnalog.Location = new System.Drawing.Point(160, 0);
+            this.btnMonitoringAnalog.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
+            this.btnMonitoringAnalog.MainFontColor = System.Drawing.Color.DarkBlue;
+            this.btnMonitoringAnalog.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMonitoringAnalog.Name = "btnMonitoringAnalog";
+            this.btnMonitoringAnalog.Size = new System.Drawing.Size(160, 45);
+            this.btnMonitoringAnalog.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            this.btnMonitoringAnalog.SubFontColor = System.Drawing.Color.DarkBlue;
+            this.btnMonitoringAnalog.SubText = "STATUS";
+            this.btnMonitoringAnalog.TabIndex = 20541;
+            this.btnMonitoringAnalog.Text = "ANALOG";
+            this.btnMonitoringAnalog.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.btnMonitoringAnalog.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_RIGHT;
+            this.btnMonitoringAnalog.ThemeIndex = 0;
+            this.btnMonitoringAnalog.UseBorder = false;
+            this.btnMonitoringAnalog.UseClickedEmphasizeTextColor = false;
+            this.btnMonitoringAnalog.UseCustomizeClickedColor = true;
+            this.btnMonitoringAnalog.UseEdge = false;
+            this.btnMonitoringAnalog.UseHoverEmphasizeCustomColor = false;
+            this.btnMonitoringAnalog.UseImage = false;
+            this.btnMonitoringAnalog.UserHoverEmpahsize = false;
+            this.btnMonitoringAnalog.UseSubFont = false;
+            this.btnMonitoringAnalog.Click += new System.EventHandler(this.BtnMonitoringSubPanelClicked);
+            // 
+            // btnMonitoringDigital
+            // 
+            this.btnMonitoringDigital.BorderWidth = 2;
+            this.btnMonitoringDigital.ButtonClicked = true;
+            this.btnMonitoringDigital.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.btnMonitoringDigital.CustomClickedGradientFirstColor = System.Drawing.Color.AliceBlue;
+            this.btnMonitoringDigital.CustomClickedGradientSecondColor = System.Drawing.Color.RoyalBlue;
+            this.btnMonitoringDigital.Description = "";
+            this.btnMonitoringDigital.DisabledColor = System.Drawing.Color.DarkGray;
+            this.btnMonitoringDigital.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnMonitoringDigital.EdgeRadius = 5;
+            this.btnMonitoringDigital.GradientAngle = 70F;
+            this.btnMonitoringDigital.GradientFirstColor = System.Drawing.Color.White;
+            this.btnMonitoringDigital.GradientSecondColor = System.Drawing.Color.White;
+            this.btnMonitoringDigital.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.btnMonitoringDigital.ImagePosition = new System.Drawing.Point(7, 7);
+            this.btnMonitoringDigital.ImageSize = new System.Drawing.Point(30, 30);
+            this.btnMonitoringDigital.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_black;
+            this.btnMonitoringDigital.Location = new System.Drawing.Point(0, 0);
+            this.btnMonitoringDigital.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
+            this.btnMonitoringDigital.MainFontColor = System.Drawing.Color.White;
+            this.btnMonitoringDigital.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMonitoringDigital.Name = "btnMonitoringDigital";
+            this.btnMonitoringDigital.Size = new System.Drawing.Size(160, 45);
+            this.btnMonitoringDigital.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            this.btnMonitoringDigital.SubFontColor = System.Drawing.Color.DarkBlue;
+            this.btnMonitoringDigital.SubText = "";
+            this.btnMonitoringDigital.TabIndex = 20540;
+            this.btnMonitoringDigital.Text = "DIGITAL";
+            this.btnMonitoringDigital.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.btnMonitoringDigital.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_RIGHT;
+            this.btnMonitoringDigital.ThemeIndex = 0;
+            this.btnMonitoringDigital.UseBorder = false;
+            this.btnMonitoringDigital.UseClickedEmphasizeTextColor = false;
+            this.btnMonitoringDigital.UseCustomizeClickedColor = true;
+            this.btnMonitoringDigital.UseEdge = false;
+            this.btnMonitoringDigital.UseHoverEmphasizeCustomColor = false;
+            this.btnMonitoringDigital.UseImage = false;
+            this.btnMonitoringDigital.UserHoverEmpahsize = false;
+            this.btnMonitoringDigital.UseSubFont = false;
+            this.btnMonitoringDigital.Click += new System.EventHandler(this.BtnMonitoringSubPanelClicked);
             // 
             // Operation_Main
             // 

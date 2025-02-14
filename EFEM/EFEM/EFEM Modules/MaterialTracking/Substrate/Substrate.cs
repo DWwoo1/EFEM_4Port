@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
+using System.Threading;
 
 using FrameOfSystem3.Work;
 using EFEM.Defines.Common;
@@ -20,6 +21,8 @@ namespace EFEM.MaterialTracking
         #region <Constructors>
         public Substrate(string name)
         {
+            SlimLock = new ReaderWriterLockSlim();
+
             FileStorage = new XmlFileStorage(Name);
 
             _locationServer = LocationServer.LocationServer.Instance;
@@ -43,6 +46,7 @@ namespace EFEM.MaterialTracking
             InitInformation(name);
 
             _location = new Location("UnknownLocation");
+
             // CarrierId
             // Port
             // Slot
@@ -70,6 +74,8 @@ namespace EFEM.MaterialTracking
 
         private Location _location = null;
         private const string Name = "SubstrateAttributes";
+
+        private readonly ReaderWriterLockSlim SlimLock = null;
         #endregion </Fields>
 
         #region <Methods>
@@ -77,6 +83,7 @@ namespace EFEM.MaterialTracking
         #region <File Control>
         public bool LoadRecoveryData(string fileName)
         {
+
             bool hasExtension = Path.GetExtension(fileName).Equals(string.Format(".{0}", RecoveryFileDefines.FileExtension));
             string fileNameWithExtension;
             if (hasExtension)
@@ -84,11 +91,16 @@ namespace EFEM.MaterialTracking
             else
                 fileNameWithExtension = string.Format("{0}.{1}", fileName, RecoveryFileDefines.FileExtension);
 
+            SlimLock.EnterReadLock();
+
             try
             {
                 string fullPath = string.Format(@"{0}\{1}", RecoveryFileDefines.RecoveryFilePath, fileNameWithExtension);
                 if (false == File.Exists(fullPath))
+                {
+                    SlimLock.ExitReadLock();
                     return false;
+                }
 
                 var attributesFromFile = FileStorage.LoadDictionaryFromFile(fullPath);
                 foreach (var item in attributesFromFile)
@@ -102,12 +114,16 @@ namespace EFEM.MaterialTracking
 
                 string location = GetAttribute(BaseSubstrateAttributeKeys.Location);
 
+                SlimLock.ExitReadLock();
+
                 return _locationServer.GetLocationByName(location, ref _location);
             }
             catch (Exception ex)
             {
                 DebugLogger.Instance.WriteDebugLog(string.Format("LoadRecoveryData Exception > {0}, {1}, {2}",
                     fileNameWithExtension, ex.Message, ex.StackTrace));
+
+                SlimLock.ExitReadLock();
 
                 return false;
             }
@@ -116,12 +132,21 @@ namespace EFEM.MaterialTracking
         {
             string fileNameWithExtension = string.Format("{0}.{1}", GetName(), RecoveryFileDefines.FileExtension);
 
+            SlimLock.EnterWriteLock();
+
             if (string.IsNullOrEmpty(GetName()))
+            {
+                SlimLock.ExitWriteLock();
                 return false;
+            }
+
             try
             {
                 string fullPath = string.Format(@"{0}\{1}", RecoveryFileDefines.RecoveryFilePath, fileNameWithExtension);
                 FileStorage.SaveChangedItemsToFile(AdditionalAttributes.Attributes, fullPath);
+
+                SlimLock.ExitWriteLock();
+
                 return true;
             }
             catch (Exception ex)
@@ -129,12 +154,17 @@ namespace EFEM.MaterialTracking
                 DebugLogger.Instance.WriteDebugLog(string.Format("SaveRecoveryData Exception > {0}, {1}, {2}",
                     fileNameWithExtension, ex.Message, ex.StackTrace));
 
+                SlimLock.ExitWriteLock();
+
                 return false;
             }
         }
         public bool DeleteRecoveryData()
         {
             string fileNameWithExtension = string.Format("{0}.{1}", GetName(), RecoveryFileDefines.FileExtension);
+
+            SlimLock.EnterWriteLock();
+
             try
             {
                 string fullPath = string.Format(@"{0}\{1}", RecoveryFileDefines.RecoveryFilePath, fileNameWithExtension);
@@ -148,8 +178,12 @@ namespace EFEM.MaterialTracking
                 DebugLogger.Instance.WriteDebugLog(string.Format("DeleteRecoveryData Exception > {0}, {1}, {2}",
                     fileNameWithExtension, ex.Message, ex.StackTrace));
 
+                SlimLock.ExitWriteLock();
+                
                 return false;
             }
+
+            SlimLock.ExitWriteLock();
 
             return true;
         }

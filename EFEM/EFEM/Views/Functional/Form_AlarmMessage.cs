@@ -373,7 +373,10 @@ namespace FrameOfSystem3.Views.Functional
 			m_pTimerForAlarmList.Start();
 			#endregion
 
-			m_Stopwatch.Restart();
+			// 2025.02.10. jhlim [ADD] 동시 접근 시 여기서 Exception 발생
+			m_listWaiting.SelectedIndex = (m_listWaiting.Items.Count > 0) ? 0 : -1;
+
+            m_Stopwatch.Restart();
 			this.Show();
 		}
 		/// <summary>

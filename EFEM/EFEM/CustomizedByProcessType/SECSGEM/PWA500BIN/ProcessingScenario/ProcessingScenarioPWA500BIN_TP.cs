@@ -2223,6 +2223,8 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 }
             }
 
+            _lotHistoryLog.ExecuteWriteAsync();
+
             ExecuteQueuedScenario();
             _scenarioManager.ExecuteScanrioToCarrierLoadAsync();
         }
@@ -2707,6 +2709,11 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 params2 = new Dictionary<string, string>(additionaiParams);
             }
 
+            if (scenarioParams == null)
+            {
+                scenarioParams = new Dictionary<string, string>();
+            }
+
             QueuedScenarioInfo scenarioInfo = new QueuedScenarioInfo
             {
                 Scenario = scenario,
@@ -2753,6 +2760,10 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                         if (false == messagePairs.TryGetValue(RequestDownloadMapFileKeys.KeyUserId, out string userId))
                             return false;
                         if (false == messagePairs.TryGetValue(RequestDownloadMapFileKeys.KeyNullBinCode, out string nullBinCode))
+                            return false;
+
+                        // 이름의 유효성을 체크한다.
+                        if (false == _substrateManager.IsValidSubstrateName(substrateName))
                             return false;
 
                         bool useEventHandling = !UseCoreMapHandlingOnly;
@@ -2837,17 +2848,29 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 case MessagesToReceive.RequestStartDetaching:
                     {
                         #region 
-                        if (false == messagePairs.TryGetValue(DetachingKeys.KeySubstarateName, out string substrateName))
-                            return false;
+                        string substrateName = string.Empty, ringId = string.Empty, recipeId = string.Empty, userId = string.Empty;
+                        if (false == Task.TaskOperator.GetInstance().IsSimulationMode())
+                        {
+                            if (false == messagePairs.TryGetValue(DetachingKeys.KeySubstarateName, out substrateName))
+                                return false;
 
-                        if (false == messagePairs.TryGetValue(DetachingKeys.KeyRingId, out string ringId))
-                            return false;
+                            if (false == messagePairs.TryGetValue(DetachingKeys.KeyRingId, out ringId))
+                                return false;
 
-                        if (false == messagePairs.TryGetValue(DetachingKeys.KeyRecipeId, out string recipeId))
-                            return false;
+                            if (false == messagePairs.TryGetValue(DetachingKeys.KeyRecipeId, out recipeId))
+                                return false;
 
-                        if (false == messagePairs.TryGetValue(DetachingKeys.KeyUserId, out string userId))
-                            return false;
+                            if (false == messagePairs.TryGetValue(DetachingKeys.KeyUserId, out userId))
+                                return false;
+                        }
+                        else
+                        {
+                            if (false == messagePairs.TryGetValue(DetachingKeys.KeySubstarateName, out substrateName))
+                                return false;
+                            ringId = substrateName;
+                            recipeId = "TEST_RECIPE";
+                            userId = "AUTO";
+                        }
 
                         Substrate substrate = new Substrate("");
                         if (false == FindSubstrateByNameOrRingId(substrateName, ringId, ref substrate))
@@ -4247,10 +4270,11 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 
 
                 Dictionary<string, string> additionalParams = null;
-                string fileName = string.Empty, fullPath = string.Empty;
                 portId = substrate.GetDestinationPortId();
                 slot = substrate.GetDestinationSlot();
-                fileName = _scenarioManager.GetPMSFileName(lotId, substrateId);
+                
+                string fileName = _scenarioManager.GetPMSFileName(lotId, substrateId);
+                string fullPath = string.Empty;
                 if (false == _scenarioManager.MakePMSFile(lotId, substrateId, fileName, pmsFileBody, ref fullPath))
                     return false;
 

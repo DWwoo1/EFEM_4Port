@@ -91,6 +91,7 @@ namespace FrameOfSystem3.Task
             Init = 0,
             AfterIdAssignment,
             AfterRequestPartId,
+            Finished,
         }
         #endregion </Type>
 
@@ -1092,58 +1093,62 @@ namespace FrameOfSystem3.Task
         }
         protected override bool UpdateParamToAfterPlace()
         {
-            if (false == _scenarioOperator.UseScenario)
-                return false;
-
-            if (QueuedScenarioForCoreSubstrate.Count <= 0)
-                return false;
-
-            var scenario = QueuedScenarioForCoreSubstrate.Dequeue();
-
-            //if (_executingScenario != null &&
-            //    _executingScenario.Scenario != null)
-            //{
-            //    // 이미 1회 실행 되고 온거다.
-            //    _executingScenario = null;
-            //    return false;
-            //}
-
             bool isManual = (false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.EXECUTING));
             if (false == GetWorkingInformation(isManual, ref _workingInfo, ref _temporaryDescription))
                 return false;
 
-            if (!(_workingInfo.Location is ProcessModuleLocation pmLocation))
-                return false;
-
             Substrate substrate = new Substrate("");
-            if (false == _substrateManager.GetSubstrateAtProcessModule(_workingInfo.SubstrateName, pmLocation, ref substrate))
-                return false;
-
-            string subType = substrate.GetAttribute(PWA500BINSubstrateAttributes.SubstrateType);
-
-            SubstrateType substrateType = SubstrateType.Core;
-            if (false == GetSubstrateTypeByAttribute(subType, ref substrateType))
-                return false;
-
-            if (false == substrateType.Equals(SubstrateType.Core))
-                return false;
-
-            int portId = substrate.GetSourcePortId();
-            string sourceCarrierId = _carrierServer.GetCarrierId(portId);
-            if (_substrateManager.IsFirstSubstrateAtLoadPort(sourceCarrierId, portId, substrate.GetName()))
+            if (_workingInfo.Location is ProcessModuleLocation)
             {
-                #region <Process Start>
-                var scenarioParam = _scenarioManager.MakeParamToProcessing(portId, substrate);
+                if (false == _scenarioOperator.UseScenario)
+                    return false;
 
-                InitResult(scenario);
-                _executingScenario = new QueuedScenarioInfo
+                if (QueuedScenarioForCoreSubstrate.Count <= 0)
+                    return false;
+
+                var scenario = QueuedScenarioForCoreSubstrate.Dequeue();
+
+                var pmLocation = _workingInfo.Location as ProcessModuleLocation;
+                if (false == _substrateManager.GetSubstrateAtProcessModule(_workingInfo.SubstrateName, pmLocation, ref substrate))
+                    return false;
+
+                string subType = substrate.GetAttribute(PWA500BINSubstrateAttributes.SubstrateType);
+
+                SubstrateType substrateType = SubstrateType.Core;
+                if (false == GetSubstrateTypeByAttribute(subType, ref substrateType))
+                    return false;
+
+                if (false == substrateType.Equals(SubstrateType.Core))
+                    return false;
+
+                int portId = substrate.GetSourcePortId();
+                string sourceCarrierId = _carrierServer.GetCarrierId(portId);
+                if (_substrateManager.IsFirstSubstrateAtLoadPort(sourceCarrierId, portId, substrate.GetName()))
                 {
-                    Scenario = scenario,
-                    ScenarioParams = scenarioParam
-                };
+                    #region <Process Start>
+                    var scenarioParam = _scenarioManager.MakeParamToProcessing(portId, substrate);
 
-                return _scenarioOperator.UpdateScenarioParam(scenario, scenarioParam);
-                #endregion </Process Start>
+                    InitResult(scenario);
+                    _executingScenario = new QueuedScenarioInfo
+                    {
+                        Scenario = scenario,
+                        ScenarioParams = scenarioParam
+                    };
+
+                    return _scenarioOperator.UpdateScenarioParam(scenario, scenarioParam);
+                    #endregion </Process Start>
+                }
+            }
+            else if (_workingInfo.Location is LoadPortLocation)
+            {
+                var lpLocation = _workingInfo.Location as LoadPortLocation;
+                var carrierId = _carrierServer.GetCarrierId(lpLocation.PortId);
+
+                if (_substrateManager.GetSubstrateAtLoadPort(lpLocation, ref substrate))
+                {
+                    _lotHistoryLog.UpdateSubstrateHistoryToCarrierHistory(lpLocation.PortId, carrierId, substrate.GetName());
+                }
+                //pmLocation.
             }
 
             return false;
@@ -1902,15 +1907,17 @@ namespace FrameOfSystem3.Task
                             return false;
                         }
 
-                        if (false == _carrierServer.HasCarrier(portId))
-                        {
-                            description = ErrorDescriptionForDoesntHaveCarrier;
-                            return false;
-                        }
-
                         if (false == _loadPortManager.IsLoadPortEnabled(lpIndex))
                         {
                             description = ErrorDescriptionForLoadPortNotEnabled;
+                            return false;
+                        }
+
+                        if (false == _carrierServer.HasCarrier(portId) ||
+                            _carrierServer.GetCarrierAccessingStatus(portId).Equals(CarrierAccessStates.CarrierCompleted) ||
+                            _carrierServer.GetCarrierAccessingStatus(portId).Equals(CarrierAccessStates.CarrierStopped))
+                        {
+                            description = ErrorDescriptionForDoesntHaveCarrier;
                             return false;
                         }
 
@@ -2910,7 +2917,7 @@ namespace FrameOfSystem3.Task
 
                                     _lotHistoryLog.WriteSubstrateHistoryForUploadBinData(portId, substrateName, _scenarioManager.PmsFullPath);
                                 }
-                                break; ;
+                                break;
 
                             default:
                                 break;

@@ -340,6 +340,14 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                     {
                         Dictionary<string, string> attributeResults = new Dictionary<string, string>();
                         materialEdit.GetResult(ref attributeResults);
+
+                        if (false == attributeResults.TryGetValue("Name", out string resultName) ||
+                            false == _substrateManager.IsValidSubstrateName(resultName))
+                        {
+                            _messageBox.ShowMessage(string.Format("이름에 사용할 수 없는 문자열이 포함되었습니다. : {0}", resultName));
+                            return;
+                        }
+
                         temporarySubstrate.SetAttributesAll(attributeResults);
 
                         if (location is LoadPortLocation)
@@ -377,6 +385,13 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
 
                     Dictionary<string, string> attributeResults = new Dictionary<string, string>();
                     materialEdit.GetResult(ref attributeResults);
+
+                    if (false == attributeResults.TryGetValue("Name", out string resultName) ||
+                            false == _substrateManager.IsValidSubstrateName(resultName))
+                    {
+                        _messageBox.ShowMessage(string.Format("이름에 사용할 수 없는 문자열이 포함되었습니다. : {0}", resultName));
+                        return;
+                    }
 
                     _selectedSubstrate.SetAttributesAll(attributeResults);
                 }

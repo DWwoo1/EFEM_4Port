@@ -36,7 +36,7 @@ namespace EFEM.MaterialTracking
             _processModuleGroup = ProcessModuleGroup.Instance;
 
             SubstratesInLoadPortSlots = new ConcurrentDictionary<int, ConcurrentDictionary<int, Substrate>>();
-            SubstratesInProcessModule = new ConcurrentDictionary<string, List<Substrate>>();
+            SubstratesInProcessModule = new ConcurrentDictionary<string, ConcurrentDictionary<int, Substrate>>();
             SubstratesInRobot = new ConcurrentDictionary<string, ConcurrentDictionary<RobotArmTypes, Substrate>>();
         }
         #endregion </Constructors>
@@ -52,7 +52,7 @@ namespace EFEM.MaterialTracking
         //private readonly ConcurrentDictionary<string, Substrate> Substrates = null;
 
         private readonly ConcurrentDictionary<int, ConcurrentDictionary<int, Substrate>> SubstratesInLoadPortSlots = null;
-        private readonly ConcurrentDictionary<string, List<Substrate>> SubstratesInProcessModule = null;
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<int, Substrate>> SubstratesInProcessModule = null;
         private readonly ConcurrentDictionary<string, ConcurrentDictionary<RobotArmTypes, Substrate>> SubstratesInRobot = null;
         #endregion </Fields>
 
@@ -135,15 +135,22 @@ namespace EFEM.MaterialTracking
                     }
                 }
 
-                foreach (var item in SubstratesInProcessModule)
+                foreach (var pm in SubstratesInProcessModule)
                 {
-                    for (int i = 0; i < item.Value.Count; ++i)
+                    foreach (var item in pm.Value)
                     {
-                        if (false == item.Value[i].SaveRecoveryData())
+                        if (false == item.Value.SaveRecoveryData())
                         {
                             DebugLogger.Instance.WriteDebugLog(string.Format("SaveRecoveryData failed > {0}", item.Key));
                         }
                     }
+                    //for (int i = 0; i < pm.Value.Count; ++i)
+                    //{
+                    //    if (false == pm.Value[i].SaveRecoveryData())
+                    //    {
+                    //        DebugLogger.Instance.WriteDebugLog(string.Format("SaveRecoveryData failed > {0}", pm.Key));
+                    //    }
+                    //}
                 }
 
                 foreach (var robot in SubstratesInRobot)
@@ -168,199 +175,11 @@ namespace EFEM.MaterialTracking
             return true;
         }
 
-        //public bool LoadRecoveryData(string fileName, ref Substrate substrate)
-        //{
-        //    bool created = false;
-        //    try
-        //    {
-        //        string fullPath = string.Format(@"{0}\{1}", RecoveryFileDefines.RecoveryFilePath, fileName);
-        //        if (false == File.Exists(fullPath))
-        //            return false;
-
-        //        string fileData = String.Empty;
-        //        if (false == _fileIOManager.Read(RecoveryFileDefines.RecoveryFilePath, fileName, ref fileData, Define.DefineConstant.FileIO.TIMEOUT_READ))
-        //            return false;
-
-        //        string[] data = fileData.Split('\n');
-        //        if (false == _fileComposite.CreateRootByString(ref data))
-        //        {
-        //            _fileComposite.RemoveRoot(RecoveryFileDefines.FileRootName);
-        //            return false;
-        //        }
-
-        //        created = true;
-
-        //        Dictionary<string, string> attributes = substrate.GetAttributesAll();
-        //        Dictionary<string, string> readAttributes = new Dictionary<string, string>(attributes);
-        //        foreach (var item in attributes)
-        //        {
-        //            string key = item.Key;
-        //            string value = string.Empty;
-        //            if (false == _fileComposite.GetValue(RecoveryFileDefines.FileRootName, key, ref value))
-        //                continue;
-
-        //            readAttributes[key] = value;
-        //        }
-
-        //        bool result = _fileComposite.RemoveRoot(RecoveryFileDefines.FileRootName);
-
-        //        if (false == substrate.SetAttributesAll(readAttributes))
-        //        {
-        //            return false;
-        //        }
-
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (created)
-        //        {
-        //            _fileComposite.RemoveRoot(RecoveryFileDefines.FileRootName);
-        //        }
-
-        //        DebugLogger.Instance.WriteDebugLog(string.Format("LoadRecoveryData Exception > {0}, {1}, {2}", 
-        //            fileName, ex.Message, ex.StackTrace));
-
-        //        return false;
-        //    }
-        //}
-
-        //public bool SaveRecoveryData(Substrate substrate)
-        //{
-        //    bool created = false;
-        //    string fileName = substrate.GetName();
-
-        //    try
-        //    {
-        //        string fullPath = string.Format(@"{0}\{1}", RecoveryFileDefines.RecoveryFilePath, fileName);
-        //        if (File.Exists(fileName))
-        //        {
-        //            File.Delete(fullPath);
-        //        }
-
-        //        _fileComposite.RemoveRoot(RecoveryFileDefines.FileRootName);
-        //        _fileComposite.CreateRoot(RecoveryFileDefines.FileRootName);
-
-        //        created = true;
-
-        //        Dictionary<string, string> attributes = substrate.GetAttributesAll();
-        //        foreach (var item in attributes)
-        //        {
-        //            _fileComposite.AddItem(RecoveryFileDefines.FileRootName, item.Key, item.Value);
-        //        }
-
-        //        string dataToWrite = String.Empty;
-        //        if (false == _fileComposite.GetStructureAsString(RecoveryFileDefines.FileRootName, ref dataToWrite))
-        //        {
-        //            DebugLogger.Instance.WriteDebugLog(string.Format("GetStructureAsString Exception > {0}",
-        //            fileName));
-
-        //            return _fileComposite.RemoveRoot(RecoveryFileDefines.FileRootName);
-        //        }
-
-        //        bool result = _fileIOManager.Write(RecoveryFileDefines.RecoveryFilePath, fileName, dataToWrite, false, true);
-        //        result &= _fileComposite.RemoveRoot(RecoveryFileDefines.FileRootName);
-
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (created)
-        //        {
-        //            _fileComposite.RemoveRoot(RecoveryFileDefines.FileRootName);
-        //        }
-
-        //        DebugLogger.Instance.WriteDebugLog(string.Format("SaveRecoveryData Exception > {0}, {1}, {2}",
-        //            fileName, ex.Message, ex.StackTrace));
-
-        //        return false;
-        //    }
-        //}
-
-        //public bool SerializeAll()
-        //{
-        //    bool result = true;
-        //    foreach (var item in Substrates)
-        //    {
-        //        result &= Serialize(item.Value);                
-        //    }
-
-        //    return result;
-        //}
-        //public bool DeSerializeAll()
-        //{
-        //    if (false == Directory.Exists(RecoveryFilePathDefines.RecoveryFilePath))
-        //    {
-        //        Directory.CreateDirectory(RecoveryFilePathDefines.RecoveryFilePath);
-        //        return false;
-        //    }
-
-        //    string[] files = Directory.GetFiles(RecoveryFilePathDefines.RecoveryFilePath);
-        //    if (files.Length <= 0)
-        //        return false;
-
-        //    for (int i = 0; i < files.Length; ++i)
-        //    {
-        //        Substrate substrate = new Substrate("");
-        //        if (Deserialize(files[i], ref substrate))
-        //        {
-        //            Substrates[substrate.GetName()] = substrate;
-        //        }
-        //    }
-
-        //    return true;
-        //}
-        //public bool Serialize(Substrate substrate)
-        //{
-        //    try
-        //    {
-        //        if (false == Directory.Exists(RecoveryFilePathDefines.RecoveryFilePath))
-        //            Directory.CreateDirectory(RecoveryFilePathDefines.RecoveryFilePath);
-
-        //        string fileName = substrate.GetName();
-        //        if (string.IsNullOrEmpty(substrate.GetName()))
-        //        {
-        //            fileName = "UnknownSubstrate";
-        //        }
-        //        string fullPath = string.Format(@"{0}\{1}.xml", RecoveryFilePathDefines.RecoveryFilePath, fileName);
-
-        //        XmlSerializer serializer = new XmlSerializer(typeof(Substrate));
-        //        using (TextWriter writer = new StreamWriter(fullPath))
-        //        {
-        //            serializer.Serialize(writer, substrate);
-        //        }
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        DebugLogger.Instance.WriteDebugLog(string.Format("Serialize Exception > {0}, {1}, {2}", substrate.GetName(), ex.Message, ex.StackTrace));
-
-        //        return false;
-        //    }
-        //}
-
-        //public bool Deserialize(string fileName, ref Substrate substrate)
-        //{
-        //    try
-        //    {
-        //        if (false == Directory.Exists(RecoveryFilePathDefines.RecoveryFilePath))
-        //            Directory.CreateDirectory(RecoveryFilePathDefines.RecoveryFilePath);
-
-        //        XmlSerializer serializer = new XmlSerializer(typeof(Substrate));
-        //        using (TextReader reader = new StreamReader(fileName))
-        //        {
-        //            Substrate sub = serializer.Deserialize(reader);
-        //            return true;
-        //        }                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        DebugLogger.Instance.WriteDebugLog(string.Format("Deserialize Exception > {0}, {1}, {2}", fileName, ex.Message, ex.StackTrace));
-
-        //        return false;
-        //    }
-        //}
+        public bool IsValidSubstrateName(string filename)
+        {
+            char[] invalidChars = Path.GetInvalidFileNameChars();
+            return !filename.Any(c => invalidChars.Contains(c));
+        }
         #endregion <File Control>
 
         #region <Create, Remove>
@@ -389,7 +208,7 @@ namespace EFEM.MaterialTracking
 
         public void AddProcessModuleBuffers(string processModuleName)
         {
-            SubstratesInProcessModule[processModuleName] = new List<Substrate>();
+            SubstratesInProcessModule[processModuleName] = new ConcurrentDictionary<int, Substrate>();
             //Dictionary<string, Substrate> processModuleBuffers = new Dictionary<string, Substrate>();
             //for(int i = 0; i < locations.Length; ++i)
             //{
@@ -422,19 +241,31 @@ namespace EFEM.MaterialTracking
             {
                 var pmLocation = location as ProcessModuleLocation;
 
-                if (false == SubstratesInProcessModule.TryGetValue(pmLocation.ProcessModuleName, out List<Substrate> substrates))
-                    substrates = new List<Substrate>();
+                if (false == SubstratesInProcessModule.TryGetValue(pmLocation.ProcessModuleName, out ConcurrentDictionary<int, Substrate> substrates))
+                    substrates = new ConcurrentDictionary<int, Substrate>();
+
+                if (substrates == null)
+                    substrates = new ConcurrentDictionary<int, Substrate>();
 
                 substrate.SetLocation(location);
                 substrate.InitAttributes();
 
-                string substrateName = substrate.GetName();
-                for (int i = 0; i < substrates.Count; ++i)
+                int index = 0;
+                if (substrates.Any())
                 {
-                    if (substrates[i].GetName().Equals(substrateName))
-                        return;
+                    List<int> sortedKeys = substrates.Keys.OrderBy(k => k).ToList();
+                    index = sortedKeys.Last() + 1;
+
                 }
-                substrates.Add(substrate);
+                substrates[index] = substrate;
+
+                //string substrateName = substrate.GetName();
+                //for (int i = 0; i < substrates.Count; ++i)
+                //{
+                //    if (substrates[i].GetName().Equals(substrateName))
+                //        return;
+                //}
+                //substrates.Add(substrate);
                 SubstratesInProcessModule[pmLocation.ProcessModuleName] = substrates;
             }
             else if (location is RobotLocation)
@@ -468,20 +299,36 @@ namespace EFEM.MaterialTracking
                 var pmLocation = location as ProcessModuleLocation;
 
                 int index = -1;
-                for (int i = 0; i < SubstratesInProcessModule[pmLocation.ProcessModuleName].Count; ++i)
+                if (SubstratesInProcessModule.ContainsKey(pmLocation.ProcessModuleName))
                 {
-                    string name = SubstratesInProcessModule[pmLocation.ProcessModuleName][i].GetName();
-                    if (name.Equals(targetName))
+                    foreach (var item in SubstratesInProcessModule[pmLocation.ProcessModuleName])
                     {
-                        index = i;
-                        SubstratesInProcessModule[pmLocation.ProcessModuleName][i].DeleteRecoveryData();
+                        if (item.Value.GetName().Equals(targetName))
+                        {
+                            index = item.Key;
+                            break;
+                        }
+                    }
+
+                    if (index >= 0)
+                    {
+                        SubstratesInProcessModule[pmLocation.ProcessModuleName].TryRemove(index, out _);
                     }
                 }
+                //for (int i = 0; i < SubstratesInProcessModule[pmLocation.ProcessModuleName].Count; ++i)
+                //{
+                //    string name = SubstratesInProcessModule[pmLocation.ProcessModuleName][i].GetName();
+                //    if (name.Equals(targetName))
+                //    {
+                //        index = i;
+                //        SubstratesInProcessModule[pmLocation.ProcessModuleName][i].DeleteRecoveryData();
+                //    }
+                //}
 
-                if (index >= 0)
-                {
-                    SubstratesInProcessModule[pmLocation.ProcessModuleName].RemoveAt(index);
-                }
+                //if (index >= 0)
+                //{
+                //    SubstratesInProcessModule[pmLocation.ProcessModuleName].RemoveAt(index);
+                //}
 
             }
             else if (location is RobotLocation)
@@ -525,10 +372,29 @@ namespace EFEM.MaterialTracking
 
         public void AssignSubstrateInProcessModule(string moduleName, Substrate substrate)
         {
-            if (SubstratesInProcessModule.ContainsKey(moduleName))
+            if (false == SubstratesInProcessModule.TryGetValue(moduleName, out ConcurrentDictionary<int, Substrate> substrates))
             {
-                SubstratesInProcessModule[moduleName].Add(substrate);
+                substrates = new ConcurrentDictionary<int, Substrate>();
             }
+            
+            if (substrates == null)
+                substrates = new ConcurrentDictionary<int, Substrate>();
+
+            int index = 0;
+            if (substrates.Any())
+            {
+                List<int> sortedKeys = substrates.Keys.OrderBy(k => k).ToList();
+                index = sortedKeys.Last() + 1;
+            }
+            
+            substrates[index] = substrate;
+            SubstratesInProcessModule[moduleName] = substrates;
+
+
+            //if (SubstratesInProcessModule.ContainsKey(moduleName))
+            //{
+            //    SubstratesInProcessModule[moduleName].Add(substrate);
+            //}
         }
 
         public void AssignSubstrateInRobot(string robotName, RobotArmTypes armType, Substrate substrate)
@@ -543,7 +409,7 @@ namespace EFEM.MaterialTracking
         #region <Attributes>
         public void SetSubstrateLotInfoByLocation(Location location, string targetName, string lotId, string recipeId, string carrierId)
         {
-            Substrate substrate;
+            Substrate substrate = new Substrate(string.Empty);
             if (location is LoadPortLocation)
             {
                 var lpLocation = location as LoadPortLocation;
@@ -555,20 +421,36 @@ namespace EFEM.MaterialTracking
             {
                 var pmLocation = location as ProcessModuleLocation;
 
+                if (false == SubstratesInProcessModule.ContainsKey(pmLocation.ProcessModuleName))
+                    return;
+                
                 int index = -1;
-                for (int i = 0; i < SubstratesInProcessModule[pmLocation.ProcessModuleName].Count; ++i)
+                foreach (var item in SubstratesInProcessModule[pmLocation.ProcessModuleName])
                 {
-                    string name = SubstratesInProcessModule[pmLocation.ProcessModuleName][i].GetName();
-                    if (name.Equals(targetName))
+                    if (item.Value.GetName().Equals(targetName))
                     {
-                        index = i;
+                        index = item.Key;
+                        substrate = item.Value;
                         break;
                     }
-                }
+                }               
+
                 if (index < 0)
                     return;
 
-                substrate = SubstratesInProcessModule[pmLocation.ProcessModuleName][index];
+                //for (int i = 0; i < SubstratesInProcessModule[pmLocation.ProcessModuleName].Count; ++i)
+                //{
+                //    string name = SubstratesInProcessModule[pmLocation.ProcessModuleName][i].GetName();
+                //    if (name.Equals(targetName))
+                //    {
+                //        index = i;
+                //        break;
+                //    }
+                //}
+                //if (index < 0)
+                //    return;
+
+                //substrate = SubstratesInProcessModule[pmLocation.ProcessModuleName][index];
             }
             else if (location is RobotLocation)
             {
@@ -667,12 +549,16 @@ namespace EFEM.MaterialTracking
             }
 
             // 2. Process Module
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
-                for (int i = 0; i < item.Value.Count; ++i)
+                foreach (var item in pm.Value)
                 {
-                    substrates.Add(item.Value[i]);
+                    substrates.Add(item.Value);
                 }
+                //for (int i = 0; i < pm.Value.Count; ++i)
+                //{
+                //    substrates.Add(pm.Value[i]);
+                //}
             }
 
 
@@ -693,15 +579,35 @@ namespace EFEM.MaterialTracking
             {
                 var location = targetLocation as ProcessModuleLocation;
 
-                for (int i = 0; i < SubstratesInProcessModule[location.ProcessModuleName].Count; ++i)
+                //if (false == SubstratesInProcessModule.TryGetValue(location.ProcessModuleName, out ConcurrentDictionary<int, Substrate> substrates))
+                //    return false;
+
+                foreach (var pm in SubstratesInProcessModule)
                 {
-                    string name = SubstratesInProcessModule[location.ProcessModuleName][i].GetName();
-                    if (name.Equals(substrateName))
+                    foreach (var item in pm.Value)
                     {
-                        substrate = SubstratesInProcessModule[location.ProcessModuleName][i];
-                        return true;
+                        string name = item.Value.GetName();
+                        if (name.Equals(substrateName))
+                        {
+                            substrate = item.Value;
+                            return true;
+                        }
+
                     }
                 }
+                //foreach (var item in substrates)
+                //{
+                //    string name = item.Value.GetName();
+                //    if (name.Equals(substrateName))
+                //    {
+                //        substrate = item.Value;
+                //        return true;
+                //    }
+
+                //}
+                //for (int i = 0; i < SubstratesInProcessModule[location.ProcessModuleName].Count; ++i)
+                //{
+                //}
 
                 return false;
             }
@@ -844,7 +750,7 @@ namespace EFEM.MaterialTracking
         {
             var substrates = new Dictionary<int, Substrate>(SubstratesInLoadPortSlots[portId]);
             return substrates;
-        }       
+        }
         public bool IsSourceSlotReserved(int portId, int slot)
         {
             foreach (var lp in SubstratesInLoadPortSlots)
@@ -858,16 +764,24 @@ namespace EFEM.MaterialTracking
                 }
             }
 
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
+                foreach (var item in pm.Value)
                 {
-                    for (int i = 0; i < item.Value.Count; ++i)
+                    if (item.Value.GetSourcePortId().Equals(portId) && item.Value.GetSourceSlot().Equals(slot))
                     {
-                        if (item.Value[i].GetSourcePortId().Equals(portId) && item.Value[i].GetSourceSlot().Equals(slot))
-                            return true;
+                        return true;
                     }
-
                 }
+
+                //{
+                //    for (int i = 0; i < item.Value.Count; ++i)
+                //    {
+                //        if (item.Value[i].GetSourcePortId().Equals(portId) && item.Value[i].GetSourceSlot().Equals(slot))
+                //            return true;
+                //    }
+
+                //}
             }
 
             foreach (var ams in SubstratesInRobot)
@@ -899,18 +813,25 @@ namespace EFEM.MaterialTracking
                 }
             }
 
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
+                foreach (var item in pm.Value)
                 {
-                    for (int i = 0; i < item.Value.Count; ++i)
-                    {
-                        if (false == item.Value[i].GetSourcePortId().Equals(portId))
-                            continue;
-                        if (false == IsProcessingCompleted(item.Value[i].GetTransferStatus(), item.Value[i].GetProcessingStatus()))
-                            return false;
-                    }
-
+                    if (false == item.Value.GetSourcePortId().Equals(portId))
+                        continue;
+                    if (false == IsProcessingCompleted(item.Value.GetTransferStatus(), item.Value.GetProcessingStatus()))
+                        return false;
                 }
+                //{
+                //    for (int i = 0; i < item.Value.Count; ++i)
+                //    {
+                //        if (false == item.Value[i].GetSourcePortId().Equals(portId))
+                //            continue;
+                //        if (false == IsProcessingCompleted(item.Value[i].GetTransferStatus(), item.Value[i].GetProcessingStatus()))
+                //            return false;
+                //    }
+
+                //}
             }
 
             foreach (var arms in SubstratesInRobot)
@@ -952,7 +873,7 @@ namespace EFEM.MaterialTracking
 
             Substrate substrate = new Substrate("");
             if (false == GetSubstrateByDestinationInfo(portId, slot, ref substrate))
-                return string.Empty;            
+                return string.Empty;
 
             return substrate.GetName();
         }
@@ -1001,20 +922,29 @@ namespace EFEM.MaterialTracking
                 }
             }
 
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
+                foreach (var item in pm.Value)
                 {
-                    for (int i = 0; i < item.Value.Count; ++i)
+                    if (item.Value.GetSourcePortId().Equals(portId) &&
+                        item.Value.GetSourceCarrierId().Equals(sourceCarrierId) &&
+                        false == item.Value.GetName().Equals(substrateName))
                     {
-                        // 이름이 다르고, 포트번호가 같으면 같은데서 있다가 나간 자재다.
-                        if (item.Value[i].GetSourcePortId().Equals(portId) &&
-                            item.Value[i].GetSourceCarrierId().Equals(sourceCarrierId) &&
-                            false == item.Value[i].GetName().Equals(substrateName))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
+                //{
+                //    for (int i = 0; i < item.Value.Count; ++i)
+                //    {
+                //        // 이름이 다르고, 포트번호가 같으면 같은데서 있다가 나간 자재다.
+                //        if (item.Value[i].GetSourcePortId().Equals(portId) &&
+                //            item.Value[i].GetSourceCarrierId().Equals(sourceCarrierId) &&
+                //            false == item.Value[i].GetName().Equals(substrateName))
+                //        {
+                //            return false;
+                //        }
+                //    }
+                //}
             }
 
             foreach (var robot in SubstratesInRobot)
@@ -1056,7 +986,7 @@ namespace EFEM.MaterialTracking
                     return true;
                 }
             }
-            
+
             // 2024.10.16. jhlim [DEL] 아래는 오직 1개 섭만 있는 경우를 찾는거다.
             //foreach (var lp in SubstratesInLoadPortSlots)
             //{
@@ -1107,18 +1037,29 @@ namespace EFEM.MaterialTracking
         }
         public bool GetSubstrateBySourceCarrierInfo(int portId, int slot, string carrierId, ref Substrate substrate)
         {
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
-                for (int i = 0; i < item.Value.Count; ++i)
+                foreach (var item in pm.Value)
                 {
-                    if (item.Value[i].GetSourcePortId().Equals(portId) &&
-                        item.Value[i].GetSourceSlot().Equals(slot) &&
-                        item.Value[i].GetSourceCarrierId().Equals(carrierId))
+                    if (item.Value.GetSourcePortId().Equals(portId) &&
+                        item.Value.GetSourceSlot().Equals(slot) &&
+                        item.Value.GetSourceCarrierId().Equals(carrierId))
                     {
-                        substrate = item.Value[i];
+                        substrate = item.Value;
                         return true;
                     }
+
                 }
+                //for (int i = 0; i < item.Value.Count; ++i)
+                //{
+                //    if (item.Value[i].GetSourcePortId().Equals(portId) &&
+                //        item.Value[i].GetSourceSlot().Equals(slot) &&
+                //        item.Value[i].GetSourceCarrierId().Equals(carrierId))
+                //    {
+                //        substrate = item.Value[i];
+                //        return true;
+                //    }
+                //}
             }
 
             foreach (var pm in SubstratesInRobot)
@@ -1139,22 +1080,31 @@ namespace EFEM.MaterialTracking
         }
         public bool GetSubstrateByDestinationInfo(int portId, int slot, ref Substrate substrate)
         {
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
-                for (int i = 0; i < item.Value.Count; ++i)
+                foreach (var item in pm.Value)
                 {
-                    if (item.Value[i].GetDestinationPortId().Equals(portId) &&
-                        item.Value[i].GetDestinationSlot().Equals(slot))
+                    if (item.Value.GetDestinationPortId().Equals(portId) &&
+                        item.Value.GetDestinationSlot().Equals(slot))
                     {
-                        substrate = item.Value[i];
+                        substrate = item.Value;
                         return true;
                     }
                 }
+                //for (int i = 0; i < item.Value.Count; ++i)
+                //{
+                //    if (item.Value[i].GetDestinationPortId().Equals(portId) &&
+                //        item.Value[i].GetDestinationSlot().Equals(slot))
+                //    {
+                //        substrate = item.Value[i];
+                //        return true;
+                //    }
+                //}
             }
 
-            foreach (var pm in SubstratesInRobot)
+            foreach (var robot in SubstratesInRobot)
             {
-                foreach (var item in pm.Value)
+                foreach (var item in robot.Value)
                 {
                     if (item.Value.GetDestinationPortId().Equals(portId) &&
                        item.Value.GetDestinationSlot().Equals(slot))
@@ -1172,17 +1122,27 @@ namespace EFEM.MaterialTracking
         #region <ProcessModule>
         public bool GetSubstrateAtProcessModule(string substrateName, ref Substrate substrate)
         {
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
-                for(int i = 0; i < item.Value.Count; ++i)
+                foreach (var item in pm.Value)
                 {
-                    string name = item.Value[i].GetName();
+                    string name = item.Value.GetName();
                     if (name.Equals(substrateName))
                     {
-                        substrate = item.Value[i];
+                        substrate = item.Value;
                         return true;
                     }
+
                 }
+                //for (int i = 0; i < item.Value.Count; ++i)
+                //{
+                //    string name = item.Value[i].GetName();
+                //    if (name.Equals(substrateName))
+                //    {
+                //        substrate = item.Value[i];
+                //        return true;
+                //    }
+                //}
             }
 
             return false;
@@ -1190,18 +1150,27 @@ namespace EFEM.MaterialTracking
 
         public bool GetSubstrateAtProcessModule(string substrateName, ProcessModuleLocation location, ref Substrate substrate)
         {
-            if (false == SubstratesInProcessModule.ContainsKey(location.ProcessModuleName))
-                return false;
+            //if (false == SubstratesInProcessModule.TryGetValue(location.ProcessModuleName, out ConcurrentDictionary<int, Substrate> substrates))
+            //    return false;
 
-            for (int i = 0; i < SubstratesInProcessModule[location.ProcessModuleName].Count; ++i)
+            foreach (var item in SubstratesInProcessModule[location.ProcessModuleName])
             {
-                string name = SubstratesInProcessModule[location.ProcessModuleName][i].GetName();
+                string name = item.Value.GetName();
                 if (name.Equals(substrateName))
                 {
-                    substrate = SubstratesInProcessModule[location.ProcessModuleName][i];
+                    substrate = item.Value;
                     return true;
                 }
             }
+            //for (int i = 0; i < SubstratesInProcessModule[location.ProcessModuleName].Count; ++i)
+            //{
+            //    string name = SubstratesInProcessModule[location.ProcessModuleName][i].GetName();
+            //    if (name.Equals(substrateName))
+            //    {
+            //        substrate = SubstratesInProcessModule[location.ProcessModuleName][i];
+            //        return true;
+            //    }
+            //}
 
             return false;
         }
@@ -1210,30 +1179,45 @@ namespace EFEM.MaterialTracking
             if (false == SubstratesInProcessModule.ContainsKey(processModuleName))
                 return false;
 
-            for (int i = 0; i < SubstratesInProcessModule[processModuleName].Count; ++i)
+            foreach (var item in SubstratesInProcessModule[processModuleName])
             {
-                string name = SubstratesInProcessModule[processModuleName][i].GetName();
+                string name = item.Value.GetName();
                 if (name.Equals(substrateName))
                 {
-                    substrate = SubstratesInProcessModule[processModuleName][i];
+                    substrate = item.Value;
                     return true;
                 }
+            //    for (int i = 0; i < SubstratesInProcessModule[processModuleName].Count; ++i)
+            //{
+            //    string name = SubstratesInProcessModule[processModuleName][i].GetName();
+            //    if (name.Equals(substrateName))
+            //    {
+            //        substrate = SubstratesInProcessModule[processModuleName][i];
+            //        return true;
+            //    }
             }
 
             return false;
         }
         public bool GetSubstratesAtProcessModule(string processModuleName, ref List<Substrate> substrates)
         {
-            foreach (var item in SubstratesInProcessModule)
-            {
-                if (item.Key.Equals(processModuleName))
-                {
-                    substrates = item.Value;
-                    return true;
-                }
-            }
+            if (false == SubstratesInProcessModule.TryGetValue(processModuleName, out ConcurrentDictionary<int, Substrate> substratesAtProcessModule) ||
+                substratesAtProcessModule == null)
+                return false;
 
-            return false;
+            substrates.Clear();
+            substrates.AddRange(substratesAtProcessModule.Values);
+            return true;
+            //foreach (var item in SubstratesInProcessModule)
+            //{
+            //    if (item.Key.Equals(processModuleName))
+            //    {
+            //        substrates = item.Value;
+            //        return true;
+            //    }
+            //}
+
+            //return false;
         }
         #endregion </ProcessModule>
 
@@ -1263,44 +1247,47 @@ namespace EFEM.MaterialTracking
         #endregion </Robot>
 
         #region <Find>
-        public List<Substrate> GetSubstratesAll()
+        public bool GetSubstratesAll(ref List<Substrate> substrates)
         {
-            List<Substrate> substrates = new List<Substrate>();
+            substrates.Clear();
             foreach (var lp in SubstratesInLoadPortSlots)
             {
-                foreach (var item in lp.Value)
-                {
-                    substrates.Add(item.Value);
-                }
+                substrates.AddRange(lp.Value.Values);
+                //foreach (var item in lp.Value)
+                //{
+                //    substrates.Add(item.Value);
+                //}
             }
 
             foreach (var item in SubstratesInProcessModule)
             {
-                for (int i = 0; i < item.Value.Count; ++i)
-                {
-                    substrates.Add(item.Value[i]);
-                }
+                substrates.AddRange(item.Value.Values);
+                //for (int i = 0; i < item.Value.Count; ++i)
+                //{
+                //    substrates.Add(item.Value[i]);
+                //}
             }
 
             foreach (var arms in SubstratesInRobot)
             {
-                foreach (var item in arms.Value)
-                {
-                    substrates.Add(item.Value);
-                }
+                substrates.AddRange(arms.Value.Values);
+                //foreach (var item in arms.Value)
+                //{
+                //    substrates.Add(item.Value);
+                //}
             }
 
-            return substrates;
+            return substrates.Count > 0;
         }
         public bool GetSubstrateByAttribute(string attributeName, string attributeValue, ref Substrate substrate)
         {
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
-                for (int i = 0; i < item.Value.Count; ++i)
+                foreach (var item in pm.Value)
                 {
-                    if (item.Value[i].GetAttribute(attributeName).Equals(attributeValue))
+                    if (item.Value.GetAttribute(attributeName).Equals(attributeValue))
                     {
-                        substrate = item.Value[i];
+                        substrate = item.Value;
                         return true;
                     }
                 }
@@ -1337,19 +1324,16 @@ namespace EFEM.MaterialTracking
         public bool GetSubstrateByName(string targetName, ref Substrate substrate)
         {
             // 2024.12.29. jhlim [MOD] 공정 설비부터 검색하도록 순서 변경
-            foreach (var item in SubstratesInProcessModule)
+            foreach (var pm in SubstratesInProcessModule)
             {
+                foreach (var item in pm.Value)
                 {
-                    for (int i = 0; i < item.Value.Count; ++i)
+                    if (item.Value.GetName().Equals(targetName))
                     {
-                        if (item.Value[i].GetName().Equals(targetName))
-                        {
-                            substrate = item.Value[i];
-                            return true;
-                        }
+                        substrate = item.Value;
+                        return true;
                     }
-
-                }
+                }                
             }
             // 2024.12.29. jhlim [END]
 
@@ -1400,15 +1384,24 @@ namespace EFEM.MaterialTracking
             {
                 foreach (var pm in SubstratesInProcessModule)
                 {
-                    for (int i = 0; i < pm.Value.Count; ++i)
+                    foreach (var item in pm.Value)
                     {
-                        string name = pm.Value[i].GetName();
+                        string name = item.Value.GetName();
                         if (name.Equals(targetName))
                         {
-                            substrate = pm.Value[i];
+                            substrate = item.Value;
                             return true;
                         }
                     }
+                    //for (int i = 0; i < pm.Value.Count; ++i)
+                    //{
+                    //    string name = pm.Value[i].GetName();
+                    //    if (name.Equals(targetName))
+                    //    {
+                    //        substrate = pm.Value[i];
+                    //        return true;
+                    //    }
+                    //}
                 }
             }
             else if (location is RobotLocation)
@@ -1443,12 +1436,15 @@ namespace EFEM.MaterialTracking
             {
                 var pmLocation = location as ProcessModuleLocation;
 
-                for (int i = 0; i < SubstratesInProcessModule[pmLocation.ProcessModuleName].Count; ++i)
+                if (false == SubstratesInProcessModule.ContainsKey(pmLocation.ProcessModuleName))
+                    return false;
+
+                foreach (var item in SubstratesInProcessModule[pmLocation.ProcessModuleName])
                 {
-                    string name = SubstratesInProcessModule[pmLocation.ProcessModuleName][i].GetName();
+                    string name = item.Value.GetName();
                     if (name.Equals(targetName))
                     {
-                        substrate = SubstratesInProcessModule[pmLocation.ProcessModuleName][i];
+                        substrate = item.Value;
                         return true;
                     }
                 }
@@ -1475,17 +1471,16 @@ namespace EFEM.MaterialTracking
             else if (location is ProcessModuleLocation)
             {
                 var pmLocation = location as ProcessModuleLocation;
+                if (false == SubstratesInProcessModule.ContainsKey(pmLocation.ProcessModuleName))
+                    return false;
 
-                foreach (var item in SubstratesInProcessModule)
+                foreach (var item in SubstratesInProcessModule[pmLocation.ProcessModuleName])
                 {
-                    for (int i = 0; i < item.Value.Count; ++i)
+                    string name = item.Value.GetName();
+                    if (name.Equals(targetName))
                     {
-                        string name = SubstratesInProcessModule[pmLocation.ProcessModuleName][i].GetName();
-                        if (name.Equals(targetName))
-                        {
-                            substrate = SubstratesInProcessModule[pmLocation.ProcessModuleName][i];
-                            return true;
-                        }
+                        substrate = item.Value;
+                        return true;
                     }
                 }
             }

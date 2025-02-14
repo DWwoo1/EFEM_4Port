@@ -29,8 +29,15 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
             ProcessModuleIndex = pmIndex;
             _processGroup = ProcessModuleGroup.Instance;
             _substrateManager = SubstrateManager.Instance;
+            _carrierServer = CarrierManagementServer.Instance;
 
             _communicationInfo = new NetworkInformation();
+
+            CorePorts = new List<int>
+            {
+                (int)LoadPortType.Core_1 + 1,
+                (int)LoadPortType.Core_2 + 1
+            };
 
             _substratesAtProcessModule = new List<Substrate>();
             _coreSubstratesAtProcessModule = new List<Substrate>();
@@ -57,10 +64,11 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
         #region <Fields>
         private readonly int ProcessModuleIndex;
         private static ProcessModuleGroup _processGroup = null;
+        private static CarrierManagementServer _carrierServer = null;
         private string _temporaryEquipmentState;
         private string _temporaryRecipeId;
         private static SubstrateManager _substrateManager = null;
-        
+        private readonly List<int> CorePorts = null;
         private List<Substrate> _substratesAtProcessModule = null;
         private List<Substrate> _coreSubstratesAtProcessModule = null;
         private List<Substrate> _sortSubstratesAtProcessModule = null;
@@ -85,6 +93,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
         private readonly Dictionary<int, int> MappedServiceIndex = null;
         private readonly Dictionary<int, int> MappedClientIndex = null;
         private readonly string ProcessModuleName = string.Empty;
+
+        private string _currentLotId = string.Empty;
         #endregion </Fields>
 
         #region <Properties>
@@ -303,6 +313,20 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
             {
                 lblRecipeId.Text = _temporaryRecipeId;
             }
+
+            _currentLotId = string.Empty;
+            for (int i = 0; i < CorePorts.Count; ++i)
+            {
+                if (false == _carrierServer.HasCarrier(CorePorts[i]))
+                    continue;
+
+                if (_carrierServer.GetCarrierAccessingStatus(CorePorts[i]).Equals(Defines.LoadPort.CarrierAccessStates.InAccessed))
+                {
+                    _currentLotId = _carrierServer.GetCarrierLotId(CorePorts[i]);
+                    break;
+                }
+            }
+            lblLotId.Text = _currentLotId;
             #endregion </Status>
             
             #region <Requests>

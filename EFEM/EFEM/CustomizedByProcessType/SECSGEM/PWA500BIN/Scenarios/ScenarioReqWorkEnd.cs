@@ -32,7 +32,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
             long vidPmsBody,
             long streamToHandling,
             long funcToSetupDataSend, long funcToDataTransmitInquire, long funcToDataSend,
-            uint timeOut = 5000)
+            uint timeOut = 10000)
             : base(name, timeOut)
         {
             _receiveMessageFormat = new List<SemiObject>();

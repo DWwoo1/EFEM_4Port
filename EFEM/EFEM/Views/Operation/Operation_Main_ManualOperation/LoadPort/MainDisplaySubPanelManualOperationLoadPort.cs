@@ -503,7 +503,7 @@ namespace FrameOfSystem3.Views.Operation.SubPanelManualOperation.LoadPort
                         string[] taskToExecute = { taskName.ToString() };
                         string[][] actionsToExecute =
                             {
-                            new string[] { TaskLoadPort.TASK_ACTION.CARRIER_UNLOADING.ToString() },
+                            new string[] { TaskLoadPort.TASK_ACTION.CARRIER_UNLOADING_BEFORE_AMHS.ToString() },
                             new string[] { TaskLoadPort.TASK_ACTION.WAIT_FOR_UNLOADING.ToString() }
                             };
 

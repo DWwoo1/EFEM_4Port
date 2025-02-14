@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -863,6 +864,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         private readonly string BasePath = null;
         private readonly string BasePathForSubstrate = null;
         private readonly Dictionary<int, string> CurrentWorkingPath = null;
+        private readonly ConcurrentQueue<Tuple<string, string>> QueueToWrite = new ConcurrentQueue<Tuple<string, string>>();
+
+        private Action<int, string> _logMessageToDisplay = null;
         #endregion </Fields>
 
         #region <Properties>
@@ -887,6 +891,127 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             CurrentWorkingPath[portId] = dir;
             if (false == Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
+        }
+        public void AttachDisplayLogAction(Action<int, string> action)
+        {
+            _logMessageToDisplay = action;
+        }
+        public string GetBackupHistoryPath(DateTime time, bool isCore)
+        {
+            if (isCore)
+            {
+                return string.Format(@"{0}\Backup\{1:0000}\{2:00}\{3:00}\Core", BasePath, time.Year, time.Month, time.Day);
+            }
+            else
+            {
+                return string.Format(@"{0}\Backup\{1:0000}\{2:00}\{3:00}\Bin", BasePath, time.Year, time.Month, time.Day);
+            }
+        }
+        public string GetCarrierHistoryPath(int portId, string carrierId)
+        {
+            if (false == CurrentWorkingPath.TryGetValue(portId, out string basePath))
+                return string.Empty;
+
+            return string.Format(@"{0}\{1}{2}", basePath, carrierId, LogFileExtension);
+        }
+        public string GetSubstratePath(string substrateName, bool isCore)
+        {
+            SubstrateType substrateType = isCore ? SubstrateType.Core : SubstrateType.Bin;
+
+            return string.Format(@"{0}\{1}\{2}{3}", BasePathForSubstrate, substrateType.ToString(), substrateName, LogFileExtension);
+        }
+        public void ClearPreviousHistory(int portId, string carrierId, string loadportName)
+        {
+            if (false == CurrentWorkingPath.TryGetValue(portId, out string basePath))
+                return;
+
+            DateTime date = DateTime.Now;
+            string backupPath = string.Format(@"{0}\Backup\{1:0000}\{2:00}\{3:00}\NotCompleted\{4}", BasePath, date.Year, date.Month, date.Day, loadportName);
+            if (false == Directory.Exists(backupPath))
+                Directory.CreateDirectory(backupPath);
+
+            string[] files = Directory.GetFiles(basePath);
+            string sourceFilePath = string.Format(@"{0}\{1}{2}", basePath, carrierId, LogFileExtension);
+            for (int i = 0; files != null && i < files.Length; ++i)
+            {
+                var file = files[i];
+                if (false == file.Equals(sourceFilePath))
+                {
+                    try
+                    {
+                        string fileNameToMove = Path.GetFileName(file);
+                        string destinationPath = Path.Combine(backupPath, fileNameToMove);
+                        if (File.Exists(destinationPath))
+                            File.Delete(destinationPath);
+
+                        File.Move(file, destinationPath);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+
+        }
+        public void UpdateSubstrateHistoryToCarrierHistory(int portId, string carrierId, string substrateName)
+        {
+            try
+            {
+                var substrateHistoryFullPath = GetSubstratePath(substrateName, false);
+                var substrateHistoryPath = Path.GetDirectoryName(substrateHistoryFullPath);
+                if (false == Directory.Exists(substrateHistoryPath) ||
+                    false == File.Exists(substrateHistoryFullPath))
+                    return;
+
+                var carrierHistoryFullPath = GetCarrierHistoryPath(portId, carrierId);
+                var carrierHistoryPath = Path.GetDirectoryName(carrierHistoryFullPath);
+                if (false == Directory.Exists(carrierHistoryPath) ||
+                    false == File.Exists(carrierHistoryFullPath))
+                    return;
+
+                string[] lines;
+                using (FileStream fs = new FileStream(substrateHistoryFullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    var tempList = new System.Collections.Generic.List<string>();
+                    while (false == sr.EndOfStream)
+                    {
+                        tempList.Add(sr.ReadLine());
+                    }
+                    lines = tempList.ToArray();
+                }
+
+                if (lines == null || lines.Length <= 0)
+                    return;
+
+                UpdateRingIdToSubstrateId(substrateName, ref lines);
+
+                using (FileStream fs = new FileStream(carrierHistoryFullPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    for (int i = 0; lines != null && i < lines.Length; ++i)
+                    {
+                        sw.WriteLine(lines[i]);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        private void UpdateRingIdToSubstrateId(string substrateName, ref string[] linesToChange)
+        {
+            for (int i = 0; i < linesToChange.Length; ++i)
+            {
+                var parts = linesToChange[i].Split(new char[] { '\t' }, StringSplitOptions.None);
+                if (parts.Length < 2)
+                    continue;
+
+                parts[2] = substrateName;
+                linesToChange[i] = string.Join("\t", parts);
+            }
         }
         public void BackupCarrierHistory(int portId, string carrierId, string lotId, List<string> substrates, bool isCore)
         {
@@ -946,69 +1071,71 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                         MoveSubstrateHistoryFile(type, substrates[i], backupSubstratePath);
                     }
 
+                    #region <원본>
                     // Bin인 경우, 읽은 바디를 정렬하여 Bin Carrier에 삽입한다.
-                    if (false == isCore && substrates.Count > 0)
-                    {
-                        string carrierHistoryBody = string.Empty;
-                        using (StreamReader sr = new StreamReader(sourceFilePath))
-                        {
-                            carrierHistoryBody = sr.ReadToEnd();
-                        }
+                    //if (false == isCore && substrates.Count > 0)
+                    //{
+                    //    string carrierHistoryBody = string.Empty;
+                    //    using (StreamReader sr = new StreamReader(sourceFilePath))
+                    //    {
+                    //        carrierHistoryBody = sr.ReadToEnd();
+                    //    }
 
-                        var rawLinesFromFile = new Dictionary<DateTime, string>();
-                        var newBodiesBySorting = new List<string>();
-                        string[] splittedCarrierHistory = carrierHistoryBody.Split('\n');
-                        if (splittedCarrierHistory != null)
-                        {
-                            int i;
-                            DateTime time;
+                    //    var rawLinesFromFile = new Dictionary<DateTime, string>();
+                    //    var newBodiesBySorting = new List<string>();
+                    //    string[] splittedCarrierHistory = carrierHistoryBody.Split('\n');
+                    //    if (splittedCarrierHistory != null)
+                    //    {
+                    //        int i;
+                    //        DateTime time;
 
-                            #region <Carrier History>
-                            for (i = 0; i < splittedCarrierHistory.Length; ++i)
-                            {
-                                time = DateTime.Now;
-                                if (false == GetHistoryTimeFromLog(splittedCarrierHistory[i], ref time))
-                                    continue;
+                    //        #region <Carrier History>
+                    //        for (i = 0; i < splittedCarrierHistory.Length; ++i)
+                    //        {
+                    //            time = DateTime.Now;
+                    //            if (false == GetHistoryTimeFromLog(splittedCarrierHistory[i], ref time))
+                    //                continue;
 
-                                rawLinesFromFile[time] = splittedCarrierHistory[i];
-                            }
-                            #endregion </Carrier History>
+                    //            rawLinesFromFile[time] = splittedCarrierHistory[i];
+                    //        }
+                    //        #endregion </Carrier History>
 
-                            #region <Substrate History>
-                            foreach (var item in filebodies)
-                            {
-                                string[] splittedSubstrateHistory = item.Value.Split('\n');
-                                for (i = 0; i < splittedSubstrateHistory.Length; ++i)
-                                {
-                                    time = DateTime.Now;
-                                    if (false == GetHistoryTimeFromLog(splittedSubstrateHistory[i], ref time))
-                                        continue;
+                    //        #region <Substrate History>
+                    //        foreach (var item in filebodies)
+                    //        {
+                    //            string[] splittedSubstrateHistory = item.Value.Split('\n');
+                    //            for (i = 0; i < splittedSubstrateHistory.Length; ++i)
+                    //            {
+                    //                time = DateTime.Now;
+                    //                if (false == GetHistoryTimeFromLog(splittedSubstrateHistory[i], ref time))
+                    //                    continue;
 
-                                    rawLinesFromFile[time] = splittedSubstrateHistory[i];
-                                }
-                            }
-                            #endregion </Substrate History>
+                    //                rawLinesFromFile[time] = splittedSubstrateHistory[i];
+                    //            }
+                    //        }
+                    //        #endregion </Substrate History>
 
-                            #region <Sort>                            
-                            newBodiesBySorting = rawLinesFromFile.OrderBy(item => item.Key).ToDictionary(x => x.Key, x => x.Value).Values.ToList();
+                    //        #region <Sort>                            
+                    //        newBodiesBySorting = rawLinesFromFile.OrderBy(item => item.Key).ToDictionary(x => x.Key, x => x.Value).Values.ToList();
 
-                            if (newBodiesBySorting.Count > 0)
-                            {
-                                // 파일을 지우고
-                                File.Delete(sourceFilePath);
+                    //        if(newBodiesBySorting.Count > 0)
+                    //        {
+                    //            // 파일을 지우고
+                    //            File.Delete(sourceFilePath);
 
-                                // 정렬된 파일로 새로 쓴다.
-                                using (StreamWriter sw = new StreamWriter(sourceFilePath))
-                                {
-                                    for (i = 0; i < newBodiesBySorting.Count; ++i)
-                                    {
-                                        sw.Write(newBodiesBySorting[i]);
-                                    }
-                                }
-                            }
-                            #endregion </Sort>
-                        }
-                    }
+                    //            // 정렬된 파일로 새로 쓴다.
+                    //            using (StreamWriter sw = new StreamWriter(sourceFilePath))
+                    //            {
+                    //                for(i = 0; i < newBodiesBySorting.Count; ++i)
+                    //                {
+                    //                    sw.Write(newBodiesBySorting[i]);
+                    //                }
+                    //            }
+                    //        }
+                    //        #endregion </Sort>
+                    //    }
+                    //}
+                    #endregion </원본>
                 }
 
                 // Carrier History
@@ -1216,9 +1343,23 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         }
         public void WriteSubstrateHistoryForUploadBinData(int portId, string substrateName, string pmsPath)
         {
-            WriteSubstrateLog(substrateName, SubstrateBasedEventType.UploadBinData, SubstrateType.Bin, string.Format("맵과 작업 정보 업로드 진행 [PMS파일 경로:{0}]", pmsPath));
+            var fullPath = Path.GetFullPath(pmsPath);
+            WriteSubstrateLog(substrateName, SubstrateBasedEventType.UploadBinData, SubstrateType.Bin, string.Format("맵과 작업 정보 업로드 진행 [PMS파일 경로:{0}]", fullPath));
         }
         #endregion </SubstrateBasedEvents>
+
+        #region <Executing>
+        public void ExecuteWriteAsync()
+        {
+            if (QueueToWrite.Count <= 0)
+                return;
+
+            if (QueueToWrite.TryDequeue(out Tuple<string, string> logInfoToWrite))
+            {
+                WriteLog(logInfoToWrite.Item1, logInfoToWrite.Item2);
+            }
+        }
+        #endregion </Executing>
 
         #region <Internal>
         private bool GetHistoryTimeFromLog(string message, ref DateTime time)
@@ -1322,32 +1463,51 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         private void WriteSubstrateLog(string substrateName, SubstrateBasedEventType type, SubstrateType substrateType, string message)
         {
             string filePath = string.Format(@"{0}\{1}\{2}{3}", BasePathForSubstrate, substrateType.ToString(), substrateName, LogFileExtension);
+            DateTime time = DateTime.Now;
+            var logEntry = string.Format("{0:d2}/{1:d2}-{2:d2}:{3:d2}:{4:d2}.{5:d3}\t{6}\t{7}\t{8}\t{9}",
+                time.Month,
+                time.Day,
+                time.Hour,
+                time.Minute,
+                time.Second,
+                time.Millisecond,
+                string.Empty,       // Carrier Event Type
+                substrateName,      // SubstrateName
+                type.ToString(),    // Substrate Event Type
+                message);
 
-            try
-            {
-                string dirName = Path.GetDirectoryName(filePath);
-                if (false == Directory.Exists(dirName))
-                    Directory.CreateDirectory(dirName);
+            EnqueueLogToWrite(filePath, logEntry);
 
-                using (StreamWriter sw = new StreamWriter(filePath, true))
-                {
-                    DateTime time = DateTime.Now;
-                    var logEntry = string.Format("{0:d2}:{1:d2}:{2:d2}.{3:d3}\t{4}\t{5}\t{6}\t{7}",
-                        time.Hour,
-                        time.Minute,
-                        time.Second,
-                        time.Millisecond,
-                        string.Empty,       // Carrier Event Type
-                        substrateName,      // SubstrateName
-                        type.ToString(),    // Substrate Event Type
-                        message);
+            #region <원본>
+            //try
+            //{
+            //    string dirName = Path.GetDirectoryName(filePath);
+            //    if (false == Directory.Exists(dirName))
+            //        Directory.CreateDirectory(dirName);
 
-                    sw.WriteLine(logEntry);
-                }
-            }
-            catch (Exception)
-            {
-            }
+            //    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
+            //    using (StreamWriter sw = new StreamWriter(fs))
+            //    {
+            //        sw.AutoFlush = true;
+
+            //        DateTime time = DateTime.Now;
+            //        var logEntry = string.Format("{0:d2}:{1:d2}:{2:d2}.{3:d3}\t{4}\t{5}\t{6}\t{7}",
+            //            time.Hour,
+            //            time.Minute,
+            //            time.Second,
+            //            time.Millisecond,
+            //            string.Empty,       // Carrier Event Type
+            //            substrateName,      // SubstrateName
+            //            type.ToString(),    // Substrate Event Type
+            //            message);
+
+            //        sw.WriteLine(logEntry);
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //}
+            #endregion </원본>
         }
         private void WriteCarrierLog(int portId, string carrierId, string substrateName, SubstrateBasedEventType type, string message)
         {
@@ -1355,32 +1515,56 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 return;
 
             string filePath = string.Format(@"{0}\{1}{2}", basePath, carrierId, LogFileExtension);
+            DateTime time = DateTime.Now;
+            var logEntry = string.Format("{0:d2}/{1:d2}-{2:d2}:{3:d2}:{4:d2}.{5:d3}\t{6}\t{7}\t{8}\t{9}",
+                time.Month,
+                time.Day,
+                time.Hour,
+                time.Minute,
+                time.Second,
+                time.Millisecond,
+                string.Empty,       // Carrier Event Type
+                substrateName,      // SubstrateName
+                type.ToString(),    // Substrate Event Type
+                message);
 
-            try
+            if (_logMessageToDisplay != null)
             {
-                string dirName = Path.GetDirectoryName(filePath);
-                if (false == Directory.Exists(dirName))
-                    Directory.CreateDirectory(dirName);
-
-                using (StreamWriter sw = new StreamWriter(filePath, true))
-                {
-                    DateTime time = DateTime.Now;
-                    var logEntry = string.Format("{0:d2}:{1:d2}:{2:d2}.{3:d3}\t{4}\t{5}\t{6}\t{7}",
-                        time.Hour,
-                        time.Minute,
-                        time.Second,
-                        time.Millisecond,
-                        string.Empty,       // Carrier Event Type
-                        substrateName,      // SubstrateName
-                        type.ToString(),    // Substrate Event Type
-                        message);
-
-                    sw.WriteLine(logEntry);
-                }
+                _logMessageToDisplay(portId, logEntry);
             }
-            catch (Exception)
-            {
-            }
+
+            EnqueueLogToWrite(filePath, logEntry);
+
+            #region <원본>
+            //try
+            //{
+            //    string dirName = Path.GetDirectoryName(filePath);
+            //    if (false == Directory.Exists(dirName))
+            //        Directory.CreateDirectory(dirName);
+
+            //    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
+            //    using (StreamWriter sw = new StreamWriter(fs))
+            //    {
+            //        sw.AutoFlush = true;
+
+            //        DateTime time = DateTime.Now;
+            //        var logEntry = string.Format("{0:d2}:{1:d2}:{2:d2}.{3:d3}\t{4}\t{5}\t{6}\t{7}",
+            //            time.Hour,
+            //            time.Minute,
+            //            time.Second,
+            //            time.Millisecond,
+            //            string.Empty,       // Carrier Event Type
+            //            substrateName,      // SubstrateName
+            //            type.ToString(),    // Substrate Event Type
+            //            message);
+
+            //        sw.WriteLine(logEntry);
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //}
+            #endregion </원본>
         }
         private void WriteCarrierLog(int portId, string carrierId, CarrierBasedEventType type, string message)
         {
@@ -1388,25 +1572,69 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 return;
 
             string filePath = string.Format(@"{0}\{1}{2}", basePath, carrierId, LogFileExtension);
+            DateTime time = DateTime.Now;
+            var logEntry = string.Format("{0:d2}/{1:d2}-{2:d2}:{3:d2}:{4:d2}.{5:d3}\t{6}\t{7}\t{8}\t{9}",
+                time.Month,
+                time.Day,
+                time.Hour,
+                time.Minute,
+                time.Second,
+                time.Millisecond,
+                type.ToString(),        // Carrier Event Type
+                string.Empty,           // SubstrateName
+                string.Empty,           // Substrate Event Type
+                message);
 
+            EnqueueLogToWrite(filePath, logEntry);
+
+            #region <원본>
+            //try
+            //{
+            //    string dirName = Path.GetDirectoryName(filePath);
+            //    if (false == Directory.Exists(dirName))
+            //        Directory.CreateDirectory(dirName);
+
+            //    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
+            //    using (StreamWriter sw = new StreamWriter(fs))
+            //    {
+            //        sw.AutoFlush = true;
+
+            //        DateTime time = DateTime.Now;
+            //        var logEntry = string.Format("{0:d2}:{1:d2}:{2:d2}.{3:d3}\t{4}\t{5}\t{6}\t{7}",
+            //            time.Hour,
+            //            time.Minute,
+            //            time.Second,
+            //            time.Millisecond,
+            //            type.ToString(),        // Carrier Event Type
+            //            string.Empty,           // SubstrateName
+            //            string.Empty,           // Substrate Event Type
+            //            message);
+
+            //        sw.WriteLine(logEntry);
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //}
+            #endregion </원본>
+        }
+
+        private void EnqueueLogToWrite(string filePath, string logEntry)
+        {
+            QueueToWrite.Enqueue(Tuple.Create(filePath, logEntry));
+        }
+        private void WriteLog(string filePath, string logEntry)
+        {
             try
             {
                 string dirName = Path.GetDirectoryName(filePath);
                 if (false == Directory.Exists(dirName))
                     Directory.CreateDirectory(dirName);
 
-                using (StreamWriter sw = new StreamWriter(filePath, true))
+                using (FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    DateTime time = DateTime.Now;
-                    var logEntry = string.Format("{0:d2}:{1:d2}:{2:d2}.{3:d3}\t{4}\t{5}\t{6}\t{7}",
-                        time.Hour,
-                        time.Minute,
-                        time.Second,
-                        time.Millisecond,
-                        type.ToString(),        // Carrier Event Type
-                        string.Empty,           // SubstrateName
-                        string.Empty,           // Substrate Event Type
-                        message);
+                    sw.AutoFlush = true;
 
                     sw.WriteLine(logEntry);
                 }

@@ -33,10 +33,18 @@ using System.Runtime.InteropServices;
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("2.14.36.50")]
+[assembly: AssemblyFileVersion("2.15.36.51")]
 
 // Version : [호환성.추가.변경.개선]
 #region <VERSION HISTORY>
+
+#region <2.15.36.51>
+// 1. 공정설비 자재정보 제거되지 않던 버그 개선
+#endregion </2.15.36.51>
+
+#region <2.15.36.50>
+// 1. Lot History UI 추가
+#endregion </2.15.36.50>
 
 #region <2.14.36.50>
 // 1. FDC ESD 누락 개선

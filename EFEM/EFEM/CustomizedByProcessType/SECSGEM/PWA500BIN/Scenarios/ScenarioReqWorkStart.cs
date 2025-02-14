@@ -25,7 +25,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
     {
         #region <Constructors>
         public ScenarioReqWorkStart(string name, long eventId, List<long> variables,
-            long streamToHandling, long funcToSetupRequest, long funcToDataRequest, uint timeOut = 5000)
+            long streamToHandling, long funcToSetupRequest, long funcToDataRequest, uint timeOut = 10000)
             : base(name, timeOut)
         {
             _receiveMessageFormat = new List<SemiObject>();
