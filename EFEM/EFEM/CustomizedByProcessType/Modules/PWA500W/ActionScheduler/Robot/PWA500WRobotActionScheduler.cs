@@ -729,15 +729,6 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     {
                         // 픽하기 전 로드포트 준비상태를 체크한다.
                         // 로딩 요청인 경우
-                        
-                        // 2025.02.13. dwlim [MOD] Core Substrate 여러개 Loading 되는 문제 수정
-                        string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
-                        List<Substrate> busySubstrates = new List<Substrate>();
-                        _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref busySubstrates);
-                        string busySubstrateName = string.Empty;
-                        string requestedSubstrateName = string.Empty;
-                        bool comparedResult = false;
-                        //
                         if (_requestedLoadingLocation.Count > 0)
                         {
                             if (false == _turnLoad)
@@ -748,20 +739,6 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                         }
                         for (int i = 0; i < _requestedLoadingLocation.Count; i++)
                         {
-                            foreach (var item in busySubstrates)
-                            {
-                                comparedResult = false;
-                                busySubstrateName = item.GetLocation().Name.ToString().Substring(4, 12);
-                                requestedSubstrateName = _requestedLoadingLocation[i].Substring(4, 12);
-                                if (busySubstrateName == requestedSubstrateName)
-                                {
-                                    comparedResult = true;
-                                }
-                            }
-
-                            if (comparedResult)
-                                continue;
-                            // 2025.02.13. dwlim [END]
                             //locationName = _requestedLoadingLocation.First();
                             if (GetSubstrateTypeByLoadingLocation(_requestedLoadingLocation[i], ref substrateType))
                             {
@@ -824,7 +801,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                     return GetNotCompletedStatus();
 
                                 ProcessModuleLocation processModuleLocation = new ProcessModuleLocation("", "");
-                                //processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+                                string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
                                 substrateName = string.Empty;
                                 if (_locationServer.GetProcessModuleLocation(processModuleName, _requestedUnloadingLocation[i], ref processModuleLocation))
                                 {
