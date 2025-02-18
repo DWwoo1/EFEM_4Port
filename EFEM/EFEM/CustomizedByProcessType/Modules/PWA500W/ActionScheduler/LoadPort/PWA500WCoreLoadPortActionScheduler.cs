@@ -15,6 +15,8 @@ using EFEM.Defines.MaterialTracking;
 using EFEM.MaterialTracking.LocationServer;
 using EFEM.ActionScheduler.LoadPortActionSchedulers;
 
+using FrameOfSystem3.SECSGEM.Scenario;
+
 namespace EFEM.CustomizedByProcessType.PWA500W
 {
     public class CoreLoadPortActionScheduler : BaseLoadPortActionScheduler
@@ -84,7 +86,82 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
         protected override CARRIER_PORT_TYPE DecideNextAction()
         {
-            return base.DecideNextAction();
+            switch (_loadPortInformation.TransferState)
+            {
+                case LoadPortTransferStates.TransferBlocked:
+                    if (ShouldUnloadCarrier())
+                    {
+                        if (_loadPortInformation.DoorState ||
+                            _loadPortInformation.DockState ||
+                            _loadPortInformation.ClampState)
+                        {
+                            return CARRIER_PORT_TYPE.ACTION_UNLOAD;
+                        }
+                        else
+                        {
+                            return CARRIER_PORT_TYPE.READY_TO_UNLOAD;
+                        }
+                    }
+                    else
+                    {
+                        if (false == _loadPortInformation.DoorState)
+                        {
+                            //for (int i = 0; i < _loadPortManager.Count; i++)
+                            //{
+                            //    if (i == (int)LoadPortType.Sort_12 || i == Index)
+                            //        continue;
+
+                            //    if (_loadPortInformation.TransferState.Equals(LoadPortTransferStates.TransferBlocked) && _loadPortInformation.DoorState)
+                            //    {
+                            //        //안될듯
+                            //    }
+                            //}
+                            switch (Index)
+                            {
+                                case (int)LoadPortType.Core_8_1:
+                                    if (_carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_2).Equals(CarrierAccessStates.InAccessed)
+                                        || _carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_12).Equals(CarrierAccessStates.InAccessed))
+                                    {
+                                        return CARRIER_PORT_TYPE.SELECTION;
+                                    }
+                                    else
+                                    {
+                                        return CARRIER_PORT_TYPE.ACTION_LOAD;
+                                    }
+                                case (int)LoadPortType.Core_8_2:
+                                    if (_carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_1).Equals(CarrierAccessStates.InAccessed)
+                                        || _carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_12).Equals(CarrierAccessStates.InAccessed))
+                                    {
+                                        return CARRIER_PORT_TYPE.SELECTION;
+                                    }
+                                    else
+                                    {
+                                        return CARRIER_PORT_TYPE.ACTION_LOAD;
+                                    }
+                                case (int)LoadPortType.Core_12:
+                                    if (_carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_1).Equals(CarrierAccessStates.InAccessed)
+                                        || _carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_2).Equals(CarrierAccessStates.InAccessed))
+                                    {
+                                        return CARRIER_PORT_TYPE.SELECTION;
+                                    }
+                                    else
+                                    {
+                                        return CARRIER_PORT_TYPE.ACTION_LOAD;
+                                    }
+                            }
+                        }
+                    }
+                    break;
+
+                case LoadPortTransferStates.ReadyToLoad:
+                    return CARRIER_PORT_TYPE.READY_TO_LOAD;
+
+                case LoadPortTransferStates.ReadyToUnload:
+                    return CARRIER_PORT_TYPE.READY_TO_UNLOAD;
+
+            }
+
+            return CARRIER_PORT_TYPE.SELECTION;
         }
         #endregion </Methods>
     }

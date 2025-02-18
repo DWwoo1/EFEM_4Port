@@ -247,7 +247,8 @@ namespace EFEM.Modules.LoadPort
             get
             {
                 if (State == null)
-                    return LoadPortLoadingMode.Cassette;
+                    // TODO : 2025.02.17. dwlim [MOD] 기본을 Cassette에서 Foup으로 변경하였는데, 나중에 PM에 맞게 적용하게끔 수정 필요
+                    return LoadPortLoadingMode.Foup;
 
                 return State.LoadingType;
             }

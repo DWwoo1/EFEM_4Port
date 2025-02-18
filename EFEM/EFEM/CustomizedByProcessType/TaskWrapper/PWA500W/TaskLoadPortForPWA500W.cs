@@ -24,19 +24,33 @@ namespace FrameOfSystem3.Task
         public TaskLoadPortForPWA500W(int nIndexOfTask, string strTaskName)
             : base(nIndexOfTask, strTaskName, new TaskLoadPortRecovery500W(strTaskName, nIndexOfTask))
         {
+            ScenarioTypeToCarrierLoad = ScenarioListTypes.SCENARIO_PORT_STATUS_LOAD_1 + LoadPortIndex;
+
+            _scenarioManager = ScenarioManagerForPWA500W_NRD.Instance;
+
             _recovery = _recoveryData as TaskLoadPortRecovery500W;
         }
         #endregion </Constructors>
 
         #region <Fields>
+        private readonly Enum ScenarioTypeToCarrierLoad;
         private const int CarrierMaxCapacity = 25;
         private const int ProcessModuleIndex = 0;       // 2025.01.07. by dwlim [ADD] Loading Mode를 안쓰는 안쓰는 Process Module이 있어서, 구분 위한 추가
 
         private CommandResults _commandResult = new CommandResults("", CommandResult.Invalid);
         private static TaskLoadPortRecovery500W _recovery;
+
+        private static ScenarioManagerForPWA500W_NRD _scenarioManager = null;
         #endregion </Fields>
 
         #region <Properties>
+        SubstrateType MySubstrateType
+        {
+            get
+            {
+                return _scenarioManager.GetSubstrateTypeByLoadPortIndex(LoadPortIndex);
+            }
+        }
         #endregion </Properties>
 
         #region <Methods>
@@ -114,7 +128,87 @@ namespace FrameOfSystem3.Task
         {
         }
         protected override bool UpdateParamToLoadCarrier()
-        {           
+        {
+            switch (MySubstrateType)
+            {
+                case SubstrateType.Core_8:
+                    {
+                        int portId = _loadPortManager.GetLoadPortPortId((int)LoadPortType.Sort_12);
+                        if (_carrierServer.HasCarrier(portId))
+                            return false;
+
+                        _commandResult.ActionName = ScenarioTypeToCarrierLoad.ToString();
+                        _loadingMode = _loadPortManager.GetCarrierLoadingType(LoadPortIndex);
+                        ScenarioListTypes typeOfScenario = (ScenarioListTypes)ScenarioTypeToCarrierLoad;
+
+                        _scenarioManager.EnqueueScenarioCarrierHandlingAsync(PortId, _loadingMode, string.Empty, typeOfScenario);
+                        return true;
+                    }
+                case SubstrateType.Core_12:
+                    {
+                        for (int i = 0; i < _loadPortManager.Count; ++i)
+                        {
+                            var substrateType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+                            if (false == substrateType.Equals(SubstrateType.Core_8))
+                                continue;
+
+                            int portId = _loadPortManager.GetLoadPortPortId(i);
+                            if (_carrierServer.HasCarrier(portId))
+                                return false;
+                        }
+
+                        _commandResult.ActionName = ScenarioTypeToCarrierLoad.ToString();
+                        _loadingMode = _loadPortManager.GetCarrierLoadingType(LoadPortIndex);
+                        ScenarioListTypes typeOfScenario = (ScenarioListTypes)ScenarioTypeToCarrierLoad;
+
+                        _scenarioManager.EnqueueScenarioCarrierHandlingAsync(PortId, _loadingMode, string.Empty, typeOfScenario);
+                        return true;
+                    }
+                case SubstrateType.Bin_12:
+                    {
+                        LoadPortLoadingMode loadingMode = LoadPortLoadingMode.Unknown;
+                        for (int i = 0; i < _loadPortManager.Count; ++i)
+                        {
+                            var substrateType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+                            if (false == substrateType.Equals(SubstrateType.Core_8) || false == substrateType.Equals(SubstrateType.Core_12))
+                                continue;
+
+                            int portId = _loadPortManager.GetLoadPortPortId(i);
+                            if (false == _carrierServer.HasCarrier(portId))
+                                continue;
+
+                            loadingMode = _loadPortManager.GetCarrierLoadingType(i);
+                            break;
+                        }
+
+                        // 아직 Core 캐리어가 도착하지 않은 거다..
+                        if (loadingMode.Equals(LoadPortLoadingMode.Unknown))
+                            return false;
+
+                        string binLotId = string.Empty;
+                        switch (loadingMode)
+                        {
+                            case LoadPortLoadingMode.Foup:
+                                {
+                                    binLotId = CarrierLotIdType.PEMAC.ToString();
+                                }
+                                break;
+                            default:
+                                return false;
+                        }
+
+                        _commandResult.ActionName = ScenarioTypeToCarrierLoad.ToString();
+                        _loadingMode = _loadPortManager.GetCarrierLoadingType(LoadPortIndex);
+                        ScenarioListTypes typeOfScenario = (ScenarioListTypes)ScenarioTypeToCarrierLoad;
+
+                        _scenarioManager.EnqueueScenarioCarrierHandlingAsync(PortId, _loadingMode, binLotId, typeOfScenario);
+                        return true;
+                    }
+
+                default:
+                    break;
+            }
+
             return false;
         }
         protected override CommandResults ExecuteScenarioToLoadCarrier()

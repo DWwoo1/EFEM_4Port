@@ -499,20 +499,21 @@ namespace EFEM.Modules.LoadPort.LoadPortControllers
                     else
                     {
                         // TODO : dwlim [ADD] Simulation 돌리는데 4Port는 PortId 1부터 Carrier에 Wafer 있어야함
-                        if (PortId < 1/*PortId < 4*/)
-                        {
-                            slotstate[i] = Defines.LoadPort.CarrierSlotMapStates.Empty;
-                        }
-                        else
-                        {
-                            if (i == 0)
-                            {
-                                slotstate[i] = Defines.LoadPort.CarrierSlotMapStates.Empty;
-                                continue;
-                            }
+                        slotstate[i] = Defines.LoadPort.CarrierSlotMapStates.CorrectlyOccupied;
+                        //if (PortId < 4)
+                        //{
+                        //    slotstate[i] = Defines.LoadPort.CarrierSlotMapStates.Empty;
+                        //}
+                        //else
+                        //{
+                        //    if (i == 0)
+                        //    {
+                        //        slotstate[i] = Defines.LoadPort.CarrierSlotMapStates.Empty;
+                        //        continue;
+                        //    }
 
-                            slotstate[i] = Defines.LoadPort.CarrierSlotMapStates.CorrectlyOccupied;
-                        }
+                        //    slotstate[i] = Defines.LoadPort.CarrierSlotMapStates.CorrectlyOccupied;
+                        //}
                     }
                 }
             }
