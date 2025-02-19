@@ -50,8 +50,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         #endregion </Constructors>
 
         #region <Fields>
-        private const int MaxCapacityCore = 1;
-        private const int MaxCapacityBin = 1;
+        private const int MaxCapacityCore = 3;
+        private const int MaxCapacityBin = 3;
         private const int ProcessingTime = 5;       // Sec
         private const string HandlingResultOk = "Ok";
         private readonly ConcurrentDictionary<string, bool> HandlingLoadRequestedForSimulator = null;

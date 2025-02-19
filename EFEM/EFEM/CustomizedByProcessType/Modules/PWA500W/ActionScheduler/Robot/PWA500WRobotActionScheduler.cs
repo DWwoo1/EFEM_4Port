@@ -551,15 +551,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     {
                         int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(substrate.GetDestinationPortId());
                         int targetSlot = 0;
-                        if (lpIndex == (int)LoadPortType.Sort_12)
-                        {
-                            if (false == GetNextSlotInformationToPlace(lpIndex, ref targetSlot))
-                                return false;
-                        }
-                        else
-                        {
-                            targetSlot = substrate.GetSourceSlot();
-                        }
+                        // TODO : 2025.02.19. dwlim [MOD] Sort_12 Substrate Source와 Destination 다른 문제 수정했음
+                        targetSlot = substrate.GetSourceSlot();
+                        //if (lpIndex == (int)LoadPortType.Sort_12)
+                        //{
+                        //    if (false == GetNextSlotInformationToPlace(lpIndex, ref targetSlot))
+                        //        return false;
+                        //}
+                        //else
+                        //{
+                        //    targetSlot = substrate.GetSourceSlot();
+                        //}
                         LoadPortLocation location = new LoadPortLocation(-1, -1, "");
                         _locationServer.GetLoadPortSlotLocation(substrate.GetDestinationPortId(), targetSlot, ref location);
 

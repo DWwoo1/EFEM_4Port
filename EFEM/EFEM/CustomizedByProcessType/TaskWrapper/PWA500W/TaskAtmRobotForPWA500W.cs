@@ -647,31 +647,6 @@ namespace FrameOfSystem3.Task
                 switch (targetType)
                 {
                     case SubstrateType.Core_8:
-                        {
-                            if (sourceSlot < 0)
-                            {
-                                targetSlot = -1;
-                                int capacity = _carrierServer.GetCapacity(targetPortId);
-                                for (int i = 0; i < capacity; ++i)
-                                {
-                                    if (false == _substrateManager.HasSubstrateAtLoadPort(targetPortId, i))
-                                    {
-                                        targetSlot = i;
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                targetSlot = sourceSlot;
-                            }
-
-                            if (targetSlot < 0)
-                                return false;
-
-                            return _carrierServer.HasCarrier(targetPortId);
-                        }
-
                     case SubstrateType.Core_12:
                         {
                             if (sourceSlot < 0)
@@ -697,7 +672,6 @@ namespace FrameOfSystem3.Task
 
                             return _carrierServer.HasCarrier(targetPortId);
                         }
-
                     case SubstrateType.Bin_12:
                         {
                             // TODO : 하드코딩
@@ -839,87 +813,91 @@ namespace FrameOfSystem3.Task
         {
             description = string.Empty;
             portId = -1; slot = -1;
-            switch (subType)
-            {
-                case SubstrateType.Bin_12:
-                    {
-                        int lpIndex = -1;
-                        for (int i = 0; i < _loadPortManager.Count; ++i)
-                        {
-                            // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
-                            //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
-                            //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
-                            //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
-                            //    paramName.ToString(),
-                            //    SubstrateType.Empty.ToString());
+            // TODO : 2025.02.19. dwlim [MOD] Sort_12 Substrate Source와 Destination 다른 문제 수정했음
+            portId = substrate.GetSourcePortId();
+            slot = substrate.GetSourceSlot();
+            return true;
+            //switch (subType)
+            //{
+            //    case SubstrateType.Bin_12:
+            //        {
+            //            int lpIndex = -1;
+            //            for (int i = 0; i < _loadPortManager.Count; ++i)
+            //            {
+            //                // 2024.09.03. jhlim [MOD] SubType을 UI에는 Center/Left/Right로 지정되도록 변경
+            //                //FrameOfSystem3.Recipe.PARAM_EQUIPMENT paramName;
+            //                //paramName = FrameOfSystem3.Recipe.PARAM_EQUIPMENT.LoadPortType1 + i;
+            //                //string subTypeByRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT,
+            //                //    paramName.ToString(),
+            //                //    SubstrateType.Empty.ToString());
 
-                            //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
-                            //    continue;
-                            SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
-                            // 2024.09.03. jhlim [END]
+            //                //if (false == Enum.TryParse(subTypeByRecipe, out SubstrateType convertedSubType))
+            //                //    continue;
+            //                SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
+            //                // 2024.09.03. jhlim [END]
 
-                            if (false == subType.Equals(convertedSubType))
-                                continue;
+            //                if (false == subType.Equals(convertedSubType))
+            //                    continue;
 
-                            lpIndex = i;
-                            break;
-                        }
+            //                lpIndex = i;
+            //                break;
+            //            }
 
-                        if (lpIndex < 0)
-                        {
-                            description = ErrorDescriptionForInvalidSubstratePortInfo;
-                            return false;
-                        }
+            //            if (lpIndex < 0)
+            //            {
+            //                description = ErrorDescriptionForInvalidSubstratePortInfo;
+            //                return false;
+            //            }
 
-                        portId = _loadPortManager.GetLoadPortPortId(lpIndex);
-                        if (portId <= 0)
-                        {
-                            description = ErrorDescriptionForInvalidSubstratePortInfo;
-                            return false;
-                        }
+            //            portId = _loadPortManager.GetLoadPortPortId(lpIndex);
+            //            if (portId <= 0)
+            //            {
+            //                description = ErrorDescriptionForInvalidSubstratePortInfo;
+            //                return false;
+            //            }
 
-                        if (false == _carrierServer.HasCarrier(portId))
-                        {
-                            description = ErrorDescriptionForDoesntHaveCarrier;
-                            return false;
-                        }
+            //            if (false == _carrierServer.HasCarrier(portId))
+            //            {
+            //                description = ErrorDescriptionForDoesntHaveCarrier;
+            //                return false;
+            //            }
 
-                        if (false == _loadPortManager.IsLoadPortEnabled(lpIndex))
-                        {
-                            description = ErrorDescriptionForLoadPortNotEnabled;
-                            return false;
-                        }
+            //            if (false == _loadPortManager.IsLoadPortEnabled(lpIndex))
+            //            {
+            //                description = ErrorDescriptionForLoadPortNotEnabled;
+            //                return false;
+            //            }
 
-                        if (false == _loadPortManager.GetDoorState(lpIndex))
-                        {
-                            description = ErrorDescriptionForDoorIsNotOpened;
-                            return false;
-                        }
+            //            if (false == _loadPortManager.GetDoorState(lpIndex))
+            //            {
+            //                description = ErrorDescriptionForDoorIsNotOpened;
+            //                return false;
+            //            }
 
-                        int capacity = _carrierServer.GetCapacity(portId);
-                        var substrates = _substrateManager.GetSubstratesAtLoadPort(portId);
-                        var loadingMode = _loadPortManager.GetCarrierLoadingType(lpIndex);
-                        for (int i = 0; i < capacity; ++i)
-                        {
-                            if (i == 0 && loadingMode.Equals(LoadPortLoadingMode.Cassette))
-                                continue;
+            //            int capacity = _carrierServer.GetCapacity(portId);
+            //            var substrates = _substrateManager.GetSubstratesAtLoadPort(portId);
+            //            var loadingMode = _loadPortManager.GetCarrierLoadingType(lpIndex);
+            //            for (int i = 0; i < capacity; ++i)
+            //            {
+            //                if (i == 0 && loadingMode.Equals(LoadPortLoadingMode.Cassette))
+            //                    continue;
 
-                            if (false == substrates.ContainsKey(i))
-                            {
-                                slot = i;
-                                return true;
-                            }
-                        }
+            //                if (false == substrates.ContainsKey(i))
+            //                {
+            //                    slot = i;
+            //                    return true;
+            //                }
+            //            }
 
-                        description = ErrorDescriptionForSlotIsFull;
-                        return false;
-                    }
+            //            description = ErrorDescriptionForSlotIsFull;
+            //            return false;
+            //        }
 
-                default:
-                    portId = substrate.GetSourcePortId();
-                    slot = substrate.GetSourceSlot();
-                    return true;
-            }
+            //    default:
+            //        portId = substrate.GetSourcePortId();
+            //        slot = substrate.GetSourceSlot();
+            //        return true;
+            //}
         }
 
         // Type과 Sub정보를 이용해서 Port 번호를 받아온다.
