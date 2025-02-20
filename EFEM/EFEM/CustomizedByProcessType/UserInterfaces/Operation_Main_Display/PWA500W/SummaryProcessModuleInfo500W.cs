@@ -52,6 +52,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
             _temporaryLoadingLocations = new List<string>();
             _temporaryUnloadingLocations = new List<string>();
             RequestedLocation = new Dictionary<string, int>();
+            RequestedInputLocation = new Dictionary<string, int>();
+            RequestedOutputLocation = new Dictionary<string, int>();
 
             InitGridControl();
             InitConnectionStatusGridViews();
@@ -69,6 +71,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
         private static CarrierManagementServer _carrierServer = null;
         private string _temporaryEquipmentState;
         private string _temporaryRecipeId;
+        private string[] substrateTypeName;
         private static SubstrateManager _substrateManager = null;
         private readonly List<int> CorePorts = null;
         private List<Substrate> _substratesAtProcessModule = null;
@@ -78,15 +81,22 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
 
         private const int ColumnSubstrateName = 0;
 
-        private const int ColumnRequestEnabled = 0;
-        private const int ColumnRequestLocation = 1;
+        private const int ColumnInputRequestEnabled = 0;
+        private const int ColumnOutputRequestEnabled = 1;
+        private const int ColumnRequestLocation = 2;
 
         private const int ColumnConnectionStatus = 0;
         private const int ColumnConnectionName = 1;
 
+        private const string ColumnName_Input = "Input";
+        private const string ColumnName_Output = "Output";
+
         private List<string> _temporaryLoadingLocations = null;
         private List<string> _temporaryUnloadingLocations = null;
         private readonly Dictionary<string, int> RequestedLocation = null;
+        private readonly Dictionary<string, int> RequestedInputLocation = null;
+        private readonly Dictionary<string, int> RequestedOutputLocation = null;
+        private Dictionary<int, int> _gvRequestLocation = null;
 
         private readonly Color EnabledColor = Color.LimeGreen;
         private readonly Color DisabledColor = Color.White;
@@ -98,6 +108,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
         private readonly string ProcessModuleName = string.Empty;
 
         private string _currentLotId = string.Empty;
+        private int _LocationColumn;
         #endregion </Fields>
 
         #region <Properties>
@@ -134,7 +145,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
         private void InitGridControl()
         {
             string[] locations = _processGroup.GetProcessModuleLocations(ProcessModuleIndex);
-
             gvReceivedRequest.Rows.Clear();
             for (int i = 0; i < locations.Length; ++i)
             {
@@ -142,12 +152,28 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
                 if (splitted.Length < 2)
                     continue;
 
-                string loc = splitted[splitted.Length - 1];
+                RequestedLocation[locations[i]] = i;
+            }
+            string[] substrateTypeName = Enum.GetNames(typeof(SubstrateTypeForUI));
+            for (int i = 0; i < substrateTypeName.Length; i++)
+            {
+                string loc = substrateTypeName[i];
                 gvReceivedRequest.Rows.Add();
                 gvReceivedRequest[ColumnRequestLocation, i].Value = loc;
-
-                RequestedLocation[locations[i]] = i;               
             }
+            //for (int i = 0; i < locations.Length; ++i)
+            //{
+            //    string[] splitted = locations[i].Split('.');
+            //    string[] splittedLocationName = splitted[splitted.Length - 1].Split('_');
+            //    if (!(splitted.Length < 2 || splittedLocationName.Length < 4))
+            //        continue;
+
+            //    string loc = splitted[splitted.Length - 1];
+            //    gvReceivedRequest.Rows.Add();
+            //    gvReceivedRequest[ColumnRequestLocation, i].Value = loc;
+
+            //    RequestedLocation[locations[i]] = i;
+            //}
         }
         private void UpdateSortGridView()
         {
@@ -252,19 +278,20 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
             //}
             #endregion original
         }
-        private void UpdateRequestedCellColor(int cellIndex, bool enabled)
+        private void UpdateRequestedCellColor(int columnIndex, int cellIndex, bool enabled)
         {
             if (gvReceivedRequest.Rows.Count <= cellIndex)
                 return;
+
             if(enabled)
             {
-                gvReceivedRequest.Rows[cellIndex].Cells[ColumnRequestEnabled].Style.BackColor = EnabledColor;
-                gvReceivedRequest.Rows[cellIndex].Cells[ColumnRequestEnabled].Style.SelectionBackColor = EnabledColor;
+                gvReceivedRequest.Rows[cellIndex].Cells[columnIndex].Style.BackColor = EnabledColor;
+                gvReceivedRequest.Rows[cellIndex].Cells[columnIndex].Style.SelectionBackColor = EnabledColor;
             }
             else
             {
-                gvReceivedRequest.Rows[cellIndex].Cells[ColumnRequestEnabled].Style.BackColor = DisabledColor;
-                gvReceivedRequest.Rows[cellIndex].Cells[ColumnRequestEnabled].Style.SelectionBackColor = DisabledColor;
+                gvReceivedRequest.Rows[cellIndex].Cells[columnIndex].Style.BackColor = DisabledColor;
+                gvReceivedRequest.Rows[cellIndex].Cells[columnIndex].Style.SelectionBackColor = DisabledColor;
             }
         }
         private void UpdateServiceStatus()
@@ -394,44 +421,27 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
             #endregion </Status>
 
             #region <Requests>
-            //_temporaryLocations.Clear();
             _temporaryLoadingLocations.Clear();
             _temporaryUnloadingLocations.Clear();
             _processGroup.IsLoadingRequested(ProcessModuleIndex, ref _temporaryLoadingLocations);
             _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref _temporaryUnloadingLocations);
-
-            //_temporaryLocations.AddRange(_temporaryLoadingLocations);
-            //_temporaryLocations.AddRange(_temporaryUnloadingLocations);
-
 
             foreach (var item in RequestedLocation)
             {
                 bool hasRequest = (_temporaryLoadingLocations.Contains(item.Key)
                     || _temporaryUnloadingLocations.Contains(item.Key));
 
-                UpdateRequestedCellColor(item.Value, hasRequest);
+                int gvColumnIndex = item.Key.Contains(ColumnName_Input) ? ColumnInputRequestEnabled :
+                                    item.Key.Contains(ColumnName_Output) ? ColumnOutputRequestEnabled : -1;
+                int gvRowIndex = item.Key.Contains(Constants.Core_8_Name) ? (int)SubstrateType.Core_8 :
+                                item.Key.Contains(Constants.Core_12_Name) ? (int)SubstrateType.Core_12 :
+                                item.Key.Contains(Constants.Sort_12_Name) ? (int)SubstrateType.Bin_12 : -1;
+
+                if (gvColumnIndex == -1 || gvRowIndex == -1)
+                    continue;
+
+                UpdateRequestedCellColor(gvColumnIndex, gvRowIndex, hasRequest);
             }
-
-
-
-
-            //for (int i = 0; i < _temporaryLocations.Count; ++i)
-            //{
-            //    _temporaryLocation = _temporaryLocations[i];
-            //    if (RequestedLocation.ContainsKey(_temporaryLocation))
-            //    {
-            //        _temporaryIndex = RequestedLocation[_temporaryLocation];
-            //        gvReceivedRequest.Rows[_temporaryIndex].Cells[ColumnRequestEnabled].Style.BackColor = EnabledColor;
-            //        gvReceivedRequest.Rows[_temporaryIndex].Cells[ColumnRequestEnabled].Style.SelectionBackColor = EnabledColor;
-            //    }
-            //    else
-            //    {
-            //        _temporaryIndex = RequestedLocation[_temporaryLocation];
-            //        gvReceivedRequest.Rows[_temporaryIndex].Cells[ColumnRequestEnabled].Style.BackColor = DisabledColor;
-            //        gvReceivedRequest.Rows[_temporaryIndex].Cells[ColumnRequestEnabled].Style.SelectionBackColor = DisabledColor;
-            //    }
-            //}
-
             #endregion </Requests>
         }
         #endregion </Methods>
