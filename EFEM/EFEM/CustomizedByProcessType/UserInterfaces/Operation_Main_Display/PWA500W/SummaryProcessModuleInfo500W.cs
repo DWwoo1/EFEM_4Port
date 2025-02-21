@@ -161,19 +161,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
                 gvReceivedRequest.Rows.Add();
                 gvReceivedRequest[ColumnRequestLocation, i].Value = loc;
             }
-            //for (int i = 0; i < locations.Length; ++i)
-            //{
-            //    string[] splitted = locations[i].Split('.');
-            //    string[] splittedLocationName = splitted[splitted.Length - 1].Split('_');
-            //    if (!(splitted.Length < 2 || splittedLocationName.Length < 4))
-            //        continue;
-
-            //    string loc = splitted[splitted.Length - 1];
-            //    gvReceivedRequest.Rows.Add();
-            //    gvReceivedRequest[ColumnRequestLocation, i].Value = loc;
-
-            //    RequestedLocation[locations[i]] = i;
-            //}
         }
         private void UpdateSortGridView()
         {

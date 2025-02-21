@@ -69,7 +69,7 @@ namespace FrameOfSystem3.Task
         protected override void GetAtmRobotTaskName(out List<string> taskNames)
         {
             taskNames = new List<string>();
-            taskNames.Add("AtmRobot");
+            taskNames.Add(Define.DefineEnumProject.Task.EN_TASK_LIST.AtmRobot.ToString());
         }
         protected override void ExecuteOnCarrierPlaced()
         {

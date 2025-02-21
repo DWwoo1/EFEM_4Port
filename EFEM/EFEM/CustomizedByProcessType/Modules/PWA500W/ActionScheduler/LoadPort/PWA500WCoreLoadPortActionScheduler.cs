@@ -22,10 +22,19 @@ namespace EFEM.CustomizedByProcessType.PWA500W
     public class CoreLoadPortActionScheduler : BaseLoadPortActionScheduler
     {
         #region <Constructors>
-        public CoreLoadPortActionScheduler(int lpIndex) : base(lpIndex) { }
+        public CoreLoadPortActionScheduler(int lpIndex) : base(lpIndex)
+        {
+            _processGroup = ProcessModuleGroup.Instance;
+            _temporaryLoadingLocations = new List<string>();
+        }
         #endregion </Constructors>
 
         #region <Fields>
+        private static ProcessModuleGroup _processGroup = null;
+
+        private List<string> _temporaryLoadingLocations = null;
+
+        private const int ProcessModuleIndex = 0;
         #endregion </Fields>
 
         #region <Properties>
@@ -106,20 +115,10 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     {
                         if (false == _loadPortInformation.DoorState)
                         {
-                            //for (int i = 0; i < _loadPortManager.Count; i++)
-                            //{
-                            //    if (i == (int)LoadPortType.Sort_12 || i == Index)
-                            //        continue;
-
-                            //    if (_loadPortInformation.TransferState.Equals(LoadPortTransferStates.TransferBlocked) && _loadPortInformation.DoorState)
-                            //    {
-                            //        //안될듯
-                            //    }
-                            //}
                             switch (Index)
                             {
                                 case (int)LoadPortType.Core_8_1:
-                                    if (_carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_2).Equals(CarrierAccessStates.InAccessed)
+                                    if (false == CheckLoadingRequest(SubstrateTypeForUI.Core_8)
                                         || _carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_12).Equals(CarrierAccessStates.InAccessed))
                                     {
                                         return CARRIER_PORT_TYPE.SELECTION;
@@ -129,7 +128,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                         return CARRIER_PORT_TYPE.ACTION_LOAD;
                                     }
                                 case (int)LoadPortType.Core_8_2:
-                                    if (_carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_1).Equals(CarrierAccessStates.InAccessed)
+                                    if (false == CheckLoadingRequest(SubstrateTypeForUI.Core_8)
                                         || _carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_12).Equals(CarrierAccessStates.InAccessed))
                                     {
                                         return CARRIER_PORT_TYPE.SELECTION;
@@ -139,7 +138,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                         return CARRIER_PORT_TYPE.ACTION_LOAD;
                                     }
                                 case (int)LoadPortType.Core_12:
-                                    if (_carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_1).Equals(CarrierAccessStates.InAccessed)
+                                    if (false == CheckLoadingRequest(SubstrateTypeForUI.Core_12)
+                                        || _carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_1).Equals(CarrierAccessStates.InAccessed)
                                         || _carrierServer.GetCarrierAccessingStatus((int)LoadPortType.Core_8_2).Equals(CarrierAccessStates.InAccessed))
                                     {
                                         return CARRIER_PORT_TYPE.SELECTION;
@@ -162,6 +162,20 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
 
             return CARRIER_PORT_TYPE.SELECTION;
+        }
+        private bool CheckLoadingRequest(SubstrateTypeForUI subsType)
+        {
+            _processGroup.IsLoadingRequested(ProcessModuleIndex, ref _temporaryLoadingLocations);
+
+            if (_temporaryLoadingLocations == null)
+                return false;
+
+            foreach (var item in _temporaryLoadingLocations)
+            {
+                if (item.Contains(subsType.ToString()))
+                    return true;
+            }
+            return false;
         }
         #endregion </Methods>
     }
