@@ -41,6 +41,8 @@ namespace FrameOfSystem3.Task
 
         private readonly TickCounter Ticks = null;
         private const int ProcessModuleIndex = 0;
+        private const string TypeCore = "Core";
+        private const string TypeSort = "Sort";
         private readonly string ProcessModuleName = string.Empty;
 
         // 시간 파라메터화가 필요한가?
@@ -1180,9 +1182,54 @@ namespace FrameOfSystem3.Task
                         else
                         {
                             var processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
+
+                            List<string> requestedLocation = new List<string>();
+                            _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref requestedLocation);
+
                             var substrates = new List<Substrate>();
+                            var unloadingSubstrates = new List<Substrate>();
                             _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref substrates);
-                            substrate = substrates.First();
+
+                            bool existUnloadingCore = false;
+                            if (requestedLocation.Count != 0)
+                            {
+                                for (int i = 0; i < requestedLocation.Count; i++)
+                                {
+                                    if (false == requestedLocation[i].Contains(TypeCore))
+                                        continue;
+                                    foreach (var item in substrates)
+                                    {
+                                        if (item.GetLocation().Name.Contains(TypeCore))
+                                        {
+                                            if (false == item.GetProcessingStatus().Equals(ProcessingStates.Processed))
+                                                continue;
+
+                                            unloadingSubstrates.Add(item);
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    substrate = unloadingSubstrates.First();
+                                    existUnloadingCore = true;
+                                    break;
+                                }
+                                if (false == existUnloadingCore)
+                                {
+                                    foreach (var item in substrates)
+                                    {
+                                        if (item.GetLocation().Name.Contains(TypeSort))
+                                        {
+                                            if (false == item.GetProcessingStatus().Equals(ProcessingStates.Processed))
+                                                continue;
+
+                                            unloadingSubstrates.Add(item);
+                                        }
+                                    }
+                                    substrate = unloadingSubstrates.First();
+                                }
+                            }
                             substrateName = substrate.GetName();
                             lotId = substrate.GetLotId();
                             recipeId = substrate.GetRecipeId();

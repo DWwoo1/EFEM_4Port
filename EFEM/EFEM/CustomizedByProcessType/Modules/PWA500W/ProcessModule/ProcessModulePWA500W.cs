@@ -42,23 +42,35 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 }
             }
 
-            MinTicksForCoreHandling = 5000;
-            MinTicksForSortHandling = 7000;
+            //MinTicksForCoreHandling = 5000;
+            //MinTicksForSortHandling = 7000;
 
             Task.Run(() => InitCommunication());
         }
         #endregion </Constructors>
 
         #region <Fields>
-        private const int MaxCapacityCore = 3;
-        private const int MaxCapacityBin = 3;
         private const int ProcessingTime = 5;       // Sec
         private const string HandlingResultOk = "Ok";
         private readonly ConcurrentDictionary<string, bool> HandlingLoadRequestedForSimulator = null;
         private readonly ConcurrentDictionary<string, bool> HandlingUnloadRequestedForSimulator = null;
 
-        private readonly uint MinTicksForCoreHandling;
-        private readonly uint MinTicksForSortHandling;
+        //private readonly uint MinTicksForCoreHandling;
+        //private readonly uint MinTicksForSortHandling;
+
+        //임시
+        private const int ProcessableCoreCount = 2;
+        private const int ProcessableSortCount = 1;
+        private const int MaxCapacityCore = 3;
+        private const int MaxCapacityBin = 3;
+        private const string TypeCore = "Core";
+        private const string TypeSort = "Sort";
+        private string subname = string.Empty;
+        private int ProcessedCoreCount;
+        private int ProcessedSortCount;
+        private int unloadingRequestCount;
+        private SortedDictionary<DateTime, Substrate> SortedSubstrates = null;
+        //
 
         private readonly Dictionary<string, TickCounter> TickForLoading = null;
         private readonly Dictionary<string, TickCounter> TickForUnloading = null;
@@ -74,17 +86,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         {
             if (IsSimulation && false == enabled)
             {
-                if (false == TickForLoading.ContainsKey(location))
-                    return;
+                //if (false == TickForLoading.ContainsKey(location))
+                //    return;
 
-                if (location.Contains("Core"))
-                {
-                    TickForLoading[location].SetTickCount(MinTicksForCoreHandling);
-                }
-                else
-                {
-                    TickForLoading[location].SetTickCount(MinTicksForSortHandling);
-                }
+                //if (location.Contains("Core"))
+                //{
+                //    TickForLoading[location].SetTickCount(MinTicksForCoreHandling);
+                //}
+                //else
+                //{
+                //    TickForLoading[location].SetTickCount(MinTicksForSortHandling);
+                //}
             }
             base.SetLoadingSignal(location, enabled);
         }
@@ -93,17 +105,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         {
             if (IsSimulation && false == enabled)
             {
-                if (false == TickForUnloading.ContainsKey(location))
-                    return;
+                //if (false == TickForUnloading.ContainsKey(location))
+                //    return;
 
-                if (location.Contains("Core"))
-                {
-                    TickForUnloading[location].SetTickCount(MinTicksForCoreHandling);
-                }
-                else
-                {
-                    TickForUnloading[location].SetTickCount(MinTicksForSortHandling);
-                }
+                //if (location.Contains("Core"))
+                //{
+                //    TickForUnloading[location].SetTickCount(MinTicksForCoreHandling);
+                //}
+                //else
+                //{
+                //    TickForUnloading[location].SetTickCount(MinTicksForSortHandling);
+                //}
             }
             base.SetUnloadingSignal(location, enabled);
         }
@@ -172,9 +184,12 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         {
             if (IsSimulation)
             {
-                UpdateProcessStates();
-                MoveSubstrateLocationLoadToUnloadForSimulator();
+                SortedSubstrates =
+            new SortedDictionary<DateTime, Substrate>(Substrates.ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
             }
+
+            UpdateProcessStates();
+            MoveSubstrateLocationLoadToUnloadForSimulator();
         }
 
         #region <WCF>
@@ -221,14 +236,52 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         private void UpdateProcessStates()
         {
             DateTime currentTime = DateTime.Now;
-            foreach (var item in Substrates)
+
+            foreach (var item in SortedSubstrates)
             {
                 if (false == item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
                 {
-                    var elapsedTime = currentTime - item.Key;
-                    if (elapsedTime.TotalSeconds >= ProcessingTime)
+                    if(ProcessedCoreCount == ProcessableCoreCount && ProcessedSortCount == ProcessableSortCount)
                     {
-                        Substrates[item.Key].SetProcessingStatus(ProcessingStates.Processed);
+                        int unloadingRequestCount = 0;
+                        foreach (var unloadingRequest in HandlingUnloadRequestedForSimulator)
+                        {
+                            if (unloadingRequest.Value)
+                                unloadingRequestCount++;
+                        }
+                        if (unloadingRequestCount != 0)
+                        {
+                            continue;
+                        }
+
+                        ProcessedCoreCount = 0;
+                        ProcessedSortCount = 0;
+                    }
+                    else
+                    {
+                        var elapsedTime = currentTime - item.Key;
+                        if (elapsedTime.TotalSeconds >= ProcessingTime)
+                        {
+                            subname = item.Value.GetLocation().Name;
+                            if (subname.Contains(TypeCore))
+                            {
+                                if (ProcessedCoreCount >= ProcessableCoreCount || ProcessedSortCount > ProcessableSortCount)
+                                {
+                                    continue;
+                                }
+                                ProcessedCoreCount++;
+                                SortedSubstrates[item.Key].SetProcessingStatus(ProcessingStates.Processed);
+                            }
+                            else
+                            {
+                                if (ProcessedCoreCount < ProcessableCoreCount || ProcessedSortCount != ProcessableSortCount)
+                                {
+                                    continue;
+                                }
+                                ProcessedSortCount++;
+                                SortedSubstrates[item.Key].SetProcessingStatus(ProcessingStates.Processed);
+                            }
+                        }
                     }
                 }
             }
@@ -247,67 +300,41 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         {
             foreach (var item in HandlingLoadRequestedForSimulator)
             {
-                if (false == TickForLoading[item.Key].IsTickOver(true))
-                    continue;
-
                 if (item.Value)
+                {
                     locationNames.Add(item.Key);
+                }
             }
 
             return locationNames.Count > 0;
-            //foreach (var item in SubstratesInHandlingLocation)
-            //{
-            //    // 출구가 비어있으면 해당 입구를 반환한다.
-            //    if (item.Value == null && IsExitLocation(item.Key))
-            //    {
-            //        string handlingLocationName = string.Empty;
-            //        if (item.Key.Contains(Constants.CoreName))
-            //        {
-            //            handlingLocationName = string.Format("PM1.{0}{1}", Constants.CoreName, Constants.LoadingToken);
-
-            //        }
-            //        else if (item.Key.Contains(Constants.SortName))
-            //        {
-            //            handlingLocationName = string.Format("PM1.{0}{1}", Constants.SortName, Constants.LoadingToken);
-            //        }
-
-            //        if (SubstratesInHandlingLocation.ContainsKey(handlingLocationName))
-            //        {
-            //            locationNames.Add(handlingLocationName);
-            //        }
-            //    }
-            //}
-
-            //return locationNames.Count > 0;
         }
         private bool GetUnloadingRequestForSimulator(ref List<string> locationNames)
         {
+            unloadingRequestCount = 0;
+
             foreach (var item in HandlingUnloadRequestedForSimulator)
             {
-                if (false == TickForUnloading[item.Key].IsTickOver(true))
-                    continue;
-
                 if (item.Value)
-                    locationNames.Add(item.Key);
+                {
+                    unloadingRequestCount++;
+                    if (item.Key.Contains(TypeSort) && (ProcessedSortCount >= ProcessableSortCount && ProcessedCoreCount == ProcessableCoreCount))
+                    {
+                        locationNames.Add(item.Key);
+                    }
+                    else if (item.Key.Contains(TypeCore) && ProcessedCoreCount >= 1)
+                    {
+                        locationNames.Add(item.Key);
+                    }
+                }
             }
-
-            return locationNames.Count > 0;
-            //foreach (var item in SubstratesInHandlingLocation)
-            //{
-            //    if (item.Value != null && IsExitLocation(item.Key))
-            //    {
-            //        locationNames.Add(item.Key);
-            //    }
-            //}
-
-            //return locationNames.Count > 0;
+            return locationNames.Count == unloadingRequestCount;
         }
         // 2025.02.13 dwlim [MOD] 500W의 Substrate Type에 맞게 수정 
         private void MoveSubstrateLocationLoadToUnloadForSimulator()
         {
             int countCore = 0, countCore_8 = 0, countCore_12 = 0, countBin = 0;
             int countCore_8_Completed = 0, countCore_12_Completed = 0, countBinCompleted = 0;
-            foreach (var item in Substrates)
+            foreach (var item in SortedSubstrates)
             {
                 string subType = item.Value.GetAttribute(PWA500WSubstrateAttributes.SubstrateType);
                 if (false == Enum.TryParse(subType, out SubstrateType convertedType))
@@ -348,11 +375,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
 
             HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_8_InputName] = (countCore_8 < MaxCapacityCore);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (countCore_8_Completed >= 1);
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (countCore_8_Completed >= 1 && ProcessedCoreCount <= ProcessableCoreCount);
             //HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_12_InputName] = (countCore_12 < MaxCapacityCore);
             //HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_12_OutputName] = (countCore_12_Completed >= 1);
             HandlingLoadRequestedForSimulator[Constants.ProcessModuleSort_12_InputName] = (countBin < MaxCapacityBin);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleSort_12_OutputName] = (countBinCompleted >= 1);
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleSort_12_OutputName] = (countBinCompleted >= 1 && ProcessedCoreCount == ProcessableCoreCount);
         }
         // 2025.02.13 dwlim [END]
         #endregion </Simulation Only>
