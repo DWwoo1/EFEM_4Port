@@ -185,11 +185,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             if (IsSimulation)
             {
                 SortedSubstrates =
-            new SortedDictionary<DateTime, Substrate>(Substrates.ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
+                new SortedDictionary<DateTime, Substrate>(Substrates.ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
+                UpdateProcessStates();
+                MoveSubstrateLocationLoadToUnloadForSimulator();
             }
 
-            UpdateProcessStates();
-            MoveSubstrateLocationLoadToUnloadForSimulator();
         }
 
         #region <WCF>

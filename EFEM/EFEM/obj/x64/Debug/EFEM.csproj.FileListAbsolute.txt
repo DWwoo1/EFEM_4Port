@@ -469,3 +469,4 @@ D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\FrameOfSystem3.Views.Opera
 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.CustomizedByProcessType.UserInterface.OperationMainHistory.PWA500W.MainDisplaySubPanelLotHistoryDisplayer.resources
 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.CustomizedByProcessType.UserInterface.OperationMainHistory.PWA500W.SubViewOperationHistoryCurruntWorking500W.resources
 D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.CustomizedByProcessType.UserInterface.OperationMainHistory.PWA500W.SubViewOperationHistoryLotHistory500W.resources
+D:\PROJECT\PROGRAM\EFEM_4Port\EFEM\EFEM\obj\x64\Debug\EFEM.csproj.AssemblyReference.cache
