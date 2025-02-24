@@ -265,7 +265,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             subname = item.Value.GetLocation().Name;
                             if (subname.Contains(TypeCore))
                             {
-                                if (ProcessedCoreCount >= ProcessableCoreCount || ProcessedSortCount > ProcessableSortCount)
+                                if (ProcessedCoreCount >= ProcessableCoreCount || ProcessedSortCount > 0)
                                 {
                                     continue;
                                 }
@@ -274,7 +274,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             }
                             else
                             {
-                                if (ProcessedCoreCount < ProcessableCoreCount || ProcessedSortCount != ProcessableSortCount)
+                                if (ProcessedCoreCount < ProcessableCoreCount || ProcessedSortCount != 0)
                                 {
                                     continue;
                                 }
