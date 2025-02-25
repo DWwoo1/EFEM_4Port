@@ -326,7 +326,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         else if (sender.Equals(btnPickBinWafer))
                         {
                             pickAction = true;
-                            substrateType = SubstrateTypeForControl.Bin_12;
+                            substrateType = SubstrateTypeForControl.Sort_12;
                         }
                         else if (sender.Equals(btnPlaceCoreWafer))
                         {
@@ -336,7 +336,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         else if (sender.Equals(btnPlaceBinWafer))
                         {
                             pickAction = false;
-                            substrateType = SubstrateTypeForControl.Bin_12;
+                            substrateType = SubstrateTypeForControl.Sort_12;
                         }
                         else
                             return;
@@ -514,9 +514,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             if (enabled)
             {
                 btnPickCoreWafer.Enabled = IsSubstrateValidToPick(_panelMode, SubstrateTypeForControl.Core_8);
-                btnPickBinWafer.Enabled = IsSubstrateValidToPick(_panelMode, SubstrateTypeForControl.Bin_12);
+                btnPickBinWafer.Enabled = IsSubstrateValidToPick(_panelMode, SubstrateTypeForControl.Sort_12);
                 btnPlaceCoreWafer.Enabled = IsSubstrateValidToPlace(_panelMode, SubstrateTypeForControl.Core_8);
-                btnPlaceBinWafer.Enabled = IsSubstrateValidToPlace(_panelMode, SubstrateTypeForControl.Bin_12);
+                btnPlaceBinWafer.Enabled = IsSubstrateValidToPlace(_panelMode, SubstrateTypeForControl.Sort_12);
             }
             else
             {
@@ -597,7 +597,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         }
                     }
                     break;
-                case SubstrateTypeForControl.Bin_12:
+                case SubstrateTypeForControl.Sort_12:
                     {
                         if (_selectedLoadPortIndex == (int)LoadPortType.Sort_12)
                         {
@@ -645,9 +645,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                                 hasSubstrateAtArm = true;
                         }
                         break;
-                    case SubstrateType.Bin_12:
+                    case SubstrateType.Sort_12:
                         {
-                            if (substrateType.Equals(SubstrateTypeForControl.Bin_12))
+                            if (substrateType.Equals(SubstrateTypeForControl.Sort_12))
                                 hasSubstrateAtArm = true;
                         }
                         break;
@@ -776,7 +776,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                             return true;
                         }
 
-                        if (substrateType.Equals(SubstrateTypeForControl.Bin_12))
+                        if (substrateType.Equals(SubstrateTypeForControl.Sort_12))
                         {
                             if (pickAction)
                             {
@@ -936,7 +936,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                             }
                             return true;
                         }
-                        if (substrateType.Equals(SubstrateTypeForControl.Bin_12))
+                        if (substrateType.Equals(SubstrateTypeForControl.Sort_12))
                         {
                             if (pickAction)
                             {
@@ -962,7 +962,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                                     //Dictionary<string, string> pairs = item.Value.GetAttributesAll();
                                     string subType = item.Value.GetAttribute(PWA500WSubstrateAttributes.SubstrateType);
 
-                                    if (subType.Equals(SubstrateType.Bin_12.ToString()))
+                                    if (subType.Equals(SubstrateType.Sort_12.ToString()))
                                     {
                                         targetArm = item.Key;
                                         substrateInProcessModule = item.Value.GetName();
@@ -1120,7 +1120,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                     }
                     break;
 
-                case SubstrateTypeForControl.Bin_12:
+                case SubstrateTypeForControl.Sort_12:
                     {
                         if (_panelMode.Equals(PanelMode.Load))
                         {

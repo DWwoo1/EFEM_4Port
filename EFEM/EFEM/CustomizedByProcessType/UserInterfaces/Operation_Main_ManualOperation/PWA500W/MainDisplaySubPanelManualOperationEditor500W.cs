@@ -778,7 +778,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         case SubstrateType.Core_12:
                             _core_12_SubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
                             break;
-                        case SubstrateType.Bin_12:
+                        case SubstrateType.Sort_12:
                             _sortSubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
                             break;
 

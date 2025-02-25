@@ -41,8 +41,6 @@ namespace FrameOfSystem3.Task
 
         private readonly TickCounter Ticks = null;
         private const int ProcessModuleIndex = 0;
-        private const string TypeCore = "Core";
-        private const string TypeSort = "Sort";
         private readonly string ProcessModuleName = string.Empty;
 
         // 시간 파라메터화가 필요한가?
@@ -609,7 +607,7 @@ namespace FrameOfSystem3.Task
 
                 if (false == substrateType.Equals(convertedSubType))
                     continue;
-                if (substrateType == SubstrateType.Bin_12)
+                if (substrateType == SubstrateType.Sort_12)
                 {
                     if (FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.COMMON, FrameOfSystem3.Recipe.PARAM_COMMON.UseCycleMode.ToString(), false))
                         substrateType = SubstrateType.Core_8;
@@ -617,7 +615,7 @@ namespace FrameOfSystem3.Task
 
                 if (substrateType == SubstrateType.Core_8 ||
                     substrateType == SubstrateType.Core_12 ||
-                    substrateType == SubstrateType.Bin_12)
+                    substrateType == SubstrateType.Sort_12)
                 {
                     if (sourcePortId > 0)
                     {
@@ -674,7 +672,7 @@ namespace FrameOfSystem3.Task
 
                             return _carrierServer.HasCarrier(targetPortId);
                         }
-                    case SubstrateType.Bin_12:
+                    case SubstrateType.Sort_12:
                         {
                             // TODO : 하드코딩
                             if (Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseCycleMode.ToString(),
@@ -724,7 +722,7 @@ namespace FrameOfSystem3.Task
             {
                 case SubstrateType.Core_8:
                 case SubstrateType.Core_12:
-                case SubstrateType.Bin_12:
+                case SubstrateType.Sort_12:
                     portId = sourcePortId;
                     return _carrierServer.HasCarrier(sourcePortId);
 
@@ -779,7 +777,7 @@ namespace FrameOfSystem3.Task
             {
                 case SubstrateType.Core_8:
                 case SubstrateType.Core_12:
-                case SubstrateType.Bin_12:
+                case SubstrateType.Sort_12:
                     return sourcePortId;
 
                 //case SubstrateType.Bin:
@@ -941,7 +939,7 @@ namespace FrameOfSystem3.Task
                         }
                         return -1;
                     }
-                case SubstrateType.Bin_12:
+                case SubstrateType.Sort_12:
                     {
                         return FindDestinationPortBySubstrateType(substrate, subType);
                     }
@@ -960,7 +958,7 @@ namespace FrameOfSystem3.Task
             {
                 case SubstrateType.Core_8:
                 case SubstrateType.Core_12:
-                case SubstrateType.Bin_12:
+                case SubstrateType.Sort_12:
                     {
                         bool notAvailableSlotFirst = (_loadPortManager.GetCarrierLoadingType(lpIndex).Equals(LoadPortLoadingMode.Cassette));
                         for (int i = 0; i < capacity; ++i)
@@ -990,7 +988,7 @@ namespace FrameOfSystem3.Task
         {
             if (subType.Equals(SubstrateType.Core_8) ||
                 subType.Equals(SubstrateType.Core_12) ||
-                subType.Equals(SubstrateType.Bin_12))
+                subType.Equals(SubstrateType.Sort_12))
             {
                 return substrate.GetSourcePortId();
             }
@@ -1015,7 +1013,7 @@ namespace FrameOfSystem3.Task
 
                 switch (convertedSubType)
                 {
-                    case SubstrateType.Bin_12:
+                    case SubstrateType.Sort_12:
                         return _loadPortManager.GetLoadPortPortId(i);
 
                     default:
@@ -1185,7 +1183,7 @@ namespace FrameOfSystem3.Task
 
                             List<string> requestedLocation = new List<string>();
                             _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref requestedLocation);
-
+                            // 2025.02.24. dwlim [MOD] Simulation Mode 수정 => Sort 1장 완료하려면 Core 2장 완료해야함
                             var substrates = new List<Substrate>();
                             var unloadingSubstrates = new List<Substrate>();
                             _substrateManager.GetSubstratesAtProcessModule(processModuleName, ref substrates);
@@ -1195,11 +1193,11 @@ namespace FrameOfSystem3.Task
                             {
                                 for (int i = 0; i < requestedLocation.Count; i++)
                                 {
-                                    if (false == requestedLocation[i].Contains(TypeCore))
+                                    if (false == requestedLocation[i].Contains(SubstrateType.Core_8.ToString()))
                                         continue;
                                     foreach (var item in substrates)
                                     {
-                                        if (item.GetLocation().Name.Contains(TypeCore))
+                                        if (item.GetLocation().Name.Contains(SubstrateType.Core_8.ToString()))
                                         {
                                             if (false == item.GetProcessingStatus().Equals(ProcessingStates.Processed))
                                                 continue;
@@ -1219,7 +1217,7 @@ namespace FrameOfSystem3.Task
                                 {
                                     foreach (var item in substrates)
                                     {
-                                        if (item.GetLocation().Name.Contains(TypeSort))
+                                        if (item.GetLocation().Name.Contains(SubstrateType.Sort_12.ToString()))
                                         {
                                             if (false == item.GetProcessingStatus().Equals(ProcessingStates.Processed))
                                                 continue;
@@ -1230,6 +1228,7 @@ namespace FrameOfSystem3.Task
                                     substrate = unloadingSubstrates.First();
                                 }
                             }
+                            // 2025.02.24. dwlim [End]
                             substrateName = substrate.GetName();
                             lotId = substrate.GetLotId();
                             recipeId = substrate.GetRecipeId();
@@ -1246,7 +1245,7 @@ namespace FrameOfSystem3.Task
                                     convertedType = SubstrateType.Core_12;
                                     break;
                                 default:
-                                    convertedType = SubstrateType.Bin_12;
+                                    convertedType = SubstrateType.Sort_12;
                                     break;
                             }
                             subType = convertedType.ToString();

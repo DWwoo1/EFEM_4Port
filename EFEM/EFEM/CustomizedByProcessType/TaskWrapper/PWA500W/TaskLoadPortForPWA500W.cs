@@ -164,7 +164,7 @@ namespace FrameOfSystem3.Task
                         _scenarioManager.EnqueueScenarioCarrierHandlingAsync(PortId, _loadingMode, string.Empty, typeOfScenario);
                         return true;
                     }
-                case SubstrateType.Bin_12:
+                case SubstrateType.Sort_12:
                     {
                         LoadPortLoadingMode loadingMode = LoadPortLoadingMode.Unknown;
                         for (int i = 0; i < _loadPortManager.Count; ++i)

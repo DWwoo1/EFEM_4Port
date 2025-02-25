@@ -59,12 +59,10 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         //private readonly uint MinTicksForSortHandling;
 
         //임시
-        private const int ProcessableCoreCount = 2;
-        private const int ProcessableSortCount = 1;
+        private const int MaxCapacityProcessedCoreCount = 2;
+        private const int MaxCapacityProcessedSortCount = 1;
         private const int MaxCapacityCore = 3;
         private const int MaxCapacityBin = 3;
-        private const string TypeCore = "Core";
-        private const string TypeSort = "Sort";
         private string subname = string.Empty;
         private int ProcessedCoreCount;
         private int ProcessedSortCount;
@@ -241,7 +239,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             {
                 if (false == item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
                 {
-                    if(ProcessedCoreCount == ProcessableCoreCount && ProcessedSortCount == ProcessableSortCount)
+                    if(ProcessedCoreCount == MaxCapacityProcessedCoreCount && ProcessedSortCount == MaxCapacityProcessedSortCount)
                     {
                         int unloadingRequestCount = 0;
                         foreach (var unloadingRequest in HandlingUnloadRequestedForSimulator)
@@ -263,9 +261,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                         if (elapsedTime.TotalSeconds >= ProcessingTime)
                         {
                             subname = item.Value.GetLocation().Name;
-                            if (subname.Contains(TypeCore))
+                            if (subname.Contains(SubstrateType.Core_8.ToString()))
                             {
-                                if (ProcessedCoreCount >= ProcessableCoreCount || ProcessedSortCount > 0)
+                                if (ProcessedCoreCount >= MaxCapacityProcessedCoreCount || ProcessedSortCount > 0)
                                 {
                                     continue;
                                 }
@@ -274,7 +272,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             }
                             else
                             {
-                                if (ProcessedCoreCount < ProcessableCoreCount || ProcessedSortCount != 0)
+                                if (ProcessedCoreCount < MaxCapacityProcessedCoreCount || ProcessedSortCount != 0)
                                 {
                                     continue;
                                 }
@@ -317,11 +315,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 if (item.Value)
                 {
                     unloadingRequestCount++;
-                    if (item.Key.Contains(TypeSort) && (ProcessedSortCount >= ProcessableSortCount && ProcessedCoreCount == ProcessableCoreCount))
+                    if (item.Key.Contains(SubstrateType.Sort_12.ToString()) && (ProcessedSortCount >= MaxCapacityProcessedSortCount && ProcessedCoreCount == MaxCapacityProcessedCoreCount))
                     {
                         locationNames.Add(item.Key);
                     }
-                    else if (item.Key.Contains(TypeCore) && ProcessedCoreCount >= 1)
+                    else if (item.Key.Contains(SubstrateType.Core_8.ToString()) && ProcessedCoreCount >= 1)
                     {
                         locationNames.Add(item.Key);
                     }
@@ -360,7 +358,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             }
                         }
                         break;
-                    case SubstrateType.Bin_12:
+                    case SubstrateType.Sort_12:
                         {
                             ++countBin;
                             if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
@@ -375,11 +373,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
 
             HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_8_InputName] = (countCore_8 < MaxCapacityCore);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (countCore_8_Completed >= 1 && ProcessedCoreCount <= ProcessableCoreCount);
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (countCore_8_Completed >= 1 && ProcessedCoreCount <= MaxCapacityProcessedCoreCount);
             //HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_12_InputName] = (countCore_12 < MaxCapacityCore);
             //HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_12_OutputName] = (countCore_12_Completed >= 1);
             HandlingLoadRequestedForSimulator[Constants.ProcessModuleSort_12_InputName] = (countBin < MaxCapacityBin);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleSort_12_OutputName] = (countBinCompleted >= 1 && ProcessedCoreCount == ProcessableCoreCount);
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleSort_12_OutputName] = (countBinCompleted >= 1 && ProcessedCoreCount == MaxCapacityProcessedCoreCount);
         }
         // 2025.02.13 dwlim [END]
         #endregion </Simulation Only>

@@ -345,7 +345,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
                         case SubstrateType.Core_12:
                             _core_12_SubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
                             break;
-                        case SubstrateType.Bin_12:
+                        case SubstrateType.Sort_12:
                             _sortSubstratesAtProcessModule.Add(_substratesAtProcessModule[i]);
                             break;
 
@@ -422,7 +422,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
                                     item.Key.Contains(ColumnName_Output) ? ColumnOutputRequestEnabled : -1;
                 int gvRowIndex = item.Key.Contains(Constants.Core_8_Name) ? (int)SubstrateType.Core_8 :
                                 item.Key.Contains(Constants.Core_12_Name) ? (int)SubstrateType.Core_12 :
-                                item.Key.Contains(Constants.Sort_12_Name) ? (int)SubstrateType.Bin_12 : -1;
+                                item.Key.Contains(Constants.Sort_12_Name) ? (int)SubstrateType.Sort_12 : -1;
 
                 if (gvColumnIndex == -1 || gvRowIndex == -1)
                     continue;

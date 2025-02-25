@@ -190,7 +190,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
                 return false;
             }
-            else if (type.Equals(SubstrateType.Bin_12))
+            else if (type.Equals(SubstrateType.Sort_12))
             {
                 if (loading)
                 {
@@ -200,7 +200,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     for (int i = 0; i < _loadPortManager.Count; ++i)
                     {
                         SubstrateType convertedSubType = _scenarioManager.GetSubstrateTypeByLoadPortIndex(i);
-                        if (false == convertedSubType.Equals(SubstrateType.Bin_12))
+                        if (false == convertedSubType.Equals(SubstrateType.Sort_12))
                             continue;
 
                         int portId = _loadPortManager.GetLoadPortPortId(i);
@@ -217,7 +217,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 if (false == Enum.TryParse(subType, out SubstrateType substrateTypeAtProcessModule))
                                     continue;
 
-                                if (false == substrateTypeAtProcessModule.Equals(SubstrateType.Bin_12))
+                                if (false == substrateTypeAtProcessModule.Equals(SubstrateType.Sort_12))
                                     continue;
 
                                 // TODO : 2025.02.21. dwlim [MOD] Scenario 미구현으로 Simulation 위한 임시 수정 ParentLotId Pass)
@@ -352,7 +352,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
             else if (locationName.Contains(Constants.Sort_12_Name))
             {
-                substrateType = SubstrateType.Bin_12;
+                substrateType = SubstrateType.Sort_12;
                 return true;
             }
             
@@ -373,7 +373,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
             }
             else if (locationName.Contains(Constants.Sort_12_Name))
             {
-                substrateType = SubstrateType.Bin_12;
+                substrateType = SubstrateType.Sort_12;
                 return true;
                 // Bin or Empty
                 //if (FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(FrameOfSystem3.Recipe.EN_RECIPE_TYPE.COMMON, FrameOfSystem3.Recipe.PARAM_COMMON.UseCycleMode.ToString(),
@@ -505,7 +505,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                         locationName = Constants.ProcessModuleCore_12_InputName;
                                     }
                                     break;
-                                case SubstrateType.Bin_12:
+                                case SubstrateType.Sort_12:
                                     {
                                         locationName = Constants.ProcessModuleSort_12_InputName;
                                     }
@@ -555,7 +555,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                         int lpIndex = _loadPortManager.GetLoadPortIndexByPortId(substrate.GetDestinationPortId());
                         int targetSlot = 0;
                         // TODO : 2025.02.19. dwlim [MOD] Sort_12 Substrate Source와 Destination 다른 문제 수정했음
-                        targetSlot = substrate.GetSourceSlot();
+                        targetSlot = substrate.GetDestinationSlot();
                         //if (lpIndex == (int)LoadPortType.Sort_12)
                         //{
                         //    if (false == GetNextSlotInformationToPlace(lpIndex, ref targetSlot))
@@ -761,7 +761,7 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                     {
                                         case SubstrateType.Core_8:
                                         case SubstrateType.Core_12:
-                                        case SubstrateType.Bin_12:
+                                        case SubstrateType.Sort_12:
                                             {
                                                 // Sub 정보를 가져온다.
                                                 // 작업할 자재가 있을 때에만 작업하도록 수정
