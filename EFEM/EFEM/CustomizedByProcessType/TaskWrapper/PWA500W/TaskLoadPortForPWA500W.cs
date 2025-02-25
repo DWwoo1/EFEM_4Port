@@ -24,6 +24,14 @@ namespace FrameOfSystem3.Task
         public TaskLoadPortForPWA500W(int nIndexOfTask, string strTaskName)
             : base(nIndexOfTask, strTaskName, new TaskLoadPortRecovery500W(strTaskName, nIndexOfTask))
         {
+            int coreIndex = _loadPortManager.Count - PortId;
+            ScenarioTypeToIdRead = ScenarioListTypes.SCENARIO_RFID_READ_CORE_1 + coreIndex;
+            ScenarioTypeToRequestLotInfo = ScenarioListTypes.SCENARIO_REQ_LOT_INFO_CORE_1 + coreIndex;
+            ScenarioTypeToSlotVerification = ScenarioListTypes.SCENARIO_REQ_SLOT_INFO_CORE_1 + coreIndex;
+
+            ScenarioTypeToSlotMapping = ScenarioListTypes.SCENARIO_SLOT_WAFER_MAPPING_CORE_1 + coreIndex;
+            ScenarioTypeToLotMerge = ScenarioListTypes.SCENARIO_REQ_LOT_MERGE_CORE_1 + coreIndex;
+
             ScenarioTypeToCarrierLoad = ScenarioListTypes.SCENARIO_PORT_STATUS_LOAD_1 + LoadPortIndex;
 
             _scenarioManager = ScenarioManagerForPWA500W_NRD.Instance;
@@ -33,6 +41,14 @@ namespace FrameOfSystem3.Task
         #endregion </Constructors>
 
         #region <Fields>
+        // 2025.02.25. dwlim [ADD] ParentLotID 없어서 기능 되게끔 임시추가
+        private readonly ScenarioListTypes ScenarioTypeToIdRead;            // 1~6
+        private readonly ScenarioListTypes ScenarioTypeToRequestLotInfo;    // 4~6
+        private readonly ScenarioListTypes ScenarioTypeToSlotVerification;  // 4~6
+        private readonly ScenarioListTypes ScenarioTypeToSlotMapping;       // 1~6
+        private readonly ScenarioListTypes ScenarioTypeToLotMerge;          // 1~3, 5~6(1~3은 Change 포함)
+        // 2025.02.25. dwlim [END]
+
         private readonly Enum ScenarioTypeToCarrierLoad;
         private const int CarrierMaxCapacity = 25;
         private const int ProcessModuleIndex = 0;       // 2025.01.07. by dwlim [ADD] Loading Mode를 안쓰는 안쓰는 Process Module이 있어서, 구분 위한 추가
@@ -44,6 +60,14 @@ namespace FrameOfSystem3.Task
         #endregion </Fields>
 
         #region <Properties>
+        bool NeedExecuteToScenario
+        {
+            get
+            {
+                return (_carrierServer.GetCarrierAccessingStatus(PortId).Equals(CarrierAccessStates.NotAccessed) ||
+                    _carrierServer.GetCarrierAccessingStatus(PortId).Equals(CarrierAccessStates.Unknown));
+            }
+        }
         SubstrateType MySubstrateType
         {
             get
@@ -112,7 +136,32 @@ namespace FrameOfSystem3.Task
         }
         protected override bool UpdateParamToSlotMapVarification()
         {
-            return false;
+            //if (PortId < 4)
+            //    return false;
+
+            if (false == _carrierServer.HasCarrier(PortId))
+                return false;
+
+            if (false == NeedExecuteToScenario)
+                return false;
+
+            if (false == _scenarioOperator.UseScenario)
+            {
+                string lotId = _carrierServer.GetCarrierLotId(PortId);
+                AssignSubstrateInfoByCarrierRFIDInfo(lotId);
+
+                return false;
+            }
+
+            InitResult(ScenarioTypeToSlotVerification);
+
+            var param = new Dictionary<string, string>
+            {
+                [LotInfoKeys.KeyParamLotId] = _carrierServer.GetCarrierLotId(PortId),
+                [LotInfoKeys.KeyParamCarrierId] = _carrierServer.GetCarrierId(PortId),
+            };
+
+            return _scenarioOperator.UpdateScenarioParam(ScenarioTypeToSlotVerification, param);
         }
         protected override CommandResults ExecuteToSlotMapVarification()
         {
@@ -243,6 +292,31 @@ namespace FrameOfSystem3.Task
         #endregion </Overrides>
 
         #region <Internal Interfaces>
+        private void InitResult(ScenarioListTypes scenario)
+        {
+            _commandResult.ActionName = scenario.ToString();
+            _commandResult.CommandResult = CommandResult.Proceed;
+            _commandResult.Description = string.Empty;
+        }
+        private void AssignSubstrateInfoByCarrierRFIDInfo(string lotId)
+        {
+            var substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
+            foreach (var item in substrates)
+            {
+                string prevLotId = item.Value.GetLotId();
+                if (string.IsNullOrEmpty(prevLotId)/* || false == item.Value.GetLotId().Equals(lotId)*/)
+                {
+                    item.Value.SetLotId(lotId);
+                    item.Value.SetAttribute(PWA500WSubstrateAttributes.RingId, item.Value.GetName());
+                }
+
+                string prevParentLotId = item.Value.GetAttribute(PWA500WSubstrateAttributes.ParentLotId);
+                if (string.IsNullOrEmpty(prevParentLotId))
+                {
+                    item.Value.SetAttribute(PWA500WSubstrateAttributes.ParentLotId, lotId);
+                }
+            }
+        }
         #endregion </Internal Interfaces>
 
         #endregion </Methods>

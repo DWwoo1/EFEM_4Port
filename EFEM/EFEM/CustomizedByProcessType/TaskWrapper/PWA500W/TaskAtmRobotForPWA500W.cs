@@ -1209,9 +1209,11 @@ namespace FrameOfSystem3.Task
                                             continue;
                                         }
                                     }
+                                    if (unloadingSubstrates.Count == 0)
+                                        break;
+
                                     substrate = unloadingSubstrates.First();
                                     existUnloadingCore = true;
-                                    break;
                                 }
                                 if (false == existUnloadingCore)
                                 {
@@ -1225,6 +1227,9 @@ namespace FrameOfSystem3.Task
                                             unloadingSubstrates.Add(item);
                                         }
                                     }
+                                    if (unloadingSubstrates.Count == 0)
+                                        break;
+
                                     substrate = unloadingSubstrates.First();
                                 }
                             }
@@ -1291,6 +1296,7 @@ namespace FrameOfSystem3.Task
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.TransPortState, SubstrateTransferStates.AtWork.ToString());
                                 substrate.SetAttribute(PWA500WSubstrateAttributes.SubstrateType, subType);
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.LotId, lotId);
+                                substrate.SetAttribute(PWA500WSubstrateAttributes.ParentLotId, lotId);
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.RecipeId, recipeId);
 
                                 int port = FindUnknownPortInfoBySubstrateType(substrate, convertedType);

@@ -222,6 +222,11 @@ namespace EFEM.CustomizedByProcessType.PWA500W
 
                                 // TODO : 2025.02.21. dwlim [MOD] Scenario 미구현으로 Simulation 위한 임시 수정 ParentLotId Pass)
                                 #region <Original> 복구시켜놔야함
+                                if (_substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId) != null &&
+                                    false == _substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId).Equals(lotId))
+                                {
+                                    return false;
+                                }
                                 //if (_substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId) != null &&
                                 //    false == _substratesAtProcessModule[subs].GetAttribute(PWA500WSubstrateAttributes.ParentLotId).Equals(lotId))
                                 //{
