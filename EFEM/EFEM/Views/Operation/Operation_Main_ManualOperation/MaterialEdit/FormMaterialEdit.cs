@@ -134,7 +134,7 @@ namespace FrameOfSystem3.Views.Functional
                     return ItemType.SelectionListIdReadingState;
 
                 ///////////////////////////////////
-                case EFEM.CustomizedByProcessType.PWA500BIN.PWA500BINSubstrateAttributes.SubstrateType:
+                case EFEM.CustomizedByProcessType.PWA500W.PWA500WSubstrateAttributes.SubstrateType:
                     return ItemType.SelectionListSubstrateType;
 
                 default:
@@ -239,7 +239,7 @@ namespace FrameOfSystem3.Views.Functional
                 case ItemType.SelectionListSubstrateType:
                     {
                         if (false == _selectionList.CreateForm("Edit Substrate Type",
-                            Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.SUBSTRATE_TYPE, oldValue))
+                            Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.SUBSTRATE_TYPE_500W, oldValue))
                             return false;
 
                         _selectionList.GetResult(ref newValue);

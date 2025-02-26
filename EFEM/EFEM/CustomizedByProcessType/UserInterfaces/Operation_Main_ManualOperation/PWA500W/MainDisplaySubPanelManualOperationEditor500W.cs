@@ -341,35 +341,36 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         Dictionary<string, string> attributeResults = new Dictionary<string, string>();
                         materialEdit.GetResult(ref attributeResults);
 
-                        if (false == attributeResults.TryGetValue("Name", out string resultName) ||
-                            false == _substrateManager.IsValidSubstrateName(resultName))
+                        bool isInValidNewName = (false == attributeResults.TryGetValue("Name", out string resultName) || false == _substrateManager.IsValidSubstrateName(resultName));
+                        if (isInValidNewName)
                         {
                             _messageBox.ShowMessage(string.Format("이름에 사용할 수 없는 문자열이 포함되었습니다. : {0}", resultName));
-                            return;
                         }
-
-                        temporarySubstrate.SetAttributesAll(attributeResults);
-
-                        if (location is LoadPortLocation)
+                        else
                         {
-                            var loc = location as LoadPortLocation;
-                            _substrateManager.AssignSubstrateInLoadPort(loc.PortId, loc.Slot, temporarySubstrate);
-                        }
-                        else if (location is ProcessModuleLocation)
-                        {
-                            var loc = location as ProcessModuleLocation;
-                            _substrateManager.AssignSubstrateInProcessModule(loc.ProcessModuleName, temporarySubstrate);
-                            _processGroup.AssignSubstrate(loc.ProcessModuleName, temporarySubstrate);
-                        }
-                        else if (location is RobotLocation)
-                        {
-                            var loc = location as RobotLocation;
-                            _substrateManager.AssignSubstrateInRobot(loc.RobotName, loc.Arm, temporarySubstrate);
-                            //_robotManager.AssignSubstrate(RobotIndex, loc.Arm, temporarySubstrate);
-                        }
+                            temporarySubstrate.SetAttributesAll(attributeResults);
 
-                        _selectedSubstrate = null;
-                        _selectedLocationName = string.Empty;
+                            if (location is LoadPortLocation)
+                            {
+                                var loc = location as LoadPortLocation;
+                                _substrateManager.AssignSubstrateInLoadPort(loc.PortId, loc.Slot, temporarySubstrate);
+                            }
+                            else if (location is ProcessModuleLocation)
+                            {
+                                var loc = location as ProcessModuleLocation;
+                                _substrateManager.AssignSubstrateInProcessModule(loc.ProcessModuleName, temporarySubstrate);
+                                _processGroup.AssignSubstrate(loc.ProcessModuleName, temporarySubstrate);
+                            }
+                            else if (location is RobotLocation)
+                            {
+                                var loc = location as RobotLocation;
+                                _substrateManager.AssignSubstrateInRobot(loc.RobotName, loc.Arm, temporarySubstrate);
+                                //_robotManager.AssignSubstrate(RobotIndex, loc.Arm, temporarySubstrate);
+                            }
+
+                            _selectedSubstrate = null;
+                            _selectedLocationName = string.Empty;
+                        }
                     }
                 }
             }
@@ -380,20 +381,22 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                 FormMaterialEdit materialEdit = new FormMaterialEdit();
                 if (materialEdit.CreateEditForm(targetAttributes))
                 {
-                    if (false == _messageBox.ShowMessage("정말로 자재정보를 변경할까요?"))
-                        return;
-
-                    Dictionary<string, string> attributeResults = new Dictionary<string, string>();
-                    materialEdit.GetResult(ref attributeResults);
-
-                    if (false == attributeResults.TryGetValue("Name", out string resultName) ||
-                            false == _substrateManager.IsValidSubstrateName(resultName))
+                    if (_messageBox.ShowMessage("정말로 자재정보를 변경할까요?"))
                     {
-                        _messageBox.ShowMessage(string.Format("이름에 사용할 수 없는 문자열이 포함되었습니다. : {0}", resultName));
-                        return;
-                    }
+                        Dictionary<string, string> attributeResults = new Dictionary<string, string>();
+                        materialEdit.GetResult(ref attributeResults);
 
-                    _selectedSubstrate.SetAttributesAll(attributeResults);
+                        bool isInValidNewName = (false == attributeResults.TryGetValue("Name", out string resultName) || false == _substrateManager.IsValidSubstrateName(resultName));
+                        if (isInValidNewName)
+                        {
+                            _messageBox.ShowMessage(string.Format("이름에 사용할 수 없는 문자열이 포함되었습니다. : {0}", resultName));
+
+                        }
+                        else
+                        {
+                            _selectedSubstrate.SetAttributesAll(attributeResults);
+                        }
+                    }
                 }
             }
             else if (sender.Equals(btnDisable))
