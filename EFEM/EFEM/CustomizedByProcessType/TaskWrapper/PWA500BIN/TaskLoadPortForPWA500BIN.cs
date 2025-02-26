@@ -460,6 +460,15 @@ namespace FrameOfSystem3.Task
                             _lotHistoryLog.BackupCarrierHistory(PortId, carrierId, lotId, substrates, isCore);
                             _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyLotIdChangeCompletion, bool.TrueString);
 
+                            if (MySubstrateType.Equals(SubstrateType.Core))
+                            {
+                                // 귀찮으니 비동기 실행
+                                string partId = _carrierServer.GetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyPartId);
+                                string stepId = _carrierServer.GetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyStepSeq);
+                                string lotType = _carrierServer.GetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyLotType);
+                                _scenarioManager.ExecuteScenarioAsyncToCarrierUnload(lotId, partId, stepId, lotType);
+                            }
+
                             //if (PortId == 4)
                             //{
                             //    // Empty는 Merge 를 진행하지 않는다. -> 끝나네.. 할게없다.
@@ -1141,9 +1150,16 @@ namespace FrameOfSystem3.Task
         {
             if (scenario.Equals(ScenarioTypeToIdRead))
             {
-                _lotHistoryLog.WriteHistoryForIdRead(PortId, 
-                    _carrierServer.GetCarrierId(PortId),
-                    _carrierServer.GetCarrierLotId(PortId));
+                string lotId = _carrierServer.GetCarrierLotId(PortId);
+                string carrierId = _carrierServer.GetCarrierId(PortId);
+
+                _lotHistoryLog.WriteHistoryForIdRead(PortId, carrierId, lotId);
+
+                if (MySubstrateType.Equals(SubstrateType.Core))
+                {
+                    // 귀찮으니 비동기 실행
+                    _scenarioManager.ExecuteScenarioAsyncToCarrierLoad(lotId, carrierId);
+                }
             }
             else
             {
@@ -1175,6 +1191,7 @@ namespace FrameOfSystem3.Task
                             _carrierServer.SetCarrierLotId(PortId, _lotId);
                             _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyPartId, _partId);
                             _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyStepSeq, _stepSeq);
+                            _carrierServer.SetAttribute(PortId, PWA500BINCarrierAttributeKeys.KeyLotType, _lotType);
                         }
 
                         string carrierId = _carrierServer.GetCarrierId(PortId);
@@ -1309,7 +1326,6 @@ namespace FrameOfSystem3.Task
                         }
                         #endregion </Slot Info 갱신>
                     }
-
                 }
             }
         }

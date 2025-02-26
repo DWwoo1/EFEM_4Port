@@ -787,7 +787,11 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
                                 //    return GetNotCompletedStatus();
 
                                 string substrateName = string.Empty;// substrate.Name;
-                                RobotArmTypes armToWork = RobotArmTypes.LowerArm;
+                                List<RobotArmTypes> arms = new List<RobotArmTypes>();
+                                if (false == _robotManager.GetAvailableArm(Index, true, ref arms))
+                                    return GetNotCompletedStatus();
+
+                                RobotArmTypes armToWork = arms.First();
                                 ProcessModuleLocation targetLocation = new ProcessModuleLocation("", "");
                                 string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
                                 if (_locationServer.GetProcessModuleLocation(processModuleName, _requestedUnloadingLocation[i], ref targetLocation))

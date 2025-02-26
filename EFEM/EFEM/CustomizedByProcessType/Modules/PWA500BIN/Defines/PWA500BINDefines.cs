@@ -24,6 +24,7 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
     {       
         public const string KeyPartId = "PartId";
         public const string KeyStepSeq = "StepSeq";
+        public const string KeyLotType = "LotType";
         public const string KeySlotMappingCompletion = "SlotMappingCompletion";
         public const string KeyLotMergeCompletion   = "LotMergeCompletion";
         public const string KeyLotIdChangeCompletion = "LotIdChangeCompletion";

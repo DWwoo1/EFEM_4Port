@@ -22,6 +22,7 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
 
         private readonly ProcessForXGem DataProcessor = new ProcessForXGem();
         private ConcurrentDictionary<long, bool> _eventToSend = new ConcurrentDictionary<long, bool>();
+        private const int DelayTimeForClosing = 1000;
 
         #region CommStatus
         //protected string m_strCommStatus = string.Empty;
@@ -116,7 +117,7 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
         }
         private async System.Threading.Tasks.Task CloseDriver()
         {
-            await System.Threading.Tasks.Task.Delay(3000);
+            await System.Threading.Tasks.Task.Delay(DelayTimeForClosing);
 
             _gemDriver.Close();
         }

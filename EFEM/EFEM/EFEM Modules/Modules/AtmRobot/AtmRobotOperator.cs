@@ -222,14 +222,14 @@ namespace EFEM.Modules.AtmRobot
                 }
             }
 
-            if (picking)
-            {
-                return countOfAvailableArms > 1;
-            }
-            else
-            {
-                return countOfAvailableArms > 0;
-            }
+            return countOfAvailableArms > 0;
+            //if (picking)
+            //{
+            //}
+            //else
+            //{
+            //    return countOfAvailableArms > 0;
+            //}
 
 
             // 둘 중 하나라도 정보가 있으면 True, 자재 감지는 되는데 정보가 없으면 에러처리 필요

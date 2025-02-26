@@ -298,6 +298,52 @@ namespace FrameOfSystem3.Views.Functional
 			}
 		}
 
+		// 2025.02.19. jhlim [ADD] 리스트 추가와 표시부가 각자 다른 스레드에서 이루어진다.
+        private void CreateFormUIThread()
+        {
+            #region 데이터 초기화
+            m_nTopPriorityAlarm = -1;
+            m_nArrGeneratedAlarm = null;
+            #endregion
+
+            bool bOption = true;
+
+            m_enState = m_InstanceOfAlarm.GetState(ref bOption);
+
+            if (false == m_DicForState.ContainsKey((int)m_enState))
+            {
+                return;
+            }
+
+            m_AlarmBackGround.CreateForm((int)m_enState);
+
+            InitializeForm();
+
+            InitializeState(m_DicForState[(int)m_enState], bOption);
+
+            SetLayOut();
+
+            int[] arGeneratedAlarm = null;
+
+            m_InstanceOfAlarm.GetListOfGeneratedAlarm(ref arGeneratedAlarm);
+
+            m_nTopPriorityAlarm = arGeneratedAlarm[0];
+
+            SetLabelText(m_nTopPriorityAlarm);
+
+            #region timer
+            m_pTimerForAlarmList.Interval = INTERVAL_TIMER;
+            m_pTimerForAlarmList.Tick += new EventHandler(FunctionForTimerTick);
+            m_pTimerForAlarmList.Start();
+            #endregion
+
+            // 2025.02.10. jhlim [ADD] 동시 접근 시 여기서 Exception 발생
+            m_listWaiting.SelectedIndex = (m_listWaiting.Items.Count > 0) ? 0 : -1;
+
+            m_Stopwatch.Restart();
+            this.Show();
+        }
+
         #region Message
         /// <summary>
         /// 2020.10.12 by yjlee [ADD] Convert a message by the sub information.
@@ -337,48 +383,15 @@ namespace FrameOfSystem3.Views.Functional
 		/// </summary>
 		public void CreateForm()
 		{
-			#region 데이터 초기화
-			m_nTopPriorityAlarm		= -1;
-			m_nArrGeneratedAlarm	= null;
-			#endregion
-
-			bool bOption	= true;
-			
-			m_enState		= m_InstanceOfAlarm.GetState(ref bOption);
-
-			if(false == m_DicForState.ContainsKey((int)m_enState))
-			{
-				return;
-			}
-
-			m_AlarmBackGround.CreateForm((int)m_enState);
-
-			InitializeForm();
-
-			InitializeState(m_DicForState[(int)m_enState], bOption);
-
-			SetLayOut();
-
-			int[] arGeneratedAlarm	= null;
-			
-			m_InstanceOfAlarm.GetListOfGeneratedAlarm(ref arGeneratedAlarm);
-
-			m_nTopPriorityAlarm		= arGeneratedAlarm[0];
-
-			SetLabelText(m_nTopPriorityAlarm);
-
-			#region timer
-			m_pTimerForAlarmList.Interval = INTERVAL_TIMER;
-			m_pTimerForAlarmList.Tick += new EventHandler(FunctionForTimerTick);
-			m_pTimerForAlarmList.Start();
-			#endregion
-
-			// 2025.02.10. jhlim [ADD] 동시 접근 시 여기서 Exception 발생
-			m_listWaiting.SelectedIndex = (m_listWaiting.Items.Count > 0) ? 0 : -1;
-
-            m_Stopwatch.Restart();
-			this.Show();
-		}
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(CreateFormUIThread));
+            }
+            else
+            {
+                CreateFormUIThread();
+            }
+        }
 		/// <summary>
 		/// 2020.07.09 by twkang [ADD] 폼을 닫는다.
 		/// </summary>

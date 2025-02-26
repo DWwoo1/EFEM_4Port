@@ -77,8 +77,10 @@ namespace FrameOfSystem3.Views.Functional
         }
         private void InitFocus()
         {
-            // 임시로 다른 항목을 선택
-            pgSubstrateAttribute.SelectedGridItem = pgSubstrateAttribute.SelectedGridItem.Parent;
+            if (pgSubstrateAttribute.SelectedGridItem?.Parent != null)
+            {
+                pgSubstrateAttribute.SelectedGridItem = pgSubstrateAttribute.SelectedGridItem.Parent;
+            }
         }
         private void ProcessingEvent(Keys enInputedKey)
         {
@@ -132,8 +134,7 @@ namespace FrameOfSystem3.Views.Functional
                     return ItemType.SelectionListIdReadingState;
 
                 ///////////////////////////////////
-                // 2025.02.11 dwlim [MOD] 500BIN => 500W로 바꿈
-                case EFEM.CustomizedByProcessType.PWA500W.PWA500WSubstrateAttributes.SubstrateType:
+                case EFEM.CustomizedByProcessType.PWA500BIN.PWA500BINSubstrateAttributes.SubstrateType:
                     return ItemType.SelectionListSubstrateType;
 
                 default:
@@ -238,7 +239,7 @@ namespace FrameOfSystem3.Views.Functional
                 case ItemType.SelectionListSubstrateType:
                     {
                         if (false == _selectionList.CreateForm("Edit Substrate Type",
-                            Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.SUBSTRATE_TYPE_500W, oldValue))
+                            Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.SUBSTRATE_TYPE, oldValue))
                             return false;
 
                         _selectionList.GetResult(ref newValue);
@@ -351,15 +352,19 @@ namespace FrameOfSystem3.Views.Functional
                 if (ShowDialogByClassifiedItemType(itemType, itemName, _selectedItemValue, ref newValue))
                 {
                     _selectedGridItem.PropertyDescriptor.SetValue(pgSubstrateAttribute.SelectedObject, newValue);
+                    pgSubstrateAttribute.Refresh();
+                    InitFocus();
                 }
 
-                pgSubstrateAttribute.Refresh();
-                InitFocus();
             }
             finally
             {
                 _isHandlingSelectedGridItemChanged = false;
             }
+        }
+        private void FormMaterialEdit_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose(true);
         }
         #endregion </UI Event>
 

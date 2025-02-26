@@ -33,10 +33,26 @@ using System.Runtime.InteropServices;
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("2.15.36.51")]
+[assembly: AssemblyFileVersion("2.16.36.54")]
 
 // Version : [호환성.추가.변경.개선]
 #region <VERSION HISTORY>
+
+#region <2.16.36.54>
+// 1. Unload 시 Lower Arm만 사용하던 부분 개선
+#endregion </2.16.36.54>
+
+#region <2.16.36.53>
+// 1. Robot Arm 하나 Off 시 버그 수정
+#endregion </2.16.36.53>
+
+#region <2.16.36.52>
+// 1. 예외추가
+#endregion </2.16.36.52>
+
+#region <2.16.36.51>
+// 1. History Summary 추가
+#endregion </2.16.36.51>
 
 #region <2.15.36.51>
 // 1. 공정설비 자재정보 제거되지 않던 버그 개선

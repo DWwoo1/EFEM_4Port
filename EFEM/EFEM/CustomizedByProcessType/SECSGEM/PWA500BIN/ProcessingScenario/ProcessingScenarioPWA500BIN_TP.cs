@@ -2849,7 +2849,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                     {
                         #region 
                         string substrateName = string.Empty, ringId = string.Empty, recipeId = string.Empty, userId = string.Empty;
-                        if (false == Task.TaskOperator.GetInstance().IsSimulationMode())
+                        //if (false == Task.TaskOperator.GetInstance().IsSimulationMode())
                         {
                             if (false == messagePairs.TryGetValue(DetachingKeys.KeySubstarateName, out substrateName))
                                 return false;
@@ -2863,14 +2863,14 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                             if (false == messagePairs.TryGetValue(DetachingKeys.KeyUserId, out userId))
                                 return false;
                         }
-                        else
-                        {
-                            if (false == messagePairs.TryGetValue(DetachingKeys.KeySubstarateName, out substrateName))
-                                return false;
-                            ringId = substrateName;
-                            recipeId = "TEST_RECIPE";
-                            userId = "AUTO";
-                        }
+                        //else
+                        //{
+                        //    if (false == messagePairs.TryGetValue(DetachingKeys.KeySubstarateName, out substrateName))
+                        //        return false;
+                        //    ringId = substrateName;
+                        //    recipeId = "TEST_RECIPE";
+                        //    userId = "AUTO";
+                        //}
 
                         Substrate substrate = new Substrate("");
                         if (false == FindSubstrateByNameOrRingId(substrateName, ringId, ref substrate))

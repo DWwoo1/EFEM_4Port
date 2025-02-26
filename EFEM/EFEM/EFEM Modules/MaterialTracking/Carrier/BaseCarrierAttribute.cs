@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.IO;
 
 using EFEM.Defines.Common;
@@ -17,6 +18,8 @@ namespace EFEM.MaterialTracking.CarrierAttribute
         #region <Constructors>
         public BaseCarrierAttribute(int portId)
         {
+            SlimLock = new ReaderWriterLockSlim();
+
             PortId = portId;
 
             RecoveryFileName = CarrierAttributeRecoveryDefines.FileNameWithExtension;
@@ -29,6 +32,7 @@ namespace EFEM.MaterialTracking.CarrierAttribute
             Attributes[BaseCarrierAttributeKeys.KeyCarrierAccessStatus] = string.Empty;
             Attributes[BaseCarrierAttributeKeys.KeyLoadTime] = string.Empty;
             Attributes[BaseCarrierAttributeKeys.KeyUnloadTime] = string.Empty;
+
 
             Init();
         }
@@ -47,6 +51,8 @@ namespace EFEM.MaterialTracking.CarrierAttribute
         private DateTime _loadTime;
         private DateTime _unloadTime;
         private CarrierAccessStates _accessingStatus;
+
+        private readonly ReaderWriterLockSlim SlimLock = null;
         #endregion </Fields>
 
         #region <Properties>
@@ -141,10 +147,15 @@ namespace EFEM.MaterialTracking.CarrierAttribute
             string filePath = string.Format(@"{0}{1}", CarrierAttributeRecoveryDefines.FilePath, PortId);
             string fullPath = string.Format(@"{0}\{1}", filePath, CarrierAttributeRecoveryDefines.FileNameWithExtension);
 
+            SlimLock.EnterReadLock();
+
             try
             {
                 if (false == File.Exists(fullPath))
+                {
+                    SlimLock.ExitReadLock();
                     return false;
+                }
 
                 _temporaryAttributes.Clear();
                 GetAttributesAll(ref _temporaryAttributes);
@@ -165,12 +176,16 @@ namespace EFEM.MaterialTracking.CarrierAttribute
                     Save();
                 }
 
+                SlimLock.ExitReadLock();
+
                 return true;
             }
             catch (Exception ex)
             {
                 DebugLogger.Instance.WriteDebugLog(string.Format("LoadRecoveryData Exception > {0}, {1}, {2}",
                     fullPath, ex.Message, ex.StackTrace));
+
+                SlimLock.ExitReadLock();
 
                 return false;
             }
@@ -184,17 +199,25 @@ namespace EFEM.MaterialTracking.CarrierAttribute
             }
 
             string fullPath = string.Format(@"{0}\{1}", filePath, CarrierAttributeRecoveryDefines.FileNameWithExtension);
+
+            SlimLock.EnterWriteLock();
+
             try
             {
                 _temporaryAttributes.Clear();
                 GetAttributesAll(ref _temporaryAttributes);
                 FileStorage.SaveChangedItemsToFile(_temporaryAttributes, fullPath);
+
+                SlimLock.ExitWriteLock();
+
                 return true;
             }
             catch (Exception ex)
             {
                 DebugLogger.Instance.WriteDebugLog(string.Format("SaveRecoveryData Exception > {0}, {1}, {2}",
                     fullPath, ex.Message, ex.StackTrace));
+
+                SlimLock.ExitWriteLock();
 
                 return false;
             }

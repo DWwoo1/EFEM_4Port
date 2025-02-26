@@ -159,6 +159,11 @@ namespace EFEM.MaterialTracking
                 return false;
             }
         }
+        public string GetSubstrateFilePath()
+        {
+            var fileNameWithExtension = string.Format("{0}.{1}", GetName(), RecoveryFileDefines.FileExtension);
+            return string.Format(@"{0}\{1}", RecoveryFileDefines.RecoveryFilePath, fileNameWithExtension);            
+        }
         public bool DeleteRecoveryData()
         {
             string fileNameWithExtension = string.Format("{0}.{1}", GetName(), RecoveryFileDefines.FileExtension);

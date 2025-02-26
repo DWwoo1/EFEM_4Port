@@ -13,9 +13,17 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                if (pgSubstrateAttribute != null)
+                {
+                    pgSubstrateAttribute.Dispose();
+                    pgSubstrateAttribute = null;
+                }
+                if (components != null)
+                {
+                    components.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
@@ -184,6 +192,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "`";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMaterialEdit_FormClosed);
             this.ResumeLayout(false);
 
         }

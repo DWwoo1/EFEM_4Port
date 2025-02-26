@@ -22,7 +22,7 @@ namespace FrameOfSystem3.Views.Functional
         private static Form_TerminalMessage _Instance = null;
         public static Form_TerminalMessage GetInstance()
         {
-            if (_Instance == null)
+            if (_Instance == null || _Instance.IsDisposed)
             {
                 _Instance = new Form_TerminalMessage();
             }
@@ -34,6 +34,9 @@ namespace FrameOfSystem3.Views.Functional
             DoubleBuffered = true;
 
             InitializeComponent();
+
+            gvMessageList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            FormClosing += Form_TerminalMessage_FormClosing;
         }
         #endregion
 
@@ -68,6 +71,12 @@ namespace FrameOfSystem3.Views.Functional
         {
             gvMessageList.ClearSelection();
             gvMessageList.Rows.Clear();
+
+            // 열이 정의되어 있는지 확인하고, 없다면 열 추가
+            if (gvMessageList.Columns.Count == 0)
+            {
+                gvMessageList.Columns.Add("TIME", "TIME");
+            }
 
             int index = 0;
             _messages = _messages.OrderBy(item => item.Key).ToDictionary(x => x.Key, x => x.Value);
@@ -173,8 +182,13 @@ namespace FrameOfSystem3.Views.Functional
                     this.Hide();
                 }
             }
-        }
+        }        
 
+        public void ExitForm()
+        {
+            FormClosing -= Form_TerminalMessage_FormClosing;
+            this.Close();
+        }
         #endregion </Public methods>
 
         #region <UI Events>
@@ -204,6 +218,11 @@ namespace FrameOfSystem3.Views.Functional
 
                 txtTerminalMessage.Text = _messages[selectedTime];
             }
+        }
+        private void Form_TerminalMessage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;  // 폼이 완전히 닫히는 것을 방지
+            this.Hide();      // 단순히 숨기기
         }
         #endregion </UI Events>
     }

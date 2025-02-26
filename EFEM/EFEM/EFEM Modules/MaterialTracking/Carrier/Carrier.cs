@@ -285,9 +285,12 @@ namespace EFEM.MaterialTracking
         {
             _substrateManager.RemoveSubstrateInLoadPort(PortId, slot);
         }
-        public void RemoveSubstratesAll()
-        {           
-            _substrateManager.RemoveSubstrateInLoadPortAll(PortId);
+        public void RemoveSubstratesAll(string backupCarrierId)
+        {            
+            DateTime date = DateTime.Now;
+            var backupPath = string.Format(@"{0}\BackupRecoveryData\{1:0000}\{2:00}\{3:00}\{4}", Define.DefineConstant.FilePath.FILEPATH_LOG, date.Year, date.Month, date.Day, backupCarrierId);
+
+            _substrateManager.BackupAndRemoveSubstrateInLoadPortAll(PortId, backupPath);
         }
         #endregion </Substrate>
 

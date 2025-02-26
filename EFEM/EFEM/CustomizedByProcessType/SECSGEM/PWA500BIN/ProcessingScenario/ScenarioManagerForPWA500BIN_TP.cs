@@ -289,6 +289,40 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         }
         #endregion </Trace Data Recovery>
 
+        public bool ExecuteScenarioAsyncToCarrierLoad(string lotId, string carrierId)
+        {
+            if (_actionToEnqueueScenarioAsync == null)
+                return false;
+
+            var scenarioParam = new Dictionary<string, string>
+            {
+                [CarrierLoadUnloadKeys.KeyParamCarrierId] = carrierId,
+                [CarrierLoadUnloadKeys.KeyParamLotId] = lotId
+            };
+
+            _actionToEnqueueScenarioAsync(ScenarioListTypes.SCENARIO_CARRIER_LOAD, scenarioParam, null);
+            
+            return true;
+        }
+
+        public bool ExecuteScenarioAsyncToCarrierUnload(string lotId, string partId, string stepId, string lotType)
+        {
+            if (_actionToEnqueueScenarioAsync == null)
+                return false;
+
+            var scenarioParam = new Dictionary<string, string>
+            {                
+                [CarrierLoadUnloadKeys.KeyParamLotId] = lotId,
+                [CarrierLoadUnloadKeys.KeyParamPartId] = partId,
+                [CarrierLoadUnloadKeys.KeyParamStepId] = stepId,
+                [CarrierLoadUnloadKeys.KeyParamLotType] = lotType
+            };
+
+            _actionToEnqueueScenarioAsync(ScenarioListTypes.SCENARIO_CARRIER_UNLOAD, scenarioParam, null);
+
+            return true;
+        }
+
         public string GetModelName()
         {
             return Work.AppConfigManager.Instance.MachineName;
@@ -1020,6 +1054,16 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                     }
                     break;
 
+                case ScenarioListTypes.SCENARIO_REQ_CORE_CHIP_MERGE:
+                    {
+                        if (result.Equals(EN_MESSAGE_RESULT.NG))
+                        {
+                            SetScenarioError(typeOfScenario);
+                            //FrameOfSystem3.Task.TaskOperator.GetInstance().SetOperation(RunningMain_.OPERATION_EQUIPMENT.STOP);                            
+                        }
+                    }
+                    break;
+
                 case ScenarioListTypes.SCENARIO_BIN_WAFER_ID_READ:
                     {
                         #region
@@ -1078,6 +1122,8 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 case ScenarioListTypes.SCENARIO_BIN_SORTING_END_2:
                 case ScenarioListTypes.SCENARIO_BIN_SORTING_END_3:
                     {
+                        if (additionalParams == null)
+                            return;
                         #region
                         if (false == additionalParams.TryGetValue(AdditionalParamKeys.KeyRingId, out string ringId))
                         {
@@ -1569,7 +1615,8 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 // CHANGE_REASON : 전량 소진 후 교체-FINISH_CHAGNE, 품종교체 - PACKAGE_CHAGNE
                 // 추후 품종 교체 기준이 생기면 구분이 필요할 수 있다. 현재는 HARDCODING
                 [TrackInOrOut.KeyParamChangeReason] = Constants.EmptyWaferChangeReason,
-                [TrackInOrOut.KeyParamMaterialType] = Constants.EmptyWaferMaterialType
+                [TrackInOrOut.KeyParamMaterialType] = Constants.EmptyWaferMaterialType,
+                [TrackInOrOut.KeyParamStepSeq] = GetStepIdForBinWafer()
             };
             // 2024.09.03. jhlim [END]
 

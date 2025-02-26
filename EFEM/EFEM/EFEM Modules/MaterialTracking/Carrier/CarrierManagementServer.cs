@@ -66,8 +66,9 @@ namespace EFEM.MaterialTracking
         {
             if (Carriers.ContainsKey(portId))
             {
-                Carriers[portId].OnCarrierRemoved();
-                Carriers[portId].RemoveSubstratesAll();
+                var carrierId = Carriers[portId].CarrierId;
+                Carriers[portId].OnCarrierRemoved();                
+                Carriers[portId].RemoveSubstratesAll(carrierId);
                 Carriers[portId].ClearAttributes();
                 Carriers.TryRemove(portId, out _);
             }

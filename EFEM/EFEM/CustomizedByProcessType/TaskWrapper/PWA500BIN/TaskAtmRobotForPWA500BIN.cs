@@ -240,7 +240,10 @@ namespace FrameOfSystem3.Task
                                 {
                                     Dictionary<string, string> scenarioParam = _scenarioManager.MakeScenarioParamToCoreTrackIn(portId, substrate);
                                     if (scenarioParam == null)
+                                    {
+                                        // TODO : 알람 처리 필요
                                         return false;
+                                    }
 
                                     _executingScenario = new QueuedScenarioInfo
                                     {
@@ -274,7 +277,10 @@ namespace FrameOfSystem3.Task
                         string carrierId = _carrierServer.GetCarrierId(portId);
                         Dictionary<string, string> scenarioParam = _scenarioManager.MakeScenarioParamToLotMatch(portId, lotId, carrierId);
                         if (scenarioParam == null)
+                        {
+                            // TODO : 알람 처리 필요
                             return false;
+                        }
 
                         _executingScenario = new QueuedScenarioInfo
                         {

@@ -312,7 +312,8 @@ namespace EFEM.MaterialTracking
 
                     if (index >= 0)
                     {
-                        SubstratesInProcessModule[pmLocation.ProcessModuleName].TryRemove(index, out _);
+                        SubstratesInProcessModule[pmLocation.ProcessModuleName][index].DeleteRecoveryData();
+                        SubstratesInProcessModule[pmLocation.ProcessModuleName].TryRemove(index, out _);                        
                     }
                 }
                 //for (int i = 0; i < SubstratesInProcessModule[pmLocation.ProcessModuleName].Count; ++i)
@@ -351,9 +352,32 @@ namespace EFEM.MaterialTracking
         {
             SubstratesInLoadPortSlots[portId][slot] = substrate;
         }
+        public void BackupAndRemoveSubstrateInLoadPortAll(int portId, string destinationPath)
+        {
+            if (false == SubstratesInLoadPortSlots.TryGetValue(portId, out ConcurrentDictionary<int, Substrate> value))
+                return;
+
+            if (false == Directory.Exists(destinationPath))
+                Directory.CreateDirectory(destinationPath);
+
+            foreach (var item in value)
+            {
+                var fullPath = Path.Combine(destinationPath, string.Format("{0}.{1}", item.Value.GetName(), RecoveryFileDefines.FileExtension));
+                if (File.Exists(fullPath))
+                    File.Delete(fullPath);
+
+                File.Copy(item.Value.GetSubstrateFilePath(), fullPath);
+
+                item.Value.DeleteRecoveryData();
+            }
+
+            SubstratesInLoadPortSlots[portId].Clear();
+        }
         public void RemoveSubstrateInLoadPortAll(int portId)
         {
-            SubstratesInLoadPortSlots.TryGetValue(portId, out ConcurrentDictionary<int, Substrate> value);
+            if (false == SubstratesInLoadPortSlots.TryGetValue(portId, out ConcurrentDictionary<int, Substrate> value))
+                return;
+
             foreach (var item in value)
             {
                 item.Value.DeleteRecoveryData();

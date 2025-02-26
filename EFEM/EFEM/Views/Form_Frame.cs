@@ -890,6 +890,8 @@ namespace FrameOfSystem3.Views
         private void CloseScenarioHandler()
         {
 			SECSGEM.ScenarioOperator.Instance.Exit();
+
+            m_instanceTerminal.ExitForm();
         }
         #endregion
     }
