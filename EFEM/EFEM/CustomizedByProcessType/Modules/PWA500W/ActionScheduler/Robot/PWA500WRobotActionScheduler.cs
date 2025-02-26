@@ -809,7 +809,13 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                                 string locationName = GetProcessModuleUnloadingLocationByPortId(portId);
                                 if (string.IsNullOrEmpty(locationName))
                                     return GetNotCompletedStatus();
+                                // 2025.02.26 dwlim [ADD] Merge 하면서 추가
+                                List<RobotArmTypes> arms = new List<RobotArmTypes>();
+                                if (false == _robotManager.GetAvailableArm(Index, true, ref arms))
+                                    return GetNotCompletedStatus();
 
+                                armToWork = arms.First();
+                                // 2025.02.26 dwlim [END]
                                 ProcessModuleLocation processModuleLocation = new ProcessModuleLocation("", "");
                                 string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
                                 substrateName = string.Empty;

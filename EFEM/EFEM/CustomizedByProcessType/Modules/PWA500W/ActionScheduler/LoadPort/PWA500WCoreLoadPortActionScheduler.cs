@@ -15,14 +15,12 @@ using EFEM.Defines.MaterialTracking;
 using EFEM.MaterialTracking.LocationServer;
 using EFEM.ActionScheduler.LoadPortActionSchedulers;
 
-using FrameOfSystem3.SECSGEM.Scenario;
-
 namespace EFEM.CustomizedByProcessType.PWA500W
 {
     public class CoreLoadPortActionScheduler : BaseLoadPortActionScheduler
     {
         #region <Constructors>
-        public CoreLoadPortActionScheduler(int lpIndex) : base(lpIndex){}
+        public CoreLoadPortActionScheduler(int lpIndex) : base(lpIndex) { }
         #endregion </Constructors>
 
         #region <Fields>

@@ -80,12 +80,10 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         SCENARIO_REQ_SLOT_INFO_CORE_1,
         SCENARIO_REQ_SLOT_INFO_CORE_2,
         SCENARIO_REQ_SLOT_INFO_EMPTY_TAPE,
-        ///
 
-        #region 추후구현
         SCENARIO_REQ_RECIPE_DOWNLOAD,
         SCENARIO_REQ_RECIPE_UPLOAD,
-        #endregion
+        /// 
 
         // 완
         SCENARIO_REQ_TRACK_IN,
@@ -480,6 +478,14 @@ namespace EFEM.CustomizedByProcessType.PWA500W
     #endregion </Enums>
 
     #region <Class>
+    public static class CarrierLoadUnloadKeys
+    {
+        public static readonly string KeyParamCarrierId = "CARRIERID";
+        public static readonly string KeyParamLotId = "LOTID";
+        public static readonly string KeyParamPartId = "PARTID";
+        public static readonly string KeyParamStepId = "STEPSEQ";
+        public static readonly string KeyParamLotType = "LOTTYPE";
+    }
     public static class AdditionalParamKeys
     {
         public static readonly string KeyNameOfEq = "NameOfEq";
