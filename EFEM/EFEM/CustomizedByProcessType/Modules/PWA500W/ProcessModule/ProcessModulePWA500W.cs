@@ -67,7 +67,10 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         private int ProcessedCoreCount;
         private int ProcessedSortCount;
         private int unloadingRequestCount;
+        private bool ExistProcessableSort;
         private SortedDictionary<DateTime, Substrate> SortedSubstrates = null;
+        private SortedDictionary<DateTime, Substrate> SortedCoreSubstrates = new SortedDictionary<DateTime, Substrate>();
+        private SortedDictionary<DateTime, Substrate> SortedSortSubstrates = new SortedDictionary<DateTime, Substrate>();
         //
 
         private readonly Dictionary<string, TickCounter> TickForLoading = null;
@@ -233,7 +236,14 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         #region <Internals>
         private void UpdateProcessStates()
         {
+            ExistProcessableSort = false;
+
             DateTime currentTime = DateTime.Now;
+            foreach (var item in Substrates)
+            {
+                if (item.Value.GetLocation().Name.Contains(SubstrateType.Sort_12.ToString()))
+                    ExistProcessableSort = true;
+            }
 
             foreach (var item in SortedSubstrates)
             {
@@ -247,13 +257,12 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             if (unloadingRequest.Value)
                                 unloadingRequestCount++;
                         }
-                        if (unloadingRequestCount != 0)
+                        if (unloadingRequestCount == 0)
                         {
-                            continue;
+                            ProcessedCoreCount = 0;
+                            ProcessedSortCount = 0;
                         }
-
-                        ProcessedCoreCount = 0;
-                        ProcessedSortCount = 0;
+                        continue;
                     }
                     else
                     {
@@ -263,21 +272,21 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                             subname = item.Value.GetLocation().Name;
                             if (subname.Contains(SubstrateType.Core_8.ToString()))
                             {
-                                if (ProcessedCoreCount >= MaxCapacityProcessedCoreCount || ProcessedSortCount != 0)
+                                if (ProcessedCoreCount < MaxCapacityProcessedCoreCount && ProcessedSortCount == 0 && ExistProcessableSort)
                                 {
-                                    continue;
+                                    ProcessedCoreCount++;
+                                    SortedSubstrates[item.Key].SetProcessingStatus(ProcessingStates.Processed);
                                 }
-                                ProcessedCoreCount++;
-                                SortedSubstrates[item.Key].SetProcessingStatus(ProcessingStates.Processed);
+                                continue;
                             }
                             else
                             {
-                                if (ProcessedCoreCount != MaxCapacityProcessedCoreCount || ProcessedSortCount != 0)
+                                if (ProcessedCoreCount == MaxCapacityProcessedCoreCount && ProcessedSortCount == 0 && ExistProcessableSort)
                                 {
-                                    continue;
+                                    ProcessedSortCount++;
+                                    SortedSubstrates[item.Key].SetProcessingStatus(ProcessingStates.Processed);
                                 }
-                                ProcessedSortCount++;
-                                SortedSubstrates[item.Key].SetProcessingStatus(ProcessingStates.Processed);
+                                continue;
                             }
                         }
                     }
@@ -332,6 +341,9 @@ namespace EFEM.CustomizedByProcessType.PWA500W
         {
             int countCore = 0, countCore_8 = 0, countCore_12 = 0, countBin = 0;
             int countCore_8_Completed = 0, countCore_12_Completed = 0, countBinCompleted = 0;
+            SortedCoreSubstrates.Clear();
+            SortedSortSubstrates.Clear();
+
             foreach (var item in SortedSubstrates)
             {
                 string subType = item.Value.GetAttribute(PWA500WSubstrateAttributes.SubstrateType);
@@ -343,7 +355,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     case SubstrateType.Core_8:
                         {
                             ++countCore_8;
-                            if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
+                            SortedCoreSubstrates.Add(item.Key, item.Value);
+                            if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed) && countCore_8_Completed < MaxCapacityProcessedCoreCount)
                             {
                                 ++countCore_8_Completed;
                             }
@@ -361,7 +374,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                     case SubstrateType.Sort_12:
                         {
                             ++countBin;
-                            if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed))
+                            SortedSortSubstrates.Add(item.Key, item.Value);
+                            if (item.Value.GetProcessingStatus().Equals(ProcessingStates.Processed) && countBinCompleted < MaxCapacityProcessedSortCount)
                             {
                                 ++countBinCompleted;
                             }
@@ -372,8 +386,8 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 }               
             }
 
-            HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_8_InputName] = (countCore_8 < MaxCapacityCore);
-            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (/*countBinCompleted == MaxCapacityProcessedSortCount || */countCore_8_Completed >= 1);
+            HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_8_InputName] = (countCore_8 < MaxCapacityCore && (SortedSortSubstrates.Count > 1 || (SortedSortSubstrates.Count == 1 && countBinCompleted == 0)));
+            HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_8_OutputName] = (countCore_8_Completed >= 1);
             //HandlingLoadRequestedForSimulator[Constants.ProcessModuleCore_12_InputName] = (countCore_12 < MaxCapacityCore);
             //HandlingUnloadRequestedForSimulator[Constants.ProcessModuleCore_12_OutputName] = (countCore_12_Completed >= 1);
             HandlingLoadRequestedForSimulator[Constants.ProcessModuleSort_12_InputName] = (countBin < MaxCapacityBin);
