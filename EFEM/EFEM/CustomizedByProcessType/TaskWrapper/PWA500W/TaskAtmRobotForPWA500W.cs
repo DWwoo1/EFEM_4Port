@@ -1296,7 +1296,7 @@ namespace FrameOfSystem3.Task
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.TransPortState, SubstrateTransferStates.AtWork.ToString());
                                 substrate.SetAttribute(PWA500WSubstrateAttributes.SubstrateType, subType);
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.LotId, lotId);
-                                substrate.SetAttribute(PWA500WSubstrateAttributes.ParentLotId, lotId);
+                                //substrate.SetAttribute(PWA500WSubstrateAttributes.ParentLotId, lotId);
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.RecipeId, recipeId);
 
                                 int port = FindUnknownPortInfoBySubstrateType(substrate, convertedType);
