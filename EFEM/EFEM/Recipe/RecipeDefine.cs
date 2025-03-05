@@ -28,6 +28,7 @@ namespace FrameOfSystem3.Recipe
 		MachineLanguage,
 		MachineName,
         UnlockParameterChange,
+        RAM_METRICS_EXPORT_PATH,
 
         UseRobotUpperArm,
         UseRobotLowerArm,

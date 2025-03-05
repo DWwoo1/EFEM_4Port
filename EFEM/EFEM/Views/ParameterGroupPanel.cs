@@ -14,11 +14,13 @@ namespace FrameOfSystem3.Views
 {
 	public partial class ParameterGroupPanel : UserControlForMainView.CustomView
 	{
-		private const int SIZE_EXTAND_OFFSET = 5;
-		private bool _isExtend = true;
-		private ParameterPanel _myPanel;
-		private ControlInterface _controlInterface = new ControlInterface();
-		private bool _isExtendOnly = false;
+		const int SIZE_EXTAND_OFFSET = 5;
+		bool _isExtend = true;
+		ParameterPanel _myPanel;
+		ControlInterface _controlInterface = new ControlInterface();
+		bool _isExtendOnly = false;
+		List<ParameterPanel> _extendPanels = new List<ParameterPanel>();
+		int _totalExtendPanelHeight = 0;
 
 		public ParameterGroupPanel(ParameterPanel myPanel, bool isDefaultReduce = false, bool isExtendOnly = false)
 		{
@@ -51,21 +53,40 @@ namespace FrameOfSystem3.Views
 		{
 			//_controlInterface.RefreshValueParameter();
 			_myPanel.CallFunctionByTimer();
+
+			foreach(var panel in _extendPanels)
+			{
+				panel.CallFunctionByTimer();
+			}
+
 			base.CallFunctionByTimer();
 		}
 		protected override void ProcessWhenActivation()
 		{
 			_myPanel.ActivateView();
 
+			foreach (var panel in _extendPanels)
+			{
+				panel.ActivateView();
+			}
+
 			if (false == _isExtend)
 			{
 				panelView.Hide();
 				_myPanel.Hide();
+				foreach (var panel in _extendPanels)
+				{
+					panel.Hide();
+				}
 			}
 			else
 			{
 				panelView.Show();
 				_myPanel.Show();
+				foreach (var panel in _extendPanels)
+				{
+					panel.Show();
+				}
 			}
 
 			_controlInterface.RefreshValueParameter();
@@ -75,6 +96,11 @@ namespace FrameOfSystem3.Views
 		{
 			base.ProcessWhenDeactivation();
 			_myPanel.DeactivateView();
+
+			foreach (var panel in _extendPanels)
+			{
+				panel.DeactivateView();
+			}
 		}
 		#endregion </OVERRIDE>
 
@@ -84,8 +110,33 @@ namespace FrameOfSystem3.Views
             this.Controls.Remove(this.panelSubject);
             panelSubject.Dispose();
 
-            this.Height = _myPanel.Height;
+            this.Height = _myPanel.Height + _totalExtendPanelHeight;
         }
+
+		// 2024.06.24 by junho [ADD] panel 덧붙이기
+		public void ExtendPanel(params ParameterPanel[] newPanels)
+		{
+			if (newPanels == null || newPanels.Length < 1)
+				return;
+
+			foreach(var panel in newPanels)
+			{
+				_extendPanels.Add(panel);
+				panel.Location = new Point(panel.Location.X, panelView.Height);
+				_totalExtendPanelHeight += panel.Height;
+				panelView.Height += panel.Height;
+				this.Height += panel.Height;
+
+				panelView.Controls.Add(panel);
+
+				_controlInterface.AssignControlsWithAutoRefresh(panel.Controls);
+				panel.LinkControlInterface(_controlInterface);
+			}
+		}
+		public void SetGroupTitle(string newTitle)
+		{
+			gb_SubjectLabel.Text = newTitle;
+		}
 
         private void gb_SubjectLabel_Click(object sender, EventArgs e)
         {
@@ -98,7 +149,12 @@ namespace FrameOfSystem3.Views
 			{
 				panelView.Show();
 				_myPanel.Show();
-				this.Height = _myPanel.Height + panelSubject.Height + SIZE_EXTAND_OFFSET;
+				foreach (var panel in _extendPanels)
+				{
+					panel.Show();
+				}
+
+				this.Height = _myPanel.Height + panelSubject.Height + SIZE_EXTAND_OFFSET + _totalExtendPanelHeight;
 				_isExtend = true;
 				gb_SubjectLabel.LabelGradientColorFirst = Color.DarkGray;
 				gb_SubjectLabel.LabelGradientColorSecond = Color.WhiteSmoke;
@@ -109,6 +165,11 @@ namespace FrameOfSystem3.Views
 
 				panelView.Hide();
 				_myPanel.Hide();
+				foreach (var panel in _extendPanels)
+				{
+					panel.Hide();
+				}
+
 				this.Height = panelSubject.Height;
 				_isExtend = false;
 				gb_SubjectLabel.LabelGradientColorFirst = Color.DimGray;
@@ -129,6 +190,10 @@ namespace FrameOfSystem3.Views
 		public void SelectedMyPanel(string panelName)
 		{
 			_myPanel.SelectedMe(_controlInterface, panelName);
+			foreach (var panel in _extendPanels)
+			{
+				panel.SelectedMe(_controlInterface, panelName);
+			}
 		}
 		public bool IsThisPanel(ParameterPanel target)
 		{

@@ -76,7 +76,6 @@ namespace FrameOfSystem3.Task
 		static Log.LogManager _log = null;
 		static PostOffice _postOffice = null;
 
-		string _actionName = STOP_ACTION;
 		readonly EN_SUBSCRIBER _mySubscriberName;
 
         protected Work.AppConfigManager _appConfig = Work.AppConfigManager.Instance;    // 생성자 단계에서 사용 할 수 있으므로 바로 객체생성
@@ -88,10 +87,10 @@ namespace FrameOfSystem3.Task
 		Dictionary<Enum, string> _processParameterList = new Dictionary<Enum, string>();
 
 		protected ScenarioOperator _scenarioOperator = null;
+
 		#endregion /field
 
 		#region constant
-		const string STOP_ACTION = "STOP";
 		protected const int SEQUENCE_END_STEP = 10000;
 
 		const int DEFAULT_MOTION_RATIO = 100;
@@ -147,28 +146,11 @@ namespace FrameOfSystem3.Task
 		#endregion /task
 
 		#region motion
-		protected bool MoveAxisMotion(int axisNo, double destination, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		// 2024.09.11 by jhshin [ADD] add override method with action name, retry
+		protected bool MoveAxisMotion(int axisNo, double destination, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
 			var speedPattern = GetMotionSpeedContentByOperation();
-			MOTION_RESULT motionResult = MoveAbsolutely(axisNo, destination, speedPattern, ratio, delay, isCheck);
-
-			switch(motionResult)
-			{
-				case MOTION_RESULT.OK: return true;
-				case MOTION_RESULT.NOT_READY:
-				case MOTION_RESULT.NOT_READY_REGISTEDINSTANCE:
-				case MOTION_RESULT.FAIL_GET_ONERSHIP:
-					return false;
-				default:
-					GenerateMotionAlarm(axisNo, motionResult);
-					m_nSeqNum = GetEndStepNoByActionName();
-					return false;
-			}
-		}
-        protected bool MoveAxisMotionByCustomSpeed(int axisNo, double destination, double customSpeed, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
-		{
-			var speedPattern = _taskOperator.GetMotionSpeedContentByOperation();
-			MOTION_RESULT motionResult = MoveAbsolutely(axisNo, destination, customSpeed, speedPattern, ratio, delay, isCheck);
+			MOTION_RESULT motionResult = MoveAbsolutely(ComplementToCaption(caption), axisNo, destination, speedPattern, ratio, delay, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -183,7 +165,26 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool MoveAxisMotionByList(int axisNo, List<double> positions, List<bool> useCustomSpeeds, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		// 2024.09.11 by jhshin [ADD] add override method with action name, retry
+		protected bool MoveAxisMotionByCustomSpeed(int axisNo, double destination, double customSpeed, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
+		{
+			var speedPattern = _taskOperator.GetMotionSpeedContentByOperation();
+			MOTION_RESULT motionResult = MoveAbsolutely(ComplementToCaption(caption), axisNo, destination, customSpeed, speedPattern, ratio, delay, 0, isCheck, captionRetried);
+
+			switch (motionResult)
+			{
+				case MOTION_RESULT.OK: return true;
+				case MOTION_RESULT.NOT_READY:
+				case MOTION_RESULT.NOT_READY_REGISTEDINSTANCE:
+				case MOTION_RESULT.FAIL_GET_ONERSHIP:
+					return false;
+				default:
+					GenerateMotionAlarm(axisNo, motionResult);
+					m_nSeqNum = GetEndStepNoByActionName();
+					return false;
+			}
+		}
+		protected bool MoveAxisMotionByList(int axisNo, List<double> positions, List<bool> useCustomSpeeds, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
 			var arrPosition = positions.ToArray();
 			var arrSpeed = _taskOperator.GetMotionSpeedContentByOperation(useCustomSpeeds).ToArray();
@@ -194,7 +195,7 @@ namespace FrameOfSystem3.Task
 			}
 			int[] arrRatio = listRatio.ToArray();
 
-			MOTION_RESULT motionResult = MoveByList(axisNo, positions.Count, ref arrPosition, ref arrSpeed, ref arrRatio, delay, isCheck);
+			MOTION_RESULT motionResult = MoveByList(ComplementToCaption(caption), axisNo, positions.Count, ref arrPosition, ref arrSpeed, ref arrRatio, delay, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -209,7 +210,8 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool MoveAxisMotionByList(int axisNo, List<double> positions, List<double> speeds, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		// 2024.09.11 by jhshin [ADD] add override method with action name, retry
+		protected bool MoveAxisMotionByList(int axisNo, List<double> positions, List<double> speeds, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
 			var arrPosition = positions.ToArray();
 			var arrSpeed = speeds.ToArray();
@@ -225,7 +227,7 @@ namespace FrameOfSystem3.Task
 			var arrPattern = _taskOperator.GetMotionSpeedContentByOperation(listPattern).ToArray();
 			int[] arrRatio = listRatio.ToArray();
 
-			MOTION_RESULT motionResult = MoveByList(axisNo, positions.Count, ref arrPosition, ref arrSpeed, ref arrPattern, ref arrRatio, delay, isCheck);
+			MOTION_RESULT motionResult = MoveByList(ComplementToCaption(caption), axisNo, positions.Count, ref arrPosition, ref arrSpeed, ref arrPattern, ref arrRatio, delay, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -240,10 +242,11 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool MoveAxisMotionByTouch(int axisNo, double destination, int encoderNo, double touchThreshold, double customSpeed, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		// 2024.09.11 by jhshin [ADD] add override method with action name, retry
+		protected bool MoveAxisMotionByTouch(int axisNo, double destination, int encoderNo, double touchThreshold, double customSpeed, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
 			var speedPattern = _taskOperator.GetMotionSpeedContentByOperation();
-			MOTION_RESULT motionResult = MoveUntilTouch(axisNo, destination, encoderNo, touchThreshold, ref customSpeed, speedPattern, ratio, delay, isCheck);
+			MOTION_RESULT motionResult = MoveUntilTouch(ComplementToCaption(caption), axisNo, destination, encoderNo, touchThreshold, ref customSpeed, speedPattern, ratio, delay, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -258,37 +261,44 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool MoveAxisMotionBySoftStep(int axisNo, double destination, double slowSectionDistance, double slowSectionSpeed, EN_SOFT_STEP_TYPE softStepType, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		// 2024.09.11 by jhshin [ADD] add override method with action name, retry
+		protected bool MoveAxisMotionBySoftStep(int axisNo, double destination, double slowSectionDistance, double slowSectionSpeed, EN_SOFT_STEP_TYPE softStepType, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
 			double command = GetCommandPosition(axisNo);
 
-			slowSectionDistance = Math.Abs(slowSectionDistance);	// slow distance 부호 삭제
+			slowSectionDistance = Math.Abs(slowSectionDistance);    // slow distance 부호 삭제
+			if (slowSectionDistance <= 0.001)   // 2024.08.30 by junho [ADD] 1um이하라면 그냥 일반 모션으로 구동 (RSA에서 같은 위치로 여러번 보내면 축 알람 발생하는 경우 있었음)
+			{
+				return MoveAxisMotion(axisNo, destination, isCheck, delay, ratio, caption, captionRetried);
+			}
+
+
 			Func<bool> IsInSlowSection = () =>
 			{
-				#region
+		#region
 				switch (softStepType)
 				{
 					case EN_SOFT_STEP_TYPE.PRE:
 					case EN_SOFT_STEP_TYPE.POST:
 						return FunctionsETC.IsInTolerance(command, destination, slowSectionDistance);
 					case EN_SOFT_STEP_TYPE.DUAL:
-						return FunctionsETC.IsInTolerance(command, destination, (slowSectionDistance * 2));	// dual일 경우에는 범위가 2배
+						return FunctionsETC.IsInTolerance(command, destination, (slowSectionDistance * 2)); // dual일 경우에는 범위가 2배
 					default: return true;
 				}
-				#endregion
+		#endregion
 			};
 
 			// 이동 거리가 짧을 경우, List motion을 사용할 필요가 없다.
 			if (IsInSlowSection())
 			{
-				return MoveAxisMotionByCustomSpeed(axisNo, destination, slowSectionSpeed, isCheck, delay, ratio);
+				return MoveAxisMotionByCustomSpeed(axisNo, destination, slowSectionSpeed, isCheck, delay, ratio, caption, captionRetried);
 			}
 
 			// List motion을 만들어서 구동
 			var positionList = new List<double>();
 			var useCustomSpeedList = new List<bool>();
-			AxSetSpeed(axisNo, slowSectionSpeed, Config.ConfigMotion.EN_SPEED_CONTENT.CUSTOM_1);	// slow speed 미리 적용
-			if (command > destination)					// 만약 -방향으로 움직이면 motion이면 search offset도 -방향으로
+			AxSetSpeed(axisNo, slowSectionSpeed, Config.ConfigMotion.EN_SPEED_CONTENT.CUSTOM_1);    // slow speed 미리 적용
+			if (command > destination)                  // 만약 -방향으로 움직이면 motion이면 search offset도 -방향으로
 				slowSectionDistance *= -1;
 
 			switch (softStepType)
@@ -316,12 +326,12 @@ namespace FrameOfSystem3.Task
 				default: return false;
 			}
 
-			return MoveAxisMotionByList(axisNo, positionList, useCustomSpeedList, isCheck, delay, ratio);
+			return MoveAxisMotionByList(axisNo, positionList, useCustomSpeedList, isCheck, delay, ratio, caption, captionRetried);
 		}
 		/// <summary>
 		/// 각기 다른 slow pre/post speed를 가진 dual softstep을 사용하기 위한 interface
 		/// </summary>
-		protected bool MoveAxisMotionBySoftStep(int axisNo, double destination, double[] slowSectionDistance, double[] slowSectionSpeed, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		protected bool MoveAxisMotionBySoftStep(int axisNo, double destination, double[] slowSectionDistance, double[] slowSectionSpeed, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
 			if (slowSectionDistance.Length != 2 || slowSectionSpeed.Length != 2)
 				return false;
@@ -342,16 +352,19 @@ namespace FrameOfSystem3.Task
 			// 이동 거리가 짧을 경우, List motion을 사용할 필요가 없다.
 			if (IsInSlowSection())
 			{
-				return MoveAxisMotionByCustomSpeed(axisNo, destination, slowSectionSpeed[1], isCheck, delay, ratio);
+				return MoveAxisMotionByCustomSpeed(axisNo, destination, slowSectionSpeed[1], isCheck, delay, ratio, caption, captionRetried);
 			}
 
 			// List motion을 만들어서 구동
 			var positionList = new List<double>();
-			if (command > destination)					// 만약 -방향으로 움직이면 motion이면 search offset도 -방향으로
+			if (command > destination)                  // 만약 -방향으로 움직이면 motion이면 search offset도 -방향으로
 				slowSectionDistance = slowSectionDistance.Select(x => x *= -1).ToArray();
 
-			positionList.Add(command + slowSectionDistance[0]);
-			positionList.Add(destination - slowSectionDistance[1]);
+			// 2024.08.30 by junho [ADD] 1um이하라면 그냥 일반 모션으로 구동 (RSA에서 같은 위치로 여러번 보내면 축 알람 발생하는 경우 있었음)
+			if (slowSectionDistance[0] < -0.001 || slowSectionDistance[0] > 0.001)
+				positionList.Add(command + slowSectionDistance[0]);
+			if (slowSectionDistance[1] < -0.001 || slowSectionDistance[1] > 0.001)
+				positionList.Add(destination - slowSectionDistance[1]);
 			positionList.Add(destination);
 
 			double normalSpeed = AxGetSpeed(axisNo, _taskOperator.GetConfigSpeedContentByOperation());
@@ -361,11 +374,11 @@ namespace FrameOfSystem3.Task
 			speedList.Add(normalSpeed);
 			speedList.Add(slowSectionSpeed[1]);
 
-			return MoveAxisMotionByList(axisNo, positionList, speedList, isCheck, delay, ratio);
+			return MoveAxisMotionByList(axisNo, positionList, speedList, isCheck, delay, ratio, caption, captionRetried);
 		}
-		protected bool MoveAxisMotionBySpeedContent(int axisNo, double destination, Motion_.MOTION_SPEED_CONTENT speedContent, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		protected bool MoveAxisMotionBySpeedContent(int axisNo, double destination, Motion_.MOTION_SPEED_CONTENT speedContent, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
-			MOTION_RESULT motionResult = MoveAbsolutely(axisNo, destination, speedContent, ratio, delay, isCheck);
+			MOTION_RESULT motionResult = MoveAbsolutely(ComplementToCaption(caption), axisNo, destination, speedContent, ratio, delay, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -380,10 +393,10 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool MoveAxisMotionByReleatively(int axisNo, double destination, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO)
+		protected bool MoveAxisMotionByReleatively(int axisNo, double destination, bool isCheck = true, int delay = DEFAULT_MOTION_DELAY, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
 			var speedPattern = GetMotionSpeedContentByOperation();
-			MOTION_RESULT motionResult = MoveReleatively(axisNo, destination, speedPattern, ratio, delay, isCheck);
+			MOTION_RESULT motionResult = MoveReleatively(ComplementToCaption(caption), axisNo, destination, speedPattern, ratio, delay, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -398,9 +411,9 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool MoveAxisSpeed(int axisNo, bool direction, bool isCheck = true, int ratio = DEFAULT_MOTION_RATIO)
+		protected bool MoveAxisSpeed(int axisNo, bool direction, bool isCheck = true, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
-			MOTION_RESULT motionResult = MoveAtSpeed(axisNo, direction, ratio, isCheck);
+			MOTION_RESULT motionResult = MoveAtSpeed(ComplementToCaption(caption), axisNo, direction, ratio, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -415,9 +428,9 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool MoveAxisSpeed(int axisNo, double speed, bool direction, bool isCheck = true, int ratio = DEFAULT_MOTION_RATIO)
+		protected bool MoveAxisSpeed(int axisNo, double speed, bool direction, bool isCheck = true, int ratio = DEFAULT_MOTION_RATIO, string caption = "", int captionRetried = 0)
 		{
-			MOTION_RESULT motionResult = MoveAtSpeed(axisNo, speed, direction, ratio, isCheck);
+			MOTION_RESULT motionResult = MoveAtSpeed(ComplementToCaption(caption), axisNo, speed, direction, ratio, 0, isCheck, captionRetried);
 
 			switch (motionResult)
 			{
@@ -432,9 +445,11 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected bool StopAxisMotion(int axisNo, bool isEmergency = false, int delay = DEFAULT_MOTION_DELAY)
+		// 2024.09.11 by jhshin [ADD] add override method with action name, retry
+		protected bool StopAxisMotion(int axisNo, bool isEmergency = false, int delay = DEFAULT_MOTION_DELAY, string caption = "", int captionRetried = 0)
 		{
-			MOTION_RESULT motionResult = StopMotion(axisNo, isEmergency, delay);
+			caption = caption == "" ? string.Format("{0}_Stop", _actionName) : string.Format("{0}_Stop_{1}_{2}", _actionName, caption, m_nSeqNum.ToString());
+			MOTION_RESULT motionResult = StopMotion(caption, axisNo, isEmergency, delay, captionRetried);
 
 			switch (motionResult)
 			{
@@ -449,9 +464,10 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
+		// 2024.09.11 by jhshin [ADD] add override method with action name, retry
 		protected bool MoveAxisHome(int axisNo, int preDelay = 0, bool isCheck = true)
 		{
-			MOTION_RESULT motionResult = MoveToHome(axisNo, preDelay, isCheck);
+			MOTION_RESULT motionResult = MoveToHome(axisNo, "Home", preDelay, isCheck, 0);
 
 			switch (motionResult)
 			{
@@ -478,6 +494,10 @@ namespace FrameOfSystem3.Task
 			SetCommandPosition(axisNo, 0.0);
 			SetActualPosition(axisNo, 0.0);
 		}
+        protected void ClearActualPosition(int axisNo)
+        {
+            SetActualPosition(axisNo, 0.0);
+        }
 
 		protected void GenerateMotionAlarm(int axisNo, MOTION_RESULT category)
 		{
@@ -509,14 +529,15 @@ namespace FrameOfSystem3.Task
 			return SEQUENCE_END_STEP;
 		}
 		#endregion /motion
-
+		
 		#region cylinder
-		protected new bool MoveCylinderForward(int cylinderNo, bool isCheck = true)
+		// 2024.09.09 by jhshin [MOD] add overloading method with actionName, retry count
+		protected new bool MoveCylinderForward(int cylinderNo, bool isCheck = true, int captionRetried = 0)
 		{
 			if (IsForward(cylinderNo))
 				return true;
 
-			CYLINDER_RESULT cylinderResult = MoveForward(cylinderNo, isCheck);
+			CYLINDER_RESULT cylinderResult = MoveForward(cylinderNo, isCheck, ComplementToCaption("Forward"), captionRetried);
 			switch (cylinderResult)
 			{
 				case CYLINDER_RESULT.OK:
@@ -533,13 +554,14 @@ namespace FrameOfSystem3.Task
 					return false;
 			}
 		}
-		protected new bool MoveCylinderBackward(int cylinderNo, bool isCheck = true)
+		// 2024.09.09 by jhshin [MOD] add overloading method with action name, retry count
+		protected new bool MoveCylinderBackward(int cylinderNo, bool isCheck = true, int captionRetried = 0)
 		{
 			if (IsBackward(cylinderNo))
 				return true;
 
-			CYLINDER_RESULT cylinderResult = MoveBackward(cylinderNo, isCheck);
-			switch(cylinderResult)
+			CYLINDER_RESULT cylinderResult = MoveBackward(cylinderNo, isCheck, ComplementToCaption("Backward"), captionRetried);
+			switch (cylinderResult)
 			{
 				case CYLINDER_RESULT.OK:
 					return true;
@@ -563,25 +585,13 @@ namespace FrameOfSystem3.Task
 		#endregion /cylinder
 
 		#region digital io
-		protected bool DinCompare(int dinNo, bool targetValue)
+		protected void DoutChange(int doutNo, bool targetValue, string caption = "",  int captionRetried = 0)
 		{
-			if (_taskOperator.IsDryRunOrSimulationMode())
-				return true;
+			if (DoutReadCompare(doutNo, targetValue))
+				return;
 
-			return targetValue == ReadInput(dinNo, targetValue);
-		}
-		protected bool DoutReadCompare(int doutNo, bool targetValue)
-		{
-			if (_taskOperator.IsDryRunOrSimulationMode())
-				return true;
-
-			return targetValue == ReadOutput(doutNo, targetValue);
-		}
-		protected void DoutChange(int doutNo, bool targetValue)
-		{
-			if (DoutReadCompare(doutNo, targetValue)) return;
-			DIO_RESULT result = WriteOutput(doutNo, targetValue);
-			switch(result)
+			DIO_RESULT result = WriteOutput(doutNo, ComplementToCaption(caption), targetValue, captionRetried);
+			switch (result)
 			{
 				case DIO_RESULT.OK:
 					return;
@@ -596,6 +606,38 @@ namespace FrameOfSystem3.Task
 					m_nSeqNum = GetEndStepNoByActionName();
 					return;
 			}
+		}
+		#endregion /digital io
+
+		#region analog io
+		protected void AoutWrite(int targetNo, double targetValue, string caption = "", int captionRetried = 0)
+		{
+			if (_taskOperator.IsDryRunOrSimulationMode())
+				return;
+
+			WriteOutputValue(targetNo, ComplementToCaption(caption), targetValue, captionRetried);
+		}
+		#endregion /analog io
+
+		private string ComplementToCaption(string caption)
+		{
+			return caption == "" ? string.Format("{0}_{1}", _actionName, m_nSeqNum.ToString()) : string.Format("{0}_{1}_{2}", _actionName, m_nSeqNum.ToString(), caption);
+		}
+
+		#region digital io
+		protected bool DinCompare(int dinNo, bool targetValue)
+		{
+			if (_taskOperator.IsDryRunOrSimulationMode())
+				return true;
+
+			return targetValue == ReadInput(dinNo, targetValue);
+		}
+		protected bool DoutReadCompare(int doutNo, bool targetValue)
+		{
+			if (_taskOperator.IsDryRunOrSimulationMode())
+				return true;
+
+			return targetValue == ReadOutput(doutNo, targetValue);
 		}
 		protected void GenerateDoutAlarm(int doutNo, DIO_RESULT category)
 		{
@@ -636,13 +678,6 @@ namespace FrameOfSystem3.Task
 			return result;
 		}
 
-		protected void AoutWrite(int targetNo, double targetValue)
-		{
-			if (_taskOperator.IsDryRunOrSimulationMode())
-				return;
-
-			WriteOutputValue(targetNo, targetValue);
-		}
 		protected double AoutRead(int targetNo)
 		{
 			return ReadOutputValue(targetNo);
@@ -764,17 +799,17 @@ namespace FrameOfSystem3.Task
 		}
 		protected void InitiateWorkFlow()
 		{
-			_dynamicLink.InitiateWorkFlow(GetTaskName());	// Flow 시작 (Flow no -> 1번으로)
+			_dynamicLink.InitiateWorkFlow(GetTaskName());   // Flow 시작 (Flow no -> 1번으로)
 		}
 		protected bool SetFlowTable(string tableName)
 		{
-			return _dynamicLink.SetFlowTable(GetTaskName(), tableName);	// 사용할 Flow table을 변경
+			return _dynamicLink.SetFlowTable(GetTaskName(), tableName); // 사용할 Flow table을 변경
 		}
 		protected bool GetFlowTableList(out string[] tableList)
 		{
 			string[] arrFlowTable = null;
-			bool result = _dynamicLink.GetFlowTableList(GetTaskName(), ref arrFlowTable);	// flow table 가져오기
-			if(false == result)
+			bool result = _dynamicLink.GetFlowTableList(GetTaskName(), ref arrFlowTable);   // flow table 가져오기
+			if (false == result)
 			{
 				tableList = null;
 				return false;
@@ -790,12 +825,25 @@ namespace FrameOfSystem3.Task
 		protected void WriteTransferLog(EN_XFR_TYPE enLogType)
 		{
 			_log.WriteTransferLog(GetTaskName()
-											, enLogType
-											, _actionName
-											, string.Empty      // Material ID
-											, string.Empty      // Material Type
-											, string.Empty      // From
-											, string.Empty);    // To
+									, enLogType
+									, _actionName
+									, null      // Material ID
+									, GetTaskName()     // From
+									, GetTaskName());     // To
+		}
+		// 2024.08.20 by jhshin
+		protected void WriteTransferLog(EN_XFR_TYPE enLogType, string meterialId, string fromDevice, string toDevice)
+		{
+			_log.WriteTransferLog(GetTaskName()
+									, enLogType
+									, _actionName
+									, meterialId    // Material ID
+									, fromDevice    // From
+									, toDevice);      // To
+		}
+		protected void WriteActionProcessLog(EN_PRC_TYPE logType, string materialId)
+		{
+			_log.WriteProcessLog(GetTaskName(), logType, _actionName, materialId);
 		}
 		#endregion /log
 
@@ -858,6 +906,29 @@ namespace FrameOfSystem3.Task
 				return _recipe.SetValue(GetTaskName(), _processParameterList[parameter], setValue.ToString());
 			}
 		}
+		protected bool SetParameter(Enum parameter, TimeSpan setValue)
+		{
+			Type parameterType = parameter.GetType();
+			if (parameterType.Equals(typeof(Recipe.PARAM_COMMON)))
+			{
+				return _recipe.SetValue(Recipe.EN_RECIPE_TYPE.COMMON, parameter.ToString(), setValue.ToString());
+			}
+			else if (parameterType.Equals(typeof(Recipe.PARAM_EQUIPMENT)))
+			{
+				return _recipe.SetValue(Recipe.EN_RECIPE_TYPE.EQUIPMENT, parameter.ToString(), setValue.ToString());
+			}
+			else if (parameterType.Equals(typeof(PARAM_GLOBAL)))
+			{
+				return _recipe.SetValue(EN_TASK_LIST.Global.ToString(), parameter.ToString(), setValue.ToString());
+			}
+			else
+			{
+				if (false == _processParameterList.ContainsKey(parameter))
+					return false;
+
+				return _recipe.SetValue(GetTaskName(), _processParameterList[parameter], setValue.ToString());
+			}
+		}
 
 		protected double GetParameter(Enum parameter, double defaultValue)
 		{
@@ -870,7 +941,7 @@ namespace FrameOfSystem3.Task
 			{
 				return _recipe.GetValue(Recipe.EN_RECIPE_TYPE.EQUIPMENT, parameter.ToString(), defaultValue);
 			}
-			else if(parameterType.Equals(typeof(PARAM_GLOBAL)))
+			else if (parameterType.Equals(typeof(PARAM_GLOBAL)))
 			{
 				return _recipe.GetValue(EN_TASK_LIST.Global.ToString(), parameter.ToString(), defaultValue);
 			}
@@ -958,6 +1029,15 @@ namespace FrameOfSystem3.Task
 
 			T result;
 			if (false == Enum.TryParse(GetParameter(parameter, defaultValue.ToString()), out result))
+				return defaultValue;
+
+			return result;
+		}
+		protected TimeSpan GetParameter(Enum parameter, TimeSpan defaultValue)
+		{
+			string strValue = GetParameter(parameter, defaultValue.ToString());
+			TimeSpan result;
+			if (false == TimeSpan.TryParse(strValue, out result))
 				return defaultValue;
 
 			return result;
@@ -1124,7 +1204,7 @@ namespace FrameOfSystem3.Task
 			_lastSetIndexCheckTime = -1;
 			foreach (var time in _timeCheck.Values)
 			{
-				time.SetTickCount(0);	// Clear?
+				time.SetTickCount(0);   // Clear?
 			}
 		}
 
@@ -1169,13 +1249,13 @@ namespace FrameOfSystem3.Task
 		}
 		protected void ResetCheckCountAll()
 		{
-            List<int> keys = new List<int>();
-            foreach(var key in _countCheck.Keys)
-            {
-                keys.Add(key);
-            }
+			List<int> keys = new List<int>();
+			foreach (var key in _countCheck.Keys)
+			{
+				keys.Add(key);
+			}
 
-            foreach (int index in keys)
+			foreach (int index in keys)
 			{
 				_countCheck[index] = 0;
 			}
@@ -1194,12 +1274,10 @@ namespace FrameOfSystem3.Task
 			{
 				case EN_SCENARIO_RESULT.PROCEED: return false;
 				case EN_SCENARIO_RESULT.COMPLETED:
-					_scenarioOperator.SetScenarioActivation(scenario, false);
 					return true;
 				default:
-					_scenarioOperator.SetScenarioActivation(scenario, false);
 					GenerateAlarm((int)EN_TASK_COMMON_ALARM.SCENARIO_ERROR
-                        , string.Format("{0}:{1}", scenario.ToString(), result.ToString()));
+						, string.Format("{0}:{1}", scenario.ToString(), result.ToString()));
 					return true;
 			}
 		}
@@ -1247,15 +1325,18 @@ namespace FrameOfSystem3.Task
 		/// </summary>
 		protected override void DoSetupPrecondition()
 		{
-			WriteTransferLog(EN_XFR_TYPE.START);
 			Views.Functional.Form_ProgressBar.GetInstance().ShowForm(GetTaskName(), (uint)SEQUENCE_END_STEP);
+
+			// 직접 작성 필요
+			//WriteTransferLog(EN_XFR_TYPE.START);
 		}
 		/// <summary>
 		/// Manual action 종료 후 호출 됨
 		/// </summary>
 		protected override void DoSetupPostcondition()
 		{
-			WriteTransferLog(EN_XFR_TYPE.END);
+			// 직접 작성 필요
+			//WriteTransferLog(EN_XFR_TYPE.END);
 		}
 
 		/// <summary>
@@ -1270,7 +1351,8 @@ namespace FrameOfSystem3.Task
 		/// </summary>
 		protected override void DoExecutingPrecondition()
 		{
-			WriteTransferLog(EN_XFR_TYPE.START);
+			// 직접 작성 필요
+			//WriteTransferLog(EN_XFR_TYPE.START);
 		}
 		/// <summary>
 		/// Auto run중 action이 종료 될 때마다 호출됨
@@ -1279,7 +1361,9 @@ namespace FrameOfSystem3.Task
 		{
 			_dynamicLink.SetNodeState(GetTaskName(), _actionName, EN_ACTION_STATE.DONE);
 			_dynamicLink.FinishAction(GetTaskName());
-			WriteTransferLog(EN_XFR_TYPE.END);
+
+			// 직접 작성 필요
+			//WriteTransferLog(EN_XFR_TYPE.END);
 		}
 		#endregion /pre/post condition
 
@@ -1339,7 +1423,7 @@ namespace FrameOfSystem3.Task
 		/// </summary>
 		protected override bool DoExitSequence()
 		{
-			switch(m_nSeqNum)
+			switch (m_nSeqNum)
 			{
 				case 0:
 					return true;
@@ -1461,7 +1545,7 @@ namespace FrameOfSystem3.Task
 		private bool AxSetSpeed(int axisNo, double targetSpeed, Config.ConfigMotion.EN_SPEED_CONTENT targetContent)
 		{
 			// Search speed를 recipe값으로 설정
-			int deviceAxisNo = AxGetDeviceIndex(axisNo);
+			int deviceAxisNo = AxGetDeviceIndex(axisNo, FrameOfSystem3.Config.ConfigDevice.EN_TYPE_DEVICE.MOTION);
 			if (deviceAxisNo < 0) return false;
 
 			_configMotionSpeed.SetSpeedParameter(deviceAxisNo
@@ -1475,7 +1559,7 @@ namespace FrameOfSystem3.Task
 		{
 			double result = -1;
 
-			int deviceAxisNo = AxGetDeviceIndex(axisNo);
+			int deviceAxisNo = AxGetDeviceIndex(axisNo, FrameOfSystem3.Config.ConfigDevice.EN_TYPE_DEVICE.MOTION);
 			if (deviceAxisNo < 0) return result;
 
 			if (false == _configMotionSpeed.GetSpeedParameter(deviceAxisNo, targetContent
@@ -1484,12 +1568,12 @@ namespace FrameOfSystem3.Task
 
 			return result;
 		}
-		private int AxGetDeviceIndex(int axisNo)
+		private int AxGetDeviceIndex(int taskNo, FrameOfSystem3.Config.ConfigDevice.EN_TYPE_DEVICE deviceType)
 		{
 			int result = -1;
 			_configDevice.GetDeviceTargetIndex(GetTaskName()
-				, FrameOfSystem3.Config.ConfigDevice.EN_TYPE_DEVICE.MOTION
-				, axisNo
+				, deviceType
+				, taskNo
 				, ref result);
 
 			return result;
@@ -1539,17 +1623,17 @@ namespace FrameOfSystem3.Task
 			SUB_SEQUENCE_FAIL = 92,	// token
 			WRONG_PORT_STATUS = 93,	// token
 			CYLINDER_ERROR = 94,	// token
-			DIGITAL_ERROR	= 95,   // token
-			SCENARIO_ERROR = 96,    // token
+			DIGITAL_ERROR	= 95,	// token
+			SCENARIO_ERROR = 96,	// token
 
-			ABNORMAL_ALARM = 99,	// token
+			ABNORMAL_ALARM = 99,    // token
 		}
 		protected enum EN_CHECK_MANUAL_ACTION_RESULT
 		{
-			Accord,		// 조건 충족
+			Accord,     // 조건 충족
 			Disaccord,
-			NotSetupMode,	// setup mode 아님
-			HaveNotTargetTask,	// 해당 task의 operation이 아님.
+			NotSetupMode,   // setup mode 아님
+			HaveNotTargetTask,  // 해당 task의 operation이 아님.
 			AbnormalError,
 		}
 		#endregion /enum

@@ -432,16 +432,34 @@ namespace FrameOfSystem3.Component
 		}
 		public static bool IsDefinedParameter(Define.DefineEnumProject.Task.EN_TASK_LIST enTask, string parameterName)
 		{
-			Type type;
-			switch (enTask)
-			{
-				default:
-					return false;
-			}
-
-			if (false == type.IsEnum) return false;
+			Type type = GetDefinedParameter(enTask);
+			if (type == null || false == type.IsEnum) return false;
 			return Enum.IsDefined(type, parameterName);
 
+		}
+		public static Type GetDefinedParameter(Define.DefineEnumProject.Task.EN_TASK_LIST enTask)
+		{
+			switch (enTask)
+			{
+				
+				case Define.DefineEnumProject.Task.EN_TASK_LIST.LoadPort1:
+                case Define.DefineEnumProject.Task.EN_TASK_LIST.LoadPort2:
+                case Define.DefineEnumProject.Task.EN_TASK_LIST.LoadPort3:
+                case Define.DefineEnumProject.Task.EN_TASK_LIST.LoadPort4:
+#if PWA500W
+#else
+                case Define.DefineEnumProject.Task.EN_TASK_LIST.LoadPort5:
+                case Define.DefineEnumProject.Task.EN_TASK_LIST.LoadPort6:
+#endif
+                    return typeof(Define.DefineEnumProject.Task.LoadPort.PARAM_PROCESS);
+
+                case Define.DefineEnumProject.Task.EN_TASK_LIST.AtmRobot:
+                    return typeof(Define.DefineEnumProject.Task.AtmRobot.PARAM_PROCESS);
+
+                case Define.DefineEnumProject.Task.EN_TASK_LIST.Global:
+					return typeof(Define.DefineEnumProject.Task.Global.PARAM_GLOBAL);
+			}
+            return null;
 		}
 	}
 }

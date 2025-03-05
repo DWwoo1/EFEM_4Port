@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using FrameOfSystem3.Tool;
+
 namespace FrameOfSystem3.Views.Config
 {
     public partial class Config_Tool : UserControlForMainView.CustomView
@@ -32,10 +34,11 @@ namespace FrameOfSystem3.Views.Config
         {
             InitializeComponent();
 
-			m_InstanceOfCalculator				= Functional.Form_Calculator.GetInstance();
-			m_InstanceOfKeyboard				= Functional.Form_Keyboard.GetInstance();
-			m_InstanceOfSelectionList			= Functional.Form_SelectionList.GetInstance();
-			m_InstanceOfMessageBox				= Functional.Form_MessageBox.GetInstance();
+			_calculator				= Functional.Form_Calculator.GetInstance();
+			_keyboard				= Functional.Form_Keyboard.GetInstance();
+			_selectionList			= Functional.Form_SelectionList.GetInstance();
+			_messageBox				= Functional.Form_MessageBox.GetInstance();
+            _dateTimeSelector       = Functional.Form_DateTimeSelector.GetInstance();
 
             m_ConfigTool = FrameOfSystem3.Config.ConfigTool.GetInstance();
 		}
@@ -45,10 +48,11 @@ namespace FrameOfSystem3.Views.Config
 		private int m_nSelectedToolListRow = -1;
 		private int m_nSelectedToolListIndex = -1;
 
-		Functional.Form_MessageBox m_InstanceOfMessageBox					= null;
-		Functional.Form_Keyboard m_InstanceOfKeyboard						= null;
-		Functional.Form_Calculator m_InstanceOfCalculator					= null;
-		Functional.Form_SelectionList m_InstanceOfSelectionList				= null;
+		Functional.Form_MessageBox _messageBox					= null;
+		Functional.Form_Keyboard _keyboard						= null;
+		Functional.Form_Calculator _calculator					= null;
+		Functional.Form_SelectionList _selectionList			= null;
+        Functional.Form_DateTimeSelector _dateTimeSelector      = null;
 
         FrameOfSystem3.Config.ConfigTool m_ConfigTool = null;              
 		#endregion
@@ -84,6 +88,9 @@ namespace FrameOfSystem3.Views.Config
 
             if (m_ConfigTool.GetToolList(ref arToolList))
             {
+                if (arToolList.Length <= 0)
+                    return;
+
                 for (int nIndex = 0, nEnd = arToolList.Length; nIndex < nEnd; ++nIndex)
                 {
                     string sIndex = arToolList[nIndex];
@@ -139,6 +146,11 @@ namespace FrameOfSystem3.Views.Config
                 m_dgViewMonitoringData[DGVIEW_ITEM_NAME, nIndex].Value = arMonitoringNames[nIndex];
                 m_dgViewMonitoringData[DGVIEW_ITEM_VALUE, nIndex].Value = arMonitoringValues[nIndex];
             }
+
+            bool isEnable;
+            m_ConfigTool.GetEnable(nSelectedIndex, out isEnable);
+            btn_Enable.Enabled = false == isEnable;
+            btn_Disable.Enabled = isEnable;
         }
         private void UpdateMonitoringData(int nSelectedIndex)
         {
@@ -176,66 +188,103 @@ namespace FrameOfSystem3.Views.Config
 
             UpdateItemList(m_nSelectedToolListIndex);
         }
-		private void Click_Configuration(object sender, EventArgs e)
+		private void Click_Configuration(object sender, DataGridViewCellEventArgs e)
 		{
-            /*
-			Control ctrl			= sender as Control;
+			if (m_nSelectedToolListIndex < 0)
+				return;
 
-			string strResult		= string.Empty;
-			int nValue				= -1;
+			if (e.RowIndex < 0 || e.RowIndex >= m_dgViewItemList.RowCount)
+				return;
 
-			string[] strArrName		= null;
-			int[] nArrIndex			= null;
-			switch(ctrl.TabIndex)
+            if (false == Enum.IsDefined(typeof(EN_TOOL_PARAM), e.RowIndex))
+                return;
+
+            var param = (EN_TOOL_PARAM)e.RowIndex;
+            string newValue = string.Empty;
+            string oldValue = string.Empty;
+
+            if (false == m_ConfigTool.LoadItem(m_nSelectedToolListIndex.ToString(), param.ToString(), ref oldValue))
+                return;
+
+            switch (param)
 			{
-				case 0: // NAME
-					if(m_InstanceOfKeyboard.CreateForm(m_labelName.Text))
-					{
-						m_InstanceOfKeyboard.GetResult(ref strResult);
-						if(m_InstanceOfInterrupt.SetParameter(m_nSelectedToolListIndex, FrameOfSystem3.Config.ConfigInterrupt.EN_PARAM_INTERRUPT.NAME, strResult))
-						{
-							m_labelName.Text	= strResult;
-							m_dgViewInterrupt[COLUMN_INDEX_OF_NAME, m_nSelectedToolListRow].Value	= strResult;
-						}
-					}
+				case EN_TOOL_PARAM.NAME:
+                    if (false == _keyboard.CreateForm(param.ToString()))
+                        return;
+
+                    _keyboard.GetResult(ref newValue);
 					break;
-				case 2:	// CONDITION
-					if(m_InstanceOfSelectionList.CreateForm(m_lblCondition.Text, Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.EQUIPMENT_STATE
-						, m_labelCondition.Text, true))
-					{
-						m_InstanceOfSelectionList.GetResult(ref strResult);
-						if(m_InstanceOfInterrupt.SetParameter(m_nSelectedToolListIndex, FrameOfSystem3.Config.ConfigInterrupt.EN_PARAM_INTERRUPT.CONDITION, strResult))
-						{
-							m_labelCondition.Text	= strResult;
-							m_dgViewInterrupt[COLUMN_INDEX_OF_CONDITION, m_nSelectedToolListRow].Value	= strResult;
-						}
-					}
+				case EN_TOOL_PARAM.ENABLE:
+				case EN_TOOL_PARAM.STARTUP:
+				case EN_TOOL_PARAM.STANDSTILL:
+				case EN_TOOL_PARAM.EVENT_EXCHANGE:
+					if (false == _selectionList.CreateForm(param.ToString(), Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.TRUE_FALSE, oldValue))
+                        return;
+
+					_selectionList.GetResult(ref newValue);
 					break;
-				case 3:	// ALARM CODE
-					if(m_InstanceOfCalculator.CreateForm(m_labelAlarmCode.Text, MIN_OF_PARAM, MAX_OF_PARAM))
-					{
-						m_InstanceOfCalculator.GetResult(ref nValue);
-						strResult		= nValue.ToString();
-						if(m_InstanceOfInterrupt.SetParameter(m_nSelectedToolListIndex, FrameOfSystem3.Config.ConfigInterrupt.EN_PARAM_INTERRUPT.CODE_ALARM, strResult))
-						{
-							m_labelAlarmCode.Text = strResult;
-							m_dgViewInterrupt[COLUMN_INDEX_OF_CODE, m_nSelectedToolListRow].Value	= strResult;
-						}
-					}
+
+				case EN_TOOL_PARAM.USAGE_TYPE:
+					if (false == _selectionList.CreateForm(param.ToString(), Enum.GetNames(typeof(EN_USAGE_TYPE)), oldValue))
+						return;
+
+					_selectionList.GetResult(ref newValue);
 					break;
-				case 4:	// ACTION
-                    if (m_InstanceOfSelectionList.CreateForm(m_lblAction.Text, Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.INTERRUPT_ACTION, m_labelAction.Text))
+				case EN_TOOL_PARAM.WORK_END:
+					if (false == _selectionList.CreateForm(param.ToString(), Enum.GetNames(typeof(EN_WORK_END)), oldValue))
+						return;
+
+					_selectionList.GetResult(ref newValue);
+					break;
+				case EN_TOOL_PARAM.NOTICE_LIMIT_COUNT:
+				case EN_TOOL_PARAM.NOTICE_ALARM_CODE:
+				case EN_TOOL_PARAM.NOTICE_INTERVAL_COUNT:
+				case EN_TOOL_PARAM.WARNING_LIMIT_COUNT:
+				case EN_TOOL_PARAM.WARNING_ALARM_CODE:
+				case EN_TOOL_PARAM.WARNING_INTERVAL_COUNT:
+                    if (false == _calculator.CreateForm(oldValue, "1", "10000000", "", param.ToString()))
+                        return;
+
+                    _calculator.GetResult(ref newValue);
+					break;
+				case EN_TOOL_PARAM.NOTICE_LIMIT_TIME:
+				case EN_TOOL_PARAM.NOTICE_INTERVAL_TIME:
+				case EN_TOOL_PARAM.WARNING_LIMIT_TIME:
+				case EN_TOOL_PARAM.WARNING_INTERVAL_TIME:
                     {
-                        m_InstanceOfSelectionList.GetResult(ref strResult);
-                        if (m_InstanceOfInterrupt.SetParameter(m_nSelectedToolListIndex, FrameOfSystem3.Config.ConfigInterrupt.EN_PARAM_INTERRUPT.ACTION, strResult))
-                        {
-                            m_labelAction.Text = strResult;
-                            m_dgViewInterrupt[COLUMN_INDEX_OF_ACTION, m_nSelectedToolListRow].Value = strResult;
-                        }
+                        TimeSpan spOld;
+                        if (false == TimeSpan.TryParse(oldValue, out spOld)) spOld = TimeSpan.Zero;
+                        if (false == _dateTimeSelector.CreateForm(spOld, Functional.Form_DateTimeSelector.EShowType.Hour, param.ToString()))
+                            return;
+
+                        _dateTimeSelector.GetResult(ref newValue);
                     }
 					break;
+				default: return;
 			}
-            */
+
+			if (string.IsNullOrWhiteSpace(newValue))
+                return;
+
+            if (false == _messageBox.ShowMessage(string.Format("Do you change value?\n{0} : {1} > {2}", param.ToString(), oldValue, newValue)))
+                return;
+
+            m_ConfigTool.SaveItem(m_nSelectedToolListIndex, param.ToString(), newValue);
+			UpdateItemList(m_nSelectedToolListIndex);
+		}
+		private void Click_dgViewMonitoringData(object sender, DataGridViewCellEventArgs e)
+		{
+            if (e.RowIndex != 0) return;    // tool id만 설정 가능하도록
+
+            string strValue = string.Empty;
+            if (false == m_ConfigTool.GetToolId(m_nSelectedToolListIndex, ref strValue))
+                return;
+
+            if (false == _keyboard.CreateForm(strValue, 200, false, "New tool ID"))
+                return;
+
+            _keyboard.GetResult(ref strValue);
+            m_ConfigTool.SetToolId(m_nSelectedToolListIndex, strValue);
 		}
 
 		private void Click_Reset(object sender, EventArgs e)
@@ -244,6 +293,24 @@ namespace FrameOfSystem3.Views.Config
 
 			m_ConfigTool.ResetItem(m_nSelectedToolListIndex);
 		}
+        private void Click_EnableDisable(object sender, EventArgs e)
+		{
+            if (m_nSelectedToolListIndex < 0)
+                return;
+
+            if (sender == btn_Enable)
+            {
+                m_ConfigTool.SetEnable(m_nSelectedToolListIndex, true);
+            }
+            else if (sender == btn_Disable)
+            {
+				m_ConfigTool.SetEnable(m_nSelectedToolListIndex, false);
+			}
+			else return;
+
+			UpdateItemList(m_nSelectedToolListIndex);
+		}
 		#endregion
-    }
+
+	}
 }

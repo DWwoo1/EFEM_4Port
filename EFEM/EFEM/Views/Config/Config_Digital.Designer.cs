@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.m_dgViewOutput = new Sys3Controls.Sys3DoubleBufferedDataGridView();
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,6 +84,7 @@
 			this._tableLayoutPanel_GridView = new System.Windows.Forms.TableLayoutPanel();
 			this._panel_ItemList = new System.Windows.Forms.Panel();
 			this._flowLayoutPanel_AddRemove = new System.Windows.Forms.FlowLayoutPanel();
+			this.lbl_Filtering = new Sys3Controls.Sys3Label();
 			this._tableLayoutPanel_Option = new System.Windows.Forms.TableLayoutPanel();
 			this._panel_Reserve = new System.Windows.Forms.Panel();
 			this._panel_Reverse = new System.Windows.Forms.Panel();
@@ -93,7 +94,6 @@
 			this._panel_Target = new System.Windows.Forms.Panel();
 			this._panel_Index = new System.Windows.Forms.Panel();
 			this._panel_Name = new System.Windows.Forms.Panel();
-			this.lbl_Filtering = new Sys3Controls.Sys3Label();
 			((System.ComponentModel.ISupportInitialize)(this.m_dgViewOutput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.m_dgViewInput)).BeginInit();
 			this._tableLayoutPanel_Main.SuspendLayout();
@@ -120,14 +120,14 @@
 			this.m_dgViewOutput.BackgroundColor = System.Drawing.Color.White;
 			this.m_dgViewOutput.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
 			this.m_dgViewOutput.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle19.BackColor = System.Drawing.Color.LightGray;
-			dataGridViewCellStyle19.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-			dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.m_dgViewOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.m_dgViewOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.m_dgViewOutput.ColumnHeadersHeight = 30;
 			this.m_dgViewOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			this.m_dgViewOutput.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -140,14 +140,14 @@
             this.OFF_DELAY,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
-			dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle20.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
-			dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-			dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White;
-			dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.m_dgViewOutput.DefaultCellStyle = dataGridViewCellStyle20;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.m_dgViewOutput.DefaultCellStyle = dataGridViewCellStyle2;
 			this.m_dgViewOutput.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.m_dgViewOutput.EnableHeadersVisualStyles = false;
 			this.m_dgViewOutput.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
@@ -157,14 +157,14 @@
 			this.m_dgViewOutput.Name = "m_dgViewOutput";
 			this.m_dgViewOutput.ReadOnly = true;
 			this.m_dgViewOutput.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle21.Font = new System.Drawing.Font("맑은 고딕", 11F);
-			dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.m_dgViewOutput.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 11F);
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.m_dgViewOutput.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.m_dgViewOutput.RowHeadersVisible = false;
 			this.m_dgViewOutput.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.m_dgViewOutput.RowTemplate.Height = 23;
@@ -269,14 +269,14 @@
 			this.m_dgViewInput.BackgroundColor = System.Drawing.Color.White;
 			this.m_dgViewInput.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
 			this.m_dgViewInput.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle22.BackColor = System.Drawing.Color.LightGray;
-			dataGridViewCellStyle22.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-			dataGridViewCellStyle22.ForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.m_dgViewInput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.m_dgViewInput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this.m_dgViewInput.ColumnHeadersHeight = 30;
 			this.m_dgViewInput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			this.m_dgViewInput.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -289,14 +289,14 @@
             this.DELAYOUT,
             this.CONDITION,
             this.Led});
-			dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle23.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
-			dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-			dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.White;
-			dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.m_dgViewInput.DefaultCellStyle = dataGridViewCellStyle23;
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.m_dgViewInput.DefaultCellStyle = dataGridViewCellStyle5;
 			this.m_dgViewInput.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.m_dgViewInput.EnableHeadersVisualStyles = false;
 			this.m_dgViewInput.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
@@ -306,14 +306,14 @@
 			this.m_dgViewInput.Name = "m_dgViewInput";
 			this.m_dgViewInput.ReadOnly = true;
 			this.m_dgViewInput.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle24.Font = new System.Drawing.Font("맑은 고딕", 11F);
-			dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-			dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.m_dgViewInput.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 11F);
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.m_dgViewInput.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this.m_dgViewInput.RowHeadersVisible = false;
 			this.m_dgViewInput.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.m_dgViewInput.RowTemplate.Height = 23;
@@ -803,7 +803,7 @@
 			this.m_btnExtend.ImagePosition = new System.Drawing.Point(0, 0);
 			this.m_btnExtend.ImageSize = new System.Drawing.Point(0, 0);
 			this.m_btnExtend.LoadImage = null;
-			this.m_btnExtend.Location = new System.Drawing.Point(913, 0);
+			this.m_btnExtend.Location = new System.Drawing.Point(384, 0);
 			this.m_btnExtend.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
 			this.m_btnExtend.MainFontColor = System.Drawing.Color.Black;
 			this.m_btnExtend.Margin = new System.Windows.Forms.Padding(0);
@@ -844,7 +844,7 @@
 			this.m_btnAdd.ImagePosition = new System.Drawing.Point(0, 0);
 			this.m_btnAdd.ImageSize = new System.Drawing.Point(0, 0);
 			this.m_btnAdd.LoadImage = null;
-			this.m_btnAdd.Location = new System.Drawing.Point(529, 0);
+			this.m_btnAdd.Location = new System.Drawing.Point(0, 0);
 			this.m_btnAdd.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
 			this.m_btnAdd.MainFontColor = System.Drawing.Color.Black;
 			this.m_btnAdd.Margin = new System.Windows.Forms.Padding(0);
@@ -887,7 +887,7 @@
 			this.m_btnRemove.ImagePosition = new System.Drawing.Point(0, 0);
 			this.m_btnRemove.ImageSize = new System.Drawing.Point(0, 0);
 			this.m_btnRemove.LoadImage = null;
-			this.m_btnRemove.Location = new System.Drawing.Point(721, 0);
+			this.m_btnRemove.Location = new System.Drawing.Point(192, 0);
 			this.m_btnRemove.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
 			this.m_btnRemove.MainFontColor = System.Drawing.Color.Black;
 			this.m_btnRemove.Margin = new System.Windows.Forms.Padding(0);
@@ -1275,6 +1275,7 @@
 			// 
 			// _panel_ItemList
 			// 
+			this._panel_ItemList.Controls.Add(this.lbl_Filtering);
 			this._panel_ItemList.Controls.Add(this._flowLayoutPanel_AddRemove);
 			this._panel_ItemList.Controls.Add(this.m_groupList);
 			this._panel_ItemList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1293,12 +1294,48 @@
 			this._flowLayoutPanel_AddRemove.Controls.Add(this.m_btnExtend);
 			this._flowLayoutPanel_AddRemove.Controls.Add(this.m_btnRemove);
 			this._flowLayoutPanel_AddRemove.Controls.Add(this.m_btnAdd);
-			this._flowLayoutPanel_AddRemove.Controls.Add(this.lbl_Filtering);
 			this._flowLayoutPanel_AddRemove.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-			this._flowLayoutPanel_AddRemove.Location = new System.Drawing.Point(194, 2);
+			this._flowLayoutPanel_AddRemove.Location = new System.Drawing.Point(723, 2);
 			this._flowLayoutPanel_AddRemove.Name = "_flowLayoutPanel_AddRemove";
-			this._flowLayoutPanel_AddRemove.Size = new System.Drawing.Size(958, 42);
+			this._flowLayoutPanel_AddRemove.Size = new System.Drawing.Size(429, 42);
 			this._flowLayoutPanel_AddRemove.TabIndex = 1356;
+			// 
+			// lbl_Filtering
+			// 
+			this.lbl_Filtering.BackGroundColor = System.Drawing.Color.WhiteSmoke;
+			this.lbl_Filtering.BorderStroke = 2;
+			this.lbl_Filtering.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+			this.lbl_Filtering.Description = "";
+			this.lbl_Filtering.DisabledColor = System.Drawing.Color.Silver;
+			this.lbl_Filtering.EdgeRadius = 1;
+			this.lbl_Filtering.ImagePosition = new System.Drawing.Point(0, 0);
+			this.lbl_Filtering.ImageSize = new System.Drawing.Point(0, 0);
+			this.lbl_Filtering.LoadImage = null;
+			this.lbl_Filtering.Location = new System.Drawing.Point(0, 2);
+			this.lbl_Filtering.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
+			this.lbl_Filtering.MainFontColor = System.Drawing.Color.Red;
+			this.lbl_Filtering.Margin = new System.Windows.Forms.Padding(0);
+			this.lbl_Filtering.Name = "lbl_Filtering";
+			this.lbl_Filtering.Size = new System.Drawing.Size(529, 42);
+			this.lbl_Filtering.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+			this.lbl_Filtering.SubFontColor = System.Drawing.Color.DodgerBlue;
+			this.lbl_Filtering.SubText = "FILTERING";
+			this.lbl_Filtering.TabIndex = 1348;
+			this.lbl_Filtering.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+			this.lbl_Filtering.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
+			this.lbl_Filtering.TextAlignUnit = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+			this.lbl_Filtering.ThemeIndex = 0;
+			this.lbl_Filtering.UnitAreaRate = 40;
+			this.lbl_Filtering.UnitFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+			this.lbl_Filtering.UnitFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.lbl_Filtering.UnitPositionVertical = false;
+			this.lbl_Filtering.UnitText = "";
+			this.lbl_Filtering.UseBorder = true;
+			this.lbl_Filtering.UseEdgeRadius = false;
+			this.lbl_Filtering.UseImage = false;
+			this.lbl_Filtering.UseSubFont = true;
+			this.lbl_Filtering.UseUnitFont = false;
+			this.lbl_Filtering.Click += new System.EventHandler(this.lbl_Filtering_Click);
 			// 
 			// _tableLayoutPanel_Option
 			// 
@@ -1419,44 +1456,6 @@
 			this._panel_Name.Name = "_panel_Name";
 			this._panel_Name.Size = new System.Drawing.Size(222, 56);
 			this._panel_Name.TabIndex = 1357;
-			// 
-			// lbl_Filtering
-			// 
-			this.lbl_Filtering.BackGroundColor = System.Drawing.Color.WhiteSmoke;
-			this.lbl_Filtering.BorderStroke = 2;
-			this.lbl_Filtering.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-			this.lbl_Filtering.Description = "";
-			this.lbl_Filtering.DisabledColor = System.Drawing.Color.Silver;
-			this.lbl_Filtering.EdgeRadius = 1;
-			this.lbl_Filtering.ImagePosition = new System.Drawing.Point(0, 0);
-			this.lbl_Filtering.ImageSize = new System.Drawing.Point(0, 0);
-			this.lbl_Filtering.LoadImage = null;
-			this.lbl_Filtering.Location = new System.Drawing.Point(0, 0);
-			this.lbl_Filtering.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-			this.lbl_Filtering.MainFontColor = System.Drawing.Color.Red;
-			this.lbl_Filtering.Margin = new System.Windows.Forms.Padding(0);
-			this.lbl_Filtering.Name = "lbl_Filtering";
-			this.lbl_Filtering.Size = new System.Drawing.Size(529, 42);
-			this.lbl_Filtering.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-			this.lbl_Filtering.SubFontColor = System.Drawing.Color.DodgerBlue;
-			this.lbl_Filtering.SubText = "FILTERING";
-			this.lbl_Filtering.TabIndex = 1348;
-			this.lbl_Filtering.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-			this.lbl_Filtering.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
-			this.lbl_Filtering.TextAlignUnit = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-			this.lbl_Filtering.ThemeIndex = 0;
-			this.lbl_Filtering.UnitAreaRate = 40;
-			this.lbl_Filtering.UnitFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
-			this.lbl_Filtering.UnitFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			this.lbl_Filtering.UnitPositionVertical = false;
-			this.lbl_Filtering.UnitText = "";
-			this.lbl_Filtering.UseBorder = true;
-			this.lbl_Filtering.UseEdgeRadius = false;
-			this.lbl_Filtering.UseImage = false;
-			this.lbl_Filtering.UseSubFont = true;
-			this.lbl_Filtering.UseUnitFont = false;
-			this.lbl_Filtering.Visible = false;
-			this.lbl_Filtering.Click += new System.EventHandler(this.lbl_Filtering_Click);
 			// 
 			// Config_Digital
 			// 

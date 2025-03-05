@@ -20,6 +20,7 @@ namespace FrameOfSystem3.Component
         COLOR,
         SELECT,
         FOLDER_DIALOG,
+        DATE_TIME,
     }
     #endregion
 

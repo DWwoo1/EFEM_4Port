@@ -83,7 +83,7 @@
             // ParameterGroupPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelView);
             this.Controls.Add(this.panelSubject);
             this.Margin = new System.Windows.Forms.Padding(0);

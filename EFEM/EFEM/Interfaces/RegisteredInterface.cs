@@ -79,19 +79,21 @@ namespace FrameOfSystem3.Interface
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index, action name, retry count
 		/// 2020.05.20 by yjlee [ADD] Move the cylinder to forward.
 		/// </summary>
-		public override CYLINDER_RESULT MoveForward(ref int nIndexOfItem)
+		public override CYLINDER_RESULT MoveForward(int nIndexOfInstance, ref int nIndexOfItem, string actionName, int retryCount)
 		{
-            return m_instanceCylinder.MoveForward(nIndexOfItem);
+            return m_instanceCylinder.MoveForward(nIndexOfInstance, nIndexOfItem, actionName, retryCount);
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index, action name, retry count
 		/// 2020.05.20 by yjlee [ADD] Move the cylinder to backward.
 		/// </summary>
-		public override CYLINDER_RESULT MoveBackward(ref int nIndexOfItem)
+		public override CYLINDER_RESULT MoveBackward(int nIndexOfInstance, ref int nIndexOfItem, string actionName, int retryCount)
 		{
-            return m_instanceCylinder.MoveBackward(nIndexOfItem);
+            return m_instanceCylinder.MoveBackward(nIndexOfInstance, nIndexOfItem, actionName, retryCount);
 		}
 
 		/// <summary>
@@ -137,19 +139,25 @@ namespace FrameOfSystem3.Interface
 		}
 
 		/// <summary>
+		/// 2024.09.12 by jhshin [MOD] add instance index, action name, retry
 		/// 2020.05.20 by yjlee [ADD] Write the data to digital output channel.
 		/// </summary>
-		public override DIO_RESULT WriteOutput(ref int nIndexOfItem, ref bool bPulse)
+		public override DIO_RESULT WriteOutput(ref int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref bool bPulse, ref int retry)
 		{
-			return m_instanceDigitalIO.WriteOutput(nIndexOfItem, bPulse);
+			return m_instanceDigitalIO.WriteOutput(nIndexOfInstance, nIndexOfItem, actionName, bPulse, retry);
 		}
-		#endregion DigitalIO Interfaces
 
-		#region AnalogIO Interfaces
-		/// <summary>
-		/// 2020.09.22 by yjlee [ADD] Check whether an analog item is vaild or not.
-		/// </summary>
-		public override bool IsAnalogItemEnabled(ref bool bInput, ref int nIndexOfItem, ref string strNameOfItem)
+        public override bool IsOutputItemWaitingDelay(ref int nIndexOfItem)
+        {
+			return m_instanceDigitalIO.IsOutputItemWaitingDelay(nIndexOfItem);
+        }
+        #endregion DigitalIO Interfaces
+
+        #region AnalogIO Interfaces
+        /// <summary>
+        /// 2020.09.22 by yjlee [ADD] Check whether an analog item is vaild or not.
+        /// </summary>
+        public override bool IsAnalogItemEnabled(ref bool bInput, ref int nIndexOfItem, ref string strNameOfItem)
 		{
 			return m_instanceAnalogIO.IsItemEnabled(bInput, nIndexOfItem, ref strNameOfItem);
 		}
@@ -187,19 +195,21 @@ namespace FrameOfSystem3.Interface
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index, action name, retry count
 		/// 2020.05.20 by yjlee [ADD] Write the output voltage to the analog output channel.
 		/// </summary>
-		public override void WriteOutputVolt(ref int nIndexOfItem, ref double dblVolt)
+		public override void WriteOutputVolt(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblVolt, int retryCount)
 		{
-			m_instanceAnalogIO.WriteOutputVolt(nIndexOfItem, dblVolt);
+			m_instanceAnalogIO.WriteOutputVolt(nIndexOfInstance, nIndexOfItem, actionName, dblVolt, retryCount);
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index, action name, retry count
 		/// 2020.05.20 by yjlee [ADD] Write the output value to the analog output channel.
 		/// </summary>
-		public override void WriteOutputValue(ref int nIndexOfItem, ref double dblValue)
+		public override void WriteOutputValue(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblValue, int retryCount)
 		{
-			m_instanceAnalogIO.WriteOutputValue(nIndexOfItem, dblValue);
+			m_instanceAnalogIO.WriteOutputValue(nIndexOfInstance, nIndexOfItem, actionName, dblValue, retryCount);
 		}
 		#endregion AnalogIO Interfaces
 
@@ -280,77 +290,86 @@ namespace FrameOfSystem3.Interface
 
 		#region Move Commands
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
 		/// 2020.05.20 by yjlee [ADD] Move to home position of the motor.
 		/// </summary>
-        public override MOTION_RESULT MoveToHome(ref int nIndexOfItem, ref int nPreDelay)
+		public override MOTION_RESULT MoveToHome(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref int nPreDelay, ref int retryCount)
 		{
-            return m_instanceMotion.MoveToHome(nIndexOfItem, nPreDelay);
+            return m_instanceMotion.MoveToHome(nIndexOfInstance, nIndexOfItem, actionName, nPreDelay, retryCount);
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
 		/// 2020.05.20 by yjlee [ADD] Move the motor to the destinaition absolutely.
 		/// </summary>
-        public override MOTION_RESULT MoveAbsolutely(ref int nIndexOfItem, ref double dblDestination, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay)
+		public override MOTION_RESULT MoveAbsolutely(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblDestination, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay, ref  int retryCount)
 		{
-            return m_instanceMotion.MoveAbsolutely(nIndexOfItem, dblDestination, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveAbsolutely(nIndexOfInstance, nIndexOfItem, actionName, dblDestination, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay, retryCount);
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
 		/// 2020.05.20 by yjlee [ADD] Move the motor to the destinaition releatively.
 		/// </summary>
-        public override MOTION_RESULT MoveReleatively(ref int nIndexOfItem, ref double dblDestination, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay)
+		public override MOTION_RESULT MoveReleatively(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblDestination, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay, ref int retryCount)
 		{
-            return m_instanceMotion.MoveReleatively(nIndexOfItem, dblDestination, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveReleatively(nIndexOfInstance, nIndexOfItem, actionName, dblDestination, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay, retryCount);
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
 		/// 2020.05.20 by yjlee [ADD] Move the motor at speed.
 		/// </summary>
-		public override MOTION_RESULT MoveAtSpeed(ref int nIndexOfItem, ref double dblCustomSpeed, ref bool bDirection, ref int nRatio, ref int nPreDelay)
+		public override MOTION_RESULT MoveAtSpeed(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblCustomSpeed, ref bool bDirection, ref int nRatio, ref int nPreDelay, ref int retryCount)
 		{
-			return m_instanceMotion.MoveAtSpeed(nIndexOfItem, dblCustomSpeed, bDirection, nRatio, nPreDelay);
+			return m_instanceMotion.MoveAtSpeed(nIndexOfInstance, nIndexOfItem, actionName, dblCustomSpeed, bDirection, nRatio, nPreDelay, retryCount);
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
 		/// 2020.05.20 by yjlee [ADD] Move the motor by the list.
 		/// </summary>
-        public override MOTION_RESULT MoveByList(ref int nIndexOfItem, ref int nCountOfStep, ref double[] arDestination, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int nPreDelay)
+		public override MOTION_RESULT MoveByList(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref int nCountOfStep, ref double[] arDestination, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int nPreDelay, ref int retryCount)
 		{
-            return m_instanceMotion.MoveByList(nIndexOfItem, nCountOfStep, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveByList(nIndexOfInstance, nIndexOfItem, actionName, nCountOfStep, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay, retryCount);
 		}
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
 		/// 2020.05.20 by yjlee [ADD] Move the motor by the parameters in the list.
 		/// </summary>
-        public override MOTION_RESULT MoveByLinearCoordination(ref int nCountOfAxis, ref int[] arIndexes, ref int nCountOfStep, ref double[,] arDestination, ref double[,] arCustomSpeed, ref MOTION_SPEED_CONTENT[,] arSpeedContent, ref int[,] arRatio, ref int nDelay, ref int nPreDelay)
+		public override MOTION_RESULT MoveByLinearCoordination(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arIndexes, ref int nCountOfStep, ref double[,] arDestination, ref double[,] arCustomSpeed, ref MOTION_SPEED_CONTENT[,] arSpeedContent, ref int[,] arRatio, ref int nDelay, ref int nPreDelay, ref int retryCount)
 		{
-            return m_instanceMotion.MoveByLinearCoordination(nCountOfAxis, ref arIndexes, ref nCountOfStep, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveByLinearCoordination(nIndexOfInstance, actionName,  nCountOfAxis, ref arIndexes, ref nCountOfStep, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay, retryCount);
 		}
-        public override MOTION_RESULT MoveSyncVectorMotion(ref int nCountOfAxis, ref int[] arIndexes, ref double[] arDestination, ref double dCustomSpeed, ref MOTION_SPEED_CONTENT SpeedContent, ref int nRatio, ref bool bAbsolute, ref bool bOverride, ref int nDelay, ref int nPreDelay)
+		//2024.09.02 by jhshin [MOD] add instance index
+		public override MOTION_RESULT MoveSyncVectorMotion(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arIndexes, ref double[] arDestination, ref double dCustomSpeed, ref MOTION_SPEED_CONTENT SpeedContent, ref int nRatio, ref bool bAbsolute, ref bool bOverride, ref int nDelay, ref int nPreDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveSyncVectorMotion(ref nCountOfAxis, ref arIndexes, ref arDestination, ref dCustomSpeed, ref SpeedContent, ref nRatio, ref bAbsolute, ref bOverride, ref nDelay, ref nPreDelay);
+            return m_instanceMotion.MoveSyncVectorMotion(nIndexOfInstance, actionName, ref nCountOfAxis, ref arIndexes, ref arDestination, ref dCustomSpeed, ref SpeedContent, ref nRatio, ref bAbsolute, ref bOverride, ref nDelay, ref nPreDelay, retryCount);
         }
-
-        public override MOTION_RESULT MoveSyncVectorMotionList(ref int nCountOfAxis, ref int[] arIndexes, ref double[,] arDestination, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref bool bAbsolute, ref int nDelay, ref int nPreDelay)
+		//2024.09.02 by jhshin [MOD] add instance index
+		public override MOTION_RESULT MoveSyncVectorMotionList(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arIndexes, ref double[,] arDestination, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref bool bAbsolute, ref int nDelay, ref int nPreDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveSyncVectorMotionList(ref nCountOfAxis, ref arIndexes, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, ref bAbsolute, ref nDelay, ref nPreDelay);
+            return m_instanceMotion.MoveSyncVectorMotionList(nIndexOfInstance, actionName, ref nCountOfAxis, ref arIndexes, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, ref bAbsolute, ref nDelay, ref nPreDelay, retryCount);
         }
-
-        public override MOTION_RESULT MoveSyncVectorMotionCompare(ref int nCountOfAxis, ref int[] arIndexes, ref double[] arDestination, ref double dCustomSpeed, ref MOTION_SPEED_CONTENT SpeedContent, ref int nRatio, ref bool bAbsolute, ref int nIndexOfCompareItem, ref double dblComparePosition, ref bool bPositionLogic, ref bool bUseActualPosition, ref int nDelay, ref int nPreDelay)
+		//2024.09.02 by jhshin [MOD] add instance index
+		public override MOTION_RESULT MoveSyncVectorMotionCompare(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arIndexes, ref double[] arDestination, ref double dCustomSpeed, ref MOTION_SPEED_CONTENT SpeedContent, ref int nRatio, ref bool bAbsolute, ref int nIndexOfCompareItem, ref double dblComparePosition, ref bool bPositionLogic, ref bool bUseActualPosition, ref int nDelay, ref int nPreDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveSyncVectorMotionCompare(ref nCountOfAxis, ref arIndexes, ref arDestination, ref dCustomSpeed, ref SpeedContent, ref nRatio, ref bAbsolute, ref nIndexOfCompareItem, ref dblComparePosition, ref bPositionLogic, ref bUseActualPosition, ref nDelay, ref nPreDelay);
+            return m_instanceMotion.MoveSyncVectorMotionCompare(nIndexOfInstance, actionName, ref nCountOfAxis, ref arIndexes, ref arDestination, ref dCustomSpeed, ref SpeedContent, ref nRatio, ref bAbsolute, ref nIndexOfCompareItem, ref dblComparePosition, ref bPositionLogic, ref bUseActualPosition, ref nDelay, ref nPreDelay, retryCount);
         }
-        /// <summary>
-        /// 2020.12.29 by yjlee [ADD] Move the motor until the encoder position is over with the threshold.
-        /// </summary>
-        public override MOTION_RESULT MoveUntilTouch(ref int nIndexOfItem, ref double dblDestination, ref int nIndexOfEncoder, ref double dblEncoderThreshold, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2020.12.29 by yjlee [ADD] Move the motor until the encoder position is over with the threshold.
+		/// </summary>
+		public override MOTION_RESULT MoveUntilTouch(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblDestination, ref int nIndexOfEncoder, ref double dblEncoderThreshold, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveUntilTouch(nIndexOfItem, dblDestination, nIndexOfEncoder, dblEncoderThreshold, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveUntilTouch(nIndexOfInstance, nIndexOfItem, actionName, dblDestination, nIndexOfEncoder, dblEncoderThreshold, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay, retryCount);
         }
-        /// <summary>
-        /// 2022.10.20 by wdw [ADD] Move the motor until the analog value is over with the threshold.
-        /// </summary>
-        public override MOTION_RESULT MoveUntilTouch_Analog(ref int nIndexOfItem, ref double dblDestination, ref int[] nArrConfigIndexesOfAnalog, ref double dblAnalogThreshold, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2022.10.20 by wdw [ADD] Move the motor until the analog value is over with the threshold.
+		/// </summary>
+		public override MOTION_RESULT MoveUntilTouch_Analog(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblDestination, ref int[] nArrConfigIndexesOfAnalog, ref double dblAnalogThreshold, ref double dblCustomSpeed, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, ref int nPreDelay, ref int retryCount)
         {
             // 2024.03.11. by shkim. [MOD] Multi Controller를 위한 코드로 수정(Registered 측에서는 Analog device의 실제 타겟 넘버를 알 수 있는 방법이 없다.)
             int analogCount = nArrConfigIndexesOfAnalog == null ? 0 : nArrConfigIndexesOfAnalog.Length;
@@ -364,21 +383,23 @@ namespace FrameOfSystem3.Interface
                     return MOTION_RESULT.MISMATCH_LIST_PARAMETER;
                 }
             }
-            return m_instanceMotion.MoveUntilTouch_Analog(nIndexOfItem, dblDestination, ref contollerTargetAnalogIndexes, dblAnalogThreshold, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveUntilTouch_Analog(nIndexOfInstance, nIndexOfItem, actionName, dblDestination, ref contollerTargetAnalogIndexes, dblAnalogThreshold, dblCustomSpeed, enSpeedContent, nRatio, nDelay, nPreDelay, retryCount);
             // 2024.03.11. by shkim. [END]
         }
-        /// <summary>
-        /// 2022.10.25 by wdw [ADD] Move the motor by the list until the encoder value is over with the threshold.
-        /// </summary>
-        /// 
-        public override MOTION_RESULT MoveByListUntilTouch(ref int nIndexOfItem, ref int nStepCount, ref double[] arDestination, ref int nIndexOfEncoder, ref double dblEncoderThreshold,  ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int nPreDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2022.10.25 by wdw [ADD] Move the motor by the list until the encoder value is over with the threshold.
+		/// </summary>
+		/// 
+		public override MOTION_RESULT MoveByListUntilTouch(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref int nStepCount, ref double[] arDestination, ref int nIndexOfEncoder, ref double dblEncoderThreshold,  ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int nPreDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveByListUntilTouch(nIndexOfItem, nStepCount, ref arDestination, nIndexOfEncoder, dblEncoderThreshold, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveByListUntilTouch(nIndexOfInstance, nIndexOfItem, actionName, nStepCount, ref arDestination, nIndexOfEncoder, dblEncoderThreshold, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay, retryCount);
         }
-        /// <summary>
-        /// 2022.10.25 by wdw [ADD] Move the motor by the list until the analog value is over with the threshold.
-        /// </summary>
-        public override MOTION_RESULT MoveByListUntilTouch_Analog(ref int nIndexOfItem, ref int nStepCount, ref double[] arDestination, ref int[] nArrConfigIndexesOfAnalog, ref double dblAnalogThreshold, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int nPreDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2022.10.25 by wdw [ADD] Move the motor by the list until the analog value is over with the threshold.
+		/// </summary>
+		public override MOTION_RESULT MoveByListUntilTouch_Analog(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref int nStepCount, ref double[] arDestination, ref int[] nArrConfigIndexesOfAnalog, ref double dblAnalogThreshold, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int nPreDelay, ref int retryCount)
         {
             // 2024.03.11. by shkim. [MOD] Multi Controller를 위한 코드로 수정(Registered 측에서는 Analog device의 실제 타겟 넘버를 알 수 있는 방법이 없다.)
             int analogCount = nArrConfigIndexesOfAnalog == null ? 0 : nArrConfigIndexesOfAnalog.Length;
@@ -392,38 +413,42 @@ namespace FrameOfSystem3.Interface
                     return MOTION_RESULT.MISMATCH_LIST_PARAMETER;
                 }
             }
-            return m_instanceMotion.MoveByListUntilTouch_Analog(nIndexOfItem, nStepCount, ref arDestination, ref contollerTargetAnalogIndexes, dblAnalogThreshold, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay);
+            return m_instanceMotion.MoveByListUntilTouch_Analog(nIndexOfInstance, nIndexOfItem, actionName, nStepCount, ref arDestination, ref contollerTargetAnalogIndexes, dblAnalogThreshold, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, nPreDelay, retryCount);
             // 2024.03.11. by shkim. [END]
         }
-        /// <summary>
-        /// 2020.05.20 by yjlee [ADD] Override the speed of the motor.
-        /// </summary>
-        public override MOTION_RESULT OverrideMotion(ref int nIndexOfItem, ref MOTION_OVERRIDE_TYPE enOverrideType, ref double dblDestination, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2020.05.20 by yjlee [ADD] Override the speed of the motor.
+		/// </summary>
+		public override MOTION_RESULT OverrideMotion(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref MOTION_OVERRIDE_TYPE enOverrideType, ref double dblDestination, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int retryCount)
         {
-            return m_instanceMotion.OverrideMotion(nIndexOfItem, enOverrideType, dblDestination, enSpeedContent, nRatio);
+            return m_instanceMotion.OverrideMotion(nIndexOfInstance, nIndexOfItem, actionName, enOverrideType, dblDestination, enSpeedContent, nRatio, retryCount);
         }
 
 		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
 		/// 2020.05.20 by yjlee [ADD] Stop the motor.
 		/// </summary>
-        public override MOTION_RESULT StopMotion(ref int nIndexOfItem, ref bool bEmergency, ref int nDelay)
+		public override MOTION_RESULT StopMotion(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref bool bEmergency, ref int nDelay, ref int retryCount)
 		{
-            return m_instanceMotion.StopMotion(nIndexOfItem, bEmergency, nDelay);
+            return m_instanceMotion.StopMotion(nIndexOfInstance, nIndexOfItem, actionName, bEmergency, nDelay, retryCount);
 		}
-        /// <summary>
-        /// 2021.07.13 by yjlee [ADD] Move the axes while comparing.
-        /// </summary>
-        public override MOTION_RESULT MoveCompare(ref int nIndexOfItem, ref double dblPosition, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nIndexOfCompareItem, ref double dblComparePosition, ref bool bPositionLogic, ref bool bUseActualPosition, ref int nPreDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2021.07.13 by yjlee [ADD] Move the axes while comparing.
+		/// </summary>
+		public override MOTION_RESULT MoveCompare(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblPosition, ref MOTION_SPEED_CONTENT enSpeedContent, ref int nIndexOfCompareItem, ref double dblComparePosition, ref bool bPositionLogic, ref bool bUseActualPosition, ref int nPreDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveCompare(nIndexOfItem, dblPosition, enSpeedContent, nIndexOfCompareItem, dblComparePosition, bPositionLogic, bUseActualPosition, nPreDelay);
+            return m_instanceMotion.MoveCompare(nIndexOfInstance, nIndexOfItem, actionName, dblPosition, enSpeedContent, nIndexOfCompareItem, dblComparePosition, bPositionLogic, bUseActualPosition, nPreDelay, retryCount);
         }
 
-        /// <summary>
-        /// 2021.07.13 by yjlee [ADD] Move an axis with the position, velocity and the time.
-        /// </summary>
-        public override MOTION_RESULT MovePVT(ref int nIndexOfItem, ref int nCountOfStep, ref double[] arPosition, ref double[] arVelocity, ref double[] arTime, ref int nPreDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2021.07.13 by yjlee [ADD] Move an axis with the position, velocity and the time.
+		/// </summary>
+		public override MOTION_RESULT MovePVT(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref int nCountOfStep, ref double[] arPosition, ref double[] arVelocity, ref double[] arTime, ref int nPreDelay, ref int retryCount)
         {
-            return m_instanceMotion.MovePVT(nIndexOfItem, nCountOfStep, ref arPosition, ref arVelocity, ref arTime, nPreDelay);
+            return m_instanceMotion.MovePVT(nIndexOfInstance, nIndexOfItem, actionName, nCountOfStep, ref arPosition, ref arVelocity, ref arTime, nPreDelay, retryCount);
         }
 		#endregion
 
@@ -432,42 +457,46 @@ namespace FrameOfSystem3.Interface
         /// <summary>
         /// 2021.05.06 by yjlee [ADD] Move the multi axes to the home position.
         /// </summary>
-        public override MOTION_RESULT MoveMultiToHome(ref int nCountOfAxis, ref int[] arAxes)
+        public override MOTION_RESULT MoveMultiToHome(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arAxes, ref int retryCount)
         {
-            return m_instanceMotion.MoveMultiToHome(nCountOfAxis, ref arAxes);
+            return m_instanceMotion.MoveMultiToHome(nIndexOfInstance, actionName, nCountOfAxis, ref arAxes, retryCount);
         }
 
-        /// <summary>
-        /// 2021.05.06 by yjlee [ADD] Move the multi axes absolutely.
-        /// </summary>
-        public override MOTION_RESULT MoveMultiAbsolutely(ref int nCountOfAxis, ref int[] arAxes, ref double[] arDestination, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2021.05.06 by yjlee [ADD] Move the multi axes absolutely.
+		/// </summary>
+		public override MOTION_RESULT MoveMultiAbsolutely(int nIndexOfInstance, string actionName ,ref int nCountOfAxis, ref int[] arAxes, ref double[] arDestination, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveMultiAbsolutely(nCountOfAxis, ref arAxes, ref arDestination, ref arSpeedContent, ref arRatio, nDelay);
+            return m_instanceMotion.MoveMultiAbsolutely(nIndexOfInstance, actionName, nCountOfAxis, ref arAxes, ref arDestination, ref arSpeedContent, ref arRatio, nDelay, retryCount);
         }
 
-        /// <summary>
-        /// 2021.05.06 by yjlee [ADD] Move the multi axes releatively.
-        /// </summary>
-        public override MOTION_RESULT MoveMultiReleatively(ref int nCountOfAxis, ref int[] arAxes, ref double[] arDestination, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2021.05.06 by yjlee [ADD] Move the multi axes releatively.
+		/// </summary>
+		public override MOTION_RESULT MoveMultiReleatively(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arAxes, ref double[] arDestination, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref int retryCount)
         {
-            return m_instanceMotion.MoveMultiReleatively(nCountOfAxis, ref arAxes, ref arDestination, ref arSpeedContent, ref arRatio, nDelay);
+            return m_instanceMotion.MoveMultiReleatively(nIndexOfInstance, actionName, nCountOfAxis, ref arAxes, ref arDestination, ref arSpeedContent, ref arRatio, nDelay, retryCount);
         }
 
-        /// <summary>
-        /// 2021.05.06 by yjlee [ADD] Move the multi axes at speed.
-        /// </summary>
-        public override MOTION_RESULT MoveMultiAtSpeed(ref int nCountOfAxis, ref int[] arAxes, ref bool[] arDirection, ref int[] arRatio)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2021.05.06 by yjlee [ADD] Move the multi axes at speed.
+		/// </summary>
+		public override MOTION_RESULT MoveMultiAtSpeed(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arAxes, ref bool[] arDirection, ref int[] arRatio, ref int retryCount)
         {
-            return m_instanceMotion.MoveMultiAtSpeed(nCountOfAxis, ref arAxes, ref arDirection, ref arRatio);
+            return m_instanceMotion.MoveMultiAtSpeed(nIndexOfInstance, actionName, nCountOfAxis, ref arAxes, ref arDirection, ref arRatio, retryCount);
         }
 
-        /// <summary>
-        /// 2021.05.06 by yjlee [ADD] Stop the multi motion.
-        /// - If uses the multi command, have to use it to stop the motion.
-        /// </summary>
-        public override MOTION_RESULT StopMultiMotion(ref int nCountOfAxis, ref int[] arAxes, ref bool bEmergency)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2021.05.06 by yjlee [ADD] Stop the multi motion.
+		/// - If uses the multi command, have to use it to stop the motion.
+		/// </summary>
+		public override MOTION_RESULT StopMultiMotion(int nIndexOfInstance, string actionName, ref int nCountOfAxis, ref int[] arAxes, ref bool bEmergency, ref int retryCount)
         {
-            return m_instanceMotion.StopMultiMotion(nCountOfAxis, ref arAxes, bEmergency);
+            return m_instanceMotion.StopMultiMotion(nIndexOfInstance, actionName, nCountOfAxis, ref arAxes, bEmergency, retryCount);
         }
         #endregion End - Multi Commands
 
@@ -487,22 +516,24 @@ namespace FrameOfSystem3.Interface
             return m_instanceMotion.SetChangeTorqueLimitPositionEvent(nIndexOfItem, dEventPosition, nDefaultTorque, nLimitTorque, dEventPositionWidth);
         }
 
-        /// <summary>
-        /// 2022.09.06. by shkim. [ADD] 절대위치이동, 특정 Position에 Torque Limit이 동작하는 Trigger가 걸려있을 때 사용한다.(For PAA-100HTX)
-        /// Motion Done을 Controller Signal이 아닌 Command Position과 Target Position의 차이가 dblCustomSettlingDistance[mm] 이내에 있는지로 판별한다.
-        /// </summary>
-        public override MOTION_RESULT MoveAbsolutelyWithToqueLimitPositionEvent(ref int nIndexOfItem, ref double dblDestination, ref double dblCustomSpeed, ref Motion_.MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, double dblCustomSettlingDistance)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2022.09.06. by shkim. [ADD] 절대위치이동, 특정 Position에 Torque Limit이 동작하는 Trigger가 걸려있을 때 사용한다.(For PAA-100HTX)
+		/// Motion Done을 Controller Signal이 아닌 Command Position과 Target Position의 차이가 dblCustomSettlingDistance[mm] 이내에 있는지로 판별한다.
+		/// </summary>
+		public override MOTION_RESULT MoveAbsolutelyWithToqueLimitPositionEvent(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref double dblDestination, ref double dblCustomSpeed, ref Motion_.MOTION_SPEED_CONTENT enSpeedContent, ref int nRatio, ref int nDelay, double dblCustomSettlingDistance, ref int retryCount)
 		{
-			return m_instanceMotion.MoveAbsolutelyWithToqueLimitPositionEvent(nIndexOfItem, dblDestination, dblCustomSpeed, enSpeedContent, nRatio, nDelay, dblCustomSettlingDistance);
+			return m_instanceMotion.MoveAbsolutelyWithToqueLimitPositionEvent(nIndexOfInstance, nIndexOfItem, actionName, dblDestination, dblCustomSpeed, enSpeedContent, nRatio, nDelay, dblCustomSettlingDistance, retryCount);
 		}
 
-        /// <summary>
-        /// 2022.09.06. by shkim. [ADD] 절대위치리스트이동, 특정 Position에 Torque Limit이 동작하는 Trigger가 걸려있을 때 사용한다.(For PAA-100HTX)
-        /// Motion Done을 Controller Signal이 아닌 Command Position과 Target Position의 차이가 dblCustomSettlingDistance[mm] 이내에 있는지로 판별한다.
-        /// </summary>
-        public override MOTION_RESULT MoveByListWithToqueLimitPositionEvent(ref int nIndexOfItem, ref int nCountOfStep, ref double[] arDestination, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref bool bIsToqueLimitCondition, ref double dCustomSettlingDistance)
+		/// <summary>
+		/// 2024.09.02 by jhshin [MOD] add instance index
+		/// 2022.09.06. by shkim. [ADD] 절대위치리스트이동, 특정 Position에 Torque Limit이 동작하는 Trigger가 걸려있을 때 사용한다.(For PAA-100HTX)
+		/// Motion Done을 Controller Signal이 아닌 Command Position과 Target Position의 차이가 dblCustomSettlingDistance[mm] 이내에 있는지로 판별한다.
+		/// </summary>
+		public override MOTION_RESULT MoveByListWithToqueLimitPositionEvent(int nIndexOfInstance, ref int nIndexOfItem, string actionName, ref int nCountOfStep, ref double[] arDestination, ref double[] arCustomSpeed, ref MOTION_SPEED_CONTENT[] arSpeedContent, ref int[] arRatio, ref int nDelay, ref bool bIsToqueLimitCondition, ref double dCustomSettlingDistance, ref int retryCount)
 		{
-            return m_instanceMotion.MoveByListWithToqueLimitPositionEvent(nIndexOfItem, nCountOfStep, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, bIsToqueLimitCondition, dCustomSettlingDistance);
+            return m_instanceMotion.MoveByListWithToqueLimitPositionEvent(nIndexOfInstance, nIndexOfItem, actionName, nCountOfStep, ref arDestination, ref arCustomSpeed, ref arSpeedContent, ref arRatio, nDelay, bIsToqueLimitCondition, dCustomSettlingDistance, retryCount);
 		}
         #endregion Motion Interfaces
     }

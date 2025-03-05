@@ -3371,6 +3371,7 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                         #endregion
                     }
                     break;
+
                 //case MessagesToReceive.RequestUpdateMachineInfo:
                 //    {
                 //        #region

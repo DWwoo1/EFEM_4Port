@@ -60,38 +60,31 @@ namespace EFEM.Defines.AtmRobot
 
         public void WriteOperationStartLog(RobotCommands command, RobotArmTypes arm, string location)
         {
-            _logType = LogTitleTypes.OPER;
-
-            WriteLog(string.Format("----- {0}, Arm : {1}, Location : {2} -----", command.ToString(), arm.ToString(), location));
+            WriteLog(LogTitleTypes.OPER, string.Format("----- {0}, Arm : {1}, Location : {2} -----", command.ToString(), arm.ToString(), location));
         }
 
         public void WriteOperationStartLog(RobotCommands command)
         {
-            _logType = LogTitleTypes.OPER;
-
-            WriteLog(string.Format("----- {0} -----", command.ToString()));
+            WriteLog(LogTitleTypes.OPER, string.Format("----- {0} -----", command.ToString()));
         }
         public void WriteOperationEndLog(RobotCommands command, CommandResults result)
         {
             if (result.Equals(CommandResult.Proceed))
                 return;
 
-            _logType = LogTitleTypes.OPER;
-            WriteLog(string.Format("----- Result : {0}, Description : {1}", result.CommandResult.ToString(), result.Description));
+            WriteLog(LogTitleTypes.OPER, string.Format("----- Result : {0}, Description : {1}", result.CommandResult.ToString(), result.Description));
         }
         public void WriteCommLog(string message, bool received)
         {
             if (false == received)
             {
-                _logType = LogTitleTypes.SEND;
-
+                WriteLog(LogTitleTypes.SEND, message);
             }
             else
             {
-                _logType = LogTitleTypes.RECV;
+                WriteLog(LogTitleTypes.RECV, message);
             }
 
-            WriteLog(message);
         }
     }
 

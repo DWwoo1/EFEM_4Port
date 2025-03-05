@@ -65,8 +65,10 @@ namespace FrameOfSystem3.Views.Config
 
 		private readonly string MAX_OF_PARAM			= "999999";
 		private readonly string MIN_OF_PARAM			= "0";
-		private readonly string LEFT_ARROW				= "◀";
-		private readonly string RIGHT_ARROW				= "▶";
+
+		// 미사용?
+		//private readonly string LEFT_ARROW				= "◀";
+		//private readonly string RIGHT_ARROW				= "▶";
 
 		private readonly Color c_clrTrue			= Color.DodgerBlue;
 		private readonly Color c_clrFalse			= Color.White;		
@@ -174,7 +176,9 @@ namespace FrameOfSystem3.Views.Config
 			if (false == m_InstanceOfCylinder.GetParameter(nIndexOfItem, FrameOfSystem3.Config.ConfigCylinder.EN_PARAM_CYLINDER.NAME, ref itemName))
 				itemName = string.Empty;
 
-			if (_filterKeyword != string.Empty && false == itemName.Contains(_filterKeyword))
+			// 2024.06.25 by junho [MOD] 대소문자 구분하지 않도록 변경
+			//if (_filterKeyword != string.Empty && false == itemName.Contains(_filterKeyword))
+			if (_filterKeyword != string.Empty && itemName.IndexOf(_filterKeyword, StringComparison.OrdinalIgnoreCase) < 0)
 				return;
 
 			m_dgViewCylinder.Rows.Add();
@@ -1053,20 +1057,6 @@ namespace FrameOfSystem3.Views.Config
 			m_InstanceOfKeyboard.GetResult(ref _filterKeyword);
 			UpdateForm();
 			lbl_Filtering.Text = _filterKeyword;
-		}
-
-		private void m_btnExtend_Click(object sender, EventArgs e)
-		{
-			if (m_btnExtend.Text.Equals(LEFT_ARROW))
-			{
-				m_btnExtend.Text = RIGHT_ARROW;
-				lbl_Filtering.Visible = true;
-			}
-			else
-			{
-				m_btnExtend.Text = LEFT_ARROW;
-				lbl_Filtering.Visible = false;
-			}
 		}
 	}
 }

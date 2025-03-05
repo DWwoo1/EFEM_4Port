@@ -27,7 +27,7 @@ namespace FrameOfSystem3.Config
 
         #region FIELD
         Functional.Storage m_instanceStorage = null;
-        TaskActionFlow m_instanceFlow = null;
+		//TaskActionFlow m_instanceFlow = null;		// 미사용?
 
         DynamicLink m_DynamicLink = null;
 

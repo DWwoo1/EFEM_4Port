@@ -102,7 +102,10 @@ namespace FrameOfSystem3.Recipe
 
 		string[] m_arTypeOfParameter            = null;
 		Dictionary<string, RECIPE_PARAM_TYPE> m_mappingEnumForType              = new Dictionary<string, RECIPE_PARAM_TYPE>();
-		#endregion
+
+		// 2024.09.12 by junho [ADD] 각각의 parameter가 변경될 떄 발생하는 event 추가
+		EachParameterChangedEventManager _eachParameterChangedEventManager = new EachParameterChangedEventManager();
+		#endregion /Variables
 
 		#region Internal Interface
 
@@ -1130,6 +1133,10 @@ namespace FrameOfSystem3.Recipe
             bool bLoadProcessRecipe = bLoadCommonRecipe && LoadProcessRecipe(true);
             // bool bLoadProcessRecipe     = bLoadCommonRecipe && LoadProcessRecipe();
 
+			// 2024.09.12 by junho [ADD] 각각의 parameter가 변경될 떄 발생하는 event 추가
+			_eachParameterChangedEventManager.Init();
+
+			ParameterChangedNotify += OnEachParameterChangedNotify;
 			return bLoadCommonRecipe && bLoadEquipmentRecipe && bLoadProcessRecipe;
 		}
 		#endregion /Initialize & Exit
@@ -1854,7 +1861,7 @@ namespace FrameOfSystem3.Recipe
 		/// 2022.05.01 by junho [ADD] Add the Write Log option
 		/// 2023.05.08. by wdw [MOD] Parameter Index 저장 형식 변경.
 		/// </summary>
-		public bool SetValue(EN_RECIPE_TYPE enType, string strName, int nIndexOfItem, EN_RECIPE_PARAM_TYPE enParam, string strValue, bool isWriteLog = true)
+		public bool SetValue(EN_RECIPE_TYPE enType, string strName, int nIndexOfItem, EN_RECIPE_PARAM_TYPE enParam, string strValue, bool isWriteLog = true, bool doNotify = true)
 		{
 			string[] arGroup			= new string[] { strName, m_arIntToString[0] };
             int nParameterCount = m_instanceRecipeManager.GetCountOfParameter(ref strName);
@@ -1929,32 +1936,47 @@ namespace FrameOfSystem3.Recipe
 								m_instanceLog.WriteConfigurationLog(ref strType, EN_CFG_TYPE.SAVE, string.Empty, string.Empty, strFullFilePath);
 							}
 
-                            if (enParam == EN_RECIPE_PARAM_TYPE.VALUE)
-                            {
-                                switch (enType)
-                                {
-                                    case EN_RECIPE_TYPE.COMMON:
-                                        {
-                                            PARAM_COMMON data;
-                                            if (Enum.TryParse(strData, out data))
-                                            {
-                                                SECSGEM.ScenarioOperator.Instance.UpdateCommonParameters(data, strValue);
-                                            }
-                                        }
-                                        break;
+							if (enParam == EN_RECIPE_PARAM_TYPE.VALUE)
+							{
+								RemoveDeferredStorage(enType, strName, nIndexOfItem);
+								if (doNotify)
+								{
+									// 2024.09.12 by junho [ADD] 각각의 parameter가 변경될 떄 발생하는 event 추가
+									OnNotifyParameterChanged(true, new List<ParameterItem>() { new ParameterItem(enType, strName, nIndexOfItem, strValue) });
+								}
 
-                                    case EN_RECIPE_TYPE.EQUIPMENT:
-                                        {
-                                            PARAM_EQUIPMENT data;
-                                            if (Enum.TryParse(strData, out data))
-                                            {
-                                                SECSGEM.ScenarioOperator.Instance.UpdateMachineParameters(data, strValue);
-                                            }
-                                        }
-                                        break;
-                                }
-                            }
-							return true;
+								// 2024.09.19 by junho [DEL] scenario circulator로 이동
+								//switch (enType)
+								//{
+								//	case EN_RECIPE_TYPE.COMMON:
+								//		{
+								//			PARAM_COMMON data;
+								//			if (Enum.TryParse(strData, out data))
+								//			{
+								//				SECSGEM.ScenarioOperator.Instance.UpdateCommonParameters(data, strValue);
+								//			}
+								//		}
+								//		break;
+
+								//	case EN_RECIPE_TYPE.EQUIPMENT:
+								//		{
+								//			PARAM_EQUIPMENT data;
+								//			if (Enum.TryParse(strData, out data))
+								//			{
+								//				SECSGEM.ScenarioOperator.Instance.UpdateMachineParameters(data, strValue);
+								//			}
+								//		}
+								//		break;
+								//}
+
+								// 2024.09.19 by junho [DEL] efem manager에서 직접 event 받도록 변경
+								//if (enParam == EN_RECIPE_PARAM_TYPE.VALUE)
+								//{
+								//Work.UIComunicationEvent.Inform_ToTask(Work.UIComunicationEvent.EN_REQUEST_FROM_UI.SECSGEM_SEND_ECID, Define.DefineEnumProject.Task.EN_TASK_LIST.Global.ToString()
+								//	, new object[] { enType, strName, strValue });
+								//}
+								return true;
+							}
 						}
 					}
 				}
@@ -1971,7 +1993,7 @@ namespace FrameOfSystem3.Recipe
 		/// 2021.01.18 by yjlee [ADD] Add to write the log.
 		/// 2023.05.08. by wdw [MOD] Parameter Index 저장 형식 변경.
 		/// </summary>
-		public bool SetValue(string strTaskName, string strParameterName, int nIndexOfItem, EN_RECIPE_PARAM_TYPE enParam, string strValue)
+		public bool SetValue(string strTaskName, string strParameterName, int nIndexOfItem, EN_RECIPE_PARAM_TYPE enParam, string strValue, bool doNotify = true)
 		{
             if (nIndexOfItem < 0)
                 nIndexOfItem = 0;
@@ -2013,7 +2035,8 @@ namespace FrameOfSystem3.Recipe
 			if (m_instanceFileComposite.GetValue(strRootName, strItemName, ref strPreviousData, arGroup))
 			{
 				// 2023.05.20 by junho [ADD] 같은 값이면 set하지 않도록 변경
-				if (strPreviousData.Equals(strValue)) return true;
+				if (strPreviousData.Equals(strValue))
+					return true;
 
 				/// 2023.05.20 by junho [ADD] 설정된 Data type과 비교를 위해 추가
 				if (enParam == EN_RECIPE_PARAM_TYPE.VALUE)
@@ -2046,6 +2069,16 @@ namespace FrameOfSystem3.Recipe
 						//m_instanceLog.WriteConfigurationLog(ref strTaskName, EN_CFG_TYPE.CHANGE, strItemName, strPreviousData, strValue);
                         m_instanceLog.WriteConfigurationLog(ref strTaskName, EN_CFG_TYPE.CHANGE, strIndexParameterName, strPreviousData, strValue);
 						m_instanceLog.WriteConfigurationLog(ref strTaskName, EN_CFG_TYPE.SAVE, string.Empty, string.Empty, strFullFilePath);
+
+						if(enParam == EN_RECIPE_PARAM_TYPE.VALUE)
+						{
+							RemoveDeferredStorage(strTaskName, strParameterName, nIndexOfItem);
+							if (doNotify)
+							{
+								// 2024.09.12 by junho [ADD] 각각의 parameter가 변경될 떄 발생하는 event 추가
+								OnNotifyParameterChanged(true, new List<ParameterItem>() { new ParameterItem(strTaskName, strParameterName, nIndexOfItem, strValue) });
+							}
+						}
 
 						return true;
 					}
@@ -2094,6 +2127,15 @@ namespace FrameOfSystem3.Recipe
 		{
 			return GetDeferredStorage(type, parameterName, 0, out result);
 		}
+		private void RemoveDeferredStorage(EN_RECIPE_TYPE type, string parameterName, int indexOfItem = 0)
+		{
+			string key = string.Format("{0}.{1}.{2}", type.ToString(), parameterName, indexOfItem.ToString());
+			if (_deferredStorageForEcParmater.ContainsKey(key))
+			{
+				string s;
+				_deferredStorageForEcParmater.TryRemove(key, out s);
+			}
+		}
 		#endregion /common/equipment
 
 		#region recipe
@@ -2128,6 +2170,15 @@ namespace FrameOfSystem3.Recipe
 		{
 			return GetDeferredStorage(taskName, parameterName, 0, out result);
 		}
+		private void RemoveDeferredStorage(string taskName, string parameterName, int indexOfItem = 0)
+		{
+			string key = string.Format("{0}.{1}.{2}", taskName.ToString(), parameterName, indexOfItem.ToString());
+			if (_deferredStorageForRecipeParmater.ContainsKey(key))
+			{
+				string s;
+				_deferredStorageForRecipeParmater.TryRemove(key, out s);
+			}
+		}
 		#endregion /recipe
 
 		/// <summary>
@@ -2135,17 +2186,85 @@ namespace FrameOfSystem3.Recipe
 		/// </summary>
 		public async void ApplyDeferredStorage()
 		{
+			Dictionary<EN_RECIPE_TYPE, bool> includedType;
+			var changedList = MakeParameterChangedList(out includedType);
+
+			#region Parameter change block 여부 확인
+			foreach (var kvp in includedType)
+			{
+				if (false == kvp.Value)
+					continue;
+
+				if (IsBlockedParameterChange(kvp.Key))
+				{
+					//Functional.PostOffice.GetInstance().SendMail(Define.DefineEnumProject.Mail.EN_SUBSCRIBER.OperationMain
+					//   , Define.DefineEnumProject.Mail.EN_MAIL.UI_ShowMessageBox, "Parameter change blocked");
+
+					// confirm 실패해도 결과 통지
+					OnNotifyParameterChanged(false, null);
+					return;
+				}
+			}
+			#endregion /Parameter change block 여부 확인
+
+			// confirm을 위한 block
+			RequestParameterChangeBlock("RecipeConfirm");
+
+			#region confirm
+			/// 2024.05.29 by junho [NOTE] 제약사항
+			/// 만약 secsgem으로 recipe change event 보냈는데 상위에서 confirm을 해야하는 상황에서,
+			/// 상위는 OK 보내줬는데 다른쪽에서 confirm fail 때리면 상위에 바꾼다하고 안바뀌는 상황이 발생함.
+			/// 그럴땐 event를 2개로 나눠서 처리 해야 할 것 같은데 당장 하기엔 너무 일찍 일어난 새일거같아서 배제시킴
+			var taskConfirm = OnIsParameterChangeConfirmedAsync(changedList);
+			bool waitResult = await taskConfirm;
+			if (false == waitResult)
+			{
+				// confirm을 위한 block 해제
+				foreach (EN_RECIPE_TYPE en in Enum.GetValues(typeof(EN_RECIPE_TYPE)))
+					RetractParameterChangeBlock(en, "RecipeConfirm");
+
+				// confirm 실패해도 결과 통지
+				OnNotifyParameterChanged(false, null);
+				return;
+			}
+			#endregion /confirm
+
+			#region apply
+			bool result = true;
+			foreach (var item in changedList)
+			{
+				switch(item.Type)
+				{
+					case EN_RECIPE_TYPE.COMMON:
+					case EN_RECIPE_TYPE.EQUIPMENT:
+						result &= SetValue(item.Type, item.ParameterName, item.Index, EN_RECIPE_PARAM_TYPE.VALUE, item.Value, doNotify:false);
+						break;
+					case EN_RECIPE_TYPE.PROCESS:
+						result &= SetValue(item.TaskName, item.ParameterName, item.Index, EN_RECIPE_PARAM_TYPE.VALUE, item.Value, doNotify:false);
+						break;
+					default: continue;
+				}
+			}
+			#endregion /apply
+
+			// confirm을 위한 block 해제
+			RetractParameterChangeBlock("RecipeConfirm");
+
+			// notify
+			OnNotifyParameterChanged(true, changedList);
+		}
+		private List<ParameterItem> MakeParameterChangedList(out Dictionary<EN_RECIPE_TYPE, bool> includedType)
+		{
+			includedType = new Dictionary<EN_RECIPE_TYPE, bool>();
+			foreach (EN_RECIPE_TYPE en in Enum.GetValues(typeof(EN_RECIPE_TYPE)))
+				includedType.Add(en, false);
+
 			string parameterName;
 			int indexOfItem;
 			string newValue;
 
 			List<ParameterItem> changedList = new List<ParameterItem>();
 
-			Dictionary<EN_RECIPE_TYPE, bool> includedType = new Dictionary<EN_RECIPE_TYPE, bool>();
-			foreach(EN_RECIPE_TYPE en in Enum.GetValues(typeof(EN_RECIPE_TYPE)))
-				includedType.Add(en, false);
-			
-			#region make change list
 			EN_RECIPE_TYPE type;
 			foreach (var kvp in _deferredStorageForEcParmater)
 			{
@@ -2186,88 +2305,24 @@ namespace FrameOfSystem3.Recipe
 				changedList.Add(new ParameterItem(taskName, parameterName, indexOfItem, newValue));
 				includedType[EN_RECIPE_TYPE.PROCESS] = true;
 			}
-			#endregion /make change list
-
-			foreach(var kvp in includedType)
-			#region 
-			{
-				if (false == kvp.Value)
-					continue;
-
-				if (IsBlockedParameterChange(kvp.Key))
-				{
-					//Functional.PostOffice.GetInstance().SendMail(Define.DefineEnumProject.Mail.EN_SUBSCRIBER.OperationMain
-					//   , Define.DefineEnumProject.Mail.EN_MAIL.UI_ShowMessageBox, "Parameter change blocked");
-
-					// confirm 실패해도 결과 통지
-					OnNotifyParameterChanged(false, null);
-					return;
-				}
-			}
-			#endregion
-
-			// confirm을 위한 block
-			RequestParameterChangeBlock("RecipeConfirm");
-
-			#region confirm
-			/// 2024.05.29 by junho [NOTE] 제약사항
-			/// 만약 secsgem으로 recipe change event 보냈는데 상위에서 confirm을 해야하는 상황에서,
-			/// 상위는 OK 보내줬는데 다른쪽에서 confirm fail 때리면 상위에 바꾼다하고 안바뀌는 상황이 발생함.
-			/// 그럴땐 event를 2개로 나눠서 처리 해야 할 것 같은데 당장 하기엔 너무 일찍 일어난 새일거같아서 배제시킴
-			var taskConfirm = OnIsParameterChangeConfirmedAsync(changedList);
-			bool waitResult = await taskConfirm;
-			if (false == waitResult)
-			{
-				// confirm을 위한 block 해제
-				foreach (EN_RECIPE_TYPE en in Enum.GetValues(typeof(EN_RECIPE_TYPE)))
-					RetractParameterChangeBlock(en, "RecipeConfirm");
-
-				// confirm 실패해도 결과 통지
-				OnNotifyParameterChanged(false, null);
-				return;
-			}
-			#endregion /confirm
-
-			#region apply
-			bool result = true;
-			foreach (var item in changedList)
-			{
-				switch(item.Type)
-				{
-					case EN_RECIPE_TYPE.COMMON:
-					case EN_RECIPE_TYPE.EQUIPMENT:
-						result &= SetValue(item.Type, item.ParameterName, item.Index, EN_RECIPE_PARAM_TYPE.VALUE, item.Value);
-						break;
-					case EN_RECIPE_TYPE.PROCESS:
-						result &= SetValue(item.TaskName, item.ParameterName, item.Index, EN_RECIPE_PARAM_TYPE.VALUE, item.Value);
-						break;
-					default: continue;
-				}
-			}
-			#endregion /apply
-
-			// terminate
-			if (result)
-			{
-				ClearDeferredStorage();
-			}
-
-			// confirm을 위한 block 해제
-			RetractParameterChangeBlock("RecipeConfirm");
-
-			// notify
-			OnNotifyParameterChanged(true, changedList);
+			return changedList;
 		}
+
 		/// <summary>
 		/// DeferredStorage에 저장되어 있는 내용 취소
+		/// 
+		/// 2024.09.19 by junho [MOD] 항상 notify event 발생시키도록 변경
+		///  public void ClearDeferredStorage(bool isNotify)
 		/// </summary>
-		public void ClearDeferredStorage(bool isNotify = false)
+		public void ClearDeferredStorage()
 		{
+			Dictionary<EN_RECIPE_TYPE, bool> includedType;
+			var changedList = MakeParameterChangedList(out includedType);
+
 			_deferredStorageForEcParmater.Clear();
 			_deferredStorageForRecipeParmater.Clear();
-
-            if(isNotify)
-                OnNotifyParameterChanged(false, null);
+			
+			OnNotifyParameterChanged(false, changedList);
 		}
 
 		#region parameter change confirm/notify
@@ -2310,24 +2365,34 @@ namespace FrameOfSystem3.Recipe
 			public string Value { get; set; }
 			public int Index { get; set; }
 		}
+
+		#region notify
 		public delegate void DeleParameterChangedNotify(bool result, List<ParameterItem> changedList);
 		/// <summary>
 		/// Parameter 변경사항이 적용이 된 후에 발생하는 이벤트
 		/// </summary>
 		public static event DeleParameterChangedNotify ParameterChangedNotify = null;
+		/// <summary>
+		/// Parameter 변경사항을 알리는 이벤트 발생 인터페이스
+		/// </summary>
 		private void OnNotifyParameterChanged(bool result, List<ParameterItem> changedList)
 		{
 			if (ParameterChangedNotify != null)
+			{
+				if (changedList == null)
+					changedList = new List<ParameterItem>();
+
 				ParameterChangedNotify(result, changedList);
+			}
 		}
+		#endregion /notify
 
-
+		#region confirm
 		public delegate SystemTasks.Task<bool> DeleParameterChangeConfirm(List<ParameterItem> changeList, SystemTasks.TaskCompletionSource<bool> ayncWaitResult);
 		/// <summary>
 		/// Parameter 변경사항 적용 전에 발생하는 이벤트
 		/// </summary>
 		public static event DeleParameterChangeConfirm ParameterChangeConfirm = null;
-
 		/// <summary>
 		/// changeList를 통지하여 구독자들의 반환값을 AND연산하여 반환한다. (대기 가능)
 		/// </summary>
@@ -2342,6 +2407,103 @@ namespace FrameOfSystem3.Recipe
 
 			return results.Aggregate((acc, x) => acc && x);
 		}
+		#endregion /confirm
+
+		#region notify about each
+		// 2024.09.12 by junho [ADD] 각각의 parameter가 변경될 떄 발생하는 event 추가
+		class EachParameterChangedEventManager
+		{
+			Dictionary<string, EachParameterChangedEvent> _eventList = new Dictionary<string, EachParameterChangedEvent>();
+
+			public void Init()
+			{
+				_eventList.Clear();
+				foreach (PARAM_COMMON en in Enum.GetValues(typeof(PARAM_COMMON)))
+				{
+					var key = string.Format("{0}.{1}", EN_RECIPE_TYPE.COMMON.ToString(), en.ToString());
+					_eventList.Add(key, new EachParameterChangedEvent());
+				}
+				foreach (PARAM_EQUIPMENT en in Enum.GetValues(typeof(PARAM_EQUIPMENT)))
+				{
+					var key = string.Format("{0}.{1}", EN_RECIPE_TYPE.EQUIPMENT.ToString(), en.ToString());
+					_eventList.Add(key, new EachParameterChangedEvent());
+				}
+				foreach (Define.DefineEnumProject.Task.EN_TASK_LIST enTask in Enum.GetValues(typeof(Define.DefineEnumProject.Task.EN_TASK_LIST)))
+				{
+					Type t = FrameOfSystem3.Component.ConvertProjectTaskData.GetDefinedParameter(enTask);
+					if (t == null || false == t.IsEnum) continue;
+					foreach (Enum en in Enum.GetValues(t))
+					{
+						var key = string.Format("{0}.{1}", enTask.ToString(), en.ToString());
+						_eventList.Add(key, new EachParameterChangedEvent());
+					}
+				}
+			}
+
+			public void OnNotify(string key, string value)
+			{
+				if (false == _eventList.ContainsKey(key))
+					return;
+
+				_eventList[key].OnNotify(value);
+			}
+			public void OnNotify(EN_RECIPE_TYPE type, string name, string value)
+			{
+				OnNotify(string.Format("{0}.{1}", type.ToString(), name), value);
+			}
+			public void OnNotify(string taskName, string name, string value)
+			{
+				OnNotify(string.Format("{0}.{1}", taskName, name), value);
+			}
+
+			public void Register(string key, DeleParameterChangedCallback cb)
+			{
+				if (false == _eventList.ContainsKey(key))
+					return;
+
+				_eventList[key].Register(cb);
+			}
+
+			class EachParameterChangedEvent
+			{
+				event DeleParameterChangedCallback Notify;
+				public void Register(DeleParameterChangedCallback cb)
+				{
+					Notify += cb;
+				}
+				public void OnNotify(string value)
+				{
+					if (Notify != null)
+						Notify(value);
+				}
+			}
+		}
+		public delegate void DeleParameterChangedCallback(string value);
+		public void RegisterEachParameterChangedEvent(string type, string name, DeleParameterChangedCallback cb)
+		{
+			_eachParameterChangedEventManager.Register(string.Format("{0}.{1}", type, name), cb);
+		}
+
+		private void OnEachParameterChangedNotify(bool result, List<ParameterItem> changedList)
+		{
+			foreach (var item in changedList)
+			{
+				switch (item.Type)
+				{
+					case EN_RECIPE_TYPE.COMMON:
+					case EN_RECIPE_TYPE.EQUIPMENT:
+						_eachParameterChangedEventManager.OnNotify(item.Type, item.ParameterName, item.Value);
+						break;
+					case EN_RECIPE_TYPE.PROCESS:
+						_eachParameterChangedEventManager.OnNotify(item.TaskName, item.ParameterName, item.Value);
+						break;
+					default:
+						break;
+					}
+			}
+		}
+		#endregion /notify about each
+
 		#endregion /parameter change confirm/notify
 
 		#region parameter change block

@@ -239,7 +239,9 @@ namespace FrameOfSystem3.Functional
             m_instanceCylinder.Execute();
             m_instanceTrigger.Execute();
             Scheduler.GetInstance().Excute();
-
+			EquipmentProperty.EquipmentProperty.GetInstance().Execute();
+			EquipmentMonitor.RAM_Metrics.GetInstance().Execute();
+			
             // 2023.12.28. jhlim [ADD]
             EFEM.Modules.LoadPortManager.Instance.Execute();
             EFEM.Modules.AtmRobotManager.Instance.Execute();
@@ -317,6 +319,13 @@ namespace FrameOfSystem3.Functional
         }
         #endregion
 
+        private void UpdateEquipmentProperty()
+        {
+            if (EquipmentProperty.RawMaterialPortManager.GetInstance().GetRawMaterialExist())
+                EquipmentProperty.EquipmentProperty.GetInstance().SetValue(EquipmentProperty.EN_EQUIPMENT_PROPERTY_LIST.MATERIAL_EXIST, EquipmentProperty.EN_MATERIAL_EXIST_VALUES.EXIST);
+            else
+                EquipmentProperty.EquipmentProperty.GetInstance().SetValue(EquipmentProperty.EN_EQUIPMENT_PROPERTY_LIST.MATERIAL_EXIST, EquipmentProperty.EN_MATERIAL_EXIST_VALUES.EMPTY);
+        }
         #endregion
 
         #region External Interface
@@ -747,7 +756,13 @@ namespace FrameOfSystem3.Functional
                     break;
 
                 case EN_INITIALIZATION_STEP.INIT_LOG_END:
-                    bResult = Log.LogManager.GetInstance().Init();
+                    {
+                        var logManager = Log.LogManager.GetInstance();
+                        bResult = logManager.Init();
+                        logManager.CaptionMaterialType = "WAFER";   // TODO : Material type 설정 (나중에 해도 됨)
+                        logManager.RegisterGetLotIdFunction(new Log.LogManager.DeleGetLotId(() => { return Log.LogManager.EMPTY_DATA; }));  // TODO : lot id 반환 함수 등록 (나중에 해도 됨)
+                        logManager.RegisterGetMaterialIdFromTaskName(new Log.LogManager.DeleGetMaterialIdFromTaskName((taskName) => { return string.Format("{0}_{1}", taskName, Log.LogManager.EMPTY_DATA); }));  // TODO : 자재 id 반환 함수 등록 (나중에 해도 됨)
+                    }
                     break;
                 #endregion
 
@@ -781,6 +796,40 @@ namespace FrameOfSystem3.Functional
                     break;
                 #endregion
 
+				#region EQUIPMENT PROPERTY
+                case EN_INITIALIZATION_STEP.INIT_EQUIPMENT_PROPERTY_START:
+                    strContentsResult = "The Equipment Property is being initialized... ";
+                    break;
+
+                case EN_INITIALIZATION_STEP.INIT_EQUIPMENT_PROPERTY_END:
+                    EquipmentProperty.EquipmentProperty.GetInstance().delegateUpdateProperty = new EquipmentProperty.DelegateUpdateProperty(UpdateEquipmentProperty);
+                    break;
+				#endregion
+
+                #region RAM Metrics
+                case EN_INITIALIZATION_STEP.INIT_RAM_METRICS_START:
+                    strContentsResult = "The RAM Metrics is being initialized... ";
+                    break;
+
+                case EN_INITIALIZATION_STEP.INIT_RAM_METRICS_END:
+                    EquipmentMonitor.RAM_Metrics.GetInstance().Init();
+                    bResult = true;
+                    break;
+                #endregion
+
+                #region FTP
+                case EN_INITIALIZATION_STEP.INIT_FTP_START:
+                    strContentsResult = "The FTP is being initialized... ";
+                    break;
+
+                case EN_INITIALIZATION_STEP.INIT_FTP_END:
+                    #region FTP
+                    Config.ConfigFTP.GetInstance().Init();
+                    #endregion
+                    bResult = true;
+                    break;
+                #endregion
+				
                 #region <Init EFEM Modules>
                 case EN_INITIALIZATION_STEP.INIT_EFEM_MODULES_START:
                     strContentsResult = "The EFEM modules are being initialized... ";

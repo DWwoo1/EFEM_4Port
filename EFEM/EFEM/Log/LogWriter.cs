@@ -81,19 +81,19 @@ namespace FrameOfSystem3.Log
         }
         public void Deactivate()
         {
+			bRequestExit = true;
+
 			MakeLog("ProgramStartEnd\\PROGRAM", "END");
             while(ConfirmReq)
             {
                 System.Windows.Forms.Application.DoEvents();
                 Thread.Sleep(1);
             }
-            m_WaitHandle.Set();
-            bRequestExit = true;
-            //if (m_thread != null)
-            //{
-            //    m_thread.Abort();
-            //    m_thread = null;
-            //}
+            if(m_thread != null)
+            {
+                m_thread.Abort();
+                m_thread = null;
+            }
         }
         private void EnqueueLog(LogMsg _logMsg)
         {
@@ -147,6 +147,7 @@ namespace FrameOfSystem3.Log
         #region 외부함수 - 외부에서 Log Queue에 Enqueue만 해준다.
 
         #region <VisionLog>
+		// 2024.11.14. by shkkim. [MOD] 로그 시간 기록 버그 수정 (Second->Millisecond)
         public void RequestVisionLog(string strMsg)
         {
             LogMsg tempLogMsg;
@@ -155,7 +156,7 @@ namespace FrameOfSystem3.Log
                 tempLogMsg.dateTime = DateTime.Now;
                 tempLogMsg.fileName = string.Format(@"{0}\VISION_LOG\{1,0000:d4}{2,00:d2}{3,00:d2}_{4,00:d2}.txt", Define.DefineConstant.FilePath.FILEPATH_LOG, tempLogMsg.dateTime.Year, tempLogMsg.dateTime.Month, tempLogMsg.dateTime.Day, tempLogMsg.dateTime.Hour);
                 tempLogMsg.msg = string.Format("{0,0000:d4}{1,00:d2}{2,00:d2}_{3,00:d2}:{4,00:d2}:{5,00:d2}.{6,000:d3} {7}",
-                    tempLogMsg.dateTime.Year, tempLogMsg.dateTime.Month, tempLogMsg.dateTime.Day, tempLogMsg.dateTime.Hour, tempLogMsg.dateTime.Minute, tempLogMsg.dateTime.Second, tempLogMsg.dateTime.Minute, strMsg);
+                    tempLogMsg.dateTime.Year, tempLogMsg.dateTime.Month, tempLogMsg.dateTime.Day, tempLogMsg.dateTime.Hour, tempLogMsg.dateTime.Minute, tempLogMsg.dateTime.Second, tempLogMsg.dateTime.Millisecond, strMsg);
                 EnqueueLog(tempLogMsg);
             }
             catch

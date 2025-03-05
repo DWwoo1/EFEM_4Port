@@ -53,9 +53,10 @@ namespace FrameOfSystem3.Views.Config
 		private const int COLUMN_INDEX_OF_NAME			= 1;
 		private const int COLUMN_INDEX_OF_TARGET		= 2;
 
-		private readonly string MIN_VALUE				= "1";
-		private readonly string MAX_VALUE				= "999999";
-		private readonly string DEFAULT_LABEL			= "--";
+		// 미사용?
+		//private readonly string MIN_VALUE				= "1";
+		//private readonly string MAX_VALUE				= "999999";
+		//private readonly string DEFAULT_LABEL			= "--";
 		#endregion
 
         private readonly Color c_clrTrue = Color.DodgerBlue;
@@ -164,7 +165,6 @@ namespace FrameOfSystem3.Views.Config
             if (m_dgViewMotion.Rows.Count > 0)
                 m_dgViewMotion.Rows[m_nSelectedRowMotion].Selected = true;
         }
-
         private void UpdateInterLockConditionList()
         {
             m_dgViewCondition.Rows.Clear();
@@ -198,7 +198,6 @@ namespace FrameOfSystem3.Views.Config
             if (m_dgViewCondition.Rows.Count > 0)
                 m_dgViewCondition.Rows[m_nSelectedRowInterlockCondition].Selected = true;
         }
-
         private void UpdateCompareGroupList()
         {
             m_dgViewCompareGroup.Rows.Clear();
@@ -223,11 +222,9 @@ namespace FrameOfSystem3.Views.Config
             if (m_dgViewCompareGroup.Rows.Count > 0)
                 m_dgViewCompareGroup.Rows[m_nSelectedRowCompareGroup].Selected = true;
         }
-
         private void UpdateCompareConditionList()
         {
             m_dgViewCompareCondition.Rows.Clear();
-
 
             object[] arGroupKey = new object[] { };
             object[] arDevice = new object[] { };
@@ -275,7 +272,7 @@ namespace FrameOfSystem3.Views.Config
                 m_dgViewCompareCondition.Rows[m_nSelectedRowCompareCondition].Selected = true;
         }
         #endregion /Grid Update
-        #endregion
+        #endregion /UI인터페이스
 
         #region UI Event
         private void Click_AddButton(object sender, EventArgs e)

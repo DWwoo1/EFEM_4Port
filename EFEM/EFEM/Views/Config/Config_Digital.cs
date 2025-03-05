@@ -186,7 +186,10 @@ namespace FrameOfSystem3.Views.Config
 			// 2024.03.08 by junho [ADD] filtering 기능 추가
 			string itemName = string.Empty;
 			m_InstanceOfDigitalIO.GetParameter(bInput, nIndexOfItem, FrameOfSystem3.Config.ConfigDigitalIO.EN_PARAM_DIGITALIO.NAME, ref itemName);
-			if (_filterKeyword != string.Empty && false == itemName.Contains(_filterKeyword))
+
+			// 2024.06.25 by junho [MOD] 대소문자 구분하지 않도록 변경
+			//if (_filterKeyword != string.Empty && false == itemName.Contains(_filterKeyword))
+			if (_filterKeyword != string.Empty && itemName.IndexOf(_filterKeyword, StringComparison.OrdinalIgnoreCase) < 0)
 				return;
 
 			dgViewList.Rows.Add();
@@ -722,14 +725,12 @@ namespace FrameOfSystem3.Views.Config
                 m_btnAdd.Visible = true;
                 m_btnRemove.Visible = true;
 				m_btnExtend.Text		= RIGHT_ARROW;
-				lbl_Filtering.Visible = true;
 			}
 			else
 			{
                 m_btnAdd.Visible = false;
                 m_btnRemove.Visible = false;
 				m_btnExtend.Text		= LEFT_ARROW;
-				lbl_Filtering.Visible = false;
 			}
 
 			m_groupList.Invalidate();

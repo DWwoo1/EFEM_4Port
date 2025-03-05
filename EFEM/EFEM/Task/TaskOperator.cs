@@ -134,7 +134,7 @@ namespace FrameOfSystem3.Task
         {
             //bool bVisionSkipped     = false;
             // TODO : 임시
-			//Log.LogManager.GetInstance().WriteProcessLog("GENERAL", string.Format("CHANGE_RUN_MODE:{0}", enRunMode.ToString()));
+			Log.LogManager.GetInstance().WriteProcessLog("GENERAL", string.Format("CHANGE_RUN_MODE:{0}", enRunMode.ToString()));
             switch (enRunMode)
             {
                 case RUN_MODE.AUTO:

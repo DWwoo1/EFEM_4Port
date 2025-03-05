@@ -39,6 +39,8 @@ namespace FrameOfSystem3.Task
             private int m_nDelay;
             private int m_nPreDelay;
             private bool m_bCheckMotion;
+            private string m_sCaption;      // 2024.09.27 by junho [ADD] log caption 추가
+            private int m_nCaptionRetried;
             #endregion
 
             #region Constructor
@@ -55,6 +57,8 @@ namespace FrameOfSystem3.Task
                 m_nDelay = 100;
                 m_nPreDelay = 0;
                 m_bCheckMotion = true;
+                m_sCaption = "";
+                m_nCaptionRetried = 0;
             }
             #endregion
 
@@ -68,6 +72,8 @@ namespace FrameOfSystem3.Task
             public int Delay { set { m_nDelay = value; } get { return m_nDelay; } }
             public int PreDelay { set { m_nPreDelay = value; } get { return m_nPreDelay; } }
             public bool CheckMotion { set { m_bCheckMotion = value; } get { return m_bCheckMotion; } }
+            public string Caption { set { m_sCaption = value; } get { return m_sCaption; } }
+            public int CaptionRetried { set { m_nCaptionRetried = value; } get { return m_nCaptionRetried; } }
             #endregion
         }
         #endregion </STRUCTURE>
@@ -93,10 +99,12 @@ namespace FrameOfSystem3.Task
         protected RecoveryData m_RecoveryData = null;
         #endregion
 
-        #endregion </FIELD>
+		protected string _actionName = STOP_ACTION;
+		protected const string STOP_ACTION = "STOP";
+		#endregion </FIELD>
 
-        #region <CONSTRUCTOR>
-        protected RunningTaskEx(int nIndexOfTask, string strTaskName, int nCountOfProcessParam)
+		#region <CONSTRUCTOR>
+		protected RunningTaskEx(int nIndexOfTask, string strTaskName, int nCountOfProcessParam)
 			: base(nIndexOfTask, strTaskName, nCountOfProcessParam, Define.DefineConstant.FilePath.FILEPATH_LOG_MAIN)
         {
             InitSubSequence();
@@ -172,7 +180,9 @@ namespace FrameOfSystem3.Task
             , MOTION_SPEED_CONTENT enContent
 			, bool bCheckMotion = true
 			, int nDelay = 10
-            , int nPreDelay = 10)
+            , int nPreDelay = 10
+            , string caption = ""
+            , int captionRetried = 0)
 		{
 			if (true == m_dicMoveData.ContainsKey(nTargetIndex))
 				return false;
@@ -188,6 +198,8 @@ namespace FrameOfSystem3.Task
 			cMotion.Ratio = nRatio;
 			cMotion.Delay = nDelay;
 			cMotion.CheckMotion = bCheckMotion;
+            cMotion.Caption = caption;
+            cMotion.CaptionRetried = captionRetried;
 
 			m_dicMoveData.Add(nTargetIndex, cMotion);
 
@@ -198,18 +210,22 @@ namespace FrameOfSystem3.Task
             , int nRatio = 100
             , bool bCheckMotion = true
             , int nDelay = 10
-            , int nPreDelay = 10)
+            , int nPreDelay = 10
+            , string caption = ""
+            , int captionRetried = 0)
         {
             MOTION_SPEED_CONTENT enContent =  MOTION_SPEED_CONTENT.RUN;
 
-			return AddMoveAbsolutely(nTargetIndex, dblPosition, nRatio, enContent, bCheckMotion, nDelay, nPreDelay);
+			return AddMoveAbsolutely(nTargetIndex, dblPosition, nRatio, enContent, bCheckMotion, nDelay, nPreDelay, caption, captionRetried);
         }
         public bool AddMoveAbsolutely(int nTargetIndex, double dblPosition
             , double dCustomSpeed
             , int nRatio = 100
             , bool bCheckMotion = true
             , int nDelay = 10
-            , int nPreDelay = 10)
+            , int nPreDelay = 10
+			, string caption = ""
+			, int captionRetried = 0)
         {
             if (true == m_dicMoveData.ContainsKey(nTargetIndex))
                 return false;
@@ -227,6 +243,8 @@ namespace FrameOfSystem3.Task
             cMotion.Delay = nDelay;
             cMotion.PreDelay = nPreDelay;
             cMotion.CheckMotion = bCheckMotion;
+            cMotion.Caption = caption;
+            cMotion.CaptionRetried = captionRetried;
 
             m_dicMoveData.Add(nTargetIndex, cMotion);
 
@@ -242,7 +260,9 @@ namespace FrameOfSystem3.Task
             , MOTION_SPEED_CONTENT[] arContent = null
             , int nDelay = 10
             , int nPreDelay = 0
-            , bool bCheckMotion = true)
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
         {
             int nRatio = 100;
             if (null == arRatio)
@@ -262,7 +282,7 @@ namespace FrameOfSystem3.Task
                 }
             }
 
-            return base.MoveByList(nMotionIndex, nCountOfStep, ref arDestination, ref arCustomSpeed, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion);
+            return base.MoveByList(ComplementToCaption(caption), nMotionIndex, nCountOfStep, ref arDestination, ref arCustomSpeed, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion, captionRetried);
         }
 
 		public MOTION_RESULT MoveByLinearCoordination(int[] arIndexes
@@ -272,10 +292,12 @@ namespace FrameOfSystem3.Task
 			, MOTION_SPEED_CONTENT[,] arContent	= null
 			, int nDelay = 10
             , int nPreDelay = 0
-            , bool bCheckMotion = true)
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
 		{
 
-            return MoveByLinearCoordination(arIndexes.Length, ref arIndexes, nCountOfStep, ref arDestination, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion);
+            return MoveByLinearCoordination(ComplementToCaption(caption), arIndexes.Length, ref arIndexes, nCountOfStep, ref arDestination, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion, captionRetried);
 		}
 
         public MOTION_RESULT MoveByLinearCoordination(int[] arIndexes
@@ -286,9 +308,11 @@ namespace FrameOfSystem3.Task
             , MOTION_SPEED_CONTENT[,] arContent = null
             , int nDelay = 10
             , int nPreDelay = 0
-            , bool bCheckMotion = true)
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
         {
-            return MoveByLinearCoordination(arIndexes.Length, ref arIndexes, nCountOfStep, ref arDestination, ref arVelocity, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion);
+            return MoveByLinearCoordination(ComplementToCaption(caption), arIndexes.Length, ref arIndexes, nCountOfStep, ref arDestination, ref arVelocity, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion, captionRetried);
         }
 
         public MOTION_RESULT MoveSyncVectorMotion(int[] arIndexes
@@ -301,10 +325,11 @@ namespace FrameOfSystem3.Task
             , int nDelay = 10
             , int nPreDelay = 0
             , bool bCheckMotion = true
-            )
+            , string caption = ""
+            , int captionRetried = 0)
         {
             int nCountOfMotion = arIndexes.Length;
-            return MoveSyncVectorMotion(ref nCountOfMotion, ref arIndexes, ref arDestination, ref dCustomSpeed, ref enContent, ref arRatio, ref bAbsolute, ref bOverride, ref nDelay, nPreDelay, ref bCheckMotion);
+            return MoveSyncVectorMotion(ComplementToCaption(caption), ref nCountOfMotion, ref arIndexes, ref arDestination, ref dCustomSpeed, ref enContent, ref arRatio, ref bAbsolute, ref bOverride, ref nDelay, nPreDelay, ref bCheckMotion, captionRetried);
         }
 
         public MOTION_RESULT MoveSyncVectorMotionList(int[] arIndexes
@@ -315,12 +340,14 @@ namespace FrameOfSystem3.Task
             , bool bAbsolute = true
             , int nDelay = 10
             , int nPreDelay = 0
-    , bool bCheckMotion = true)
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
     
         {
             int nCountOfAxis = arIndexes.Length;
 
-            return MoveSyncVectorMotionList(ref nCountOfAxis, ref arIndexes, ref arDestination, ref dCustomSpeed, ref arContent, ref arRatio, ref bAbsolute, ref nDelay, nPreDelay, ref bCheckMotion);
+            return MoveSyncVectorMotionList(ComplementToCaption(caption), ref nCountOfAxis, ref arIndexes, ref arDestination, ref dCustomSpeed, ref arContent, ref arRatio, ref bAbsolute, ref nDelay, nPreDelay, ref bCheckMotion, captionRetried);
         }
 
         public MOTION_RESULT MoveMultiAbsolutely(int[] arIndexes
@@ -328,7 +355,9 @@ namespace FrameOfSystem3.Task
 			, bool bCheckMotion = true
 			, MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN
 			, int nRatio = 100
-			, int nDelay = 10)
+			, int nDelay = 10
+            , string caption = ""
+            , int captionRetried = 0)
 		{
             int nCountOfAxis = arIndexes.Length;
 
@@ -341,11 +370,11 @@ namespace FrameOfSystem3.Task
                 arContent[nIndex] = (Motion_.MOTION_SPEED_CONTENT)enContent;
             }
 
-			return MoveMultiAbsolutely(nCountOfAxis, ref arIndexes, ref arDestination, ref arContent, ref arRatio, nDelay, bCheckMotion);
+			return MoveMultiAbsolutely(ComplementToCaption(caption), nCountOfAxis, ref arIndexes, ref arDestination, ref arContent, ref arRatio, nDelay, bCheckMotion, captionRetried);
 		}
 
 
-        public new MOTION_RESULT MoveUntilTouch(int nKey
+        public MOTION_RESULT MoveUntilTouch(int nKey
 			, double dblDestination
 			, int nIndexOfEncoder
             , double dblEncoderThreshold
@@ -354,21 +383,25 @@ namespace FrameOfSystem3.Task
 			, int nRatio	= 100
 			, int nDelay	= 100
 			, int nPreDelay	= 0
-			, bool bCheckMotion = true)
+			, bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
 		{
-            return base.MoveUntilTouch(nKey, dblDestination, nIndexOfEncoder, dblEncoderThreshold, ref dblCustomSpeed, enContent, nRatio, nDelay, nPreDelay, bCheckMotion);
+            return base.MoveUntilTouch(ComplementToCaption(caption), nKey, dblDestination, nIndexOfEncoder, dblEncoderThreshold, ref dblCustomSpeed, enContent, nRatio, nDelay, nPreDelay, bCheckMotion, captionRetried);
 		}
 
-        public new MOTION_RESULT MoveUntilTouch_Analog(int nKey
-          , double dblDestination
-          , int[] nIndexOfAnalog
-          , double dblEncoderThreshold
-          , double dblCustomSpeed
-          , MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN
-          , int nRatio = 100
-          , int nDelay = 100
-          , int nPreDelay = 0
-          , bool bCheckMotion = true)
+        public MOTION_RESULT MoveUntilTouch_Analog(int nKey
+            , double dblDestination
+            , int[] nIndexOfAnalog
+            , double dblEncoderThreshold
+            , double dblCustomSpeed
+            , MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN
+            , int nRatio = 100
+            , int nDelay = 100
+            , int nPreDelay = 0
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
         {
             //test 후 running task 안으로 넣어야 할 듯
             double ChanelValue = dblEncoderThreshold / nIndexOfAnalog.Length;
@@ -380,7 +413,7 @@ namespace FrameOfSystem3.Task
                 dblEncoderThreshold += m_instanceAnalog.GetConvertedCountFromTableValue(true, nTargetIndex, ChanelValue);
             }
 
-            return base.MoveUntilTouch_Analog(nKey, dblDestination, ref nIndexOfAnalog, dblEncoderThreshold, ref dblCustomSpeed, enContent, nRatio, nDelay, nPreDelay, bCheckMotion);
+            return base.MoveUntilTouch_Analog(ComplementToCaption(caption), nKey, dblDestination, ref nIndexOfAnalog, dblEncoderThreshold, ref dblCustomSpeed, enContent, nRatio, nDelay, nPreDelay, bCheckMotion, captionRetried);
         }
 
         public MOTION_RESULT MoveByListUntilTouch(int nKey
@@ -393,7 +426,9 @@ namespace FrameOfSystem3.Task
             , MOTION_SPEED_CONTENT[] arContent = null
             , int nDelay = 100
             , int nPreDelay = 0
-            , bool bCheckMotion = true)
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
         {
 			// 2024.03.10. by shkim. [ADD] 매개변수 없을 때의 예외처리 추가, NULL 이면 안된다.
             if(arRatio == null)
@@ -414,20 +449,22 @@ namespace FrameOfSystem3.Task
                 }
             }
 			// 2024.03.10. by shkim. [END]
-            return base.MoveByListUntilTouch(nKey, nCountOfStep, ref arDestination, nIndexOfEncoder, dblEncoderThreshold, ref arCustomSpeed, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion);
+            return base.MoveByListUntilTouch(ComplementToCaption(caption), nKey, nCountOfStep, ref arDestination, nIndexOfEncoder, dblEncoderThreshold, ref arCustomSpeed, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion, captionRetried);
         }
 
         public MOTION_RESULT MoveByListUntilTouch_Analog(int nKey
-          , int nCountOfStep
-          , double[] arDestination
-          , int[] nIndexOfAnalog
-          , double dblEncoderThreshold
-          , double[] arCustomSpeed
-          , int[] arRatio = null
-          , MOTION_SPEED_CONTENT[] arContent = null
-          , int nDelay = 100
-          , int nPreDelay = 0
-          , bool bCheckMotion = true)
+            , int nCountOfStep
+            , double[] arDestination
+            , int[] nIndexOfAnalog
+            , double dblEncoderThreshold
+            , double[] arCustomSpeed
+            , int[] arRatio = null
+            , MOTION_SPEED_CONTENT[] arContent = null
+            , int nDelay = 100
+            , int nPreDelay = 0
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
         {
 		// 2024.03.10. by shkim. [ADD] 매개변수 없을 때의 예외처리 추가, NULL 이면 안된다.
             if (arRatio == null)
@@ -457,7 +494,7 @@ namespace FrameOfSystem3.Task
                 GetDeviceTargetIndex(nIndexOfAnalog[nIndex], Config.ConfigDevice.EN_TYPE_DEVICE.ANALOG_INPUT, ref nTargetIndex);
                 dblEncoderThreshold += m_instanceAnalog.GetConvertedCountFromTableValue(true, nTargetIndex, ChanelValue);
             }
-            return base.MoveByListUntilTouch_Analog(nKey, nCountOfStep, ref arDestination, ref nIndexOfAnalog, dblEncoderThreshold, ref arCustomSpeed, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion);
+            return base.MoveByListUntilTouch_Analog(ComplementToCaption(caption), nKey, nCountOfStep, ref arDestination, ref nIndexOfAnalog, dblEncoderThreshold, ref arCustomSpeed, ref arContent, ref arRatio, nDelay, nPreDelay, bCheckMotion, captionRetried);
         }
 
         public MOTION_RESULT MovePVT(int nKey
@@ -465,9 +502,12 @@ namespace FrameOfSystem3.Task
             , double[] arDestination
             , double[] arVelocity
             , double[] arTime
-            , bool bCheckMotion = true)
+            , int nPreDelay = 0
+            , bool bCheckMotion = true
+            , string caption = ""
+            , int captionRetried = 0)
         {
-            return base.MovePVT(nKey, nCountOfStep, ref arDestination, ref arVelocity, ref arTime, bCheckMotion);
+            return base.MovePVT(ComplementToCaption(caption), nKey, nCountOfStep, ref arDestination, ref arVelocity, ref arTime, nPreDelay, bCheckMotion, captionRetried);
         }
 		public bool IsTouched(int nKey, ref double dblTouchedPosition, ref double dblTouchedEncoderPosition)
 		{
@@ -481,7 +521,9 @@ namespace FrameOfSystem3.Task
             , MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN
             , int nRatio = 100
             , int nDelay = 10
-            , bool bCheckMotion = true)
+            , bool bCheckMotion = true
+			, string caption = ""
+			, int captionRetried = 0)
         {
             if (true == m_dicMoveData.ContainsKey(nTargetIndex))
                 return false;
@@ -500,6 +542,8 @@ namespace FrameOfSystem3.Task
             cMotion.Ratio = nRatio;
             cMotion.Delay = nDelay;
             cMotion.CheckMotion = bCheckMotion;
+            cMotion.Caption = caption;
+            cMotion.CaptionRetried = captionRetried;
 
             m_dicMoveData.Add(nTargetIndex, cMotion);
 
@@ -540,26 +584,28 @@ namespace FrameOfSystem3.Task
                 {
                         // 2022.04.27. by shkim. [ADD] 커스텀 스피드 적용
                     case EN_MOTION_CONTROL_TYPE.ABSOLUTELY:
-                        enResult = MoveAbsolutely(MoveData.Value.TargetIndex
+                        enResult = MoveAbsolutely(MoveData.Value.Caption
+                            , MoveData.Value.TargetIndex
                             , MoveData.Value.Position
                             , MoveData.Value.CustomSpeed
                             , MoveData.Value.Content
                             , MoveData.Value.Ratio
                             , MoveData.Value.Delay
                             , MoveData.Value.PreDelay
-                            , MoveData.Value.CheckMotion);
-                      
-
+                            , MoveData.Value.CheckMotion
+                            , MoveData.Value.CaptionRetried);
                         break;
+
                     case EN_MOTION_CONTROL_TYPE.RELEATIVELY:
-                        enResult = MoveReleatively(MoveData.Value.TargetIndex
+                        enResult = MoveReleatively(MoveData.Value.Caption
+                            , MoveData.Value.TargetIndex
                             , MoveData.Value.Position
                             , MoveData.Value.Content
                             , MoveData.Value.Ratio
                             , MoveData.Value.Delay
                             , MoveData.Value.PreDelay
-                            , MoveData.Value.CheckMotion);
-                      
+                            , MoveData.Value.CheckMotion
+                            , MoveData.Value.CaptionRetried);
                         break;
                 }
             }
@@ -571,18 +617,21 @@ namespace FrameOfSystem3.Task
         #endregion
 
         #region Stop
-        public MOTION_RESULT StopMotion(int nTargetIndex)
+        public MOTION_RESULT StopMotion(int nTargetIndex, bool isEmergency = false, int delay = 0, string caption = "", int captionRetried = 0)
         {
-            return StopMotion(nTargetIndex, false);
+			caption = caption == "" ? string.Format("{0}_Stop", _actionName) : string.Format("{0}_Stop_{1}_{2}", _actionName, caption, m_nSeqNum.ToString());
+			return StopMotion(caption, nTargetIndex, isEmergency, delay, captionRetried);
         }
         #endregion
         
         #region Override
         public MOTION_RESULT MoveOverrideSpeed(int nTargetIndex
             , int nRatio = 100
-            , MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN)
+            , MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN
+            , string caption = ""
+            , int captionRetried = 0)
         {
-            return OverrideMotion(nTargetIndex, Motion_.MOTION_OVERRIDE_TYPE.SPEED, 0, enContent, nRatio);
+            return OverrideMotion(ComplementToCaption(caption), nTargetIndex, Motion_.MOTION_OVERRIDE_TYPE.SPEED, 0, enContent, nRatio, captionRetried);
         }
 
         /// <summary>
@@ -591,31 +640,31 @@ namespace FrameOfSystem3.Task
         public MOTION_RESULT MoveOverrideMotion(int nTargetIndex
             , double dblDestination
             , int nRatio = 100
-            , MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN)
+            , MOTION_SPEED_CONTENT enContent = MOTION_SPEED_CONTENT.RUN
+            , string caption = ""
+            , int captionRetried = 0)
         {
-            return OverrideMotion(nTargetIndex, Motion_.MOTION_OVERRIDE_TYPE.POSITION, dblDestination, enContent, nRatio);
+            return OverrideMotion(ComplementToCaption(caption), nTargetIndex, Motion_.MOTION_OVERRIDE_TYPE.POSITION, dblDestination, enContent, nRatio, captionRetried);
         }
 
         #endregion
 
         #region Speed Move
-
-        #region Normal
         public MOTION_RESULT MoveSpeedDirection(int nTargetIndex, bool bDirection
             , int nRatio = 100
             , int nPreDelay = 0
-            , bool bCheckMotion = false)
+            , bool bCheckMotion = false
+            , string caption = ""
+            , int captionRetried = 0)
         {
-            return MoveAtSpeed(nTargetIndex, bDirection, nRatio, nPreDelay, bCheckMotion);
+            return MoveAtSpeed(ComplementToCaption(caption), nTargetIndex, bDirection, nRatio, nPreDelay, bCheckMotion, captionRetried);
         }
-        #endregion
-
         #endregion
 
         #region Home
         public MOTION_RESULT MoveHome(int nKey, int nPreDelay = 0, bool bCheckMotion = true)
         {
-            return MoveToHome(nKey, nPreDelay, bCheckMotion);
+			return MoveToHome(nKey, "Home", nPreDelay, bCheckMotion, 0);
         }
         public bool IsHomeFinish(int nKey)
         {
@@ -671,8 +720,10 @@ namespace FrameOfSystem3.Task
 			return true;
 		}
 
-		#region Mei Gain
-		public bool SetGainOffset(int nIndex, double dValue)
+        #region Mei Gain
+		
+		// 2024.11.16. by shkim. [MOD] Bug Fix. 값 비교 후 다를 때만 Setting 되게 되어있어 적용 안되었었다.
+        public bool SetGainOffset(int nIndex, double dValue)
         {
             int nTargetKey = 0;
 
@@ -681,30 +732,32 @@ namespace FrameOfSystem3.Task
                                                     , nIndex
                                                     , ref nTargetKey);
 
-            if (dValue == Config.ConfigMotion.GetInstance().GetOutputOffset(nTargetKey))
-                return true;
+            //if (dValue != Config.ConfigMotion.GetInstance().GetOutputOffset(nTargetKey))
+            //    return false;
 
             Config.ConfigMotion.GetInstance().SetOutputOffset(nTargetKey, dValue);
 
-            return false;
+            return true;
         }
         #endregion /Mei Gain
         #endregion
 
         #region Move Cylinder
-        public CYLINDER_RESULT MoveCylinderForward(int nTargetIndex, bool bCheckCylinder)
+        // 2024.09.19 by jhshin [MOD] add action name, retry count
+        public CYLINDER_RESULT MoveCylinderForward(int nTargetIndex, bool bCheckCylinder, int captionRetried = 0)
         {
             if (nTargetIndex == -1)
                 return CYLINDER_RESULT.INVALID_INDEX;
 
-            return MoveForward(nTargetIndex, bCheckCylinder);
+            return MoveForward(nTargetIndex, bCheckCylinder, ComplementToCaption("Forward"), captionRetried);
         }
-        public CYLINDER_RESULT MoveCylinderBackward(int nTargetIndex, bool bCheckCylinder)
+        // 2024.09.19 by jhshin [MOD] add action name, retry count
+        public CYLINDER_RESULT MoveCylinderBackward(int nTargetIndex, bool bCheckCylinder, int captionRetried = 0)
         {
             if (nTargetIndex == -1)
                 return CYLINDER_RESULT.INVALID_INDEX;
 
-            return MoveBackward(nTargetIndex, bCheckCylinder);
+            return MoveBackward(nTargetIndex, bCheckCylinder, ComplementToCaption("Backward"), captionRetried);
         }
 
 		// 2022.05.04 by junho [ADD] Is Add interface for cylinder steate
@@ -761,24 +814,24 @@ namespace FrameOfSystem3.Task
             return ReadOutput(nTargetKey, bReadData);
         }
 
-        public void WriteDigitalOutput(int nTargetKey, bool bWriteValue)
+        public void WriteDigitalOutput(int nTargetKey, bool bWriteValue, string caption = "", int captionRetried = 0)
         {
             if (nTargetKey == -1)
                 return;
 
-            WriteOutput(nTargetKey, bWriteValue);
+            WriteOutput(nTargetKey, ComplementToCaption(caption), bWriteValue, captionRetried);
         }
         #endregion
 
         #region Write And Read
-        public bool WriteDigitalAndRead(int nOutputIndex, bool bOutputActive, int[] nInputIndex, bool[] bInputActive)
+        public bool WriteDigitalAndRead(int nOutputIndex, bool bOutputActive, int[] nInputIndex, bool[] bInputActive, string caption = "", int captionRetried = 0)
         {
             for (int i = 0; i < nInputIndex.Length; ++i)
             {
                 if (ReadInput(nInputIndex[i], bInputActive[i])
                     != bInputActive[i])
                 {
-                    WriteOutput(nOutputIndex, bOutputActive);
+                    WriteOutput(nOutputIndex, ComplementToCaption(caption), bOutputActive, captionRetried);
                     return false;
                 }
             }
@@ -823,19 +876,19 @@ namespace FrameOfSystem3.Task
 
             return ReadOutputValue(nTargetKey);
         }
-        public void WriteAnalogOutputVolt(int nTargetKey, double dblWriteValue)
+        public void WriteAnalogOutputVolt(int nTargetKey, double dblWriteValue, string caption = "", int captionRetried = 0)
         {
             if (nTargetKey == -1)
                 return;
 
-            WriteOutputVolt(nTargetKey, dblWriteValue);
+            WriteOutputVolt(nTargetKey, ComplementToCaption(caption), dblWriteValue, captionRetried);
         }
-        public void WriteAnalogOutputValue(int nTargetKey, double dblWriteValue)
+        public void WriteAnalogOutputValue(int nTargetKey, double dblWriteValue, string caption = "", int captionRetried = 0)
         {
             if (nTargetKey == -1)
                 return;
 
-            WriteOutputValue(nTargetKey, dblWriteValue);
+            WriteOutputValue(nTargetKey, ComplementToCaption(caption), dblWriteValue, captionRetried);
         }
         #endregion
 
@@ -847,18 +900,19 @@ namespace FrameOfSystem3.Task
             , int[] nInputType
             , double[] dblInputActive
             , double[] dblInputMinusError
-            , double[] dblInputPlusError)
+            , double[] dblInputPlusError
+            , string caption = "", int captionRetried = 0)
         {
             switch (nOutputType)
             {
                 // Volt
                 case 0:
-                    WriteOutputVolt(nOutputIndex, dblOutputActive);
+                    WriteOutputVolt(nOutputIndex, ComplementToCaption(caption), dblOutputActive, captionRetried);
                     break;
 
                 // Value
                 case 1:
-                    WriteOutputValue(nOutputIndex, dblOutputActive);
+                    WriteOutputValue(nOutputIndex, ComplementToCaption(caption), dblOutputActive, captionRetried);
                     break;
             }
 
@@ -915,7 +969,14 @@ namespace FrameOfSystem3.Task
 
             return true;
         }
-        #endregion
-        #endregion </INTERFACE>
-    }
+		#endregion
+		#endregion </INTERFACE>
+
+		private string ComplementToCaption(string caption)
+		{
+			return caption == ""
+				? string.Format("{0}_{1}", _actionName, m_nSeqNum.ToString())
+                : string.Format("{0}_{1}_{2}", _actionName, m_nSeqNum.ToString(), caption);
+		}
+	}
 }

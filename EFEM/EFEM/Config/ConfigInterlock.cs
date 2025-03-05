@@ -88,7 +88,6 @@ namespace FrameOfSystem3.Config
             }
             return false;
         }
-
         public bool AddMotionInterlockCondition(int nMotionIndex, int nInterlockCondition)
         {
             if (m_InstanceInterlock.AddMotionInterlockCondition(nMotionIndex, nInterlockCondition))
@@ -107,7 +106,6 @@ namespace FrameOfSystem3.Config
             }
             return false;
         }
-
         public bool AddMotionCompareGroup(int nMotionIndex, int nCompareGroupIndex)
         {
             if (m_InstanceInterlock.AddMotionCompareGroup(nMotionIndex, nCompareGroupIndex))
@@ -124,7 +122,6 @@ namespace FrameOfSystem3.Config
             }
             return false;
         }
-
         public bool AddMotionCompareCondition(int nMotionIndex, int nCompareGroupIndex, int nCompareConditionIndex)
         {
             if (m_InstanceInterlock.AddMotionCompareCondition(nMotionIndex, nCompareGroupIndex, nCompareConditionIndex))
@@ -161,32 +158,36 @@ namespace FrameOfSystem3.Config
         {
             if (m_InstanceInterlock.RemoveMotionInterlockCondition(nMotionIndex, nInterlockCondition))
             {
-                string[] arConditionLevel = new string[] { m_strInterlockMotion, nMotionIndex.ToString(), m_strInterlockCondition, nInterlockCondition.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel);
-            }
-            return false;
+                // 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+                //string[] arConditionLevel = new string[] { m_strInterlockMotion, nMotionIndex.ToString(), m_strInterlockCondition, nInterlockCondition.ToString() };
+                //return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel);
+                return FileUpdateInterlockCondition(m_strInterlockMotion, nMotionIndex);
+			}
+			return false;
         }
-
         public bool RemoveMotionCompareGroup(int nMotionIndex, int nCompareGroupIndex)
         {
             if (m_InstanceInterlock.RemoveMotionCompareGroup(nMotionIndex, nCompareGroupIndex))
             {
-                string[] arCompareGroupLevel = new string[] { m_strInterlockMotion, nMotionIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel);
-            }
-            return false;
+                // 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+                //string[] arCompareGroupLevel = new string[] { m_strInterlockMotion, nMotionIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString() };
+                //return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel);
+                return FileUpdateCompareGroup(m_strInterlockMotion, nMotionIndex, nCompareGroupIndex);
+			}
+			return false;
         }
-
         public bool RemoveMotionCompareCondition(int nMotionIndex, int nCompareGroupIndex, int nCompareConditionIndex)
         {
             if (m_InstanceInterlock.RemoveMotionCompareCondition(nMotionIndex, nCompareGroupIndex, nCompareConditionIndex))
             {
-                string[] arCompareConditionkLevel = new string[] { m_strInterlockMotion, nMotionIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString(), nCompareConditionIndex.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareConditionkLevel);
+                // 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+                //string[] arCompareConditionkLevel = new string[] { m_strInterlockMotion, nMotionIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString(), nCompareConditionIndex.ToString() };
+                //return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareConditionkLevel);
+                return FileUpdateCompareCondition(m_strInterlockMotion, nMotionIndex, nCompareGroupIndex);
             }
-            return false;
+			return false;
         }
-        #endregion /Add
+        #endregion /Remove
 
         #region Set
         public bool SetMotionEnable(int nMotionIndex, bool bEnable)
@@ -232,10 +233,10 @@ namespace FrameOfSystem3.Config
 
         #endregion /Motion
 
-        #region Cylinder
+		#region Cylinder
 
-        #region Add
-        public bool AddCylinder(int nCylinderIndex)
+		#region Add
+		public bool AddCylinder(int nCylinderIndex)
         {
             if (m_InstanceInterlock.AddCylinder(nCylinderIndex))
             {
@@ -263,9 +264,9 @@ namespace FrameOfSystem3.Config
                 m_instanceStorage.AddGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel, false);
 
                 m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.COMPARE_KEY.ToString(), 0, ref arConditionLevel, false);
+                m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.THRESHOLD.ToString(), 0.0, ref arConditionLevel, false);
                 m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.DIRECTION.ToString(), true, ref arConditionLevel, false);
                 m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.MOVING_DIRECTION.ToString(), EN_MOTION_MOVING_DIRECTION.BOTH, ref arConditionLevel, false);
-                m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.THRESHOLD.ToString(), 0.0, ref arConditionLevel, false);
                 m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.RELATIVE.ToString(), false, ref arConditionLevel, false);
 
                 m_instanceStorage.Save(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK);
@@ -273,7 +274,6 @@ namespace FrameOfSystem3.Config
             }
             return false;
         }
-
         public bool AddCylinderCompareGroup(int nCylinderIndex, int nCompareGroupIndex)
         {
             if (m_InstanceInterlock.AddCylinderCompareGroup(nCylinderIndex, nCompareGroupIndex))
@@ -288,7 +288,6 @@ namespace FrameOfSystem3.Config
             }
             return false;
         }
-
         public bool AddCylinderCompareCondition(int nCylinderIndex, int nCompareGroupIndex, int nCompareConditionIndex)
         {
             if (m_InstanceInterlock.AddCylinderCompareCondition(nCylinderIndex, nCompareGroupIndex, nCompareConditionIndex))
@@ -325,30 +324,34 @@ namespace FrameOfSystem3.Config
         {
             if (m_InstanceInterlock.RemoveCylinderInterlockCondition(nCylinderIndex, nInterlockCondition))
             {
-                string[] arConditionLevel = new string[] { m_strInterlockCylinder, nCylinderIndex.ToString(), m_strInterlockCondition, nInterlockCondition.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel);
-            }
+                // 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+                //string[] arConditionLevel = new string[] { m_strInterlockCylinder, nCylinderIndex.ToString(), m_strInterlockCondition, nInterlockCondition.ToString() };
+                //return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel);
+                return FileUpdateInterlockCondition(m_strInterlockCylinder, nCylinderIndex);
+			}
             return false;
         }
-
         public bool RemoveCylinderCompareGroup(int nCylinderIndex, int nCompareGroupIndex)
         {
             if (m_InstanceInterlock.RemoveCylinderCompareGroup(nCylinderIndex, nCompareGroupIndex))
             {
-                string[] arCompareGroupLevel = new string[] { m_strInterlockCylinder, nCylinderIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel);
+                // 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+                //string[] arCompareGroupLevel = new string[] { m_strInterlockCylinder, nCylinderIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString() };
+                //return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel);
+                return FileUpdateCompareGroup(m_strInterlockCylinder, nCylinderIndex, nCompareGroupIndex);
             }
             return false;
         }
-
         public bool RemoveCylinderCompareCondition(int nCylinderIndex, int nCompareGroupIndex, int nCompareConditionIndex)
         {
             if (m_InstanceInterlock.RemoveCylinderCompareCondition(nCylinderIndex, nCompareGroupIndex, nCompareConditionIndex))
             {
-                string[] arCompareConditionkLevel = new string[] { m_strInterlockCylinder, nCylinderIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString(), nCompareConditionIndex.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareConditionkLevel);
-            }
-            return false;
+				// 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+				//string[] arCompareConditionkLevel = new string[] { m_strInterlockCylinder, nCylinderIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString(), nCompareConditionIndex.ToString() };
+				//return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareConditionkLevel);
+				return FileUpdateCompareCondition(m_strInterlockCylinder, nCylinderIndex, nCompareGroupIndex);
+			}
+			return false;
         }
         #endregion /Add
 
@@ -437,7 +440,6 @@ namespace FrameOfSystem3.Config
             }
             return false;
         }
-
         public bool AddDOCompareGroup(int nDOIndex, int nCompareGroupIndex)
         {
             if (m_InstanceInterlock.AddDOCompareGroup(nDOIndex, nCompareGroupIndex))
@@ -452,7 +454,6 @@ namespace FrameOfSystem3.Config
             }
             return false;
         }
-
         public bool AddDOCompareCondition(int nDOIndex, int nCompareGroupIndex, int nCompareConditionIndex)
         {
             if (m_InstanceInterlock.AddDOCompareCondition(nDOIndex, nCompareGroupIndex, nCompareConditionIndex))
@@ -486,33 +487,37 @@ namespace FrameOfSystem3.Config
         }
 
         public bool RemoveDOInterlockCondition(int nDOIndex, int nInterlockCondition)
-        {
-            if (m_InstanceInterlock.RemoveDOInterlockCondition(nDOIndex, nInterlockCondition))
-            {
-                string[] arConditionLevel = new string[] { m_strInterlockDO, nDOIndex.ToString(), m_strInterlockCondition, nInterlockCondition.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel);
-            }
-            return false;
-        }
-
-        public bool RemoveDOCompareGroup(int nDOIndex, int nCompareGroupIndex)
-        {
-            if (m_InstanceInterlock.RemoveDOCompareGroup(nDOIndex, nCompareGroupIndex))
-            {
-                string[] arCompareGroupLevel = new string[] { m_strInterlockDO, nDOIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel);
-            }
-            return false;
-        }
-
-        public bool RemoveDOCompareCondition(int nDOIndex, int nCompareGroupIndex, int nCompareConditionIndex)
-        {
-            if (m_InstanceInterlock.RemoveDOCompareCondition(nDOIndex, nCompareGroupIndex, nCompareConditionIndex))
-            {
-                string[] arCompareConditionkLevel = new string[] { m_strInterlockDO, nDOIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString(), nCompareConditionIndex.ToString() };
-                return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareConditionkLevel);
-            }
-            return false;
+		{
+			if (m_InstanceInterlock.RemoveDOInterlockCondition(nDOIndex, nInterlockCondition))
+			{
+				// 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+				//string[] arConditionLevel = new string[] { m_strInterlockDO, nDOIndex.ToString(), m_strInterlockCondition, nInterlockCondition.ToString() };
+				//return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel);
+				return FileUpdateInterlockCondition(m_strInterlockDO, nDOIndex);
+			}
+			return false;
+		}
+		public bool RemoveDOCompareGroup(int nDOIndex, int nCompareGroupIndex)
+		{
+			if (m_InstanceInterlock.RemoveDOCompareGroup(nDOIndex, nCompareGroupIndex))
+			{
+				// 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+				//string[] arCompareGroupLevel = new string[] { m_strInterlockDO, nDOIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString() };
+				//return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel);
+				return FileUpdateCompareGroup(m_strInterlockDO, nDOIndex, nCompareGroupIndex);
+			}
+			return false;
+		}
+		public bool RemoveDOCompareCondition(int nDOIndex, int nCompareGroupIndex, int nCompareConditionIndex)
+		{
+			if (m_InstanceInterlock.RemoveDOCompareCondition(nDOIndex, nCompareGroupIndex, nCompareConditionIndex))
+			{
+				// 2024.09.30 by junho [ADD] remove 할 때 index가 연속되도록 개선
+				//string[] arCompareConditionkLevel = new string[] { m_strInterlockDO, nDOIndex.ToString(), m_strCompareGroup, nCompareGroupIndex.ToString(), nCompareConditionIndex.ToString() };
+				//return m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareConditionkLevel);
+				return FileUpdateCompareCondition(m_strInterlockDO, nDOIndex, nCompareGroupIndex);
+			}
+			return false;
         }
         #endregion /Add
 
@@ -559,6 +564,7 @@ namespace FrameOfSystem3.Config
         #endregion /Set
 
         #endregion /DO
+
         #endregion /Item
 
         #region 발생 정보
@@ -1037,7 +1043,158 @@ namespace FrameOfSystem3.Config
             }
             return bReturn;
         }
-        #endregion
-        #endregion
-    }
+		#endregion
+
+		private bool FileUpdateInterlockCondition(string subject, int index)
+		{
+			object[] arCompareKey = new object[] { };
+			object[] arThreshold = new object[] { };
+			object[] arDirection = new object[] { };
+			object[] arMovingDirection = new object[] { };
+			object[] arRelative = new object[] { };
+			switch (subject)
+			{
+				case m_strInterlockMotion:
+					if (false == m_InstanceInterlock.GetMotionInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.COMPARE_KEY, ref arCompareKey)) return false;
+					if (false == m_InstanceInterlock.GetMotionInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.THRESHOLD, ref arThreshold)) return false;
+					if (false == m_InstanceInterlock.GetMotionInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.DIRECTION, ref arDirection)) return false;
+					if (false == m_InstanceInterlock.GetMotionInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.MOVING_DIRECTION, ref arMovingDirection)) return false;
+					if (false == m_InstanceInterlock.GetMotionInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.RELATIVE, ref arRelative)) return false;
+					break;
+				case m_strInterlockCylinder:
+					if (false == m_InstanceInterlock.GetCylinderInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.COMPARE_KEY, ref arCompareKey)) return false;
+					if (false == m_InstanceInterlock.GetCylinderInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.THRESHOLD, ref arThreshold)) return false;
+					if (false == m_InstanceInterlock.GetCylinderInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.DIRECTION, ref arDirection)) return false;
+					if (false == m_InstanceInterlock.GetCylinderInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.MOVING_DIRECTION, ref arMovingDirection)) return false;
+					if (false == m_InstanceInterlock.GetCylinderInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.RELATIVE, ref arRelative)) return false;
+					break;
+				case m_strInterlockDO:
+					if (false == m_InstanceInterlock.GetDOInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.COMPARE_KEY, ref arCompareKey)) return false;
+					if (false == m_InstanceInterlock.GetDOInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.THRESHOLD, ref arThreshold)) return false;
+					if (false == m_InstanceInterlock.GetDOInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.DIRECTION, ref arDirection)) return false;
+					if (false == m_InstanceInterlock.GetDOInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.MOVING_DIRECTION, ref arMovingDirection)) return false;
+					if (false == m_InstanceInterlock.GetDOInterLockConditionList(index, EN_INTERLOCK_PARAMTER_TYPE.RELATIVE, ref arRelative)) return false;
+					break;
+				default: return false;
+			}
+
+			string[] arConditionLevel = new string[] { subject, index.ToString(), m_strInterlockCondition };
+			if (false == m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel)) return false;
+			if (false == m_instanceStorage.AddGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arConditionLevel, false)) return false;
+
+			for (int i = 0; i < arCompareKey.Length; ++i)
+			{
+				string[] arSaveGroup = new string[] { subject, index.ToString(), m_strInterlockCondition, i.ToString() };
+				m_instanceStorage.AddGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arSaveGroup, false);
+
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.COMPARE_KEY.ToString(), arCompareKey[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.THRESHOLD.ToString(), arThreshold[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.DIRECTION.ToString(), arDirection[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.MOVING_DIRECTION.ToString(), arMovingDirection[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_INTERLOCK_PARAMTER_TYPE.RELATIVE.ToString(), arRelative[i], ref arSaveGroup, false);
+			}
+			return m_instanceStorage.Save(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK);
+		}
+		private bool FileUpdateCompareGroup(string subject, int index, int compareGroupIndex)
+		{
+			object[] arIndex = new object[] { };
+			object[] arEnable = new object[] { };
+			object[] arName = new object[] { };
+			switch (subject)
+			{
+				case m_strInterlockMotion:
+					if (false == m_InstanceInterlock.GetMotionCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.INDEX, ref arIndex)) return false;
+					if (false == m_InstanceInterlock.GetMotionCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.ENABLE, ref arEnable)) return false;
+					if (false == m_InstanceInterlock.GetMotionCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.NAME, ref arName)) return false;
+					break;
+				case m_strInterlockCylinder:
+					if (false == m_InstanceInterlock.GetCylinderCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.INDEX, ref arIndex)) return false;
+					if (false == m_InstanceInterlock.GetCylinderCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.ENABLE, ref arEnable)) return false;
+					if (false == m_InstanceInterlock.GetCylinderCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.NAME, ref arName)) return false;
+					break;
+				case m_strInterlockDO:
+					if (false == m_InstanceInterlock.GetDOCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.INDEX, ref arIndex)) return false;
+					if (false == m_InstanceInterlock.GetDOCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.ENABLE, ref arEnable)) return false;
+					if (false == m_InstanceInterlock.GetDOCompareGroupList(index, EN_COMPARE_GROUP_PARAMTER_TYPE.NAME, ref arName)) return false;
+					break;
+				default: return false;
+			}
+
+			string[] arCompareGroupLevel = new string[] { subject, index.ToString(), m_strCompareGroup };
+			if (false == m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel)) return false;
+			if (false == m_instanceStorage.AddGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arCompareGroupLevel, false)) return false;
+
+			for (int i = 0; i < arIndex.Length; ++i)
+			{
+				string[] arSaveGroup = new string[] { subject, index.ToString(), m_strCompareGroup, i.ToString() };
+			if (false == m_instanceStorage.AddGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arSaveGroup, false)) return false;
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_GROUP_PARAMTER_TYPE.ENABLE.ToString(), arEnable[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_GROUP_PARAMTER_TYPE.NAME.ToString(), arName[i], ref arSaveGroup, false);
+
+				FileUpdateCompareCondition(subject, index, i);
+			}
+			return m_instanceStorage.Save(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK);
+		}
+		private bool FileUpdateCompareCondition(string subject, int index, int compareGroupIndex)
+		{
+			object[] arGroupKey = new object[] { };
+			object[] arDevice = new object[] { };
+			object[] arDeviceIndex = new object[] { };
+			object[] arRelativeIndex = new object[] { };
+			object[] arDirection = new object[] { };
+			object[] arThreshold = new object[] { };
+			switch (subject)
+			{
+				case m_strInterlockMotion:
+					if (false == m_InstanceInterlock.GetMotionCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.KEY_GROUP, ref arGroupKey)) return false;
+					if (false == m_InstanceInterlock.GetMotionCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_TYPE, ref arDevice)) return false;
+					if (false == m_InstanceInterlock.GetMotionCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_INDEX, ref arDeviceIndex)) return false;
+					if (false == m_InstanceInterlock.GetMotionCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.RELATIVE_DEVICE_INDEX, ref arRelativeIndex)) return false;
+					if (false == m_InstanceInterlock.GetMotionCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DIRECTION, ref arDirection)) return false;
+					if (false == m_InstanceInterlock.GetMotionCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.THRESHOLD, ref arThreshold)) return false;
+					break;
+				case m_strInterlockCylinder:
+					if (false == m_InstanceInterlock.GetCylinderCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.KEY_GROUP, ref arGroupKey)) return false;
+					if (false == m_InstanceInterlock.GetCylinderCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_TYPE, ref arDevice)) return false;
+					if (false == m_InstanceInterlock.GetCylinderCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_INDEX, ref arDeviceIndex)) return false;
+					if (false == m_InstanceInterlock.GetCylinderCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.RELATIVE_DEVICE_INDEX, ref arRelativeIndex)) return false;
+					if (false == m_InstanceInterlock.GetCylinderCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DIRECTION, ref arDirection)) return false;
+					if (false == m_InstanceInterlock.GetCylinderCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.THRESHOLD, ref arThreshold)) return false;
+					break;
+				case m_strInterlockDO:
+					if (false == m_InstanceInterlock.GetDOCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.KEY_GROUP, ref arGroupKey)) return false;
+					if (false == m_InstanceInterlock.GetDOCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_TYPE, ref arDevice)) return false;
+					if (false == m_InstanceInterlock.GetDOCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_INDEX, ref arDeviceIndex)) return false;
+					if (false == m_InstanceInterlock.GetDOCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.RELATIVE_DEVICE_INDEX, ref arRelativeIndex)) return false;
+					if (false == m_InstanceInterlock.GetDOCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.DIRECTION, ref arDirection)) return false;
+					if (false == m_InstanceInterlock.GetDOCompareConditionList(index, compareGroupIndex, EN_COMPARE_CONDITION_PARAMTER_TYPE.THRESHOLD, ref arThreshold)) return false;
+					break;
+				default: return false;
+			}
+
+            string[] currentGroups = new string[] { };
+			string[] upperGroup = new string[] { subject, index.ToString(), m_strCompareGroup, compareGroupIndex.ToString() };
+            m_instanceStorage.GetListOfGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref currentGroups, upperGroup);
+            foreach(string groupName in currentGroups)
+			{
+			    string[] deleteGroups = new string[] { subject, index.ToString(), m_strCompareGroup, compareGroupIndex.ToString(), groupName };
+				if (false == m_instanceStorage.RemoveGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref deleteGroups)) return false;
+			}
+
+			for (int i = 0; i < arGroupKey.Length; ++i)
+			{
+				string[] arSaveGroup = new string[] { subject, index.ToString(), m_strCompareGroup, compareGroupIndex.ToString(), i.ToString() };
+				if (false == m_instanceStorage.AddGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, ref arSaveGroup, false)) return false;
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_CONDITION_PARAMTER_TYPE.KEY_GROUP.ToString(), arGroupKey[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_TYPE.ToString(), arDevice[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_CONDITION_PARAMTER_TYPE.DEVICE_INDEX.ToString(), arDeviceIndex[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_CONDITION_PARAMTER_TYPE.RELATIVE_DEVICE_INDEX.ToString(), arRelativeIndex[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_CONDITION_PARAMTER_TYPE.DIRECTION.ToString(), arDirection[i], ref arSaveGroup, false);
+				m_instanceStorage.AddItem(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK, EN_COMPARE_CONDITION_PARAMTER_TYPE.THRESHOLD.ToString(), arThreshold[i], ref arSaveGroup, false);
+			}
+			return m_instanceStorage.Save(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.INTERLOCK);
+		}
+
+		#endregion
+	}
 }

@@ -13,13 +13,14 @@ namespace FrameOfSystem3.Views.Functional
     public partial class Form_ColorPalette : Form
     {
         #region 상수
-        private const int c_nColorR = 127;
-        private const int c_nColorG = 127;
-        private const int c_nColorB = 127;
+        const int c_nColorR = 127;
+        const int c_nColorG = 127;
+        const int c_nColorB = 127;
 
-        private readonly string c_strGroupName  = "COLOR PALETTE";
-        private readonly string c_strApply      = "APPLY";
-        private readonly string c_strCancel     = "CANCEL";
+		// 미사용?
+		//readonly string c_strGroupName  = "COLOR PALETTE";
+		//readonly string c_strApply      = "APPLY";
+		//readonly string c_strCancel     = "CANCEL";
         #endregion
 
         #region 변수

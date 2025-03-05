@@ -214,7 +214,22 @@ namespace FrameOfSystem3.Config
 		{
 			return m_WorkTool.GetToolId(index, ref result);
 		}
-        #endregion
+
+        public bool SetEnable(int index, bool isEnable)
+		{
+			return SaveItem(index, EN_TOOL_PARAM.ENABLE.ToString(), isEnable.ToString());
+		}
+        public bool GetEnable(int index, out bool result)
+		{
+			string strResult;
+			m_WorkTool.GetParameter(index, EN_TOOL_PARAM.ENABLE, out strResult);
+
+			if (false == bool.TryParse(strResult, out result))
+				return false;
+
+			return true;
+		}
+		#endregion
 
 		#region <SERVICE>
 		/// <summary>
@@ -271,7 +286,7 @@ namespace FrameOfSystem3.Config
             return m_instanceStorage.GetListOfGroup(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.TOOL
                 , ref arGroupList);
         }
-        private bool LoadItem(string sIndex, string sItemName, ref string sItemValue)
+        public  bool LoadItem(string sIndex, string sItemName, ref string sItemValue)
         {
             string[] arGroup = new string[] { sIndex };
 

@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using FrameOfSystem3.Component;
 using FrameOfSystem3.Config;
 
 namespace FrameOfSystem3.Views.Config
 {
     public partial class Config_Communication : UserControlForMainView.CustomView
-    {
+	{
         public Config_Communication()
         {
             InitializeComponent();
@@ -22,6 +22,7 @@ namespace FrameOfSystem3.Views.Config
 			m_tabSocket.TabIndex		= 0;
 			m_tabSerial.TabIndex		= 1;
 			m_tabWCF.TabIndex		= 2;
+			m_tabFTP.TabIndex		= 3;
 			#endregion
 
 			InitializePanel();
@@ -36,6 +37,7 @@ namespace FrameOfSystem3.Views.Config
 		private Config_Serial		m_viewConfigSerial				= new Config_Serial();
 		private Config_Socket		m_viewConfigSocket				= new Config_Socket();
 		private Config_WCF			m_viewConfigWCF					= new Config_WCF();
+		private Config_FTP			m_viewConfigFTP					= new Config_FTP();
 		#endregion
 		
 		#endregion
@@ -55,11 +57,11 @@ namespace FrameOfSystem3.Views.Config
         {
 			m_selectedPanel.DeactivateView();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        public override void CallFunctionByTimer()
-        {
+		/// <summary>
+		/// 
+		/// </summary>
+		public override void CallFunctionByTimer()
+		{
 			m_selectedPanel.CallFunctionByTimer();	
         }
         #endregion
@@ -93,6 +95,10 @@ namespace FrameOfSystem3.Views.Config
 					m_tabClicked = m_tabWCF;
 					m_selectedPanel = m_viewConfigWCF;
 					break;
+                case 3: //FTP
+                    m_tabClicked = m_tabFTP;
+                    m_selectedPanel = m_viewConfigFTP; 
+                    break;
 				default:
 					return;
 			}
@@ -110,17 +116,20 @@ namespace FrameOfSystem3.Views.Config
 		{
 			m_panel.Controls.Add(m_viewConfigSerial);
 			m_panel.Controls.Add(m_viewConfigSocket);
-			m_panel.Controls.Add(m_viewConfigWCF);
+            m_panel.Controls.Add(m_viewConfigWCF);
+            m_panel.Controls.Add(m_viewConfigFTP);
 
 			m_viewConfigSerial.Dock = DockStyle.Fill;
             m_viewConfigSocket.Dock = DockStyle.Fill;
             m_viewConfigWCF.Dock	= DockStyle.Fill;
+            m_viewConfigFTP.Dock = DockStyle.Fill;
 
 			m_tabClicked		= m_tabSocket;
 			m_selectedPanel		= m_viewConfigSocket;
 
 			m_viewConfigSerial.Hide();
 			m_viewConfigWCF.Hide();
+            m_viewConfigFTP.Hide();
 		}
 		#endregion
 

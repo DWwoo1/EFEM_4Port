@@ -138,13 +138,8 @@ namespace EFEM.Defines.LoadPort
     public enum LoadPortLoadingMode
     {
         Unknown = -1,
-#if PWA500W             // TODO : 2025.02.13. dwlim [MOD] Loading Mode 처음에 Foup으로 하기위해서 임시 변경 나중에 바꾸자
-        Foup = 0,
-        Cassette = 1,
-#else
-        Cassette = 0,
-        Foup = 1,
-#endif
+        Foup,
+        Cassette,
     }
 
     public enum VarificationResults
@@ -208,30 +203,43 @@ namespace EFEM.Defines.LoadPort
 
         public void WriteOperationStartLog(LoadPortCommands command)
         {
-            _logType = LogTitleTypes.OPER;
-            WriteLog(string.Format("----- {0} -----", command.ToString()));
+            WriteLog(LogTitleTypes.OPER, string.Format("----- {0} -----", command.ToString()));
         }
         public void WriteOperationEndLog(LoadPortCommands command, CommandResults result)
         {
             if (result.CommandResult.Equals(CommandResult.Proceed))
                 return;
 
-            _logType = LogTitleTypes.OPER;
-            WriteLog(string.Format("----- Result : {0}, Description : {1}", result.CommandResult.ToString(), result.Description));
+            WriteLog(LogTitleTypes.OPER, string.Format("----- Result : {0}, Description : {1}", result.CommandResult.ToString(), result.Description));
         }
         public void WriteCommLog(string message, bool received)
         {
             if (false == received)
             {
-                _logType = LogTitleTypes.SEND;
-
+                WriteLog(LogTitleTypes.SEND, message);
             }
             else
             {
-                _logType = LogTitleTypes.RECV;
+                WriteLog(LogTitleTypes.RECV, message);
             }
 
-            WriteLog(message);
+        }        
+        public void WriteSignalChangedLog(string signalName, bool changedValue, bool input)
+        {
+            string message = string.Format("Signal Changed : {0} -> {1}", signalName, changedValue.ToString());
+            if (input)
+            {
+                WriteLog(LogTitleTypes.IN, message);
+            }
+            else
+            {
+                WriteLog(LogTitleTypes.OUT, message);
+            }
+        }
+        public void WriteCarrierStatusChangedLog(string signalName, bool changedValue)
+        {
+            string message = string.Format("Signal Changed : {0} -> {1}", signalName, changedValue.ToString());
+            WriteLog(LogTitleTypes.CARR, message);            
         }
     }
     public class LoadPortStateInformation
@@ -314,33 +322,41 @@ namespace EFEM.Defines.LoadPort
         public AutomatedMaterialHandlingSystemController(int lpIndex, AMHSInformation information)
         {
             Index = lpIndex;
-            InputSignalValues = new ConcurrentDictionary<int, bool>();
             Information = information;
 
-            if (information.DigitalInputs != null)
+            InputSignalValues = new ConcurrentDictionary<int, bool>();
+            InputSignalNames = new Dictionary<int, string>();
+            if (Information.DigitalInputs != null)
             {
-                foreach (var item in information.DigitalInputs)
+                foreach (var item in Information.DigitalInputs)
                 {
                     int index = item.Value.Item1;
                     InputSignalValues[index] = false;
-                }
-            }
-            OutputSignalValues = new ConcurrentDictionary<int, bool>();
-            if (information.DigitalOutputs != null)
-            {
-                foreach (var item in information.DigitalOutputs)
-                {
-                    int index = item.Value.Item1;
-                    OutputSignalValues[index] = false;
+                    InputSignalNames[index] = item.Value.Item2;
                 }
             }
 
-            SaftyInterLockIndex = information.SaftyInterLockIndex;
+            OutputSignalValues = new ConcurrentDictionary<int, bool>();
+            OutputSignalNames = new Dictionary<int, string>();
+            if (Information.DigitalOutputs != null)
+            {
+                foreach (var item in Information.DigitalOutputs)
+                {
+                    int index = item.Value.Item1;
+                    OutputSignalValues[index] = false;
+                    OutputSignalNames[index] = item.Value.Item2;
+                }
+            }
+
+            SaftyInterLockIndex = Information.SaftyInterLockIndex;
             EmergencyStopIndex = GetEmergencyStopSignalIndex();
             
             _taskOperator = FrameOfSystem3.Task.TaskOperator.GetInstance();
 
             _status = new LoadPortStateInformation();
+
+            InputSignalValuesForSimulation = new ConcurrentDictionary<int, bool>(InputSignalValues);
+            OutputSignalValuesForSimulation = new ConcurrentDictionary<int, bool>(OutputSignalValues);
         }
 
         #region <Fields>
@@ -359,27 +375,29 @@ namespace EFEM.Defines.LoadPort
         protected int _seqNum = 0;
         protected CommandResults _commandResult;
 
-        protected string ActionNameLoading = "AMHSLoading";
-        protected string ActionNameUnloading = "AMHSUnloading";
-
         private readonly TickCounter_.TickCounter TimerOverTicks = new TickCounter_.TickCounter();
         private readonly TickCounter_.TickCounter TimerOverTicksForPresence = new TickCounter_.TickCounter();
 
-        protected readonly ConcurrentDictionary<int, bool> InputSignalValues = null;
-        protected readonly ConcurrentDictionary<int, bool> OutputSignalValues = null;
+        protected readonly ConcurrentDictionary<int, bool> InputSignalValues = null;        // Key : SignalIndex, Value : Signal Value
+        protected readonly ConcurrentDictionary<int, bool> OutputSignalValues = null;       // Key : SignalIndex, Value : Signal Value
 
         protected readonly AMHSInformation Information = null;
 
         protected LoadPortStateInformation _status;
-        #endregion </Fields>
+        protected LoadPortLogger _logger;
 
-        #region <Types>
-        protected enum HandlingType
-        {
-            AMHSLoading,
-            AMHSUnloading,
-        }
-        #endregion </Types>
+        private bool _temporaryReadInputValue = false;
+        private bool _temporaryReadOutputValue = false;
+        private readonly Dictionary<int, string> InputSignalNames = null;
+        private readonly Dictionary<int, string> OutputSignalNames = null;
+
+        private readonly ConcurrentDictionary<int, bool> InputSignalValuesForSimulation = null;        // Key : SignalIndex, Value : Signal Value
+        private readonly ConcurrentDictionary<int, bool> OutputSignalValuesForSimulation = null;       // Key : SignalIndex, Value : Signal Value
+        private const string CarrierPresence = "CarrierPresence";
+        private const string CarrierPlacement = "CarrierPlacement";
+        private bool _carrierPresenceStatus;
+        private bool _carrierPlacementStatus;
+        #endregion </Fields>
 
         #region <Properites>
         public Define.DefineEnumProject.AppConfig.EN_PIO_INTERFACE_TYPE InterfaceType
@@ -402,6 +420,7 @@ namespace EFEM.Defines.LoadPort
                 return EmergencyStopIndex;
             }
         }
+        public int PortId { get; set; }
         #endregion </Properites>
 
         #region <Methods>
@@ -410,11 +429,13 @@ namespace EFEM.Defines.LoadPort
         public void AssignSignalControlFunctions(
             Func<int, bool> functionToReadInput,
             Func<int, bool> functionToReadOutput,
-            Func<int, bool, DigitalIO_.DIO_RESULT> functionToWriteOutput)
+            Func<int, bool, DigitalIO_.DIO_RESULT> functionToWriteOutput,
+            ref LoadPortLogger lpLogger)
         {
             readInput = functionToReadInput;
             readOutput = functionToReadOutput;
             _writeOutput = functionToWriteOutput;
+            _logger = lpLogger;
         }
         public void AssignActionBeforeCarrierLoad(Func<int, CommandResults> action)
         {
@@ -441,7 +462,7 @@ namespace EFEM.Defines.LoadPort
         }
         #endregion </TaskOperator>
 
-        #region <IO Control>
+        #region <IO Control>        
         public void GetSignalInformation(ref AMHSInformation information)
         {
             information = Information;
@@ -469,8 +490,20 @@ namespace EFEM.Defines.LoadPort
                     int index = item.Key;
                     if (false == IsSimulationMode())
                     {
-                        InputSignalValues[index] = readInput(index);
+                        _temporaryReadInputValue = readInput(index);
                     }
+                    else
+                    {
+                        _temporaryReadInputValue = InputSignalValuesForSimulation[index];
+                    }
+
+                    if (InputSignalValues[index] != _temporaryReadInputValue)
+                    {
+                        InputSignalValues[index] = _temporaryReadInputValue;
+
+                        _logger.WriteSignalChangedLog(InputSignalNames[index], _temporaryReadInputValue, true);
+                    }
+                    
                 }
             }
 
@@ -481,27 +514,56 @@ namespace EFEM.Defines.LoadPort
                     int index = item.Key;
                     if (false == IsSimulationMode())
                     {
-                        OutputSignalValues[index] = readOutput(index);
+                        _temporaryReadOutputValue = readOutput(index);
                     }
+                    else
+                    {
+                        _temporaryReadOutputValue = OutputSignalValuesForSimulation[index];
+                    }
+
+                    if (OutputSignalValues[index] != _temporaryReadOutputValue)
+                    {
+                        OutputSignalValues[index] = _temporaryReadOutputValue;
+                            
+                        _logger.WriteSignalChangedLog(OutputSignalNames[index], _temporaryReadOutputValue, false);
+                    }                    
                 }
+            }
+
+            if (_status != null)
+            {
+                if (_carrierPresenceStatus != _status.Present)
+                {
+                    _carrierPresenceStatus = _status.Present;
+                    _logger.WriteCarrierStatusChangedLog(CarrierPresence, _carrierPresenceStatus);
+                }
+
+                if (_carrierPlacementStatus != _status.Placed)
+                {
+                    _carrierPlacementStatus = _status.Placed;
+                    _logger.WriteCarrierStatusChangedLog(CarrierPlacement, _carrierPlacementStatus);
+                }
+
             }
         }
         protected bool ReadInput(int index, bool defaultSignal)
         {
             if (_taskOperator.IsSimulationMode())
             {
-                InputSignalValues[index] = defaultSignal;
+                InputSignalValuesForSimulation[index] = defaultSignal;
             }
 
             return InputSignalValues[index];
         }
         public bool WriteOutput(int index, bool newValue)
         {
-            OutputSignalValues[index] = newValue;
             if (_taskOperator.IsSimulationMode())
             {
+                OutputSignalValuesForSimulation[index] = newValue;
                 return true;
             }
+
+            //OutputSignalValues[index] = newValue;
             return _writeOutput(index, newValue).Equals(DigitalIO_.DIO_RESULT.OK);
         }
         #endregion </IO Control>
@@ -526,37 +588,45 @@ namespace EFEM.Defines.LoadPort
         #endregion </Timer>
 
         #region <Seq>
-        protected CommandResults ReturnResultGoodOrNg(string actionName, CommandResult commandResult, string description)
+        protected CommandResults ReturnResultGoodOrNg(LoadPortCommands command, CommandResult commandResult, string description)
         {
             InitializeSignals();
 
-            _commandResult.ActionName = actionName;
+            _commandResult.ActionName = command.ToString();
             _commandResult.CommandResult = commandResult;
             _commandResult.Description = description;
 
+            if (IsSimulationMode())
+            {
+                foreach (var item in InputSignalValuesForSimulation)
+                {
+                    InputSignalValuesForSimulation[item.Key] = false;
+                }
+            }
+
             return _commandResult;
         }
-        protected CommandResults ExecuteActionBeforeLoad(int lpIndex, string actionName)
+        protected CommandResults ExecuteActionBeforeLoad(int lpIndex, LoadPortCommands command)
         {
             if (actionBeforeCarrierLoad == null)
-                return new CommandResults(actionName, CommandResult.Completed);
+                return new CommandResults(command.ToString(), CommandResult.Completed);
 
             return actionBeforeCarrierLoad(lpIndex);
         }
-        protected CommandResults ExecuteActionBeforeUnload(int lpIndex, string actionName)
+        protected CommandResults ExecuteActionBeforeUnload(int lpIndex, LoadPortCommands command)
         {
             if (actionBeforeCarrierUnload == null)
-                return new CommandResults(actionName, CommandResult.Completed);
+                return new CommandResults(command.ToString(), CommandResult.Completed);
 
             return actionBeforeCarrierUnload(lpIndex);
         }
-        protected CommandResults ExecuteModeChangeAction(int lpIndex, LoadPortLoadingMode mode, string actionName)
+        protected CommandResults ExecuteModeChangeAction(int lpIndex, LoadPortLoadingMode mode, LoadPortCommands command)
         {
             if (mode.Equals(LoadPortLoadingMode.Unknown))
-                return new CommandResults(actionName, CommandResult.Completed);
+                return new CommandResults(command.ToString(), CommandResult.Completed);
 
             if (modeChangeBeforeCarrierLoad == null)
-                return new CommandResults(actionName, CommandResult.Completed);
+                return new CommandResults(command.ToString(), CommandResult.Completed);
 
             return modeChangeBeforeCarrierLoad(lpIndex, mode);
         }
@@ -564,28 +634,38 @@ namespace EFEM.Defines.LoadPort
 
         #region <Abstracts>
         public abstract void InitializeSignals();
-        public abstract CommandResults ExecuteHandlingToLoad();
-        public abstract CommandResults ExecuteHandlingToUnload();
+        public abstract CommandResults ExecuteHandlingToLoad(LoadPortCommands command);
+        public abstract CommandResults ExecuteHandlingToUnload(LoadPortCommands command);
         public abstract int GetEmergencyStopSignalIndex();
         public virtual LoadPortLoadingMode CheckTriggerLoadingMode()
         {
             return LoadPortLoadingMode.Unknown;
         }
-        protected bool GetTriggerCarrierPresence(HandlingType handlingType)
+        protected bool GetTriggerCarrierPresence(LoadPortCommands command)
         {
             if (_status == null)
                 return false;
-
-            switch (handlingType)
+            
+            switch (command)
             {
-                case HandlingType.AMHSLoading:
+                case LoadPortCommands.AMHSLoading:
                     {
-                        return (_status.Present && _status.Placed);
+                        if (IsSimulationMode())
+                        {
+                            _taskOperator.TriggerLoadPortPlacedForSimul(PortId);
+                        }
+
+                        return (_carrierPresenceStatus && _carrierPlacementStatus);
                     }
                     
-                case HandlingType.AMHSUnloading:
+                case LoadPortCommands.AMHSUnloading:
                     {
-                        return (false == _status.Present && false == _status.Placed);
+                        if (IsSimulationMode())
+                        {
+                            _taskOperator.TriggerLoadPortRemovedForSimul(PortId);
+                        }
+
+                        return (false == _carrierPresenceStatus && false == _carrierPlacementStatus);
                     }
 
                 default:
@@ -676,13 +756,13 @@ namespace EFEM.Defines.LoadPort
                 WriteOutput(item.Value, false);
             }
         }
-        public override CommandResults ExecuteHandlingToLoad()
+        public override CommandResults ExecuteHandlingToLoad(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSLoading);
+            return ExecuteHandling(command);
         }
-        public override CommandResults ExecuteHandlingToUnload()
+        public override CommandResults ExecuteHandlingToUnload(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSUnloading);
+            return ExecuteHandling(command);
         }
         public override int GetEmergencyStopSignalIndex()
         {
@@ -735,11 +815,8 @@ namespace EFEM.Defines.LoadPort
 
             return WriteOutput(OutputSignals[output], newSignal);
         }
-        private CommandResults ExecuteHandling(HandlingType handlingType)
+        private CommandResults ExecuteHandling(LoadPortCommands command)
         {
-            string actionName = handlingType.Equals(HandlingType.AMHSLoading) ?
-                ActionNameLoading : ActionNameUnloading;
-
             switch (_seqNum)
             {
                 #region <Case 0~10:OHT의 [VALID], [CS0~3] ON 신호를 보고 설비의 [L_REQ]/[U_REQ] ON>
@@ -756,10 +833,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal on timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal on timeout");
                         }
 
-                        E23OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E23OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E23OutputSignals.LoadRequest : E23OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, true))
@@ -781,7 +858,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Transfer Request signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Transfer Request signal timeout");
                         }
 
                         if (false == ReadInput(E23InputSignals.TransferRequest, true))
@@ -804,14 +881,14 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Action timeout before ready signals on");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Action timeout before ready signals on");
                         }
 
-                        switch (handlingType)
+                        switch (command)
                         {
-                            case HandlingType.AMHSLoading:
+                            case LoadPortCommands.AMHSLoading:
                                 {
-                                    var result = ExecuteActionBeforeLoad(Index, actionName);
+                                    var result = ExecuteActionBeforeLoad(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -822,13 +899,13 @@ namespace EFEM.Defines.LoadPort
                                             break;
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
-                            case HandlingType.AMHSUnloading:
+                            case LoadPortCommands.AMHSUnloading:
                                 {
-                                    var result = ExecuteActionBeforeUnload(Index, actionName);
+                                    var result = ExecuteActionBeforeUnload(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -839,7 +916,7 @@ namespace EFEM.Defines.LoadPort
                                             break;
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
@@ -862,7 +939,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal timeout");
                         }
 
                         if (false == WriteOutput(E23OutputSignals.Ready, true))
@@ -885,7 +962,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Busy signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Busy signal timeout");
                         }
 
                         if (false == ReadInput(E23InputSignals.Busy, true))
@@ -901,10 +978,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOverForPresence())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Carrier presence timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Carrier presence timeout");
                         }
 
-                        if (false == GetTriggerCarrierPresence(handlingType))
+                        if (false == GetTriggerCarrierPresence(command))
                             break;
 
                         ++_seqNum;
@@ -920,10 +997,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal off timeout");
                         }
 
-                        E23OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E23OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E23OutputSignals.LoadRequest : E23OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, false))
@@ -946,7 +1023,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Handling Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Handling Completion timeout");
                         }
 
                         if (false == IsHandlingCompleted())
@@ -968,7 +1045,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal off timeout");
                         }
 
                         if (false == WriteOutput(E23OutputSignals.Ready, false))
@@ -985,13 +1062,13 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Interface Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Interface Completion timeout");
                         }
 
                         if (false == IsInterfaceCompleted())
                             break;
 
-                        return ReturnResultGoodOrNg(actionName, CommandResult.Completed, string.Empty);
+                        return ReturnResultGoodOrNg(command, CommandResult.Completed, string.Empty);
                     }
                 #endregion </Case 80:OHT는 설비의 [READY] OFF 확인 후 [COMPT], [CS0~3], [VALID] 전부 OFF (설비 timeout parameter 필요)>
 
@@ -999,7 +1076,7 @@ namespace EFEM.Defines.LoadPort
                     break;
             }
 
-            _commandResult.ActionName = handlingType.ToString();
+            _commandResult.ActionName = command.ToString();
             _commandResult.CommandResult = CommandResult.Proceed;
             return _commandResult;
         }
@@ -1095,13 +1172,13 @@ namespace EFEM.Defines.LoadPort
                 WriteOutput(item.Value, false);
             }
         }
-        public override CommandResults ExecuteHandlingToLoad()
+        public override CommandResults ExecuteHandlingToLoad(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSLoading);
+            return ExecuteHandling(command);
         }
-        public override CommandResults ExecuteHandlingToUnload()
+        public override CommandResults ExecuteHandlingToUnload(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSUnloading);
+            return ExecuteHandling(command);
         }
         public override int GetEmergencyStopSignalIndex()
         {
@@ -1166,11 +1243,8 @@ namespace EFEM.Defines.LoadPort
 
             return WriteOutput(OutputSignals[output], newSignal);
         }
-        private CommandResults ExecuteHandling(HandlingType handlingType)
-        {
-            string actionName = handlingType.Equals(HandlingType.AMHSLoading) ?
-                ActionNameLoading : ActionNameUnloading;
-
+        private CommandResults ExecuteHandling(LoadPortCommands command)
+        {            
             switch (_seqNum)
             {
                 #region <Case 0~10:OHT의 [VALID], [CS0~3] ON 신호를 보고 설비의 [L_REQ]/[U_REQ] ON>
@@ -1178,7 +1252,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsFinishingMode())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Skipped, "Stopping Requested");
+                            return ReturnResultGoodOrNg(command, CommandResult.Skipped, "Stopping Requested");
                         }
 
                         if (ReadInput(E23InputSignals.Valid, true) && IsAnyCarrierStageSignalsOn())
@@ -1192,10 +1266,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal on timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal on timeout");
                         }
 
-                        E23OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E23OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E23OutputSignals.LoadRequest : E23OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, true))
@@ -1217,7 +1291,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Transfer Request signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Transfer Request signal timeout");
                         }
 
                         if (false == ReadInput(E23InputSignals.TransferRequest, true))
@@ -1240,15 +1314,15 @@ namespace EFEM.Defines.LoadPort
                     { 
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Action timeout before ready signals on");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Action timeout before ready signals on");
                         }
 
-                        switch (handlingType)
+                        switch (command)
                         {
-                            case HandlingType.AMHSLoading:
+                            case LoadPortCommands.AMHSLoading:
                                 {
                                     
-                                    var result = ExecuteActionBeforeLoad(Index, actionName);
+                                    var result = ExecuteActionBeforeLoad(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -1260,16 +1334,16 @@ namespace EFEM.Defines.LoadPort
                                         case CommandResult.Timeout:
                                         case CommandResult.Error:
                                         case CommandResult.Invalid:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
-                            case HandlingType.AMHSUnloading:
+                            case LoadPortCommands.AMHSUnloading:
                                 {
-                                    var result = ExecuteActionBeforeUnload(Index, actionName);
+                                    var result = ExecuteActionBeforeUnload(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -1281,10 +1355,10 @@ namespace EFEM.Defines.LoadPort
                                         case CommandResult.Timeout:
                                         case CommandResult.Error:
                                         case CommandResult.Invalid:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
@@ -1305,11 +1379,11 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Changing Mode Action timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Changing Mode Action timeout");
                         }
 
                         var mode = CheckTriggerLoadingMode();
-                        var result = ExecuteModeChangeAction(Index, mode, actionName);
+                        var result = ExecuteModeChangeAction(Index, mode, command);
                         switch (result.CommandResult)
                         {
                             case CommandResult.Proceed:
@@ -1321,7 +1395,7 @@ namespace EFEM.Defines.LoadPort
                             case CommandResult.Timeout:
                             case CommandResult.Error:
                             case CommandResult.Invalid:
-                                return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Changing Mode Action error");
+                                return ReturnResultGoodOrNg(command, CommandResult.Error, "Changing Mode Action error");
 
                             default:
                                 _seqNum = 30;
@@ -1342,7 +1416,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal timeout");
                         }
 
                         if (false == WriteOutput(E23OutputSignals.Ready, true))
@@ -1365,7 +1439,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Busy signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Busy signal timeout");
                         }
 
                         if (false == ReadInput(E23InputSignals.Busy, true))
@@ -1381,10 +1455,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOverForPresence())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Carrier presence timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Carrier presence timeout");
                         }
 
-                        if (false == GetTriggerCarrierPresence(handlingType))
+                        if (false == GetTriggerCarrierPresence(command))
                             break;
 
                         ++_seqNum;
@@ -1400,10 +1474,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal off timeout");
                         }
 
-                        E23OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E23OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E23OutputSignals.LoadRequest : E23OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, false))
@@ -1426,7 +1500,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Handling Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Handling Completion timeout");
                         }
 
                         if (false == IsHandlingCompleted())
@@ -1448,7 +1522,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal off timeout");
                         }
 
                         if (false == WriteOutput(E23OutputSignals.Ready, false))
@@ -1465,13 +1539,13 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Interface Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Interface Completion timeout");
                         }
 
                         if (false == IsInterfaceCompleted())
                             break;
 
-                        return ReturnResultGoodOrNg(actionName, CommandResult.Completed, string.Empty);
+                        return ReturnResultGoodOrNg(command, CommandResult.Completed, string.Empty);
                     }
                 #endregion </Case 80:OHT는 설비의 [READY] OFF 확인 후 [COMPT], [CS0~3], [VALID] 전부 OFF (설비 timeout parameter 필요)>
 
@@ -1479,7 +1553,7 @@ namespace EFEM.Defines.LoadPort
                     break;
             }
 
-            _commandResult.ActionName = handlingType.ToString();
+            _commandResult.ActionName = command.ToString();
             _commandResult.CommandResult = CommandResult.Proceed;
             return _commandResult;
         }
@@ -1593,13 +1667,13 @@ namespace EFEM.Defines.LoadPort
                 WriteOutput(item.Value, false);
             }
         }
-        public override CommandResults ExecuteHandlingToLoad()
+        public override CommandResults ExecuteHandlingToLoad(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSLoading);
+            return ExecuteHandling(command);
         }
-        public override CommandResults ExecuteHandlingToUnload()
+        public override CommandResults ExecuteHandlingToUnload(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSUnloading);
+            return ExecuteHandling(command);
         }
         public override int GetEmergencyStopSignalIndex()
         {
@@ -1652,11 +1726,8 @@ namespace EFEM.Defines.LoadPort
 
             return WriteOutput(OutputSignals[output], newSignal);
         }
-        private CommandResults ExecuteHandling(HandlingType handlingType)
-        {
-            string actionName = handlingType.Equals(HandlingType.AMHSLoading) ?
-                ActionNameLoading : ActionNameUnloading;
-
+        private CommandResults ExecuteHandling(LoadPortCommands command)
+        {           
             switch (_seqNum)
             {
                 #region <Case 0~10:OHT의 [VALID], [CS0~1] ON 신호를 보고 설비의 [L_REQ]/[U_REQ] ON>
@@ -1673,10 +1744,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal on timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal on timeout");
                         }
 
-                        E84OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E84OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E84OutputSignals.LoadRequest : E84OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, true))
@@ -1698,7 +1769,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Transfer Request signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Transfer Request signal timeout");
                         }
 
                         if (false == ReadInput(E84InputSignals.TransferRequest, true))
@@ -1721,14 +1792,14 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Action timeout before ready signals on");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Action timeout before ready signals on");
                         }
 
-                        switch (handlingType)
+                        switch (command)
                         {
-                            case HandlingType.AMHSLoading:
+                            case LoadPortCommands.AMHSLoading:
                                 {
-                                    var result = ExecuteActionBeforeLoad(Index, actionName);
+                                    var result = ExecuteActionBeforeLoad(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -1739,13 +1810,13 @@ namespace EFEM.Defines.LoadPort
                                             break;
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
-                            case HandlingType.AMHSUnloading:
+                            case LoadPortCommands.AMHSUnloading:
                                 {
-                                    var result = ExecuteActionBeforeUnload(Index, actionName);
+                                    var result = ExecuteActionBeforeUnload(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -1756,7 +1827,7 @@ namespace EFEM.Defines.LoadPort
                                             break;
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
@@ -1779,7 +1850,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal timeout");
                         }
 
                         if (false == WriteOutput(E84OutputSignals.Ready, true))
@@ -1802,7 +1873,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Busy signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Busy signal timeout");
                         }
 
                         if (false == ReadInput(E84InputSignals.Busy, true))
@@ -1818,10 +1889,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOverForPresence())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Carrier presence timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Carrier presence timeout");
                         }
 
-                        if (false == GetTriggerCarrierPresence(handlingType))
+                        if (false == GetTriggerCarrierPresence(command))
                             break;
 
                         ++_seqNum;
@@ -1837,10 +1908,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal off timeout");
                         }
 
-                        E84OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E84OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E84OutputSignals.LoadRequest : E84OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, false))
@@ -1863,7 +1934,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Handling Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Handling Completion timeout");
                         }
 
                         if (false == IsHandlingCompleted())
@@ -1885,7 +1956,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal off timeout");
                         }
 
                         if (false == WriteOutput(E84OutputSignals.Ready, false))
@@ -1902,19 +1973,19 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Interface Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Interface Completion timeout");
                         }
 
                         if (false == IsInterfaceCompleted())
                             break;
 
-                        return ReturnResultGoodOrNg(actionName, CommandResult.Completed, string.Empty);
+                        return ReturnResultGoodOrNg(command, CommandResult.Completed, string.Empty);
                     }
                 #endregion </Case 80:OHT는 설비의 [READY] OFF 확인 후 [COMPT], [CS0~1], [VALID] 전부 OFF (설비 timeout parameter 필요)>
                 default:
                     break;
             }
-            _commandResult.ActionName = handlingType.ToString();
+            _commandResult.ActionName = command.ToString();
             _commandResult.CommandResult = CommandResult.Proceed;
             return _commandResult;
         }
@@ -2006,13 +2077,13 @@ namespace EFEM.Defines.LoadPort
                 WriteOutput(item.Value, false);
             }
         }
-        public override CommandResults ExecuteHandlingToLoad()
+        public override CommandResults ExecuteHandlingToLoad(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSLoading);
+            return ExecuteHandling(command);
         }
-        public override CommandResults ExecuteHandlingToUnload()
+        public override CommandResults ExecuteHandlingToUnload(LoadPortCommands command)
         {
-            return ExecuteHandling(HandlingType.AMHSUnloading);
+            return ExecuteHandling(command);
         }
         public override LoadPortLoadingMode CheckTriggerLoadingMode()
         {
@@ -2077,11 +2148,8 @@ namespace EFEM.Defines.LoadPort
 
             return WriteOutput(OutputSignals[output], newSignal);
         }
-        private CommandResults ExecuteHandling(HandlingType handlingType)
+        private CommandResults ExecuteHandling(LoadPortCommands command)
         {
-            string actionName = handlingType.Equals(HandlingType.AMHSLoading) ?
-                ActionNameLoading : ActionNameUnloading;
-
             switch (_seqNum)
             {
                 #region <Case 0~10:OHT의 [VALID], [CS0~1] ON 신호를 보고 설비의 [L_REQ]/[U_REQ] ON>
@@ -2089,7 +2157,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsFinishingMode())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Skipped, "Stopping Requested");
+                            return ReturnResultGoodOrNg(command, CommandResult.Skipped, "Stopping Requested");
                         }
                         if (ReadInput(E84InputSignals.Valid, true) && IsAnyCarrierStageSignalsOn())
                         {
@@ -2102,10 +2170,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal on timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal on timeout");
                         }
 
-                        E84OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E84OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E84OutputSignals.LoadRequest : E84OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, true))
@@ -2127,7 +2195,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Transfer Request signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Transfer Request signal timeout");
                         }
 
                         if (false == ReadInput(E84InputSignals.TransferRequest, true))
@@ -2150,15 +2218,15 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Action timeout before ready signals on");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Action timeout before ready signals on");
                         }
 
-                        switch (handlingType)
+                        switch (command)
                         {
-                            case HandlingType.AMHSLoading:
+                            case LoadPortCommands.AMHSLoading:
                                 {
 
-                                    var result = ExecuteActionBeforeLoad(Index, actionName);
+                                    var result = ExecuteActionBeforeLoad(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -2170,16 +2238,16 @@ namespace EFEM.Defines.LoadPort
                                         case CommandResult.Timeout:
                                         case CommandResult.Error:
                                         case CommandResult.Invalid:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
-                            case HandlingType.AMHSUnloading:
+                            case LoadPortCommands.AMHSUnloading:
                                 {
-                                    var result = ExecuteActionBeforeUnload(Index, actionName);
+                                    var result = ExecuteActionBeforeUnload(Index, command);
                                     switch (result.CommandResult)
                                     {
                                         case CommandResult.Proceed:
@@ -2191,10 +2259,10 @@ namespace EFEM.Defines.LoadPort
                                         case CommandResult.Timeout:
                                         case CommandResult.Error:
                                         case CommandResult.Invalid:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
 
                                         default:
-                                            return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Action has error before ready signals on");
+                                            return ReturnResultGoodOrNg(command, CommandResult.Error, "Action has error before ready signals on");
                                     }
                                 }
                                 break;
@@ -2215,11 +2283,11 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Changing Mode Action timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Changing Mode Action timeout");
                         }
 
                         var mode = CheckTriggerLoadingMode();
-                        var result = ExecuteModeChangeAction(Index, mode, actionName);
+                        var result = ExecuteModeChangeAction(Index, mode, command);
                         switch (result.CommandResult)
                         {
                             case CommandResult.Proceed:
@@ -2231,7 +2299,7 @@ namespace EFEM.Defines.LoadPort
                             case CommandResult.Timeout:
                             case CommandResult.Error:
                             case CommandResult.Invalid:
-                                return ReturnResultGoodOrNg(actionName, CommandResult.Error, "Changing Mode Action error");
+                                return ReturnResultGoodOrNg(command, CommandResult.Error, "Changing Mode Action error");
 
                             default:
                                 _seqNum = 30;
@@ -2252,7 +2320,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal timeout");
                         }
 
                         if (false == WriteOutput(E84OutputSignals.Ready, true))
@@ -2275,7 +2343,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Busy signal timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Busy signal timeout");
                         }
 
                         if (false == ReadInput(E84InputSignals.Busy, true))
@@ -2291,10 +2359,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOverForPresence())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Carrier presence timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Carrier presence timeout");
                         }
 
-                        if (false == GetTriggerCarrierPresence(handlingType))
+                        if (false == GetTriggerCarrierPresence(command))
                             break;
 
                         ++_seqNum;
@@ -2310,10 +2378,10 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Request output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Request output signal off timeout");
                         }
 
-                        E84OutputSignals output = handlingType.Equals(HandlingType.AMHSLoading) ?
+                        E84OutputSignals output = command.Equals(LoadPortCommands.AMHSLoading) ?
                                 E84OutputSignals.LoadRequest : E84OutputSignals.UnloadRequest;
 
                         if (false == WriteOutput(output, false))
@@ -2336,7 +2404,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Handling Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Handling Completion timeout");
                         }
 
                         if (false == IsHandlingCompleted())
@@ -2358,7 +2426,7 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Ready output signal off timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Ready output signal off timeout");
                         }
 
                         if (false == WriteOutput(E84OutputSignals.Ready, false))
@@ -2375,13 +2443,13 @@ namespace EFEM.Defines.LoadPort
                     {
                         if (IsTickOver())
                         {
-                            return ReturnResultGoodOrNg(actionName, CommandResult.Timeout, "Interface Completion timeout");
+                            return ReturnResultGoodOrNg(command, CommandResult.Timeout, "Interface Completion timeout");
                         }
 
                         if (false == IsInterfaceCompleted())
                             break;
 
-                        return ReturnResultGoodOrNg(actionName, CommandResult.Completed, string.Empty);
+                        return ReturnResultGoodOrNg(command, CommandResult.Completed, string.Empty);
                     }
                 #endregion </Case 80:OHT는 설비의 [READY] OFF 확인 후 [COMPT], [CS0~1], [VALID] 전부 OFF (설비 timeout parameter 필요)>
 
@@ -2389,7 +2457,7 @@ namespace EFEM.Defines.LoadPort
                     break;
             }
 
-            _commandResult.ActionName = handlingType.ToString();
+            _commandResult.ActionName = command.ToString();
             _commandResult.CommandResult = CommandResult.Proceed;
             return _commandResult;
         }

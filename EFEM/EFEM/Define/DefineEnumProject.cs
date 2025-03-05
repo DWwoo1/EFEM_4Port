@@ -367,6 +367,7 @@ namespace Define
                 OPERATION_MAIN,
                 //OPERATION_MANUAL,
                 OPERATION_MONITORING,
+                OPERATION_RAM_METRICS,
                 OPERATION_TRACKING,
                 OPERATION_SECSGEM,
                 OPERATION_LOT_HISTORY,
@@ -1233,5 +1234,17 @@ namespace Define
                 RTU_OVER_TCP
             }
         }
+		
+		namespace Common
+		{
+			public enum EN_UNKNOWN_DEVICE_TYPE
+			{
+				OPERATION = -1,
+				CONFIG = -2,
+				COMMON = -3,
+				JOG = -4,
+				MOTERSTATE = -5,
+			}
+		}
     }
 }

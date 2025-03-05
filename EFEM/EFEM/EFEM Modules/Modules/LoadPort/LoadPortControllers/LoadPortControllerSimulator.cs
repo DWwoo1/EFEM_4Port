@@ -235,7 +235,7 @@ namespace EFEM.Modules.LoadPort.LoadPortControllers
         }
         public override CommandResults DoFindLoadingMode()
         {
-            ChangeLoadingMode(LoadPortLoadingMode.Cassette);
+            ChangeLoadingMode(LoadPortLoadingMode.Foup);
             return new CommandResults(LoadPortCommands.FindLoadingMode.ToString(), CommandResult.Completed);
         }
         public override CommandResults DoChangeLoadingMode(LoadPortLoadingMode mode)

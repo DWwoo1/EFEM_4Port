@@ -142,15 +142,12 @@ namespace EFEM.Defines.ProcessModule
         {
             if (false == received)
             {
-                _logType = LogTitleTypes.SEND;
-
+                WriteLog(LogTitleTypes.SEND, message);
             }
             else
             {
-                _logType = LogTitleTypes.RECV;
-            }
-
-            WriteLog(message);
+                WriteLog(LogTitleTypes.RECV, message);
+            }            
         }
     }
 }

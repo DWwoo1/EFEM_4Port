@@ -259,6 +259,15 @@ namespace FrameOfSystem3.Task
         }
         protected override bool UpdateParamToSlotMapVarification()
         {
+            if (PortId < 4 && _carrierServer.GetCarrierAccessingStatus(PortId).Equals(CarrierAccessStates.NotAccessed))
+            {
+                // 1~3 포트의 경우, 작업하지 않았으면 비어있어야함
+                if (_appConfig.LoadPortControllerType.Equals(Define.DefineEnumProject.AppConfig.EN_LOADPORT_CONTROLLER.NONE))
+                {
+                    _substrateManager.RemoveSubstrateInLoadPortAll(PortId);
+                }
+            }
+
             if (PortId < 4)
                 return false;
 
@@ -753,6 +762,15 @@ namespace FrameOfSystem3.Task
                 return _commandResult;
             }
         }
+
+        protected override bool CheckSlotValidation()
+        {
+            var substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
+            if (substrates == null || substrates.Count <= 0)
+                return true;
+
+            return (false == substrates.ContainsKey(0));
+        }
         #endregion </Overrides>
 
         #region <Internal Interfaces>
@@ -1130,6 +1148,7 @@ namespace FrameOfSystem3.Task
         private void AssignSubstrateInfoByCarrierRFIDInfo(string lotId)
         {
             var substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
+
             foreach (var item in substrates)
             {
                 string prevLotId = item.Value.GetLotId();

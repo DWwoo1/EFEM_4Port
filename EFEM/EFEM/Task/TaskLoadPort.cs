@@ -83,8 +83,8 @@ namespace FrameOfSystem3.Task
                 DigitalIO_.DigitalIO.GetInstance().WriteOutput);
             #endregion </Parallel I/O>
 
-
             GetAtmRobotTaskName(out List<string> taskNames);
+
             RobotTaskNames = new List<string>(taskNames);
 
             _scenarioOperator = ScenarioOperator.Instance;
@@ -644,7 +644,7 @@ namespace FrameOfSystem3.Task
         protected abstract bool UpdateParamToIdVarification();
         protected abstract CommandResults ExecuteScenarioToIdVarification();
         //
-        
+
         // Slot Verification
         protected abstract bool UpdateParamToSlotMapVarification();
         protected abstract CommandResults ExecuteToSlotMapVarification();
@@ -662,6 +662,10 @@ namespace FrameOfSystem3.Task
         protected abstract CommandResults ExecuteScenarioToUnloadCarrier();
         //
         #endregion </Scenario>
+
+        #region <Slot Validation>
+        protected abstract bool CheckSlotValidation();
+        #endregion </Slot Validation>
 
         #region <Carrier HandOff>
         protected abstract void OnCarrierAccessStatusChanged(CarrierAccessStates newAccessStatus);
@@ -1114,7 +1118,8 @@ namespace FrameOfSystem3.Task
                             m_nSeqNum = (int)STEP_WAIT_FOR_UNLOADING.END;
                             break;
                         }
-                        if (_taskOperator.IsDryRunMode() || _taskOperator.IsSimulationMode()
+
+                        if (_taskOperator.IsDryRunMode()
                             /*|| _recipe.GetValue(Recipe.EN_RECIPE_TYPE.COMMON, Recipe.PARAM_COMMON.UseCycleMode.ToString(), false)*/)
                         {
                             _loadPortManager.RecreateCarrierAtLoadPort(LoadPortIndex);
@@ -1527,40 +1532,12 @@ namespace FrameOfSystem3.Task
                     {
                         if (_loadPortManager.GetCarrierLoadingType(LoadPortIndex).Equals(LoadPortLoadingMode.Cassette))
                         {
-                            var slots = _carrierServer.GetCarrierSlotMap(PortId);
-                            if (slots == null)
-                                break;
-
-                            // TODO : 슬롯 사용유무가 필요할거같다.
-                            if (slots[0].Equals(CarrierSlotMapStates.CorrectlyOccupied))
+                            if (false == CheckSlotValidation() ||
+                                HasInvalidSlots())
                             {
                                 m_nSeqNum = (int)STEP_CARRIER_LOADING.UNLOAD_CARRIER_BY_ERROR;
                                 break;
                             }
-
-                            // TODO : 슬롯 상태가 비정상이면 또한 에러로 처리필요
-
-                            for (int i = 0; i < slots.Length; ++i)
-                            {
-                                switch (slots[i])
-                                {
-                                    case CarrierSlotMapStates.Undefined:
-                                    case CarrierSlotMapStates.NotEmpty:
-                                    case CarrierSlotMapStates.DoubleSlotted:
-                                    case CarrierSlotMapStates.CrossSlotted:
-                                        {
-                                            m_nSeqNum = (int)STEP_CARRIER_LOADING.UNLOAD_CARRIER_BY_ERROR;
-                                            return false;
-                                        }
-
-                                    case CarrierSlotMapStates.Empty:
-                                    case CarrierSlotMapStates.CorrectlyOccupied:
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-
                         }
 
                         // TODO : Slot Verification Update : NotRead -> WaitingForHost
@@ -2198,6 +2175,32 @@ namespace FrameOfSystem3.Task
         protected void SetCarrierPortState(CARRIER_PORT_TYPE portType)
         {
             SetPortStatus(EN_PORT.LOADPORT_STATE.ToString(), _loadPortSchedulerManager.GetCarrierPortStatus(portType));
+        }
+        private bool HasInvalidSlots()
+        {
+            var slots = _carrierServer.GetCarrierSlotMap(PortId);
+            if (slots == null)
+                return true;
+
+            for (int i = 0; i < slots.Length; ++i)
+            {
+                switch (slots[i])
+                {
+                    case CarrierSlotMapStates.Undefined:
+                    case CarrierSlotMapStates.NotEmpty:
+                    case CarrierSlotMapStates.DoubleSlotted:
+                    case CarrierSlotMapStates.CrossSlotted:
+                        return true;
+
+                    case CarrierSlotMapStates.Empty:
+                    case CarrierSlotMapStates.CorrectlyOccupied:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return false;
         }
 
         // 2025.01.05. jhlim [DEL] 필요 없어져서 폐기

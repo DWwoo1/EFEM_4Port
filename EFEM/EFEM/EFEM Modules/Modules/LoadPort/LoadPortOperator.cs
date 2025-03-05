@@ -21,7 +21,7 @@ namespace EFEM.Modules.LoadPort
             Name = name;
 
             string typeOfLog = string.Format("{0}{1}", BaseLogTypes.LogTypeLoadPort, portId);
-            Logger = new LoadPortLogger(typeOfLog, Name);
+            _logger = new LoadPortLogger(typeOfLog, Name);
             State = new LoadPortStateInformation();
             StateTransitionManager = new StateTransitionManager(portId, ref State);
 
@@ -29,7 +29,7 @@ namespace EFEM.Modules.LoadPort
             if (Controller != null)
             {
                 Controller.AttachSlotMapStateUpdatedEventHandler(UpdateCarrierSlotMap);
-                Controller.AssignLogger(ref Logger);
+                Controller.AssignLogger(ref _logger);
             }
             
 
@@ -57,6 +57,7 @@ namespace EFEM.Modules.LoadPort
             _substrateManager.AddLoadPortBuffers(portId, LoadPortSlots.Count);
 
             AMHSController = amhsController;
+            AMHSController.PortId = PortId;
         }
         #endregion </Constructors>
 
@@ -70,7 +71,7 @@ namespace EFEM.Modules.LoadPort
 
         //private Carrier _myCarrier = null;
         private static CarrierManagementServer _carrierServer = null;
-        private readonly LoadPortLogger Logger = null;
+        private LoadPortLogger _logger = null;
         private int _actionStep = 0;
 
         private static LocationServer _locationServer = null;
@@ -90,7 +91,7 @@ namespace EFEM.Modules.LoadPort
         private readonly TickCounter_.TickCounter _carrierOutStatusChecker = new TickCounter_.TickCounter();
 
         private readonly AutomatedMaterialHandlingSystemController AMHSController = null;
-
+        
         private bool _carrierHasCreated = false;
         private Func<bool> _functionToReadInput = null;
         #endregion </Fields>
@@ -343,7 +344,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Initialize);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Initialize);
                     ++_actionStep;
                     break;                    
             }
@@ -355,7 +356,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Initialize, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Initialize, result);
                     break;
 
             }
@@ -367,7 +368,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Load);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Load);
                     ++_actionStep;
                     break;
             }
@@ -379,7 +380,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Load, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Load, result);
                     break;
 
             }
@@ -391,7 +392,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Unload);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Unload);
                     ++_actionStep;
                     break;
             }
@@ -403,7 +404,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Unload, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Unload, result);
                     break;
 
             }
@@ -415,7 +416,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Clamp);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Clamp);
                     ++_actionStep;
                     break;
             }
@@ -427,7 +428,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Clamp, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Clamp, result);
                     break;
 
             }
@@ -439,7 +440,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Unclamp);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Unclamp);
                     ++_actionStep;
                     break;
             }
@@ -451,7 +452,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Unclamp, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Unclamp, result);
                     break;
 
             }
@@ -463,7 +464,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Dock);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Dock);
                     ++_actionStep;
                     break;
             }
@@ -475,7 +476,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Dock, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Dock, result);
                     break;
 
             }
@@ -487,7 +488,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Undock);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Undock);
                     ++_actionStep;
                     break;
             }
@@ -499,7 +500,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Undock, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Undock, result);
                     break;
 
             }
@@ -511,7 +512,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.DoorOpen);
+                    _logger.WriteOperationStartLog(LoadPortCommands.DoorOpen);
                     ++_actionStep;
                     break;
             }
@@ -523,7 +524,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.DoorOpen, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.DoorOpen, result);
                     break;
 
             }
@@ -535,7 +536,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.DoorClose);
+                    _logger.WriteOperationStartLog(LoadPortCommands.DoorClose);
                     ++_actionStep;
                     break;
             }
@@ -547,7 +548,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.DoorClose, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.DoorClose, result);
                     break;
 
             }
@@ -559,7 +560,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.ScanDown);
+                    _logger.WriteOperationStartLog(LoadPortCommands.ScanDown);
                     ++_actionStep;
                     break;
             }
@@ -571,7 +572,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.ScanDown, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.ScanDown, result);
                     break;
 
             }
@@ -583,7 +584,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.GetMap);
+                    _logger.WriteOperationStartLog(LoadPortCommands.GetMap);
                     ++_actionStep;
                     break;
             }
@@ -595,7 +596,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.GetMap, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.GetMap, result);
                     break;
 
             }
@@ -610,7 +611,7 @@ namespace EFEM.Modules.LoadPort
             {
                 case 0:
                     {
-                        Logger.WriteOperationStartLog(action);
+                        _logger.WriteOperationStartLog(action);
                         ++_actionStep;
                     }
                     break;
@@ -623,7 +624,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(action, result);
+                    _logger.WriteOperationEndLog(action, result);
                     break;
 
             }
@@ -640,7 +641,7 @@ namespace EFEM.Modules.LoadPort
             {
                 case 0:
                     {
-                        Logger.WriteOperationStartLog(action);
+                        _logger.WriteOperationStartLog(action);
                         ++_actionStep;
                     }
                     break;
@@ -653,7 +654,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(action, result);
+                    _logger.WriteOperationEndLog(action, result);
                     break;
 
             }
@@ -669,7 +670,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(action);
+                    _logger.WriteOperationStartLog(action);
                     ++_actionStep;
                     break;
             }
@@ -681,7 +682,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(action, result);
+                    _logger.WriteOperationEndLog(action, result);
                     break;
 
             }
@@ -693,7 +694,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(LoadPortCommands.Reset);
+                    _logger.WriteOperationStartLog(LoadPortCommands.Reset);
                     ++_actionStep;
                     break;
             }
@@ -705,7 +706,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(LoadPortCommands.Reset, result);
+                    _logger.WriteOperationEndLog(LoadPortCommands.Reset, result);
                     break;
 
             }
@@ -721,7 +722,7 @@ namespace EFEM.Modules.LoadPort
             switch (_actionStep)
             {
                 case 0:
-                    Logger.WriteOperationStartLog(action);
+                    _logger.WriteOperationStartLog(action);
                     ++_actionStep;
                     break;
             }
@@ -733,7 +734,7 @@ namespace EFEM.Modules.LoadPort
                     break;
                 default:
                     _actionStep = 0;
-                    Logger.WriteOperationEndLog(action, result);
+                    _logger.WriteOperationEndLog(action, result);
                     break;
 
             }
@@ -949,7 +950,7 @@ namespace EFEM.Modules.LoadPort
             if (AMHSController == null)
                 return false;
 
-            AMHSController.AssignSignalControlFunctions(functionToReadInput, functionToReadOutput, functionToWriteOutput);
+            AMHSController.AssignSignalControlFunctions(functionToReadInput, functionToReadOutput, functionToWriteOutput, ref _logger);
             return true;
         }
 
@@ -1007,14 +1008,55 @@ namespace EFEM.Modules.LoadPort
             if (AMHSController == null)
                 return new CommandResults(LoadPortCommands.AMHSLoading.ToString(), CommandResult.Error);
 
-            return AMHSController.ExecuteHandlingToLoad();
+            switch (_actionStep)
+            {
+                case 0:
+                    _logger.WriteOperationStartLog(LoadPortCommands.AMHSLoading);
+                    ++_actionStep;
+                    break;
+            }
+
+            var result = AMHSController.ExecuteHandlingToLoad(LoadPortCommands.AMHSLoading);
+            switch (result.CommandResult)
+            {
+                case CommandResult.Proceed:
+                    break;
+                default:
+                    _actionStep = 0;
+                    _logger.WriteOperationEndLog(LoadPortCommands.AMHSLoading, result);
+                    break;
+
+            }
+
+            return result;
         }
         public CommandResults ExecuteAMHSHandlingToUnload()
         {
             if (AMHSController == null)
                 return new CommandResults(LoadPortCommands.AMHSUnloading.ToString(), CommandResult.Error);
 
-            return AMHSController.ExecuteHandlingToUnload();
+
+            switch (_actionStep)
+            {
+                case 0:
+                    _logger.WriteOperationStartLog(LoadPortCommands.AMHSUnloading);
+                    ++_actionStep;
+                    break;
+            }
+
+            var result = AMHSController.ExecuteHandlingToUnload(LoadPortCommands.AMHSUnloading);
+            switch (result.CommandResult)
+            {
+                case CommandResult.Proceed:
+                    break;
+                default:
+                    _actionStep = 0;
+                    _logger.WriteOperationEndLog(LoadPortCommands.AMHSUnloading, result);
+                    break;
+
+            }
+
+            return result;
         }
         public bool WriteAMHSOutput(int index, bool newValue)
         {

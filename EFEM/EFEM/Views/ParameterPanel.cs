@@ -31,9 +31,6 @@ namespace FrameOfSystem3.Views
 				FrameOfSystem3.Recipe.Recipe.ParameterChangedNotify += new FrameOfSystem3.Recipe.Recipe.DeleParameterChangedNotify(_callBackParameterChanged);
 			}
 		}
-		public virtual void ChangeSelectData(string selectData)
-		{
-
-		}
+		public virtual void ChangeSelectData(string selectData) { }
 	}
 }

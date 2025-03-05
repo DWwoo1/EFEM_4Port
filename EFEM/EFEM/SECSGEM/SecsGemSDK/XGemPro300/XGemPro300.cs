@@ -11,14 +11,17 @@ using System.Collections.Concurrent;
 using Define.DefineConstant;
 using FrameOfSystem3.SECSGEM.DefineSecsGem;
 
-using GEM_XGem300Pro;
+//using GEM_XGem300Pro;
+using XGEM300PRO.Library;
+
 
 namespace FrameOfSystem3.SECSGEM.SecsGemDll
 {
     class XGemPro300 : SecsGem
     {
         #region <Fields>
-        protected XGem300ProNet _gemDriver = null;
+        //protected XGem300ProNet _gemDriver = null;
+        protected XGem300ProW _gemDriver = null;
 
         private readonly ProcessForXGem DataProcessor = new ProcessForXGem();
         private ConcurrentDictionary<long, bool> _eventToSend = new ConcurrentDictionary<long, bool>();
@@ -52,7 +55,7 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
             SetCommStatus((long)EN_COMM_STATE.DISABLED);
 
             // m_XGem = new XGemProW();
-            _gemDriver = new GEM_XGem300Pro.XGem300ProNet();
+            _gemDriver = new XGem300ProW();//GEM_XGem300Pro.XGem300ProNet();
 
             DataProcessor.InitGemInfo(configPath);
 
@@ -706,68 +709,68 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
         private void LinkFunctions()
         {
             #region Received Secs/Gem Messages
-            _gemDriver.OnSECSMessageReceived += new GEM_XGem300Pro.OnSECSMessageReceived(OnSECSMessageReceived);
-            _gemDriver.OnGEMReqRemoteCommand += new GEM_XGem300Pro.OnGEMReqRemoteCommand(OnGEMReqRemoteCommand);
-            _gemDriver.OnGEMSecondaryMsgReceived += new GEM_XGem300Pro.OnGEMSecondaryMsgReceived(OnGEMSecondaryMsgReceived);
+            _gemDriver.OnSECSMessageReceived += new OnSECSMessageReceived(OnSECSMessageReceived);
+            _gemDriver.OnGEMReqRemoteCommand += new OnGEMReqRemoteCommand(OnGEMReqRemoteCommand);
+            _gemDriver.OnGEMSecondaryMsgReceived += new OnGEMSecondaryMsgReceived(OnGEMSecondaryMsgReceived);
             #endregion
 
             #region Communication
-            _gemDriver.OnXGEMStateEvent += new GEM_XGem300Pro.OnXGEMStateEvent(OnXGEMStateEvent);
-            _gemDriver.OnGEMCommStateChanged += new GEM_XGem300Pro.OnGEMCommStateChanged(OnGEMCommStateChanged);
-            _gemDriver.OnGEMControlStateChanged += new GEM_XGem300Pro.OnGEMControlStateChanged(OnGEMControlStateChanged);
-            _gemDriver.OnGEMReqOffline += new GEM_XGem300Pro.OnGEMReqOffline(OnGEMReqOffline);
-            _gemDriver.OnGEMReqOnline += new GEM_XGem300Pro.OnGEMReqOnline(OnGEMReqOnline);
+            _gemDriver.OnXGEMStateEvent += new OnXGEMStateEvent(OnXGEMStateEvent);
+            _gemDriver.OnGEMCommStateChanged += new OnGEMCommStateChanged(OnGEMCommStateChanged);
+            _gemDriver.OnGEMControlStateChanged += new OnGEMControlStateChanged(OnGEMControlStateChanged);
+            _gemDriver.OnGEMReqOffline += new OnGEMReqOffline(OnGEMReqOffline);
+            _gemDriver.OnGEMReqOnline += new OnGEMReqOnline(OnGEMReqOnline);
             #endregion
 
             #region Time
-            _gemDriver.OnGEMReqGetDateTime += new GEM_XGem300Pro.OnGEMReqGetDateTime(OnGEMReqGetDateTime);
-            _gemDriver.OnGEMRspGetDateTime += new GEM_XGem300Pro.OnGEMRspGetDateTime(OnGEMRspGetDateTime);
-            _gemDriver.OnGEMReqDateTime += new GEM_XGem300Pro.OnGEMReqDateTime(OnGEMReqDateTime);
+            _gemDriver.OnGEMReqGetDateTime += new OnGEMReqGetDateTime(OnGEMReqGetDateTime);
+            _gemDriver.OnGEMRspGetDateTime += new OnGEMRspGetDateTime(OnGEMRspGetDateTime);
+            _gemDriver.OnGEMReqDateTime += new OnGEMReqDateTime(OnGEMReqDateTime);
             #endregion
 
             #region Recipe
-            _gemDriver.OnGEMReqPPList += new GEM_XGem300Pro.OnGEMReqPPList(OnGEMReqPPList);
-            _gemDriver.OnGEMReqPPLoadInquire += new GEM_XGem300Pro.OnGEMReqPPLoadInquire(OnGEMReqPPLoadInquire);
-            _gemDriver.OnGEMRspPPLoadInquire += new GEM_XGem300Pro.OnGEMRspPPLoadInquire(OnGEMRspPPLoadInquire);
-            _gemDriver.OnGEMReqPPDelete += new GEM_XGem300Pro.OnGEMReqPPDelete(OnGEMReqPPDelete);
+            _gemDriver.OnGEMReqPPList += new OnGEMReqPPList(OnGEMReqPPList);
+            _gemDriver.OnGEMReqPPLoadInquire += new OnGEMReqPPLoadInquire(OnGEMReqPPLoadInquire);
+            _gemDriver.OnGEMRspPPLoadInquire += new OnGEMRspPPLoadInquire(OnGEMRspPPLoadInquire);
+            _gemDriver.OnGEMReqPPDelete += new OnGEMReqPPDelete(OnGEMReqPPDelete);
 
 
             #region <Formatted>
-            _gemDriver.OnGEMReqPPFmtSend += new GEM_XGem300Pro.OnGEMReqPPFmtSend(OnGEMReqPPFmtSend);
-            _gemDriver.OnGEMRspPPFmtSend += new GEM_XGem300Pro.OnGEMRspPPFmtSend(OnGEMRspPPFmtSend);
-            _gemDriver.OnGEMReqPPFmt += new GEM_XGem300Pro.OnGEMReqPPFmt(OnGEMReqPPFmt);
-            _gemDriver.OnGEMRspPPFmt += new GEM_XGem300Pro.OnGEMRspPPFmt(OnGEMRspPPFmt);
-            _gemDriver.OnGEMRspPPFmtVerification += new GEM_XGem300Pro.OnGEMRspPPFmtVerification(OnGEMRspPPFmtVerification);
+            _gemDriver.OnGEMReqPPFmtSend += new OnGEMReqPPFmtSend(OnGEMReqPPFmtSend);
+            _gemDriver.OnGEMRspPPFmtSend += new OnGEMRspPPFmtSend(OnGEMRspPPFmtSend);
+            _gemDriver.OnGEMReqPPFmt += new OnGEMReqPPFmt(OnGEMReqPPFmt);
+            _gemDriver.OnGEMRspPPFmt += new OnGEMRspPPFmt(OnGEMRspPPFmt);
+            _gemDriver.OnGEMRspPPFmtVerification += new OnGEMRspPPFmtVerification(OnGEMRspPPFmtVerification);
             #endregion </Formatted>
 
             #region <Unformatted>
             // Upload
-            _gemDriver.OnGEMReqPP += new GEM_XGem300Pro.OnGEMReqPP(OnGEMReqPP);
-            _gemDriver.OnGEMRspPPSend += new GEM_XGem300Pro.OnGEMRspPPSend(OnGEMRspPPSend);
+            _gemDriver.OnGEMReqPP += new OnGEMReqPP(OnGEMReqPP);
+            _gemDriver.OnGEMRspPPSend += new OnGEMRspPPSend(OnGEMRspPPSend);
 
             // Ex
-            _gemDriver.OnGEMReqPPEx += new GEM_XGem300Pro.OnGEMReqPPEx(OnGEMReqPPEx);
-            _gemDriver.OnGEMRspPPSendEx += new GEM_XGem300Pro.OnGEMRspPPSendEx(OnGEMRspPPSendEx);
+            _gemDriver.OnGEMReqPPEx += new OnGEMReqPPEx(OnGEMReqPPEx);
+            _gemDriver.OnGEMRspPPSendEx += new OnGEMRspPPSendEx(OnGEMRspPPSendEx);
 
             // Download
-            _gemDriver.OnGEMReqPPSend += new GEM_XGem300Pro.OnGEMReqPPSend(OnGEMReqPPSend);
-            _gemDriver.OnGEMRspPP += new GEM_XGem300Pro.OnGEMRspPP(OnGEMRspPP);
+            _gemDriver.OnGEMReqPPSend += new OnGEMReqPPSend(OnGEMReqPPSend);
+            _gemDriver.OnGEMRspPP += new OnGEMRspPP(OnGEMRspPP);
 
             // Ex
-            _gemDriver.OnGEMReqPPSendEx += new GEM_XGem300Pro.OnGEMReqPPSendEx(OnGEMReqPPSendEx);
-            _gemDriver.OnGEMRspPPEx += new GEM_XGem300Pro.OnGEMRspPPEx(OnGEMRspPPEx);
+            _gemDriver.OnGEMReqPPSendEx += new OnGEMReqPPSendEx(OnGEMReqPPSendEx);
+            _gemDriver.OnGEMRspPPEx += new OnGEMRspPPEx(OnGEMRspPPEx);
             #endregion </Unformatted>
             #endregion
 
             #region ECV
-            _gemDriver.OnGEMReqChangeECV += new GEM_XGem300Pro.OnGEMReqChangeECV(OnGEMReqChangeECV);
-            _gemDriver.OnGEMECVChanged += new GEM_XGem300Pro.OnGEMECVChanged(OnGEMECVChanged);
-            _gemDriver.OnGEMRspAllECInfo += new GEM_XGem300Pro.OnGEMRspAllECInfo(OnGEMRspAllECInfo);
+            _gemDriver.OnGEMReqChangeECV += new OnGEMReqChangeECV(OnGEMReqChangeECV);
+            _gemDriver.OnGEMECVChanged += new OnGEMECVChanged(OnGEMECVChanged);
+            _gemDriver.OnGEMRspAllECInfo += new OnGEMRspAllECInfo(OnGEMRspAllECInfo);
             #endregion
 
             #region Terminal
-            _gemDriver.OnGEMTerminalMessage += new GEM_XGem300Pro.OnGEMTerminalMessage(OnGEMTerminalMessage);
-            _gemDriver.OnGEMTerminalMultiMessage += new GEM_XGem300Pro.OnGEMTerminalMultiMessage(OnGEMTerminalMultiMessage);
+            _gemDriver.OnGEMTerminalMessage += new OnGEMTerminalMessage(OnGEMTerminalMessage);
+            _gemDriver.OnGEMTerminalMultiMessage += new OnGEMTerminalMultiMessage(OnGEMTerminalMultiMessage);
             #endregion
         }
         #endregion
@@ -1086,11 +1089,197 @@ namespace FrameOfSystem3.SECSGEM.SecsGemDll
             }
         }
 
+        private enum ValueTypes
+        {
+            List = 0,
+            Binary = 8,
+            Bool = 9,
+            Ascii = 16,
+            I1 = 25,
+            I2 = 26,
+            I4 = 28,
+            I8 = 20,//??
+            U1 = 41,
+            U2 = 42,
+            U4 = 44,
+            U8 = 40,
+            F4 = 36,
+            F8 = 32
+        }
+        private bool ProcessValueGeneric(ref long pObjectId, out SemiObject item)
+        {
+            long itemType = 0;
+            ValueType itemTypeByValueType = itemType;
+
+            long itemCount = 0;
+            ValueType itemCountByValueType = itemCount;
+            item = null;
+
+            long result = _gemDriver.GetCurrentItemInfo(pObjectId, ref itemTypeByValueType, ref itemCountByValueType);
+            if (result != 0)
+            {
+                if (result == -10015)   // 읽을 데이터가 없다는 알람
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                long currentItemLong = (long)itemTypeByValueType;
+                if (Enum.TryParse(currentItemLong.ToString(), out ValueTypes currentItemType))
+                {
+                    //ValueTypes currentItemType = (ValueTypes)currentItemLong;
+                    switch (currentItemType)
+                    {
+                        case ValueTypes.List:
+                            {
+                                long listCount = 0;
+                                _gemDriver.GetListItem(pObjectId, ref listCount);
+                                item = new SemiObjectList(listCount);
+                            }
+                            return true;
+
+                        case ValueTypes.Binary:
+                            {
+                                byte[] values = new byte[1];
+                                _gemDriver.GetBinaryItem(pObjectId, ref values);
+                                item = new SemiObjectBinary(string.Empty, values);
+                            }
+                            return true;
+                            
+                        case ValueTypes.Bool:
+                            {
+                                bool[] values = new bool[1];
+                                _gemDriver.GetBoolItem(pObjectId, ref values);
+                                item = new SemiObjectBool(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.Ascii:
+                            {
+                                string value = string.Empty;
+                                _gemDriver.GetStringItem(pObjectId, ref value);
+                                item = new SemiObjectAscii(string.Empty, value);
+                            }
+                            return true;
+
+                        case ValueTypes.I1:
+                            {
+                                sbyte[] values = new sbyte[1];
+                                _gemDriver.GetInt1Item(pObjectId, ref values);
+                                item = new SemiObjectInt(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.I2:
+                            {
+                                short[] values = new short[1];
+                                _gemDriver.GetInt2Item(pObjectId, ref values);
+                                item = new SemiObjectInt2(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.I4:
+                            {
+                                int[] values = new int[1];
+                                _gemDriver.GetInt4Item(pObjectId, ref values);
+                                item = new SemiObjectInt4(string.Empty, values);
+                            }
+                            return true;
+                        case ValueTypes.I8:
+                            {
+                                long[] values = new long[1];
+                                _gemDriver.GetInt8Item(pObjectId, ref values);
+                                item = new SemiObjectInt8(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.U1:
+                            {
+                                byte[] values = new byte[1];
+                                _gemDriver.GetUint1Item(pObjectId, ref values);
+                                item = new SemiObjectUInt(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.U2:
+                            {
+                                ushort[] values = new ushort[1];
+                                _gemDriver.GetUint2Item(pObjectId, ref values);
+                                item = new SemiObjectUInt2(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.U4:
+                            {
+                                uint[] values = new uint[1];
+                                _gemDriver.GetUint4Item(pObjectId, ref values);
+                                item = new SemiObjectUInt4(string.Empty, values);
+                            }
+                            return true;
+                        case ValueTypes.U8:
+                            {
+                                ulong[] values = new ulong[1];
+                                _gemDriver.GetUint8Item(pObjectId, ref values);
+                                item = new SemiObjectUInt8(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.F4:
+                            {
+                                float[] values = new float[1];
+                                _gemDriver.GetFloat4Item(pObjectId, ref values);
+                                item = new SemiObjectFloat4(string.Empty, values);
+                            }
+                            return true;
+
+                        case ValueTypes.F8:
+                            {
+                                double[] values = new double[1];
+                                _gemDriver.GetFloat8Item(pObjectId, ref values);
+                                item = new SemiObjectFloat8(string.Empty, values);
+                            }
+                            return true;
+
+                        default:
+                            break;
+                    }
+                }
+                
+                
+                return false;
+            }
+        }
         private void ParseUserDefinedSecsMessage(ref UserDefinedSecsMessage message, ref long pObjectId)
         {
-            string allItems = string.Empty;
-            _gemDriver.GetAllStringItem(pObjectId, ref allItems);
+            TickCounter_.TickCounter ticks = new TickCounter_.TickCounter();
+            ticks.SetTickCount(3000);
+
+            while (ProcessValueGeneric(ref pObjectId, out SemiObject item))
+            {
+                if (ticks.IsTickOver(false))
+                    return;
+
+                if (item == null)
+                {
+                    break;
+                }
+                else
+                {
+                    message.ListItemFormat.Add(item);
+                }
+            }
+
+            ulong elapsedTime = ticks.GetTickCount();
+            Console.WriteLine(string.Format("Elapsed Time : {0}", elapsedTime));
             _gemDriver.CloseObject(pObjectId);
+        }
+        private void ParseUserDefinedSecsMessage2(ref UserDefinedSecsMessage message, ref long pObjectId)
+        {
+            string allItems = string.Empty;
+
+            //_gemDriver.GetAllStringItem(pObjectId, ref allItems);
+            //_gemDriver.CloseObject(pObjectId);
 
             WriteLog(allItems);
 

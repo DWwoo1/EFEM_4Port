@@ -522,6 +522,9 @@ namespace FrameOfSystem3.DynamicLink_
 
                 m_dicPorts[sPort].Status = enStatus;
 
+                //24.01.26. by wdw [add] Port 상태가 변하면 Material을 갱신한다.
+                EquipmentProperty.RawMaterialPortManager.GetInstance().SetRawMaterialExist(sPort, enStatus);
+
                 return true;
             }
 

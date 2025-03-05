@@ -45,6 +45,8 @@ namespace FrameOfSystem3.Work
 
 			Run = false;
 			UseOption = false;
+
+			Recipe.Recipe.ParameterChangedNotify += ReceivedParameterChanged;
 		}
 
 		Queue<ScenarioData> _queueScenarioList = new Queue<ScenarioData>();
@@ -53,6 +55,7 @@ namespace FrameOfSystem3.Work
 		Action<int, string> _generateAlarm = null;
 		PostOffice _postOffice = null;
 		ConcurrentQueue<EN_MAIL> _queueReceiveMail = new ConcurrentQueue<EN_MAIL>();
+		TickCounter_.TickCounter _fdcUpdateCounter = new TickCounter_.TickCounter();
 		uint _fdcInterval;
 
 		public bool Run { get; set; }
@@ -67,10 +70,13 @@ namespace FrameOfSystem3.Work
 				return;
 
 			Circulation();
+			FdcUpdate();
 		}
 		public void SetFdcInterval(int fdcInterval)
 		{
 			_fdcInterval = (uint)fdcInterval;
+			if (_fdcInterval < 1000) _fdcInterval = 1000; // 최소값 1sec
+			_fdcUpdateCounter.SetTickCount(_fdcInterval);
 		}
 
 		private void Circulation()
@@ -90,7 +96,7 @@ namespace FrameOfSystem3.Work
 						, string.Format("parameter update\nscenario : {0}"
 						, scenarioData.Scenario.ToString()));
 					return;
-				}	
+				}
 
 				scenarioData.UpdatedData = true;
 				return;
@@ -133,7 +139,7 @@ namespace FrameOfSystem3.Work
 
 							if (false == IsPossible)
 								return;
-
+							
 							_queueScenarioList.Enqueue(new ScenarioData(scenario, datas));
 						}
 						break;
@@ -185,73 +191,68 @@ namespace FrameOfSystem3.Work
 							break;
 						}
 						#endregion
-					//case EN_MAIL.RecipeParameterChanged:
-					//	#region 
-					//	if (false == _postOffice.GetMail(EN_SUBSCRIBER.ScenarioCirculator, receivedMail, out mailList) || mailList == null)
-					//	{
-					//		Console.WriteLine("ScenarioCirculator: GetMail failed");
-					//		return;
-					//	}
-					//	else
-					//	{
-					//		var ppDatas = new Dictionary<string, string>();
-					//		foreach (var mail in mailList)
-					//		{
-					//			if (mail.Content.Count != 1) return;
-					//			var itemList = (List<Component.ControlInterface.ParameterItem>)mail.Content[0];
-					//			foreach (var item in itemList)
-					//			{
-					//				if (item.Type.Equals(Recipe.EN_RECIPE_TYPE.PROCESS))
-					//				{
-					//					string key = string.Format("{0}.{1}", item.TaskName, item.ParameterName);
-					//					if (ppDatas.ContainsKey(key))
-					//						ppDatas.Remove(key);
-
-					//					ppDatas.Add(key, item.Value);
-					//				}
-					//			}
-					//		}
-
-					//		if (ppDatas.Count > 0)
-					//		{
-					//			_postOffice.SendMail(EN_SUBSCRIBER.ScenarioCirculator, EN_MAIL.SendScenario
-					//				, BaseScenario.ParameterIsChanged, ppDatas);
-					//		}
-					//	}
-					//	break;
-					//	#endregion
 					default: return;
 				}
 			}
 		}
+		private void FdcUpdate()
+		{
+			//if (false == _fdcUpdateCounter.IsTickOver(true))
+			//	return;
 
-        private void ReceivedParameterChanged(bool result, List<Recipe.Recipe.ParameterItem> changedList)
-        {
-            if (false == result)
-                return;
+			//_queueScenarioList.Enqueue(new ScenarioData(Enum.FdcUpdate, null));
 
-            var ppDatas = new Dictionary<string, string>();
-            foreach (var item in changedList)
-            {
-                if (item.Type.Equals(Recipe.EN_RECIPE_TYPE.PROCESS))
-                {
-                    string key = string.Format("{0}.{1}", item.TaskName, item.ParameterName);
-                    if (ppDatas.ContainsKey(key))
-                        ppDatas.Remove(key);
+			//_fdcUpdateCounter.SetTickCount(_fdcInterval);
+		}
+		private void ReceivedParameterChanged(bool result, List<Recipe.Recipe.ParameterItem> changedList)
+		{
+			if (false == result)
+				return;
 
-                    ppDatas.Add(key, item.Value);
-                }
-            }
+			var ppDatas = new Dictionary<string, string>();
+			var scnearioOperator = SECSGEM.ScenarioOperator.Instance;
+			foreach (var item in changedList)
+			{
+				switch(item.Type)
+				{
+					case Recipe.EN_RECIPE_TYPE.PROCESS:
+						{
+							string key = string.Format("{0}.{1}", item.TaskName, item.ParameterName);
+							if (ppDatas.ContainsKey(key))
+								ppDatas.Remove(key);
 
-            if (ppDatas.Count > 0)
-            {
-                _postOffice.SendMail(EN_SUBSCRIBER.ScenarioCirculator, EN_MAIL.SendScenario
-                    , "RecipeParameterChanged", ppDatas);
-            }
-        }
+							ppDatas.Add(key, item.Value);
+						}
+						break;
+					case Recipe.EN_RECIPE_TYPE.COMMON:
+						{
+							Recipe.PARAM_COMMON enItem;
+							if (false == Enum.TryParse(item.ParameterName, out enItem))
+								continue;
 
+							scnearioOperator.UpdateCommonParameters(enItem, item.Value);
+						}
+						break;
+					case Recipe.EN_RECIPE_TYPE.EQUIPMENT:
+						{
+							Recipe.PARAM_EQUIPMENT enItem;
+							if (false == Enum.TryParse(item.ParameterName, out enItem))
+								continue;
 
-        class ScenarioData
+							scnearioOperator.UpdateMachineParameters(enItem, item.Value);
+						}
+						break;
+				}
+			}
+
+			if (ppDatas.Count > 0)
+			{
+				//_postOffice.SendMail(EN_SUBSCRIBER.ScenarioCirculator, EN_MAIL.SendScenario
+				//	, Enum.RecipeParameterChanged, ppDatas);
+			}
+		}
+
+		class ScenarioData
 		{
 			public ScenarioData(Enum scenario, Dictionary<string, string> datas)
 			{
@@ -265,100 +266,6 @@ namespace FrameOfSystem3.Work
 			public readonly Dictionary<string, string> Datas;
 			public bool UpdatedData { get; set; }
 			public bool Finished { get; set; }
-		}
-	}
-
-	public class RecipeSaveLock
-	{
-		#region singleton
-		private RecipeSaveLock() { }
-		private static RecipeSaveLock _instance = null;
-		public static RecipeSaveLock Instance
-		{
-			get
-			{
-				if (_instance == null)
-					_instance = new RecipeSaveLock();
-
-				return _instance;
-			}
-		}
-		#endregion /singleton
-
-		bool _use = true;
-		bool _isLock = false;
-		bool _enable = true;
-		ReaderWriterLockSlim _rwLock = new ReaderWriterLockSlim();
-		ReaderWriterLockSlim _rwUse = new ReaderWriterLockSlim();
-		ReaderWriterLockSlim _rwEnable = new ReaderWriterLockSlim();
-
-		public void SetUse(bool trigger)
-		{
-			if (false == IsEnable)
-				trigger = false;
-
-			_rwUse.EnterWriteLock();
-			_use = trigger;
-			_rwUse.ExitWriteLock();
-		}
-		private bool IsUse
-		{
-			get
-			{
-				if (false == IsEnable)
-					return false;
-
-				_rwUse.EnterReadLock();
-				bool r = _use;
-				_rwUse.ExitReadLock();
-				return r;
-
-			}
-		}
-		public void Lock()
-		{
-			if (IsUse)
-			{
-				_rwLock.EnterWriteLock();
-				_isLock = true;
-				_rwLock.ExitWriteLock();
-			}
-		}
-		public void Unlock()
-		{
-			_rwLock.EnterWriteLock();
-			_isLock = false;
-			_rwLock.ExitWriteLock();
-		}
-		public bool IsLock
-		{
-			get
-			{
-				if (false == IsUse)
-					return false;
-
-				_rwLock.EnterReadLock();
-				bool r = _isLock;
-				_rwLock.ExitReadLock();
-
-				return r;
-			}
-		}
-		public void SetEnable(bool trigger)
-		{
-			_rwEnable.EnterWriteLock();
-			_enable = trigger;
-			_rwEnable.ExitWriteLock();
-		}
-		private bool IsEnable
-		{
-			get
-			{
-				_rwEnable.EnterReadLock();
-				bool r = _enable;
-				_rwEnable.ExitReadLock();
-				return r;
-			}
 		}
 	}
 }

@@ -327,7 +327,7 @@
 			this.m_btnExtend.ImagePosition = new System.Drawing.Point(0, 0);
 			this.m_btnExtend.ImageSize = new System.Drawing.Point(0, 0);
 			this.m_btnExtend.LoadImage = null;
-			this.m_btnExtend.Location = new System.Drawing.Point(805, 0);
+			this.m_btnExtend.Location = new System.Drawing.Point(276, 0);
 			this.m_btnExtend.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
 			this.m_btnExtend.MainFontColor = System.Drawing.Color.Black;
 			this.m_btnExtend.Margin = new System.Windows.Forms.Padding(0);
@@ -369,7 +369,7 @@
 			this.m_btnRemove.ImagePosition = new System.Drawing.Point(0, 0);
 			this.m_btnRemove.ImageSize = new System.Drawing.Point(0, 0);
 			this.m_btnRemove.LoadImage = null;
-			this.m_btnRemove.Location = new System.Drawing.Point(667, 0);
+			this.m_btnRemove.Location = new System.Drawing.Point(138, 0);
 			this.m_btnRemove.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
 			this.m_btnRemove.MainFontColor = System.Drawing.Color.Black;
 			this.m_btnRemove.Margin = new System.Windows.Forms.Padding(0);
@@ -410,7 +410,7 @@
 			this.m_btnAdd.ImagePosition = new System.Drawing.Point(0, 0);
 			this.m_btnAdd.ImageSize = new System.Drawing.Point(0, 0);
 			this.m_btnAdd.LoadImage = null;
-			this.m_btnAdd.Location = new System.Drawing.Point(529, 0);
+			this.m_btnAdd.Location = new System.Drawing.Point(0, 0);
 			this.m_btnAdd.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
 			this.m_btnAdd.MainFontColor = System.Drawing.Color.Black;
 			this.m_btnAdd.Margin = new System.Windows.Forms.Padding(0);
@@ -438,6 +438,7 @@
 			// 
 			this.m_groupList.BackGroundColor = System.Drawing.Color.WhiteSmoke;
 			this._tableLayoutPanel_Main.SetColumnSpan(this.m_groupList, 10);
+			this.m_groupList.Controls.Add(this.lbl_Filtering);
 			this.m_groupList.Controls.Add(this.m_dgViewList);
 			this.m_groupList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.m_groupList.EdgeBorderStroke = 1;
@@ -1737,12 +1738,11 @@
 			this._flowLayoutPanel_AddRemove.Controls.Add(this.m_btnExtend);
 			this._flowLayoutPanel_AddRemove.Controls.Add(this.m_btnRemove);
 			this._flowLayoutPanel_AddRemove.Controls.Add(this.m_btnAdd);
-			this._flowLayoutPanel_AddRemove.Controls.Add(this.lbl_Filtering);
 			this._flowLayoutPanel_AddRemove.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-			this._flowLayoutPanel_AddRemove.Location = new System.Drawing.Point(308, 0);
+			this._flowLayoutPanel_AddRemove.Location = new System.Drawing.Point(837, 0);
 			this._flowLayoutPanel_AddRemove.Margin = new System.Windows.Forms.Padding(0);
 			this._flowLayoutPanel_AddRemove.Name = "_flowLayoutPanel_AddRemove";
-			this._flowLayoutPanel_AddRemove.Size = new System.Drawing.Size(846, 41);
+			this._flowLayoutPanel_AddRemove.Size = new System.Drawing.Size(317, 41);
 			this._flowLayoutPanel_AddRemove.TabIndex = 1388;
 			// 
 			// lbl_Filtering
@@ -1756,12 +1756,12 @@
 			this.lbl_Filtering.ImagePosition = new System.Drawing.Point(0, 0);
 			this.lbl_Filtering.ImageSize = new System.Drawing.Point(0, 0);
 			this.lbl_Filtering.LoadImage = null;
-			this.lbl_Filtering.Location = new System.Drawing.Point(0, 0);
+			this.lbl_Filtering.Location = new System.Drawing.Point(1, 0);
 			this.lbl_Filtering.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
 			this.lbl_Filtering.MainFontColor = System.Drawing.Color.Red;
 			this.lbl_Filtering.Margin = new System.Windows.Forms.Padding(0);
 			this.lbl_Filtering.Name = "lbl_Filtering";
-			this.lbl_Filtering.Size = new System.Drawing.Size(529, 41);
+			this.lbl_Filtering.Size = new System.Drawing.Size(511, 41);
 			this.lbl_Filtering.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
 			this.lbl_Filtering.SubFontColor = System.Drawing.Color.DodgerBlue;
 			this.lbl_Filtering.SubText = "FILTERING";
@@ -1780,7 +1780,6 @@
 			this.lbl_Filtering.UseImage = false;
 			this.lbl_Filtering.UseSubFont = true;
 			this.lbl_Filtering.UseUnitFont = false;
-			this.lbl_Filtering.Visible = false;
 			this.lbl_Filtering.Click += new System.EventHandler(this.lbl_Filtering_Click);
 			// 
 			// Config_Motion

@@ -61,7 +61,7 @@ namespace EFEM.Defines.Common
 
         public void WriteDebugLog(string message)
         {
-            WriteLog(message);
+            WriteLog(LogTitleTypes.ETC, message);
         }
     }
     public class ModuleLogger
@@ -76,15 +76,14 @@ namespace EFEM.Defines.Common
         }
 
         private readonly string TypeOfLog;
-        protected LogTitleTypes _logType;
 
         //private readonly string FilePath = null;
         private static AsyncLoggerForEFEM _logger = null;
         private string _messageToWrite = string.Empty;
 
-        protected void WriteLog(string message)
+        protected void WriteLog(LogTitleTypes titleType, string message)
         {
-            _messageToWrite = string.Format("[{0}] {1}", _logType.ToString(), message);
+            _messageToWrite = string.Format("[{0}] {1}", titleType.ToString(), message);
             _logger.EnqueueLog(TypeOfLog, _messageToWrite);
         }
     }
@@ -640,9 +639,13 @@ namespace EFEM.Defines.Common
     //}
     public enum LogTitleTypes
     {
+        ETC,
         OPER,
         SEND,
         RECV,
+        IN,
+        OUT,
+        CARR,
     }
 
     public enum MaterialFormat

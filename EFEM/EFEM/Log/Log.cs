@@ -14,7 +14,7 @@ using Cylinder_;
 using DigitalIO_;
 using AnalogIO_;
 
-using Define.DefineEnumProject;
+using Define.DefineEnumProject.Common;
 using Define.DefineEnumBase.Log;
 using Define.DefineConstant;
 
@@ -26,9 +26,12 @@ namespace FrameOfSystem3.Log
 	public class LogManager
     {
         private const int SIZE_QUEUE                = 1 << 13;  // 8096
+        public const string EMPTY_DATA = "$";
 
         #region Singleton
-        private LogManager() {}
+        private LogManager()
+		{
+		}
 		private static LogManager m_instance        = new LogManager();
         public static LogManager GetInstance() { return m_instance; }
         #endregion
@@ -70,11 +73,15 @@ namespace FrameOfSystem3.Log
         private string[] m_arMappingALM             = null;
         private string[] m_arMappingLEH             = null;
         private string[] m_arMappingPRC             = null;
+
+        private Dictionary<int, string> dicForDiviceName = new Dictionary<int, string>();
         #endregion End - Mapping
 
         #region Logging
         private Timer m_timerForLogging             = null;
         private Queue<string> m_queueForBuffer      = new Queue<string>(SIZE_QUEUE);
+
+        private Dictionary<string ,string> dicActNameToDeviceId = new Dictionary<string, string>();
 
 		#region TempLogging
 		private bool m_bChageSocketStatus			= false;
@@ -87,7 +94,33 @@ namespace FrameOfSystem3.Log
 		private ReaderWriterLockSlim m_rwLockForLogging = new ReaderWriterLockSlim();
         #endregion End - Threading
 
-        #endregion
+        private string _materialType = EMPTY_DATA;
+
+        public delegate string DeleGetLotId();
+        private DeleGetLotId _funcGetLotId = null;
+        private string LotId
+        {
+            get 
+            {
+                if (_funcGetLotId == null)
+                    return EMPTY_DATA;
+                
+                string r = _funcGetLotId();
+                return string.IsNullOrWhiteSpace(r) ? EMPTY_DATA : r;
+            }
+        }
+
+        public delegate string DeleGetMaterialIdFromTaskName(string taskName);
+        private DeleGetMaterialIdFromTaskName _funcGetMaterialIdFromTaskName = null;
+        private string GetMaterialId(string taskName)
+        {
+            if (_funcGetMaterialIdFromTaskName == null)
+                return EMPTY_DATA;
+            
+            string result = _funcGetMaterialIdFromTaskName(taskName);
+			return string.IsNullOrWhiteSpace(result) ? EMPTY_DATA : result;
+		}
+        #endregion /Variables
 
         #region Internal Interface
 
@@ -157,7 +190,7 @@ namespace FrameOfSystem3.Log
             m_dgWriteSerial     = new DelegateWritingSerialLog(WriteSerialLog);
             Serial.GetInstance().SetLogFunction(ref m_dgWriteSerial);
 
-            m_dgWriteMotion     = new DelegateWritingMotionLog(WriteMotionLog);
+            m_dgWriteMotion = new DelegateWritingMotionLog(WriteMotionLog);
             Motion_.Motion.GetInstance().SetLogFunction(ref m_dgWriteMotion);
 
             m_dgWriteCylinder   = new DelegateWritingCylinderLog(WriteCylinderLog);
@@ -168,6 +201,29 @@ namespace FrameOfSystem3.Log
 
             m_dgWriteAnalogOut  = new DelegateWritingAnalogOutLog(WriteAnalogOutputLog);
             AnalogIO.GetInstance().SetLogFunction(ref m_dgWriteAnalogOut);
+        }
+        /// <summary>
+        /// 2024.08.31 by jhshin [ADD] index를 이름으로 변환하기 위한 Dictionary 초기화
+        /// </summary>
+        private void MakeMappingDiviceDictionary()
+        {
+            string[] arTaskName = null;
+            int[] arInstanceOfTask = null;
+
+            if(FrameOfSystem3.Config.ConfigTask.GetInstance().GetListOfTask(ref arTaskName) && 
+                FrameOfSystem3.Config.ConfigTask.GetInstance().GetListOfIndexOfInstance(ref arInstanceOfTask))
+            {
+                for(int i=0; i<arInstanceOfTask.Length; i++)
+                {
+                    dicForDiviceName[arInstanceOfTask[i]] = arTaskName[i];
+                }
+                
+            }
+
+//             foreach(EN_UNKNOWN_DEVICE_TYPE type in Enum.GetValues(typeof(EN_UNKNOWN_DEVICE_TYPE)))
+//             {
+//                 dicForDiviceName[(int)type] = type.ToString();
+//             }
         }
         #endregion End - Init
 
@@ -181,7 +237,6 @@ namespace FrameOfSystem3.Log
             m_nIndexOfSocket        = (int)Define.DefineEnumProject.Socket.EN_SOCKET_INDEX.LOG;
 
             m_instanceRecipe        = Recipe.Recipe.GetInstance();
-
             return m_instanceSocket.Connect(m_nIndexOfSocket);
         }
         #endregion End - Socket
@@ -404,78 +459,232 @@ namespace FrameOfSystem3.Log
         #region FNC
         /// <summary>
         /// 2021.01.20 by yjlee [ADD] Write the log message about controlling the motion.
+        /// 2024.09.05 by jhshin [MOD] log의 data부분을 클래스로 전달하도록 변경
         /// </summary>
-        private void WriteMotionLog(string strID, MOTION_LOG_TYPE enMotionType, bool bStart, double dblEncoderPosition, double dblDestination, double dblVelocity)
+        private void WriteMotionLog(int deviceID, string axisName, string actionName, bool bStart, ref MotionLogDataValues dataValues)
         {
-            string strMessage       = string.Empty;
-            string strMotionType    = enMotionType.ToString();
-            string strStatus        = bStart ? "START" : "END";
+            string strStatus = bStart ? "START" : "END";
 
-            switch(enMotionType)
+            axisName = axisName.Replace(" ", "_");
+            string eventID = string.IsNullOrEmpty(actionName) ? axisName : actionName + "_" + axisName;
+
+            string strDeviceID = axisName;  // deviceID가 없으면 axis name을 deviceID로 사용
+            string materialID = EMPTY_DATA;
+            if (dicForDiviceName.ContainsKey(deviceID))
             {
-                case MOTION_LOG_TYPE.SPEED:
-                case MOTION_LOG_TYPE.HOMING:
-                case MOTION_LOG_TYPE.STOP:
-                    strMessage  = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' ('TYPE', 'MOTOR') ('ENCODER', {4:F4}) ('VELOCITY', {5})"
-                                        , GetCurrentTime()
-                                        , strID					// Device ID	(FRONT STAGE Z...)
-                                        , strMotionType			// EVENT ID		(RELEATIVE...)
-                                        , strStatus				// START, END
-                                        , dblEncoderPosition	// DATA
-                                        , dblVelocity);
-                    break;
-
-                default:
-                    strMessage  = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' ('TYPE', 'MOTOR') ('ENCODER', {4}) ('POSITION', {5}) ('VELOCITY', {6})"
-                                        , GetCurrentTime()
-                                        , strID
-                                        , strMotionType
-                                        , strStatus
-                                        , dblEncoderPosition
-                                        , dblDestination
-                                        , dblVelocity);
-                    break;
+                strDeviceID = dicForDiviceName[deviceID];
+                materialID = GetMaterialId(strDeviceID);
             }
+
+            string strMessage = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' '{4}' '{5}' ('TYPE', 'MOTOR') ('ENCODER', {6:F4}) ('VEL', {7:F4}) ('ACC', {8:F4}) ('LOT_ID', '{9}')"
+                                , GetCurrentTime()                  // 0
+                                , strDeviceID                       // 1    VisionHead
+                                , eventID                           // 2    ALIGN_AXIS_FRONT_STAGE_Z
+                                , strStatus                         // 3    START or END
+                                , materialID                        // 4    WaferID
+                                , _materialType                      // 5    
+                                , dataValues.EncoderDestination     // 6    
+                                , dataValues.Velocity               // 7
+                                , dataValues.Acceleration           // 8
+                                , LotId);                           // 9    
+
+            if (dicForDiviceName.ContainsKey(deviceID) == true)
+                strMessage += string.Format(" ('ACT_NAME', {0})", axisName);
+            if (dataValues.UseDestination)
+                strMessage += string.Format(" ('POS', {0:F4})", dataValues.Destination);
+            if (dataValues.CaptionRetried > 0)
+                strMessage += string.Format(" ('RETRY', {0})", dataValues.CaptionRetried);
+
 
             WriteLog(ref strMessage);
         }
+        //         private void WriteMotionLog(int deviceId, string strID, MOTION_LOG_TYPE enMotionType, bool bStart, double dblEncoderPosition, double dblDestination, double dblVelocity)
+        //         {
+        //             string strMessage = string.Empty;
+        //             string strMotionType = enMotionType.ToString();
+        //             string strStatus = bStart ? "START" : "END";
+        // 
+        //             string strDeviceId = dicForDiviceName[deviceId];
+        //             string lotId = Work.WorkInformation.GetInstance().GetLotId();
+        //             lotId = string.IsNullOrEmpty(lotId) ? EMPTY_DATA : lotId;
+        // 
+        //             switch (enMotionType)
+        //             {
+        //                 case MOTION_LOG_TYPE.SPEED:
+        //                 case MOTION_LOG_TYPE.HOMING:
+        //                 case MOTION_LOG_TYPE.STOP:
+        //                     strMessage = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' ('TYPE', 'MOTOR') ('ENCODER', {4:F4}) ('VELOCITY', {5}) ('ACT_NAME', {6}) ('LOT_ID', {7})"
+        //                                         , GetCurrentTime()
+        //                                         , strDeviceId			// Device ID	(FrontStage...)
+        //                                         , strMotionType			// EVENT ID		(RELEATIVE...)
+        //                                         , strStatus				// START, END
+        //                                         , dblEncoderPosition	// DATA
+        //                                         , dblVelocity
+        //                                         , strID                 // Actuator Name (FRONT STAGE Z...)
+        //                                         , lotId);
+        //                     break;
+        // 
+        //                 default:
+        //                     strMessage = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' ('TYPE', 'MOTOR') ('ENCODER', {4}) ('POSITION', {5}) ('VELOCITY', {6}) ('ACT_NAME', {7}) ('LOT_ID', {8})"
+        //                                         , GetCurrentTime()
+        //                                         , strDeviceId
+        //                                         , strMotionType
+        //                                         , strStatus
+        //                                         , dblEncoderPosition
+        //                                         , dblDestination
+        //                                         , dblVelocity
+        //                                         , strID
+        //                                         , lotId);
+        //                     break;
+        //             }
+        // 
+        //             WriteLog(ref strMessage);
+        //         }
         /// <summary>
         /// 2021.01.20 by yjlee [ADD] Write the log message about controlling the cylinder.
         /// </summary>
-        private void WriteCylinderLog(string strID, string strType, bool bStart, int nDelayTime)
+        private void WriteCylinderLog(int deviceID, string moduleName, string actionName, double delayTime, bool isStart, bool isForward, int retry)
         {
-            string strMessage   = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' ('TYPE', 'SENSOR') ('DELAYTIME', {4})"
-                                        , GetCurrentTime()
-                                        , strID
-                                        , strType
-                                        , bStart ? "START" : "END"
-                                        , nDelayTime);
+            moduleName = moduleName.Replace(" ", "_");
+            string eventID = string.IsNullOrEmpty(actionName) ? moduleName : actionName + "_" + moduleName;
+
+            string strDeviceID = moduleName; 
+            string meterialID = EMPTY_DATA;
+            if (dicForDiviceName.ContainsKey(deviceID))
+            {
+                strDeviceID = dicForDiviceName[deviceID];
+                meterialID = GetMaterialId(strDeviceID);
+            }
+
+            string strMessage   = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' '{4}' '{5}'  ('TYPE', 'CYLINDER') ('DIRECTION', '{6}') ('DELAYTIME', {7}) ('ACT_NAME', '{8}') ('LOT_ID', '{9}')"
+                                        , GetCurrentTime()                              // 0
+                                        , strDeviceID                                   // 1
+                                        , eventID                                       // 2
+                                        , isStart ? "START" : "END"                     // 3
+                                        , meterialID                                    // 4
+                                        , _materialType                                  // 5
+                                        , isForward ? "FORWARD" : "BACKWARD"            // 6  FORWARD or BACKWARD
+                                        , delayTime                                     // 7
+                                        , moduleName                                    // 8
+                                        , LotId);                                       // 9
+
+            if (retry > 0)
+                strMessage += string.Format(" ('RETRY', {0})", retry);
 
             WriteLog(ref strMessage);
         }
+
+        //         private void WriteCylinderLog(string strID, string strType, bool bStart, int nDelayTime, int deviceId)
+        //         {
+        //             string strDeviceId = dicForDiviceName[deviceId];
+        //             string lotId = Work.WorkInformation.GetInstance().GetLotId();
+        //             lotId = string.IsNullOrEmpty(lotId) ? EMPTY_DATA : lotId;
+        // 
+        //             string strMessage = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' ('TYPE', 'CYLINDER') ('DELAYTIME', {4}) ('ACT_NAME', '{5}') ('LOT_ID', '{6}')"
+        //                                         , GetCurrentTime()
+        //                                         , strDeviceId
+        //                                         , strType
+        //                                         , bStart ? "START" : "END"
+        //                                         , nDelayTime
+        //                                         , strID
+        //                                         , lotId);
+        // 
+        //             WriteLog(ref strMessage);
+        //         }
+
+        //         class AnalogOuputLogDataValues
+        //         {
+        //             // header
+        //             int deviceID;
+        //             string actionName;
+        // 
+        //             // data
+        //             string moduleName;
+        //             string tagID;
+        //             double voltage;
+        //             int retry;
+        // 
+        //         }
         /// <summary>
         /// 2021.01.21 by yjlee [ADD] Write the analog output log.
         /// </summary>
-        private void WriteAnalogOutputLog(string strID, string strTagID, double dblVoltage)
-        {
-            string strMessage   = string.Format("{0} '{1}' 'FNC' ('TYPE', 'ANALOG') ('{2}', '{3}')"
+        //private void WriteAnalogOutputLog(string strID, string strTagID, double dblVoltage, int deviceId)
+        private void WriteAnalogOutputLog(int deviceID, string moduleName, string actionName, string strTagID, double dblVoltage, int retry)
+       {
+            moduleName = moduleName.Replace(" ", "_");
+            string eventID = string.IsNullOrEmpty(actionName) ? moduleName : actionName + "_" + moduleName;
+
+            string strDeviceID = moduleName;
+            string meterialID = EMPTY_DATA;
+            if (dicForDiviceName.ContainsKey(deviceID))
+            {
+                strDeviceID = dicForDiviceName[deviceID];
+                meterialID = GetMaterialId(strDeviceID);
+            }
+
+            string strMessage = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' '{4}' ('TYPE', 'ANALOG') ('{5}', '{6}') ('ACT_NAME', '{7}') ('LOT_ID', '{8}')"
                                         , GetCurrentTime()
-                                        , strID
-										, strTagID
-                                        , dblVoltage);
+                                        , strDeviceID
+                                        , eventID
+                                        , meterialID
+                                        , _materialType
+                                        , strTagID
+                                        , dblVoltage
+                                        , moduleName
+                                        , LotId);
+            if (retry > 0)
+                strMessage += string.Format(" ('RETRY', {0})", retry);
 
             WriteLog(ref strMessage);
         }
+        //         private void WriteAnalogOutputLog(string strID, string strTagID, double dblVoltage, int deviceId)
+        //         {
+        //             string strDeviceId = dicForDiviceName[deviceId];
+        //             string lotId = Work.WorkInformation.GetInstance().GetLotId();
+        //             lotId = string.IsNullOrEmpty(lotId) ? EMPTY_DATA : lotId;
+        // 
+        //             string strMessage = string.Format("{0} '{1}' 'FNC' ('TYPE', 'ANALOG') ('{2}', '{3}') ('ACT_NAME', '{4}') ('LOT_ID', '{5}')"
+        //                                         , GetCurrentTime()
+        //                                         , strDeviceId
+        //                                         , strTagID
+        //                                         , dblVoltage
+        //                                         , strID
+        //                                         , lotId);
+        // 
+        //             WriteLog(ref strMessage);
+        //         }
+
         /// <summary>
         /// 2021.01.21 by yjlee [ADD] Write the digital output log.
         /// </summary>
-        private void WriteDigitalOutputLog(string strID, string strTagID, bool bOn)
+        private void WriteDigitalOutputLog(int deviceID, string moduleName, string actionName, string strTagID, bool bOn, bool bStart, int retry)
         {
-            string strMessage   = string.Format("{0} '{1}' 'FNC' ('TYPE', 'SENSOR') ('{2}', '{3}')"
-                                        , GetCurrentTime()
-                                        , strID
-                                        , strTagID
-                                        , bOn);
+            moduleName = moduleName.Replace(" ", "_");
+            string eventID = string.IsNullOrEmpty(actionName) ? moduleName : actionName + "_" + moduleName;
+
+            string strDeviceID = moduleName;
+            string meterialID = EMPTY_DATA;
+            if (dicForDiviceName.ContainsKey(deviceID))
+            {
+                strDeviceID = dicForDiviceName[deviceID];
+                meterialID = GetMaterialId(strDeviceID);
+            }
+
+            string strMessage   = string.Format("{0} '{1}' 'FNC' '{2}' '{3}' '{4}' '{5}' ('TYPE', 'SENSOR') ('{6}', '{7}')  ('ACT_NAME', '{8}') ('LOT_ID', '{9}')"
+                                        , GetCurrentTime()          // 0
+                                        , strDeviceID               // 1
+                                        , eventID                   // 2
+                                        , bStart ? "START" : "END"  // 3
+                                        , meterialID                // 4
+                                        , _materialType             // 5
+                                        , strTagID                  // 6
+                                        , bOn==true ? "ON" : "OFF"  // 7
+                                        , moduleName                // 8
+                                        , LotId);                   // 9
+
+            if (retry > 0)
+                strMessage += string.Format(" ('RETRY', {0})", retry);
+
 
             WriteLog(ref strMessage);
         }
@@ -524,6 +733,16 @@ namespace FrameOfSystem3.Log
 
             WriteLog(ref strMessage);
         }
+		public void WriteWcfLog(string strID, bool bSend, string data)
+		{
+			string strMessage = string.Format("{0} '{1}' 'COMM' '{2}' ('TYPE', 'WCF') ('DATA', '{3}')"
+									   , GetCurrentTime()
+									   , strID
+									   , bSend ? "SEND" : "RECV"
+									   , data);
+
+			WriteLog(ref strMessage);
+		}
         #endregion End - COMM
 
         #endregion End - Logging
@@ -545,6 +764,8 @@ namespace FrameOfSystem3.Log
             m_timerForLogging       = new Timer(WriteLogThroughSocket, null, 0, ThreadTimerInterval.THREADTIMER_INTERVAL_LOGGING);
 
             MakeMappingArraies();
+
+            MakeMappingDiviceDictionary();
 
 			/// 시작시 True 설정
 			m_bChageSocketStatus	= true;
@@ -574,19 +795,24 @@ namespace FrameOfSystem3.Log
         #region XFR (Transfer)
         /// <summary>
         /// 2021.01.18 by yjlee [ADD] Write the transfer log.
+        /// jhshin
         /// </summary>
-        public void WriteTransferLog(string strID, EN_XFR_TYPE enType, string strAction, string strMaterialID, string strMaterialType, string strFrom, string strTo)
+        public void WriteTransferLog(string strID, EN_XFR_TYPE enType, string strAction, string strMaterialID, string strFrom, string strTo)
         {
-			// 2021.05.21 by twkang [MOD] Message Format 수정
-            string strMessage           = string.Format("{0} '{1}' 'XFR' '{2}' '{3}' '{4}' '{5}' '{6}' '{7}' ('Data', '')"
+            if (string.IsNullOrEmpty(strMaterialID) || strMaterialID.Equals("NONE"))
+                strMaterialID = EMPTY_DATA;
+
+            // 2021.05.21 by twkang [MOD] Message Format 수정
+            string strMessage           = string.Format("{0} '{1}' 'XFR' '{2}' '{3}' '{4}' '{5}' '{6}' '{7}' ('LOT_ID', '{8}')"
                 , GetCurrentTime()
                 , strID
                 , strAction
                 , m_arMappingXFR[(int)enType]
                 , strMaterialID
-                , strMaterialType
-                , strFrom
-                , strTo);
+                , _materialType
+                , string.IsNullOrEmpty(strFrom) ? EMPTY_DATA : strFrom
+                , string.IsNullOrEmpty(strTo) ? EMPTY_DATA : strTo
+                , LotId);
 
             WriteLog(ref strMessage);
         }
@@ -596,37 +822,45 @@ namespace FrameOfSystem3.Log
         /// <summary>
         /// 2021.01.18 by yjlee [ADD] Write the process log.
         /// </summary>
-        public void WriteProcessLog(string strID, EN_PRC_TYPE enType, string strEventID, string strMaterialID, string strLotID)
+        public void WriteProcessLog(string strID, EN_PRC_TYPE enType, string strEventID, string strMaterialID)
         {
-			// 2022.08.29 by junho [MOD] message format 수정
-			// 2021.05.21 by twkang [MOD] Message Format 수정
-            string strMessage           = string.Format("{0} '{1}' 'PRC' '{2}' '{3}' '{4}' '{5}' '{6}' ('LOT_ID', '{7}')"
+            // 2022.08.29 by junho [MOD] message format 수정
+            // 2021.05.21 by twkang [MOD] Message Format 수정
+            string strMessage = string.Format("{0} '{1}' 'PRC' '{2}' '{3}' '{4}' '{5}' '{6}' ('LOT_ID', '{7}')"
                 , GetCurrentTime()
                 , strID
                 , strEventID
                 , m_arMappingPRC[(int)enType]
                 , strMaterialID
-                , strLotID
+                , LotId
                 , GetCurrentProcessRecipe()
-				, strLotID);
+                , LotId);
 
             WriteLog(ref strMessage);
         }
+		// 2024.09.26 by junho [DEL] 사양에 맞지 않은 형식이므로 삭제
 		// 2021.08.01 by junho [ADD] Add Processs Log format
-		public void WriteProcessLog(string taskName, string eventID, string data)
+		//public void WriteProcessLog(string taskName, string eventID, string data)
+		//{
+		//	string message = string.Format("{0} '{1}' 'PRC' '{2}' ('Data', '{3}')"
+		//		, GetCurrentTime()
+		//		, taskName, eventID, data);
+
+		//	WriteLog(ref message);
+		//}
+
+		// 2024.09.26 by junho [ADD] START,END를 한번에 찍는 인터페이스 추가
+		public void WriteProcessLog(string strID, string strEventID, string strMaterialID = EMPTY_DATA)
 		{
-			string message = string.Format("{0} '{1}' 'PRC' '{2}' ('Data', '{3}')"
-				, GetCurrentTime()
-				, taskName, eventID, data);
-
-			WriteLog(ref message);
+            WriteProcessLog(strID, EN_PRC_TYPE.START, strEventID, strMaterialID);
+			WriteProcessLog(strID, EN_PRC_TYPE.END, strEventID, strMaterialID);
 		}
-        #endregion End - PRC (Process)
+		#endregion End - PRC (Process)
 
-        #region LEH (Event)
-        /// <summary>
-        /// 2021.01.18 by yjlee [ADD] Write the event log.
-        /// </summary>
+		#region LEH (Event)
+		/// <summary>
+		/// 2021.01.18 by yjlee [ADD] Write the event log.
+		/// </summary>
 		public void WriteEventLog(EN_LEH_TYPE enType, string strLotID, string carrierId, int workQty, string swVersion)
         {
 			string strMessage = string.Empty;
@@ -721,13 +955,22 @@ namespace FrameOfSystem3.Log
 
             WriteLog(ref strMessage);
         }
-        #endregion End - CFG (Configuration)
+		#endregion End - CFG (Configuration)
 
-        #region COMM (Communication)
-        #endregion End - COMM (Communication)
+		#region COMM (Communication)
+		#endregion End - COMM (Communication)
 
-        #endregion End - Logging
+		#endregion End - Logging
 
-        #endregion End - External Interface
-    }
+		public string CaptionMaterialType { set { _materialType = value; } }
+        public void RegisterGetLotIdFunction(DeleGetLotId func)
+		{
+            _funcGetLotId = func;
+		}
+        public void RegisterGetMaterialIdFromTaskName(DeleGetMaterialIdFromTaskName func)
+		{
+            _funcGetMaterialIdFromTaskName = func;
+		}
+		#endregion End - External Interface
+	}
 }

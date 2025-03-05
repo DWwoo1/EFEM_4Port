@@ -53,9 +53,10 @@ namespace FrameOfSystem3.Views.Config
 		private const int COLUMN_INDEX_OF_NAME			= 1;
 		private const int COLUMN_INDEX_OF_TARGET		= 2;
 
-		private readonly string MIN_VALUE				= "1";
-		private readonly string MAX_VALUE				= "999999";
-		private readonly string DEFAULT_LABEL			= "--";
+		// 미사용?
+		//private readonly string MIN_VALUE				= "1";
+		//private readonly string MAX_VALUE				= "999999";
+		//private readonly string DEFAULT_LABEL			= "--";
 		#endregion
 
         private readonly Color c_clrTrue = Color.DodgerBlue;

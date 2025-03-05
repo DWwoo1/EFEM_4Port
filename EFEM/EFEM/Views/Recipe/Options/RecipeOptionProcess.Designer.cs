@@ -41,6 +41,8 @@
 			this.customJogButton1 = new FrameOfSystem3.Component.CustomJogButton();
 			this.customActionButton1 = new FrameOfSystem3.Component.CustomActionButton();
 			this.customActionButton5 = new FrameOfSystem3.Component.CustomActionButton();
+			this.sys3Label4 = new Sys3Controls.Sys3Label();
+			this.customParameterLabel5 = new FrameOfSystem3.Component.CustomParameterLabel();
 			this.SuspendLayout();
 			// 
 			// sys3Label7
@@ -621,17 +623,113 @@
 			this.customActionButton5.UserHoverEmpahsize = true;
 			this.customActionButton5.UseSubFont = false;
 			// 
+			// sys3Label4
+			// 
+			this.sys3Label4.BackGroundColor = System.Drawing.Color.DarkGray;
+			this.sys3Label4.BorderStroke = 2;
+			this.sys3Label4.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+			this.sys3Label4.Description = "";
+			this.sys3Label4.DisabledColor = System.Drawing.Color.DarkGray;
+			this.sys3Label4.EdgeRadius = 1;
+			this.sys3Label4.ImagePosition = new System.Drawing.Point(0, 0);
+			this.sys3Label4.ImageSize = new System.Drawing.Point(0, 0);
+			this.sys3Label4.LoadImage = null;
+			this.sys3Label4.Location = new System.Drawing.Point(6, 161);
+			this.sys3Label4.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+			this.sys3Label4.MainFontColor = System.Drawing.Color.Black;
+			this.sys3Label4.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+			this.sys3Label4.Name = "sys3Label4";
+			this.sys3Label4.Size = new System.Drawing.Size(334, 30);
+			this.sys3Label4.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+			this.sys3Label4.SubFontColor = System.Drawing.Color.DarkRed;
+			this.sys3Label4.SubText = "";
+			this.sys3Label4.TabIndex = 20666;
+			this.sys3Label4.Tag = "";
+			this.sys3Label4.Text = "DATE TIME";
+			this.sys3Label4.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
+			this.sys3Label4.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
+			this.sys3Label4.TextAlignUnit = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+			this.sys3Label4.ThemeIndex = 0;
+			this.sys3Label4.UnitAreaRate = 40;
+			this.sys3Label4.UnitFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+			this.sys3Label4.UnitFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.sys3Label4.UnitPositionVertical = false;
+			this.sys3Label4.UnitText = "";
+			this.sys3Label4.UseBorder = true;
+			this.sys3Label4.UseEdgeRadius = false;
+			this.sys3Label4.UseImage = false;
+			this.sys3Label4.UseSubFont = true;
+			this.sys3Label4.UseUnitFont = false;
+			// 
+			// customParameterLabel5
+			// 
+			this.customParameterLabel5.AssociatedMap = null;
+			this.customParameterLabel5.BackGroundColor = System.Drawing.Color.White;
+			this.customParameterLabel5.BorderStroke = 2;
+			this.customParameterLabel5.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+			this.customParameterLabel5.Description = "";
+			this.customParameterLabel5.DisabledColor = System.Drawing.Color.DarkGray;
+			this.customParameterLabel5.EdgeRadius = 1;
+			this.customParameterLabel5.ImagePosition = new System.Drawing.Point(0, 0);
+			this.customParameterLabel5.ImageSize = new System.Drawing.Point(0, 0);
+			this.customParameterLabel5.LoadImage = null;
+			this.customParameterLabel5.Location = new System.Drawing.Point(341, 161);
+			this.customParameterLabel5.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+			this.customParameterLabel5.MainFontColor = System.Drawing.Color.Black;
+			this.customParameterLabel5.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+			this.customParameterLabel5.Modifiable = true;
+			this.customParameterLabel5.Name = "customParameterLabel5";
+			this.customParameterLabel5.NeedRemakeMap = false;
+			this.customParameterLabel5.ParameterChangeDefaultColor = System.Drawing.Color.Black;
+			this.customParameterLabel5.ParameterChangeWaitColor = System.Drawing.Color.Red;
+			this.customParameterLabel5.ParameterDefaultValue = "";
+			this.customParameterLabel5.ParameterIndex = 0;
+			this.customParameterLabel5.ParameterMAX = "1";
+			this.customParameterLabel5.ParameterMIN = "0";
+			this.customParameterLabel5.ParameterName = "Option_DateTime";
+			this.customParameterLabel5.ParameterSettingType = FrameOfSystem3.Component.EN_LABEL_PARAMETER_TYPE.DATE_TIME;
+			this.customParameterLabel5.ParameterStorage = "";
+			this.customParameterLabel5.ParameterStored = false;
+			this.customParameterLabel5.ParameterType = FrameOfSystem3.Recipe.EN_RECIPE_TYPE.PROCESS;
+			this.customParameterLabel5.ParameterUNIT = "";
+			this.customParameterLabel5.SelectionList = Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.TRUE_FALSE;
+			this.customParameterLabel5.Size = new System.Drawing.Size(452, 30);
+			this.customParameterLabel5.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+			this.customParameterLabel5.SubFontColor = System.Drawing.Color.Gray;
+			this.customParameterLabel5.SubText = "";
+			this.customParameterLabel5.TabIndex = 20667;
+			this.customParameterLabel5.Tag = "";
+			this.customParameterLabel5.TaskName = "Sample";
+			this.customParameterLabel5.Text = "--";
+			this.customParameterLabel5.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
+			this.customParameterLabel5.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
+			this.customParameterLabel5.TextAlignUnit = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
+			this.customParameterLabel5.ThemeIndex = 0;
+			this.customParameterLabel5.UnitAreaRate = 40;
+			this.customParameterLabel5.UnitFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+			this.customParameterLabel5.UnitFontColor = System.Drawing.Color.Red;
+			this.customParameterLabel5.UnitPositionVertical = false;
+			this.customParameterLabel5.UnitText = "--";
+			this.customParameterLabel5.UseBorder = true;
+			this.customParameterLabel5.UseEdgeRadius = false;
+			this.customParameterLabel5.UseImage = false;
+			this.customParameterLabel5.UseParameterChangeConfirm = true;
+			this.customParameterLabel5.UseSubFont = true;
+			this.customParameterLabel5.UseUnitFont = false;
+			// 
 			// RecipeOptionProcess
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.Controls.Add(this.customActionButton1);
 			this.Controls.Add(this.customActionButton5);
 			this.Controls.Add(this.customJogButton1);
+			this.Controls.Add(this.customParameterLabel5);
 			this.Controls.Add(this.customParameterLabel3);
 			this.Controls.Add(this.customParameterLabel2);
 			this.Controls.Add(this.customParameterLabel1);
 			this.Controls.Add(this.customParameterLabel4);
 			this.Controls.Add(this.sys3Label1);
+			this.Controls.Add(this.sys3Label4);
 			this.Controls.Add(this.sys3Label3);
 			this.Controls.Add(this.sys3Label2);
 			this.Controls.Add(this.sys3Label6);
@@ -639,7 +737,7 @@
 			this.Controls.Add(this.tgl_sample);
 			this.Name = "RecipeOptionProcess";
 			this.Padding = new System.Windows.Forms.Padding(5);
-			this.Size = new System.Drawing.Size(1140, 179);
+			this.Size = new System.Drawing.Size(1140, 215);
 			this.Tag = "PROCESS";
 			this.ResumeLayout(false);
 
@@ -660,7 +758,7 @@
 		private Component.CustomJogButton customJogButton1;
 		private Component.CustomActionButton customActionButton1;
 		private Component.CustomActionButton customActionButton5;
-
-
+		private Sys3Controls.Sys3Label sys3Label4;
+		private Component.CustomParameterLabel customParameterLabel5;
 	}
 }

@@ -163,11 +163,8 @@ namespace FrameOfSystem3.Config
 		/// </summary>
 		public EN_SOCKET_STATE GetState(int nIndexOfItem)
 		{
-			if (m_InstanceOfSocketDLL == null)
-				return EN_SOCKET_STATE.DISABLED;
-
 			return m_DicForState[m_InstanceOfSocketDLL.GetState(nIndexOfItem)];
-		}
+		}		
 		/// <summary>
 		/// 2020.06.29 by twkang [ADD] 아이템을 추가한다.
 		/// </summary>
@@ -214,8 +211,6 @@ namespace FrameOfSystem3.Config
 		/// </summary>
 		public bool Connect(ref int nIndexOfItem)
 		{
-            if (m_InstanceOfSocketDLL == null)
-                return false;
 			return m_InstanceOfSocketDLL.Connect(nIndexOfItem);
 		}
 		/// <summary>
@@ -223,19 +218,13 @@ namespace FrameOfSystem3.Config
 		/// </summary>
 		public void DisConnect(ref int nIndexOfItem)
 		{
-			if (m_InstanceOfSocketDLL == null)
-				return;
-				
 			m_InstanceOfSocketDLL.Disconnect(nIndexOfItem);
 		}
-		/// <summary>
+        /// <summary>
         /// 2021.08.17 by wdw [ADD] 연결상태를 확인한다.
         /// </summary>
         public bool IsConnected(ref int nIndexOfItem)
         {
-            if (m_InstanceOfSocketDLL == null)
-                return false;
-
             SOCKET_ITEM_STATE enState = m_InstanceOfSocketDLL.GetState(nIndexOfItem);
             if (enState == SOCKET_ITEM_STATE.DISABLED
                 || enState == SOCKET_ITEM_STATE.DISCONNECTED

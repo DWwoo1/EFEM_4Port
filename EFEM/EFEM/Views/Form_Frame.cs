@@ -87,6 +87,7 @@ namespace FrameOfSystem3.Views
 		Views.Operation.Operation_Tracking		m_viewOperationTracking			= new Operation.Operation_Tracking();
         Views.Operation.Operation_SecsGem       m_viewOperationSecsGem          = new Operation.Operation_SecsGem();
         Views.Operation.Operation_History       m_viewOperationHistory          = new Operation.Operation_History();
+        Views.Operation.Operation_RAMMetrics    m_viewOperationRAMMetrics       = new Operation.Operation_RAMMetrics();
 		#endregion
 
 		#region Recipe
@@ -222,6 +223,9 @@ namespace FrameOfSystem3.Views
 				TranslateTextAllControls(ref langualge, control);
 			}
 			Console.WriteLine(string.Format("translate all span:{0}ms", (DateTime.Now - start).TotalMilliseconds.ToString()));
+
+			if (InitializeFinished != null)
+				InitializeFinished();
         }
 
 		private void TranslateTextAllControls(ref Language_.Language langualge, Control control)
@@ -235,14 +239,16 @@ namespace FrameOfSystem3.Views
                     for (int nRow = 0; nRow < dgControl.Rows.Count; nRow++)
                     {
                         if (dgControl[nCol, nRow].Value != null)
-                            dgControl[nCol, nRow].Value = langualge.TranslateWord(dgControl[nCol, nRow].Value.ToString().Trim()); 
-                    }
+							//dgControl[nCol, nRow].Value = langualge.TranslateWord(dgControl[nCol, nRow].Value.ToString().Trim());	// 2024.10.08 by junho [MOD] trim 제거
+							dgControl[nCol, nRow].Value = langualge.TranslateWord(dgControl[nCol, nRow].Value.ToString());
+					}
                 }
             }
             else
             {
-                control.Text = langualge.TranslateWord(control.Text.Trim());
-            }
+                //control.Text = langualge.TranslateWord(control.Text.Trim());    // 2024.10.08 by junho [MOD] trim 제거
+				control.Text = langualge.TranslateWord(control.Text);
+			}
 			foreach(Control subControl in control.Controls)
 			{
 				TranslateTextAllControls(ref langualge, subControl);
@@ -362,6 +368,7 @@ namespace FrameOfSystem3.Views
 			#region Operation
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MAIN, m_viewOperationMain);
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MONITORING, m_viewOperationMonitor);
+			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_RAM_METRICS, m_viewOperationRAMMetrics);
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_TRACKING, m_viewOperationTracking);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_SECSGEM, m_viewOperationSecsGem);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_LOT_HISTORY, m_viewOperationHistory);
@@ -894,5 +901,8 @@ namespace FrameOfSystem3.Views
             m_instanceTerminal.ExitForm();
         }
         #endregion
+
+		// 2024.07.09 by junho [ADD] Form 생성 완료 event 추가
+		public static event System.Action InitializeFinished = null;
     }
 }

@@ -266,6 +266,16 @@ namespace Define
 				INIT_EFEM_MODULE_INFORMATION_END,
 				//INIT_WORKINFORMATION_START,
 				//INIT_WORKINFORMATION_END,
+
+                INIT_EQUIPMENT_PROPERTY_START,
+                INIT_EQUIPMENT_PROPERTY_END,
+
+                INIT_RAM_METRICS_START,
+                INIT_RAM_METRICS_END,
+
+                INIT_FTP_START,
+                INIT_FTP_END,
+				
 				INIT_END,
 			}
 		}

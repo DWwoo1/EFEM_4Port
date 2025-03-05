@@ -338,7 +338,10 @@ namespace FrameOfSystem3.Views.Config
 			string itemName = string.Empty;
 			if (false == m_InstanceOfMotion.GetMotionParameter(nIndexOfItem, FrameOfSystem3.Config.ConfigMotion.EN_PARAM_MOTION.NAME, ref itemName))
 				itemName = string.Empty;
-			if (_filterKeyword != string.Empty && false == itemName.Contains(_filterKeyword))
+
+			// 2024.06.25 by junho [MOD] 대소문자 구분하지 않도록 변경
+			//if (_filterKeyword != string.Empty && false == itemName.Contains(_filterKeyword))
+			if (_filterKeyword != string.Empty && itemName.IndexOf(_filterKeyword, StringComparison.OrdinalIgnoreCase) < 0)
 				return;
 
 			m_dgViewList.Rows.Add();
@@ -503,7 +506,15 @@ namespace FrameOfSystem3.Views.Config
                 _tableLayoutPanel_Main.RowStyles[2].Height = _configRowHeightBackup;
                 m_labelScroll.Text = DOWN_ARROW;
             }
-            // 2023.09.07. by shkim. [END]
+            // 2024.03.14. by shkim. [ADD] 선택되있는 셀이 제일 위로 오도록 실수 예방 (리스트 확장 후 축소하면 현재 선택된 축이 화면에서 벗어나 알 수 없는 경우가 있었다.)
+            if (m_dgViewList.SelectedRows.Count > 0)
+            {
+                // 선택된 행의 인덱스를 얻습니다.
+                int index = m_dgViewList.SelectedRows[0].Index;
+                // 해당 행이 DataGridView의 가장 위에 오도록 스크롤합니다.
+                m_dgViewList.FirstDisplayedScrollingRowIndex = index;
+            }
+            // 2024.03.14. by shkim. [END]
 		}
 		/// <summary>
 		/// 2020.06.23 by twkang [ADD] 설정 라벨 클릭이벤트
@@ -529,7 +540,7 @@ namespace FrameOfSystem3.Views.Config
 					}
 					break;
 				case 1: // TARGET
-					if(m_InstanceOfCalculator.CreateForm(m_labelTarget.Text, "0", "999999"))
+					if(m_InstanceOfCalculator.CreateForm(m_labelTarget.Text, "0", "999999")) // 임시
 					{
 						m_InstanceOfCalculator.GetResult(ref nResult);
 						if(m_InstanceOfMotion.SetMotionParameter(m_nIndexOfSelectedItem, FrameOfSystem3.Config.ConfigMotion.EN_PARAM_MOTION.TARGET, nResult))
@@ -743,14 +754,12 @@ namespace FrameOfSystem3.Views.Config
                 m_btnExtend.Text = RIGHT_ARROW;
                 m_btnAdd.Visible = true;
                 m_btnRemove.Visible = true;
-				lbl_Filtering.Visible = true;
             }
             else
             {
                 m_btnExtend.Text = LEFT_ARROW;
                 m_btnAdd.Visible = false;
                 m_btnRemove.Visible = false;
-				lbl_Filtering.Visible = false;
 			}
             // 2023.09.07. by shkim. [END]
 		}

@@ -482,6 +482,7 @@ namespace FrameOfSystem3.Views.Operation
 			if (false == System.Diagnostics.Debugger.IsAttached)
 				return;
 
+            //FrameOfSystem3.SECSGEM.Communicator.SecsGemHandler.Instance.UpdateECVParameter(100012, "999999");
             //string oldName = "CARRIER06_LP6.01";
             //string newName = "TEMP";
             //EFEM.MaterialTracking.Substrate substrate = new EFEM.MaterialTracking.Substrate("");

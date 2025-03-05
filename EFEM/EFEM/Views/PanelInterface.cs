@@ -281,7 +281,7 @@ namespace FrameOfSystem3.Views
 		}
 		public void ClickParameterUndo()
 		{
-			FrameOfSystem3.Recipe.Recipe.GetInstance().ClearDeferredStorage(true);
+			FrameOfSystem3.Recipe.Recipe.GetInstance().ClearDeferredStorage();
 		}
 		public bool Click_DataSelectButton(int groupKey, Sys3Controls.Sys3button btn)
 		{

@@ -17,7 +17,7 @@ namespace FrameOfSystem3.DynamicLink_
 
         SELECTION,
         WORKING_BUT_FINISHED,
-        
+
         FINISHED    // 작업완료
     }
     #endregion

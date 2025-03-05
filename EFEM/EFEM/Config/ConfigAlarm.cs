@@ -459,7 +459,7 @@ namespace FrameOfSystem3.Config
                                 if (0 > nIndexOfToken) {  break; }
 
                                 strMessage      = strMessage.Remove(nIndexOfToken, nCountOfToken);
-								strMessage      = strMessage.Insert(nIndexOfToken, strSubInfo);
+                                strMessage      = strMessage.Insert(nIndexOfToken, strSubInfo);
                             }
                         }
                         

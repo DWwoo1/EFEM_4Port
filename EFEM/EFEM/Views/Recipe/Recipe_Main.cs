@@ -90,6 +90,12 @@ namespace FrameOfSystem3.Views.Recipe
 
 			// 2022.06.08 by junho [ADD] Update vision use option
 			Vision_.Vision.GetInstance().SetUseVision(false);
+			// Vision_.Vision.GetInstance().SetUseVision(FrameOfSystem3.Recipe.Recipe.GetInstance().GetValue(
+			//	FrameOfSystem3.Recipe.EN_RECIPE_TYPE.EQUIPMENT
+			//	, FrameOfSystem3.Recipe.PARAM_EQUIPMENT.Use_Vision.ToString()
+			//	, 0
+			//	, FrameOfSystem3.Recipe.EN_RECIPE_PARAM_TYPE.VALUE
+			//	, false));
         }
         /// <summary>
         /// 
@@ -342,6 +348,7 @@ namespace FrameOfSystem3.Views.Recipe
 
 				// 2021.08.29 by junho [ADD] Vision Interwork
 				Task<Vision_.VISION_RESULT> taskResult = null;
+				var vision = Vision_.Vision.GetInstance();
 
 				string strFullFilePath = m_labelFullPath.Text;
 				string strSelectedFile = string.Empty;
@@ -374,7 +381,7 @@ namespace FrameOfSystem3.Views.Recipe
 								m_InstanceOfMessageBox.ShowMessage("Check");
 
 							// 2021.08.29 by junho [ADD] Vision Interwork
-							taskResult = Vision_.Vision.GetInstance().CopyRecipeAsync(strCurrentRecipeName
+							taskResult = vision.CopyRecipeAsync(strCurrentRecipeName
 								, System.IO.Path.GetFileNameWithoutExtension(strResult));
 
 							// 파일 IO Write Delay
@@ -415,9 +422,9 @@ namespace FrameOfSystem3.Views.Recipe
 							File.Copy(strRecipeSource, strRecipeDest);
 
 							// 2021.08.29 by junho [ADD] Vision Interwork
-							taskResult = Vision_.Vision.GetInstance().CopyRecipeAsync(strCurrentRecipeName
+							taskResult = vision.CopyRecipeAsync(strCurrentRecipeName
 								, System.IO.Path.GetFileNameWithoutExtension(strRecipeDest));
-					}
+						}
 						#endregion
 						break;
 					case 2: // Modify (Rename)
@@ -451,16 +458,16 @@ namespace FrameOfSystem3.Views.Recipe
 							File.Move(strRecipeSource, strRecipeDest);
 
 							// 2021.08.29 by junho [ADD] Vision Interwork
-							taskResult = Vision_.Vision.GetInstance().CopyRecipeAsync(
+							taskResult = vision.CopyRecipeAsync(
 								System.IO.Path.GetFileNameWithoutExtension(strRecipeSource),
 								System.IO.Path.GetFileNameWithoutExtension(strRecipeDest));
 							await taskResult;
 							if (taskResult.Result == Vision_.VISION_RESULT.COMPLETE)
 							{
-								taskResult = Vision_.Vision.GetInstance().DeleteRecipeAsync(
+								taskResult = vision.DeleteRecipeAsync(
 									System.IO.Path.GetFileNameWithoutExtension(strRecipeSource));
 							}
-					}
+						}
 						#endregion
 						break;
 					case 3: // Remove
@@ -487,12 +494,14 @@ namespace FrameOfSystem3.Views.Recipe
 							File.Delete(strDeleteFile);
 
 							// 2021.08.29 by junho [ADD] Vision Interwork
-							taskResult = Vision_.Vision.GetInstance().DeleteRecipeAsync(
+							taskResult = vision.DeleteRecipeAsync(
 								System.IO.Path.GetFileNameWithoutExtension(strDeleteFile));
-					}
+						}
 						else
 						{
-							m_InstanceOfMessageBox.ShowMessage("Check");
+							// 안내문구 변경 : 현재 로드된 레시피는 삭제할 수 없음.
+							m_InstanceOfMessageBox.ShowMessage("Try deleting the recipe again after changing it to a different one.");
+							// m_InstanceOfMessageBox.ShowMessage("Check");
 						}
 						#endregion
 						break;

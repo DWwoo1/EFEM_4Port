@@ -290,9 +290,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Release\WCFManager.dll</HintPath>
     </Reference>
-    <Reference Include="XGem300Pro_Net40_01_64, Version=3.2.1.24, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="XGem300ProW_C40_01_64, Version=1.0.8585.17265, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Release\XGem300Pro_Net40_01_64.dll</HintPath>
+      <HintPath>..\..\Release\XGem300ProW_C40_01_64.dll</HintPath>
     </Reference>
     <Reference Include="ZedGraph, Version=5.1.2.878, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -308,6 +308,7 @@
     <Compile Include="Config\ConfigDigitalIO.cs" />
     <Compile Include="Config\ConfigDynamicLink.cs" />
     <Compile Include="Config\ConfigFlow.cs" />
+    <Compile Include="Config\ConfigFTP.cs" />
     <Compile Include="Config\ConfigInterlock.cs" />
     <Compile Include="Config\ConfigInterrupt.cs" />
     <Compile Include="Config\ConfigJog.cs" />
@@ -608,6 +609,8 @@
     <Compile Include="EFEM Modules\Modules\RFID\Controllers\CeyonRfid.cs" />
     <Compile Include="EFEM Modules\Modules\RFID\RFIDManagers.cs" />
     <Compile Include="EFEM Modules\Modules\RFID\Controllers\XedionRfid.cs" />
+    <Compile Include="EquipmentProperty\EquipmentProperty.cs" />
+    <Compile Include="EquipmentProperty\RawMaterialPortManager.cs" />
     <Compile Include="ExternalDevice\Serial\FanFilterUnit\BlueCord\FanFilterUnitControllerBluecord.cs" />
     <Compile Include="ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs" />
     <Compile Include="ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs" />
@@ -635,6 +638,7 @@
     <Compile Include="EFEM Modules\Defines\MaterialTrackingDefines.cs" />
     <Compile Include="EFEM Modules\MaterialTracking\Substrate\Substrate.cs" />
     <Compile Include="EFEM Modules\Modules\Process\BaseProcessModule.cs" />
+    <Compile Include="RAMMetrics\RAM_Metrics.cs" />
     <Compile Include="Recipe\Recipe.cs" />
     <Compile Include="Recipe\RecipeDefine.cs" />
     <Compile Include="CustomizedByProcessType\SECSGEM\PWA500BIN\Defines\DefinesForPWA500BIN_TP.cs" />
@@ -713,6 +717,12 @@
     </Compile>
     <Compile Include="Views\Config\Analog\Config_AnalogItemDisplay.Designer.cs">
       <DependentUpon>Config_AnalogItemDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Config\Communication\Config_FTP.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Config\Communication\Config_FTP.Designer.cs">
+      <DependentUpon>Config_FTP.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Config\Communication\Config_Serial.cs">
       <SubType>UserControl</SubType>
@@ -930,6 +940,12 @@
     <Compile Include="Views\Functional\Form_ColorPalette.Designer.cs">
       <DependentUpon>Form_ColorPalette.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Functional\Form_DateTimeSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Functional\Form_DateTimeSelector.Designer.cs">
+      <DependentUpon>Form_DateTimeSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Functional\Form_Jog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1032,6 +1048,12 @@
     <Compile Include="Views\Functional\Panel_Jog\JogPanel_MonitorItem.Designer.cs">
       <DependentUpon>JogPanel_MonitorItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Functional\Panel_TimeSelector\TimePanel_Dial.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Functional\Panel_TimeSelector\TimePanel_Dial.Designer.cs">
+      <DependentUpon>TimePanel_Dial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FunctionsUi.cs" />
     <Compile Include="Views\History\History_MainLog.cs">
       <SubType>UserControl</SubType>
@@ -1081,6 +1103,12 @@
     </Compile>
     <Compile Include="Views\Operation\Operation_Main.Designer.cs">
       <DependentUpon>Operation_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operation\Operation_RAMMetrics.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Operation\Operation_RAMMetrics.Designer.cs">
+      <DependentUpon>Operation_RAMMetrics.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Operation\Operation_SecsGem.cs">
       <SubType>UserControl</SubType>
@@ -1367,6 +1395,9 @@
     <EmbeddedResource Include="Views\Config\Analog\Config_AnalogItemDisplay.resx">
       <DependentUpon>Config_AnalogItemDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Config\Communication\Config_FTP.resx">
+      <DependentUpon>Config_FTP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Config\Communication\Config_Serial.resx">
       <DependentUpon>Config_Serial.cs</DependentUpon>
     </EmbeddedResource>
@@ -1489,6 +1520,9 @@
     <EmbeddedResource Include="Views\Functional\Form_ColorPalette.resx">
       <DependentUpon>Form_ColorPalette.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Functional\Form_DateTimeSelector.resx">
+      <DependentUpon>Form_DateTimeSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Functional\Form_Jog.resx">
       <DependentUpon>Form_Jog.cs</DependentUpon>
     </EmbeddedResource>
@@ -1540,6 +1574,9 @@
     <EmbeddedResource Include="Views\Functional\Panel_Jog\JogPanel_MonitorItem.resx">
       <DependentUpon>JogPanel_MonitorItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Functional\Panel_TimeSelector\TimePanel_Dial.resx">
+      <DependentUpon>TimePanel_Dial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\History\History_MainLog.resx">
       <DependentUpon>History_MainLog.cs</DependentUpon>
     </EmbeddedResource>
@@ -1563,6 +1600,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Operation\Operation_Main.resx">
       <DependentUpon>Operation_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Operation\Operation_RAMMetrics.resx">
+      <DependentUpon>Operation_RAMMetrics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Operation\Operation_SecsGem.resx">
       <DependentUpon>Operation_SecsGem.cs</DependentUpon>

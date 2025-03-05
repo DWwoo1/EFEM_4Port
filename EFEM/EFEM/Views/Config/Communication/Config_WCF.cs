@@ -1,10 +1,8 @@
-﻿using Define.DefineEnumProject.AppConfig;
-using FrameOfSystem3.Config;
+﻿using FrameOfSystem3.Config;
 using FrameOfSystem3.Views.Functional;
 using Sys3Controls;
 using System;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +25,7 @@ namespace FrameOfSystem3.Views.Config
             _keyboardInstance = Form_Keyboard.GetInstance();
 
             _wcfConfigInstance = ConfigWCF.GetInstance();
-            _wcfConfigInstance.SetLogEventHandlerForUI(new Action<string>(UpdateDataToLog));
+            _wcfConfigInstance.SetLogEventHandlerForUI(new Action<string>(UpdateLogView));
         }
 
         #region 필드
@@ -65,7 +63,7 @@ namespace FrameOfSystem3.Views.Config
         Form_MessageBox _messageBoxInstance = null;
         int _confirmPort = 0;
 
-        private readonly ConcurrentQueue<string> QueuedToLog = new ConcurrentQueue<string>();
+
         #endregion  /필드
 
         #region 상속인터페이스
@@ -87,7 +85,6 @@ namespace FrameOfSystem3.Views.Config
         public override void CallFunctionByTimer()
         {
             UpdateState();
-            WriteLog();
         }
 
         #endregion  /상속인터페이스
@@ -122,7 +119,7 @@ namespace FrameOfSystem3.Views.Config
             int gridRowIndex = _dgv_WCF_Service.Rows.Count;
             _dgv_WCF_Service.Rows.Add();
 
-            int nValue = -1;
+			//int nValue = -1;		// 미사용?
             bool bEnable = false;
             string strValue = string.Empty;
 
@@ -149,7 +146,7 @@ namespace FrameOfSystem3.Views.Config
             int gridRowIndex = _dgv_WCF_Client.Rows.Count;
             _dgv_WCF_Client.Rows.Add();
 
-            int nValue = -1;
+			//int nValue = -1;		// 미사용?
             bool bEnable = false;
             string strValue = string.Empty;
 
@@ -201,16 +198,7 @@ namespace FrameOfSystem3.Views.Config
                 }
             }
         }
-        void WriteLog()
-        {
-            if (QueuedToLog.Count > 0)
-            {
-                string messageToLog;
-                QueuedToLog.TryDequeue(out messageToLog);
 
-                UpdateLogView(messageToLog);
-            }
-        }
         void Click_DataGridViewForService(object sender, DataGridViewCellEventArgs e)
         {
             int rowIndex = e.RowIndex;
@@ -813,13 +801,6 @@ namespace FrameOfSystem3.Views.Config
         #endregion  /UIEvent_Config
 
         #region UIEvent_Demo
-        void UpdateDataToLog(string msg)
-        {
-            if (Visible)
-            {
-                QueuedToLog.Enqueue(msg);
-            }
-        }
         void UpdateLogView(string msg)
         {
             if (_textBoxForLog.InvokeRequired)

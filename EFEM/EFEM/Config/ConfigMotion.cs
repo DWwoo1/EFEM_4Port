@@ -339,18 +339,32 @@ namespace FrameOfSystem3.Config
 		{
 			m_InstanceOfMotionDll.MoveToHome(nIndexOfItem, 0);
 		}
-		/// <summary>
-		/// 2020.06.26 by twkang [ADD] 모션을 정지시킨다.
-		/// </summary>
-		public void StopMotion(int nIndexOfItem, bool bEmergency)
+        /// <summary>
+        /// 2024.09.13 by jhshin [ADD] overloading method with instance index, action name, retry count
+        /// </summary>
+        public void MoveToHome(int nIndexOfInstance, int nIndexOfItem, string actionName, int retry = 0)
+        {
+            m_InstanceOfMotionDll.MoveToHome(nIndexOfInstance,  nIndexOfItem, actionName, 0, retry);
+        }
+        /// <summary>
+        /// 2020.06.26 by twkang [ADD] 모션을 정지시킨다.
+        /// </summary>
+        public void StopMotion(int nIndexOfItem, bool bEmergency)
 		{
 			m_InstanceOfMotionDll.StopMotion(nIndexOfItem, bEmergency, 0);
 		}
 		/// <summary>
+		/// 2024.09.13 by jhshin [ADD] overloading method with instance index, action name, retry count
+		/// </summary>
+		public void StopMotion(int nIndexOfInstance, int nIndexOfItem, string actionName, bool bEmergency, int retry = 0)
+        {
+            m_InstanceOfMotionDll.StopMotion(nIndexOfInstance, nIndexOfItem, actionName, bEmergency, 0, captionRetried:retry);
+        }
+        /// <summary>
         /// 2021.11.25 by WDW [ADD] INTERLOCK 추가.
         /// 2020.06.30 by twkang [ADD] 절대좌표계로 이동시킨다.
-		/// </summary>
-        public MOTION_RESULT MoveAbsolutely(int nIndexOfItem, double dblDestination, MOTION_SPEED_CONTENT enContent, int nRatio, int nDelay, int nPreDelay = 0)
+        /// </summary>
+        public MOTION_RESULT MoveAbsolutely( int nIndexOfItem, double dblDestination, MOTION_SPEED_CONTENT enContent, int nRatio, int nDelay, int nPreDelay = 0)
         {
             string strInterlockDiscription = string.Empty;
             MOTION_RESULT enReuslt = m_InstanceOfMotionDll.MoveAbsolutely(nIndexOfItem, dblDestination, 0, enContent, nRatio, nDelay, nPreDelay);//custem speed 우선 0
@@ -421,13 +435,27 @@ namespace FrameOfSystem3.Config
 		{
 			m_InstanceOfMotionDll.MoveAtSpeed(nIndexOfItem, dCustomSpeed, bDirection, nRatio, nPreDelay);
 		}
-		#endregion
-
-		#region 상태 관련 함수
 		/// <summary>
-		/// 2020.06.26 by twkang [ADD] 해당아이템을 리셋시킨다.
+		/// 2024.09.13 by jhshin [ADD] overloading method with instance index, action name, retry count
 		/// </summary>
-		public void DoReset(int nIndexOfItem)
+		public MOTION_RESULT MoveAtSpeed(int nIndexOfInstance, int nIndexOfItem, string actionName, bool bDirection, int nRatio, int nPreDelay = 0, int retry = 0)
+        {
+            return m_InstanceOfMotionDll.MoveAtSpeed(nIndexOfInstance, nIndexOfItem, actionName, 0, bDirection, nRatio, nPreDelay, retry);
+        }
+		/// <summary>
+		/// 2024.09.13 by jhshin [ADD] overloading method with instance index, action name, retry count
+		/// </summary>
+		public void MoveAtSpeed(int nIndexOfInstance, int nIndexOfItem, string actionName, double dCustomSpeed, bool bDirection, int nRatio, int nPreDelay = 0, int retry = 0)
+        {
+            m_InstanceOfMotionDll.MoveAtSpeed(nIndexOfInstance, nIndexOfItem, actionName, dCustomSpeed, bDirection, nRatio, nPreDelay, retry);
+        }
+        #endregion
+
+        #region 상태 관련 함수
+        /// <summary>
+        /// 2020.06.26 by twkang [ADD] 해당아이템을 리셋시킨다.
+        /// </summary>
+        public void DoReset(int nIndexOfItem)
 		{
 			m_InstanceOfMotionDll.DoReset(nIndexOfItem);
 		}
@@ -1097,6 +1125,9 @@ namespace FrameOfSystem3.Config
 				}
 				#endregion
 			}
+
+			// 2024.08.20 by junho [ADD] Initializer에서 수행되는 최초의 set motor parameter를 동기로 처리하도록 추가
+			//m_InstanceOfMotionDll.SetMotorParameterForInit();
 		}
 		/// <summary>
 		/// 2020.07.01 by twkang [ADD] 주기적으로 리핏아이템의 동작완료 상태를 확인한다.
@@ -1378,7 +1409,7 @@ namespace FrameOfSystem3.Config
 				m_nDelayFirst		= (uint)nDelayFirst;
 				m_nDelaySecond		= (uint)nDelaySecond;
 			}
-			
+
 			/// <summary>
 			/// 2020.07.01 by twkang [ADD] 딜레이를 설정한다.
 			/// </summary>

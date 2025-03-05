@@ -27,7 +27,7 @@ namespace FrameOfSystem3.Config
 			ENGLISH,
 			KOREAN,
             CHINESE,
-            JAPANESE
+            JAPANESE,
 		}
 		public enum EN_TYPE_FORMAT
 		{
@@ -39,6 +39,8 @@ namespace FrameOfSystem3.Config
 		#region 상수
 		private readonly string ITEM_ENGLISH				= "ENGLISH";
 		private readonly string ITEM_KOREAN					= "KOREAN";
+		private readonly string ITEM_CHINESE				= "CHINESE";
+		private readonly string ITEM_JAPANESE				= "JAPANESE";
 		#endregion
 
 		#region 변수
@@ -158,6 +160,12 @@ namespace FrameOfSystem3.Config
 				case TYPE_LANGUAGE.KOREAN:
 					enList = EN_PARAM_LANGUAGE.KOREAN;
 					break;
+                case TYPE_LANGUAGE.CHINESE:
+                    enList = EN_PARAM_LANGUAGE.CHINESE;
+                    break;
+                case TYPE_LANGUAGE.JAPANESE:
+                    enList = EN_PARAM_LANGUAGE.JAPANESE;
+                    break;
 			}
 			return enList;
 		}
@@ -175,7 +183,6 @@ namespace FrameOfSystem3.Config
 		{
 			return m_InstanceOfLanguageDll.GetSentence(nIndexOfItem, strData);
 		}
-		
 		#endregion
 
 		#region 내부인터페이스
@@ -205,18 +212,15 @@ namespace FrameOfSystem3.Config
     
     					foreach(EN_PARAM_LANGUAGE enParam in Enum.GetValues(typeof(EN_PARAM_LANGUAGE)))
     					{
-							if (m_DicForStorage.ContainsKey(enParam))
-                            {
-                                if (m_InstanceOfStorage.GetParameter(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.LANGUAGE
-                                                              , m_DicForStorage[enParam]
-                                                              , ref strValue
-                                                              , ref arGroups))
-                                {
-                                    m_InstanceOfLanguageDll.SetParameter(en, nIndexOfItem, m_DicForParam[enParam], strValue);
-                                }
-                            }
-                        }
-                    }
+    						if(m_InstanceOfStorage.GetParameter(Define.DefineEnumBase.Storage.EN_STORAGE_LIST.LANGUAGE
+    						, m_DicForStorage[enParam]
+    						, ref strValue
+    						, ref arGroups))
+    						{
+    							m_InstanceOfLanguageDll.SetParameter(en, nIndexOfItem, m_DicForParam[enParam], strValue);
+    						}
+    					}
+    				}
                 }
 			}
 		}
@@ -228,13 +232,17 @@ namespace FrameOfSystem3.Config
 			#region Parameter
 			m_DicForParam.Clear();
 			m_DicForParam.Add(EN_PARAM_LANGUAGE.ENGLISH, PARAM_LIST.ENGLISH);
-			m_DicForParam.Add(EN_PARAM_LANGUAGE.KOREAN, PARAM_LIST.KOREAN);
+            m_DicForParam.Add(EN_PARAM_LANGUAGE.KOREAN, PARAM_LIST.KOREAN);
+            m_DicForParam.Add(EN_PARAM_LANGUAGE.CHINESE, PARAM_LIST.CHINESE);
+            m_DicForParam.Add(EN_PARAM_LANGUAGE.JAPANESE, PARAM_LIST.JAPANESE);
 			#endregion
 
 			#region Storage
 			m_DicForStorage.Clear();
 			m_DicForStorage.Add(EN_PARAM_LANGUAGE.KOREAN, ITEM_KOREAN);
-			m_DicForStorage.Add(EN_PARAM_LANGUAGE.ENGLISH, ITEM_ENGLISH);
+            m_DicForStorage.Add(EN_PARAM_LANGUAGE.ENGLISH, ITEM_ENGLISH);
+            m_DicForStorage.Add(EN_PARAM_LANGUAGE.CHINESE, ITEM_CHINESE);
+            m_DicForStorage.Add(EN_PARAM_LANGUAGE.JAPANESE, ITEM_JAPANESE);
 			#endregion
 
 			#region Format
@@ -246,7 +254,9 @@ namespace FrameOfSystem3.Config
 			#region Type
 			m_DicForType.Clear();
 			m_DicForType.Add(EN_PARAM_LANGUAGE.ENGLISH, TYPE_LANGUAGE.ENGLISH);
-			m_DicForType.Add(EN_PARAM_LANGUAGE.KOREAN, TYPE_LANGUAGE.KOREAN);
+            m_DicForType.Add(EN_PARAM_LANGUAGE.KOREAN, TYPE_LANGUAGE.KOREAN);
+            m_DicForType.Add(EN_PARAM_LANGUAGE.CHINESE, TYPE_LANGUAGE.CHINESE);
+            m_DicForType.Add(EN_PARAM_LANGUAGE.JAPANESE, TYPE_LANGUAGE.JAPANESE);
 			#endregion
 		}
 		/// <summary>

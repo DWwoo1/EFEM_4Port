@@ -522,14 +522,20 @@ namespace FrameOfSystem3.Views.Config.MotionPanel
 					double dbValue		= 0;
 					if(double.TryParse(m_labelAbsolutePositionSet.Text, out dbValue))
 					{
-						if(m_InstanceOfMotion.SetHomeParameter(m_nIndexOfSelectedItem, FrameOfSystem3.Config.ConfigMotion.EN_PARAM_HOME.HOME_ABSOLUTE_POSITION, dbValue))
+						// 2024.11.14. by shkim [ADD] Absolute 설정 전, 값이 맞는지 확인
+						if(m_InstanceOfMessageBox.ShowMessage(string.Format("다음 값으로 Absolute Setting을 할까요?\n{0}", dbValue)))
 						{
-							m_InstanceOfMessageBox.ShowMessage(Define.DefineConstant.Common.SUCCESS);
-						}
-						else
-						{
-							m_InstanceOfMessageBox.ShowMessage(Define.DefineConstant.Common.FAIL);
-						}
+                            if (m_InstanceOfMotion.SetHomeParameter(m_nIndexOfSelectedItem, FrameOfSystem3.Config.ConfigMotion.EN_PARAM_HOME.HOME_ABSOLUTE_POSITION, dbValue))
+                            {
+                                m_InstanceOfMessageBox.ShowMessage(Define.DefineConstant.Common.SUCCESS);
+                            }
+                            else
+                            {
+                                m_InstanceOfMessageBox.ShowMessage(Define.DefineConstant.Common.FAIL);
+                            }
+
+                        }
+						// 2024.11.14. by shkim [END]
 					}
 					break;
 			}
