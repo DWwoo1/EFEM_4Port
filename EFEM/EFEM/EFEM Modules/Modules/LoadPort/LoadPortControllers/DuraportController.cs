@@ -430,8 +430,7 @@ namespace EFEM.Modules.LoadPort.LoadPortControllers
                 LoadPortCommands.ChangeToCassette : LoadPortCommands.ChangeToFoup;
 
             if (false == LoadPortModeChanger.ContainsKey(mode))
-                return new CommandResults(command.ToString(), CommandResult.Error);
-
+                return new CommandResults(command.ToString(), CommandResult.Completed);
 
             var result = ExecuteCommand(command);
             if (result.CommandResult.Equals(CommandResult.Completed))

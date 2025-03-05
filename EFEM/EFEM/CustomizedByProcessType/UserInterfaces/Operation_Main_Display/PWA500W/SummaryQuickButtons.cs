@@ -29,9 +29,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
 
             MappingIO();
 
-            lblCapacityLimitCenterStage.UnitText = "EA";
-            lblCapacityLimitLeftStage.UnitText = "EA";
-            lblCapacityLimitRightStage.UnitText = "EA";
 
             _controlInterface = new ControlInterface();
             _controlInterface.AssignControls(this.Controls);
@@ -77,14 +74,6 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
 
             lblUseSecsGem.Active = _recipe.GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGem.ToString(), false);
             //lblUseMapHandlingOnly.Active = _recipe.GetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGemWithCoreWaferMapHandlingOnly.ToString(), false);
-
-            lblUseCapacityLimitCenterStage.Active = _recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.UseCapacityLimitBin1.ToString(), false);
-            //lblCapacityLimitCenterStage.Text = _recipe.GetValue("LoadPort1", Define.DefineEnumProject.Task.LoadPort.PARAM_PROCESS.AVAILABLE_CARRIER_CAPACITY.ToString(), 0).ToString();
-
-            lblUseCapacityLimitLeftStage.Active = _recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.UseCapacityLimitBin2.ToString(), false);
-            //lblCapacityLimitLeftStage.Text = _recipe.GetValue("LoadPort2", Define.DefineEnumProject.Task.LoadPort.PARAM_PROCESS.AVAILABLE_CARRIER_CAPACITY.ToString(), 0).ToString();
-
-            lblUseCapacityLimitRightStage.Active = _recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.UseCapacityLimitBin3.ToString(), false);
 
             lblUseRecipeDownload.Active = _recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.UseRecipeDownload.ToString(), true);
             //lblCapacityLimitRightStage.Text = _recipe.GetValue("LoadPort3", Define.DefineEnumProject.Task.LoadPort.PARAM_PROCESS.AVAILABLE_CARRIER_CAPACITY.ToString(), 0).ToString();
@@ -133,10 +122,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainSummary.PWA500
             //    bool value = !lblUseMapHandlingOnly.Active;
             //    _recipe.SetValue(EN_RECIPE_TYPE.COMMON, PARAM_COMMON.UseSecsGemWithCoreWaferMapHandlingOnly.ToString(), value.ToString());
             //}
-            else if (sender.Equals(lblUseCapacityLimitCenterStage) ||
-                sender.Equals(lblUseCapacityLimitLeftStage) ||
-                sender.Equals(lblUseCapacityLimitRightStage) ||
-                sender.Equals(lblUseRecipeDownload))
+            else if (sender.Equals(lblUseRecipeDownload))
             {
                 if (!(sender is Sys3Controls.Sys3LedLabelWithText label))
                     return;
