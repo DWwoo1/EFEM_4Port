@@ -1350,7 +1350,7 @@ namespace EFEM.Defines.LoadPort
                                             break;
                                         case CommandResult.Completed:
                                         case CommandResult.Skipped:
-                                            _seqNum = 25;
+                                            _seqNum = 30;
                                             break;
                                         case CommandResult.Timeout:
                                         case CommandResult.Error:
@@ -2254,7 +2254,7 @@ namespace EFEM.Defines.LoadPort
                                             break;
                                         case CommandResult.Completed:
                                         case CommandResult.Skipped:
-                                            _seqNum = 25;
+                                            _seqNum = 30;
                                             break;
                                         case CommandResult.Timeout:
                                         case CommandResult.Error:

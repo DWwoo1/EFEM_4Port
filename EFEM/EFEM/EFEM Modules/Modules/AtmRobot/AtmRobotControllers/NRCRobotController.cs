@@ -149,13 +149,13 @@ namespace EFEM.Modules.AtmRobot.AtmRobotControllers
                             {
                                 _result.CommandResult = CommandResult.Proceed;
                                 _result.Description = string.Empty;
-                                _actionStep = 13;
+                                _actionStep = 20;
                                 _timeChecker.SetTickCount(700);
                             }
                         }
                     }
                     break;
-                case 13:
+                case 20:
                     {
                         if (false == _timeChecker.IsTickOver(true))
                             break;
@@ -167,23 +167,53 @@ namespace EFEM.Modules.AtmRobot.AtmRobotControllers
                         }
                     }
                     break;
-                case 14:
-                    if (IsTimeOver())
+                case 21:
                     {
-                        _result.CommandResult = CommandResult.Timeout;
-                        break;
-                    }
+                        if (IsTimeOver())
+                        {
+                            _result.CommandResult = CommandResult.Timeout;
+                            break;
+                        }
+                        else
+                        {
+                            if (false == HasCommandResultData(currentAction))
+                                break;
 
-                    if (false == HasCommandResultData(currentAction))
-                        break;
-
-                    _result = GetCommandResult(currentAction);
-                    if (_result.CommandResult.Equals(CommandResult.Completed))
-                    {
-                        Initialized = true;
+                            _result = GetCommandResult(currentAction);
+                            if (_result.CommandResult.Equals(CommandResult.Completed))
+                            {
+                                _result.CommandResult = CommandResult.Proceed;
+                                _result.Description = string.Empty;
+                                _actionStep = 30;
+                            }
+                        }
                     }
                     break;
+                case 30:
+                    {
+                        if (SendMessage(RobotCommands.Status, RobotArmTypes.All, "", 0))
+                        {
+                            ++_actionStep;
+                        }
+                    }
+                    break;
+                case 31:
+                    {
+                        if (IsTimeOver())
+                        {
+                            _result.CommandResult = CommandResult.Timeout;
+                            break;
+                        }
+                        else
+                        {
+                            if (false == _commandResults.ContainsKey(RobotCommands.Status))
+                                break;
 
+                            _result = GetCommandResult(RobotCommands.Status);
+                            break;
+
+                        }
+                    }
                 default:
                     _result.CommandResult = CommandResult.Invalid;
                     _result.Description = string.Format("Invalid Seq Num : {0}", _actionStep);
@@ -441,10 +471,10 @@ namespace EFEM.Modules.AtmRobot.AtmRobotControllers
                         _timeChecker.SetTickCount(30000);
                         _result.CommandResult = CommandResult.Proceed;
                         _result.Description = string.Empty;
-                        ++_actionStep;
+                        _actionStep = 20;
                     }
                     break;
-                case 11:
+                case 20:
                     {
                         if (SendMessage(currentAction, armType, targetLocation, slot))
                         {
@@ -452,20 +482,53 @@ namespace EFEM.Modules.AtmRobot.AtmRobotControllers
                         }
                     }
                     break;
-                case 12:
-                    if (IsTimeOver())
+                case 21:
                     {
-                        _result.CommandResult = CommandResult.Timeout;
-                        break;
+                        if (IsTimeOver())
+                        {
+                            _result.CommandResult = CommandResult.Timeout;
+                            break;
+                        }
+                        else
+                        {
+                            if (false == _commandResults.ContainsKey(currentAction))
+                                break;
+
+                            _result = GetCommandResult(currentAction);
+                            if (_result.CommandResult.Equals(CommandResult.Completed))
+                            {
+                                _result.CommandResult = CommandResult.Proceed;
+                                _result.Description = string.Empty;
+                                _actionStep = 30;
+                            }
+                        }
                     }
-
-
-                    if (false == HasCommandResultData(currentAction))
-                        break;
-
-                    _result = GetCommandResult(currentAction);
                     break;
+                case 30:
+                    {
+                        if (SendMessage(RobotCommands.Status, armType, targetLocation, slot))
+                        {
+                            ++_actionStep;
+                        }
+                    }
+                    break;
+                case 31:
+                    {
+                        if (IsTimeOver())
+                        {
+                            _result.CommandResult = CommandResult.Timeout;
+                            break;
+                        }
+                        else
+                        {
+                            if (false == _commandResults.ContainsKey(RobotCommands.Status))
+                                break;
 
+                            _result = GetCommandResult(RobotCommands.Status);
+                            break;
+
+                        }
+                    }
                 default:
                     _result.CommandResult = CommandResult.Invalid;
                     _result.Description = string.Format("Invalid Seq Num : {0}", _actionStep);
@@ -704,10 +767,10 @@ namespace EFEM.Modules.AtmRobot.AtmRobotControllers
                         _timeChecker.SetTickCount(30000);
                         _result.CommandResult = CommandResult.Proceed;
                         _result.Description = string.Empty;
-                        ++_actionStep;
+                        _actionStep = 10;
                     }
                     break;
-                case 1:
+                case 10:
                     {
                         if (SendMessage(currentAction, armType, targetLocation, slot))
                         {
@@ -715,20 +778,53 @@ namespace EFEM.Modules.AtmRobot.AtmRobotControllers
                         }
                     }
                     break;
-                case 2:
-                    if (IsTimeOver())
+                case 11:
                     {
-                        _result.CommandResult = CommandResult.Timeout;
-                        break;
+                        if (IsTimeOver())
+                        {
+                            _result.CommandResult = CommandResult.Timeout;
+                            break;
+                        }
+                        else
+                        {
+                            if (false == _commandResults.ContainsKey(currentAction))
+                                break;
+
+                            _result = GetCommandResult(currentAction);
+                            if (_result.CommandResult.Equals(CommandResult.Completed))
+                            {
+                                _result.CommandResult = CommandResult.Proceed;
+                                _result.Description = string.Empty;
+                                _actionStep = 20;
+                            }
+                        }
                     }
-
-
-                    if (false == HasCommandResultData(currentAction))
-                        break;
-
-                    _result = GetCommandResult(currentAction);
                     break;
+                case 20:
+                    {
+                        if (SendMessage(RobotCommands.Status, armType, targetLocation, slot))
+                        {
+                            ++_actionStep;
+                        }
+                    }
+                    break;
+                case 21:
+                    {
+                        if (IsTimeOver())
+                        {
+                            _result.CommandResult = CommandResult.Timeout;
+                            break;
+                        }
+                        else
+                        {
+                            if (false == _commandResults.ContainsKey(RobotCommands.Status))
+                                break;
 
+                            _result = GetCommandResult(RobotCommands.Status);
+                            break;
+
+                        }
+                    }
                 default:
                     _result.CommandResult = CommandResult.Invalid;
                     _result.Description = string.Format("Invalid Seq Num : {0}", _actionStep);

@@ -428,7 +428,9 @@ namespace FrameOfSystem3.Views.Functional
 			DestroyControls();
 			foreach(var kvpItem in _totalItemList)
 			{
-				if (_filterKeyword == string.Empty || kvpItem.Value.Name.Contains(_filterKeyword))
+				// 2024.11.11 by junho [MOD] 대소문자 구분하지 않도록 변경
+				//if (_filterKeyword == string.Empty || kvpItem.Value.Name.Contains(_filterKeyword))
+				if (_filterKeyword == string.Empty || kvpItem.Value.Name.IndexOf(_filterKeyword, StringComparison.OrdinalIgnoreCase) >= 0)
 				{
 					var item = new DisplayItem(_choiceList.Count, kvpItem.Value, false);
 					_choiceList.Add(_choiceList.Count, item);

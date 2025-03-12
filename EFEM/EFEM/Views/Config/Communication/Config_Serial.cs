@@ -72,29 +72,30 @@ namespace FrameOfSystem3.Views.Config
         Serial_.DelegateWritingSerialLog m_dgWriteSerial = null;
 
 		#region 상수
-		private const int HEIGHT_OF_ROWS				= 30;
+		const int HEIGHT_OF_ROWS				= 30;
 
-		private readonly string PORT_COM				= "COM";
+		readonly string PORT_COM				= "COM";
 
-		private readonly string MIN_OF_TIMEOUT			= "0";
-		private readonly string MAX_OF_TIMEOUT			= "999999";
+		readonly string MIN_OF_TIMEOUT			= "0";
+		readonly string MAX_OF_TIMEOUT			= "999999";
 
 		#region COLUMN_INDEX
-		private const int COLUMN_INDEX_OF_INDEX			= 0;
-		private const int COLUMN_INDEX_OF_ENABLE		= 1;
-		private const int COLUMN_INDEX_OF_NAME			= 2;
-		private const int COLUMN_INDEX_OF_PORTNAME		= 3;
-		private const int COLUMN_INDEX_OF_BAUDRATE		= 4;
-		private const int COLUMN_INDEX_OF_DATABIT		= 5;
-		private const int COLUMN_INDEX_OF_STOPBIT		= 6;
-		private const int COLUMN_INDEX_OF_PARITY		= 7;
-		private const int COLUMN_INDEX_OF_STATE			= 8;
+		const int COLUMN_INDEX_OF_INDEX			= 0;
+		const int COLUMN_INDEX_OF_ENABLE		= 1;
+		const int COLUMN_INDEX_OF_NAME			= 2;
+		const int COLUMN_INDEX_OF_PORTNAME		= 3;
+		const int COLUMN_INDEX_OF_BAUDRATE		= 4;
+		const int COLUMN_INDEX_OF_DATABIT		= 5;
+		const int COLUMN_INDEX_OF_STOPBIT		= 6;
+		const int COLUMN_INDEX_OF_PARITY		= 7;
+		const int COLUMN_INDEX_OF_STATE			= 8;
 		#endregion
 
-		private const int SELECT_NONE					= -1;
+		const int SELECT_NONE					= -1;
 
-		private readonly Color c_clrTrue				= Color.DodgerBlue;
-		private readonly Color c_clrFalse				= Color.White;		
+		readonly Color c_clrTrue				= Color.DodgerBlue;
+		readonly Color c_clrFalse				= Color.White;		
+		const int MAX_DISPLAY_LOG_COUNT = 1000;
 		#endregion
 
 		#region 변수
@@ -470,30 +471,36 @@ namespace FrameOfSystem3.Views.Config
             m_labelReceiveEnd.Text = (strTokens == "-1") ? "" : strTokens;
         }
 
-        // 2022.04.04. by shkim [ADD] Serial Log 이벤트로 변경
-        private void WriteSerialLog(string strID, bool bSend, string strData)
-        {
-            if(this.InvokeRequired)
-            {
-                Serial_.DelegateWritingSerialLog d = new Serial_.DelegateWritingSerialLog(WriteSerialLog);
-                this.BeginInvoke(d, new object[] { strID , bSend, strData });
-            }
-            else
-            {
-                if (false == m_labelName.Text.Equals(strID)) return;
+		// 2024.11.27. by shkim [ADD] 로그 Leak 발생 위험 개선
+		// 2022.04.04. by shkim [ADD] Serial Log 이벤트로 변경
+		private void WriteSerialLog(string strID, bool bSend, string strData)
+		{
+			if (this.InvokeRequired)
+			{
+				Serial_.DelegateWritingSerialLog d = new Serial_.DelegateWritingSerialLog(WriteSerialLog);
+				this.BeginInvoke(d, new object[] { strID, bSend, strData });
+			}
+			else
+			{
+				if (false == m_labelName.Text.Equals(strID)) return;
 
-                if (false == bSend)
-                {
-                    strData = string.Format("{0} Read Message : {1}", strID, strData);
-                    m_listMessage.Items.Add(strData);
-                }
-                else
-                {
-                    strData = string.Format("{0} Write Message : {1}", strID, strData);
-                    m_listMessage.Items.Add(strData);
-                }
-            }
-        }
+				if (false == bSend)
+				{
+					strData = string.Format("{0} Read Message : {1}", strID, strData);
+				}
+				else
+				{
+					strData = string.Format("{0} Write Message : {1}", strID, strData);
+				}
+
+				m_listMessage.Items.Add(strData);
+
+				if (m_listMessage.Items.Count > MAX_DISPLAY_LOG_COUNT)
+				{
+					m_listMessage.Items.RemoveAt(0);
+				}
+			}
+		}
 
 		#endregion
 
@@ -753,7 +760,7 @@ namespace FrameOfSystem3.Views.Config
 				if (false == m_InstanceOfSelectionList.CreateForm(string.Empty, arCharacterName, arIntValues, arPreCharacterNames, true))
 					return;
 
-                    m_InstanceOfSelectionList.GetResult(ref selectedArray, true);
+				m_InstanceOfSelectionList.GetResult(ref selectedArray, true);
                 switch(clickedLabel.TabIndex)
                 {
                     case (int)EN_TOKEN_TYPE.SEND_START:

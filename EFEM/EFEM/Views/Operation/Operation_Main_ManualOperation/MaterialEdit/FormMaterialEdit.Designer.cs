@@ -192,7 +192,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "`";
             this.TopMost = true;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMaterialEdit_FormClosed);
             this.ResumeLayout(false);
 
         }

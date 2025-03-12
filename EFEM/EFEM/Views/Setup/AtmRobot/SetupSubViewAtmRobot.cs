@@ -54,11 +54,11 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
             _robotNum = _myIndex + 1;
             this.Tag = string.Format("ATM ROBOT {0}", _myIndex + 1);
 
-            for (int i = 1; i <= 25; i++)
+            for (int i = 0; i < 25; i++)
             {
                 cboxPnPSlot.Items.Add(i.ToString());
             }
-            for (int i = 1; i <= 25; i++)
+            for (int i = 1; i < 25; i++)
             {
                 cboxGotoSlot.Items.Add(i.ToString());
             }
@@ -220,7 +220,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
                 false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
                 return;
 
-            Component.CustomActionButton button = sender as Component.CustomActionButton;
+            Sys3button button = sender as Sys3button;
             if (button == null)
                 return;
 
@@ -240,7 +240,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
             else
                 return;
 
-            int slot = cboxPnPSlot.SelectedIndex;
+            int slot = cboxPnPSlot.SelectedIndex + 1;
             Location targetLocation = null;
             if(LocationNames[_selectedLocationIndex].Contains("PM1"))
             {
@@ -434,7 +434,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
             if (false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE) &&
                 false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
                 return;
-            Component.CustomActionButton button = sender as Component.CustomActionButton;
+            Sys3button button = sender as Sys3button;
             if (button == null)
                 return;
 
@@ -468,7 +468,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
                 command = RobotCommands.ApproachForPlace;
             }
 
-            int slot = cboxGotoSlot.SelectedIndex;
+            int slot = cboxGotoSlot.SelectedIndex + 1;
             Location targetLocation = null;
             string locationName = button.Tag.ToString();
             if(locationName.Contains("PM1"))
@@ -510,7 +510,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
             if (false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE) &&
                 false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
                 return;
-            Component.CustomActionButton button = sender as Component.CustomActionButton;
+            Sys3button button = sender as Sys3button;
             if (button == null)
                 return;
 
@@ -550,7 +550,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
             if (false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE) &&
                 false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
                 return;
-            Component.CustomActionButton button = sender as Component.CustomActionButton;
+            Sys3button button = sender as Sys3button;
             if (button == null)
                 return;
 
@@ -633,7 +633,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
             if (false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE) &&
                 false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
                 return;
-            Component.CustomActionButton button = sender as Component.CustomActionButton;
+            Sys3button button = sender as Sys3button;
             if (button == null)
                 return;
 
@@ -893,7 +893,7 @@ namespace FrameOfSystem3.Views.Setup.AtmRobot
             if (false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE) &&
                 false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
                 return;
-            Component.CustomActionButton button = sender as Component.CustomActionButton;
+            Sys3button button = sender as Sys3button;
             if (button == null)
                 return;
 

@@ -362,6 +362,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
                         lblCoreSubstrateInfo.Text = _selectedCoreSubstrate.GetName();
                     }
                 }
+
+                materialEdit.DisposeControls();
+                materialEdit = null;
             }
             else if (sender.Equals(btnEditBinOrEmptySubstrateInfo))
             {
@@ -384,6 +387,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationSecsGem.PWA500BIN
                         lblBinOrEmptySubstrateInfo.Text = _selectedBinOrEmptySubstrate.GetName();
                     }
                 }
+
+                materialEdit.DisposeControls();
+                materialEdit = null;
             }
         }
         private void BtnApplyCarrierInfoClicked(object sender, EventArgs e)

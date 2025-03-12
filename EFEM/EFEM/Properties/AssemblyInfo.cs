@@ -33,10 +33,14 @@ using System.Runtime.InteropServices;
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("3.16.36.54")]
+[assembly: AssemblyFileVersion("3.16.36.55")]
 
 // Version : [호환성.추가.변경.개선]
 #region <VERSION HISTORY>
+
+#region <3.16.36.55>
+// 1. AMHS 버그 개선
+#endregion </3.16.36.55>
 
 #region <3.16.36.54>
 // 1. FrameWork Update

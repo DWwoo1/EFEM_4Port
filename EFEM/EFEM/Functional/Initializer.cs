@@ -803,6 +803,7 @@ namespace FrameOfSystem3.Functional
 
                 case EN_INITIALIZATION_STEP.INIT_EQUIPMENT_PROPERTY_END:
                     EquipmentProperty.EquipmentProperty.GetInstance().delegateUpdateProperty = new EquipmentProperty.DelegateUpdateProperty(UpdateEquipmentProperty);
+                    bResult = true;
                     break;
 				#endregion
 

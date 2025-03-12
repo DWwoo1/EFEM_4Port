@@ -788,7 +788,5 @@ namespace FrameOfSystem3.Views.Config
         }
 
         #endregion
-
-
     }
 }

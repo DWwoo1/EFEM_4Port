@@ -1136,7 +1136,7 @@ namespace FrameOfSystem3.Task
         {
             bool connected = true;
 
-            if (AppConfigManager.Instance.ProcessModuleSimulation)
+            if (AppConfigManager.Instance.ProcessModuleSimulation || System.Diagnostics.Debugger.IsAttached)
                 return true;
 
             EFEM.Defines.ProcessModule.NetworkInformation networkInformation = new EFEM.Defines.ProcessModule.NetworkInformation();

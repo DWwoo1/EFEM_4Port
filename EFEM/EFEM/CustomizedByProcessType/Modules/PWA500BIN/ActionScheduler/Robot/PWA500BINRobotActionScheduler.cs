@@ -228,9 +228,12 @@ namespace EFEM.CustomizedByProcessType.PWA500BIN
                                     {
                                         string subType = _substratesAtProcessModule[subs].GetAttribute(PWA500BINSubstrateAttributes.SubstrateType);
                                         if (false == Enum.TryParse(subType, out SubstrateType substrateTypeAtProcessModule))
-                                            continue;
+                                        {
+                                            substrateTypeAtProcessModule = SubstrateType.Empty;
+                                        }
 
-                                        if (false == substrateTypeAtProcessModule.Equals(SubstrateType.Empty))
+                                        // 2025.03.06. jhlim [MOD] 코어인 경우만 체크하지 않도록 한다.
+                                        if (substrateTypeAtProcessModule.Equals(SubstrateType.Core))
                                             continue;
 
                                         if (_substratesAtProcessModule[subs].GetAttribute(PWA500BINSubstrateAttributes.ParentLotId) != null && 

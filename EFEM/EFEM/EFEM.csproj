@@ -55,8 +55,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\..\Release\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PWA500W</DefineConstants>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -290,9 +290,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Release\WCFManager.dll</HintPath>
     </Reference>
-    <Reference Include="XGem300ProW_C40_01_64, Version=1.0.8585.17265, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="XGem300Pro_Net40_01_64, Version=3.2.2.26, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Release\XGem300ProW_C40_01_64.dll</HintPath>
+      <HintPath>..\..\Release\XGem300Pro_Net40_01_64.dll</HintPath>
     </Reference>
     <Reference Include="ZedGraph, Version=5.1.2.878, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -401,6 +401,24 @@
     <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SafeMonthCalendar.Designer.cs">
       <DependentUpon>SafeMonthCalendar.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.Designer.cs">
+      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.Designer.cs">
+      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.Designer.cs">
+      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\FormProductionSummary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -430,24 +448,6 @@
     </Compile>
     <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryLotHistory500W.Designer.cs">
       <DependentUpon>SubViewOperationHistoryLotHistory500W.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.Designer.cs">
-      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.Designer.cs">
-      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.Designer.cs">
-      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomizedByProcessType\UserInterfaces\Operation_Main_ManualOperation\PWA500BIN\MainDisplaySubPanelManualOperation500BIN.cs">
       <SubType>UserControl</SubType>
@@ -561,6 +561,8 @@
     <Compile Include="DynamicLink\FlowLink.cs" />
     <Compile Include="DynamicLink\NodeLink.cs" />
     <Compile Include="DynamicLink\PortLink.cs" />
+    <Compile Include="EquipmentProperty\EquipmentProperty.cs" />
+    <Compile Include="EquipmentProperty\RawMaterialPortManager.cs" />
     <Compile Include="EFEM Modules\ActionScheduler\LoadPortActionScheduler\BaseLoadPortActionScheduler.cs" />
     <Compile Include="EFEM Modules\ActionScheduler\LoadPortActionSchedulerManager.cs" />
     <Compile Include="EFEM Modules\Defines\JobDefines.cs" />
@@ -609,8 +611,6 @@
     <Compile Include="EFEM Modules\Modules\RFID\Controllers\CeyonRfid.cs" />
     <Compile Include="EFEM Modules\Modules\RFID\RFIDManagers.cs" />
     <Compile Include="EFEM Modules\Modules\RFID\Controllers\XedionRfid.cs" />
-    <Compile Include="EquipmentProperty\EquipmentProperty.cs" />
-    <Compile Include="EquipmentProperty\RawMaterialPortManager.cs" />
     <Compile Include="ExternalDevice\Serial\FanFilterUnit\BlueCord\FanFilterUnitControllerBluecord.cs" />
     <Compile Include="ExternalDevice\Serial\FanFilterUnit\FanFilterUnitController.cs" />
     <Compile Include="ExternalDevice\Serial\FanFilterUnit\FanFilterUnitManager.cs" />
@@ -632,13 +632,14 @@
     <Compile Include="Functional\Initializer.cs" />
     <Compile Include="Functional\SelectionList.cs" />
     <Compile Include="Functional\WorkPosition.cs" />
+    <Compile Include="Functional\XmlWriter.cs" />
     <Compile Include="Interfaces\RegisteredInterface.cs" />
     <Compile Include="Log\Log.cs" />
     <Compile Include="Log\LogWriter.cs" />
+    <Compile Include="RAMMetrics\RAM_Metrics.cs" />
     <Compile Include="EFEM Modules\Defines\MaterialTrackingDefines.cs" />
     <Compile Include="EFEM Modules\MaterialTracking\Substrate\Substrate.cs" />
     <Compile Include="EFEM Modules\Modules\Process\BaseProcessModule.cs" />
-    <Compile Include="RAMMetrics\RAM_Metrics.cs" />
     <Compile Include="Recipe\Recipe.cs" />
     <Compile Include="Recipe\RecipeDefine.cs" />
     <Compile Include="CustomizedByProcessType\SECSGEM\PWA500BIN\Defines\DefinesForPWA500BIN_TP.cs" />
@@ -1074,12 +1075,6 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MapManager\CarrierMapManager.cs" />
-    <Compile Include="Views\Operation\Operation_History.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Operation\Operation_History.Designer.cs">
-      <DependentUpon>Operation_History.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Operation\Operation_Main_Display\LoadPortSummary\SummaryLoadPortState_State.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1109,6 +1104,12 @@
     </Compile>
     <Compile Include="Views\Operation\Operation_RAMMetrics.Designer.cs">
       <DependentUpon>Operation_RAMMetrics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operation\Operation_History.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Operation\Operation_History.Designer.cs">
+      <DependentUpon>Operation_History.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Operation\Operation_SecsGem.cs">
       <SubType>UserControl</SubType>
@@ -1305,6 +1306,15 @@
     <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\FormProductionSummary.resx">
       <DependentUpon>FormProductionSummary.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.resx">
+      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.resx">
+      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.resx">
+      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\FormProductionSummary.resx">
       <DependentUpon>FormProductionSummary.cs</DependentUpon>
     </EmbeddedResource>
@@ -1316,15 +1326,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500W\SubViewOperationHistoryLotHistory500W.resx">
       <DependentUpon>SubViewOperationHistoryLotHistory500W.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\MainDisplaySubPanelLotHistoryDisplayer.resx">
-      <DependentUpon>MainDisplaySubPanelLotHistoryDisplayer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryCurruntWorking500BIN.resx">
-      <DependentUpon>SubViewOperationHistoryCurruntWorking500BIN.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_History\PWA500BIN\SubViewOperationHistoryLotHistory500BIN.resx">
-      <DependentUpon>SubViewOperationHistoryLotHistory500BIN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomizedByProcessType\UserInterfaces\Operation_Main_ManualOperation\PWA500BIN\MainDisplaySubPanelManualOperation500BIN.resx">
       <DependentUpon>MainDisplaySubPanelManualOperation500BIN.cs</DependentUpon>
@@ -1586,9 +1587,6 @@
     <EmbeddedResource Include="Views\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Operation\Operation_History.resx">
-      <DependentUpon>Operation_History.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Operation\Operation_Main_Display\LoadPortSummary\SummaryLoadPortState_State.resx">
       <DependentUpon>SummaryLoadPortState_State.cs</DependentUpon>
     </EmbeddedResource>
@@ -1603,6 +1601,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Operation\Operation_RAMMetrics.resx">
       <DependentUpon>Operation_RAMMetrics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Operation\Operation_History.resx">
+      <DependentUpon>Operation_History.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Operation\Operation_SecsGem.resx">
       <DependentUpon>Operation_SecsGem.cs</DependentUpon>

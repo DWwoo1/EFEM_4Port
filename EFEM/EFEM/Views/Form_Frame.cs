@@ -214,8 +214,8 @@ namespace FrameOfSystem3.Views
                     , _tableLayoutPanel_FormFrame.Size.Height - _tableLayoutPanel_FormFrame.RowStyles[0].Height - _tableLayoutPanel_FormFrame.RowStyles[2].Height);
             }
             // 2023.09.11. by shkim. [END]
-			
-			// 2024.06.13 by junho [ADD] UI 언어변환
+
+			// 2024.06.13 by junho [ADD] UI 언어변환 
 			var langualge = Language_.Language.GetInstance();
 			DateTime start = DateTime.Now;
 			foreach(Control control in this.Controls)

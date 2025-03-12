@@ -291,11 +291,7 @@ namespace FrameOfSystem3.Task
         }
         protected override bool CheckSlotValidation()
         {
-            var substrates = _substrateManager.GetSubstratesAtLoadPort(PortId);
-            if (substrates == null || substrates.Count <= 0)
-                return true;
-
-            return false;
+            return true;
         }
         #endregion </Overrides>
 

@@ -147,8 +147,8 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         private readonly TickCounter_.TickCounter TicksForTraceData = new TickCounter_.TickCounter();
         // TODO : 나중에 올려야함
         Dictionary<string, string> _ecidToUpdate = new Dictionary<string, string>();
-        private static LotHistoryLog _lotHistoryLog = null; 
-
+        private static LotHistoryLog _lotHistoryLog = null;
+        private readonly object LockForTraceDataInitialization = new object();
         #region interface
 
         #region <Init, Exit>
@@ -201,6 +201,30 @@ namespace FrameOfSystem3.SECSGEM.Scenario
             //    // 로컬 그룹 정책 편집기가 실행되면[컴퓨터 구성 - Windows 설정 - 보안 설정 - 네트워크 목록 관리자 정책]을 클릭한 후 오른쪽에서 네트워크를 더블클릭합니다.
             //    // 속성 창이 나타나면 네트워크 위치 탭으로 이동한 후 위치 유형에서 개인 / 공용을 선택하고 적용 버튼을 클릭합니다.
             //}
+
+            lock (LockForTraceDataInitialization)
+            {
+                // 2025.01.06. jhlim [ADD] EFEM 가동하는 순간, 값이 0이어서 FDC 에러가 발생한다.
+                // 해결책은
+                // 1. EquipmentState가 Idle 이상일 경우에만 Trace Data Update
+                // 2. 마지막 업데이트된 값을 저장하고, 기동 시 로드하여 값을 Set
+                #region <Set Initial Variable Values from file>
+                Dictionary<long, string> valuesFromFile = new Dictionary<long, string>(_variablesToUpdate);
+                if (_scenarioManager.ReadVariableValuesFromFile(ref valuesFromFile))
+                {
+                    foreach (var item in valuesFromFile)
+                    {
+                        if (_variablesToUpdate.ContainsKey(item.Key))
+                        {
+                            _variablesToUpdate[item.Key] = item.Value;
+                        }
+                    }
+
+                    UpdateVariable(_variablesToUpdate.Keys.ToArray(), _variablesToUpdate.Values.ToArray());
+                }
+                #endregion </Set Initial Variable Values from file>
+                // 2025.01.06. jhlim [END] 
+            }
 
             return result;
         }
@@ -696,27 +720,6 @@ namespace FrameOfSystem3.SECSGEM.Scenario
                 [EN_SVID_LIST.PLACE_SLOWUP_SPEED.ToString()]            = 2025
             };
             #endregion </TraceData For PWA500BIN>
-
-            // 2025.01.06. jhlim [ADD] EFEM 가동하는 순간, 값이 0이어서 FDC 에러가 발생한다.
-            // 해결책은
-            // 1. EquipmentState가 Idle 이상일 경우에만 Trace Data Update
-            // 2. 마지막 업데이트된 값을 저장하고, 기동 시 로드하여 값을 Set
-            #region <Set Initial Variable Values from file>
-            Dictionary<long, string> valuesFromFile = new Dictionary<long, string>(_variablesToUpdate);
-            if (_scenarioManager.ReadVariableValuesFromFile(ref valuesFromFile))
-            {
-                foreach (var item in valuesFromFile)
-                {
-                    if (_variablesToUpdate.ContainsKey(item.Key))
-                    {
-                        _variablesToUpdate[item.Key] = item.Value;
-                    }
-                }
-
-                UpdateVariable(_variablesToUpdate.Keys.ToArray(), _variablesToUpdate.Values.ToArray());
-            }
-            #endregion </Set Initial Variable Values from file>
-            // 2025.01.06. jhlim [END] 
 
             //var traceVariables = new Dictionary<string, long>
             //{
@@ -2067,7 +2070,29 @@ namespace FrameOfSystem3.SECSGEM.Scenario
         #region state changed
         public override void ControlStateChanged(string state)
         {
+            lock (LockForTraceDataInitialization)
+            {
+                // 2025.01.06. jhlim [ADD] EFEM 가동하는 순간, 값이 0이어서 FDC 에러가 발생한다.
+                // 해결책은
+                // 1. EquipmentState가 Idle 이상일 경우에만 Trace Data Update
+                // 2. 마지막 업데이트된 값을 저장하고, 기동 시 로드하여 값을 Set
+                #region <Set Initial Variable Values from file>
+                Dictionary<long, string> valuesFromFile = new Dictionary<long, string>(_variablesToUpdate);
+                if (_scenarioManager.ReadVariableValuesFromFile(ref valuesFromFile))
+                {
+                    foreach (var item in valuesFromFile)
+                    {
+                        if (_variablesToUpdate.ContainsKey(item.Key))
+                        {
+                            _variablesToUpdate[item.Key] = item.Value;
+                        }
+                    }
 
+                    UpdateVariable(_variablesToUpdate.Keys.ToArray(), _variablesToUpdate.Values.ToArray());
+                }
+                #endregion </Set Initial Variable Values from file>
+                // 2025.01.06. jhlim [END] 
+            }
         }
         public override void EquipmentstateChanged(string state)
         {
@@ -2211,16 +2236,12 @@ namespace FrameOfSystem3.SECSGEM.Scenario
 
         public override void Execute()
         {
-            if (false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.UNDEFINED) &&
-                false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
+            if (TicksForTraceData.IsTickOver(true))
             {
-                if (TicksForTraceData.IsTickOver(true))
-                {
-                    UpdateTraceDataValuesForEFEM();
-                    UpdateTraceDataValuesForPWA500BIN();
+                UpdateTraceDataValuesForEFEM();
+                UpdateTraceDataValuesForPWA500BIN();
 
-                    TicksForTraceData.SetTickCount(TraceDataInterval);
-                }
+                TicksForTraceData.SetTickCount(TraceDataInterval);
             }
 
             _lotHistoryLog.ExecuteWriteAsync();

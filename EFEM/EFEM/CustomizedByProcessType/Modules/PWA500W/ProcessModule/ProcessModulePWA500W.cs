@@ -422,25 +422,21 @@ namespace EFEM.CustomizedByProcessType.PWA500W
                 messageToSend[PWA500WSubstrateAttributes.RingId] = substrate.GetName();
                 messageToSend[PWA500WSubstrateAttributes.PortId] = substrate.GetSourcePortId().ToString();
                 messageToSend[PWA500WSubstrateAttributes.SlotId] = substrate.GetSourceSlot().ToString();
-                
+                                
                 // TODO : 이걸 왜 이렇게 했지? 나중에 다시 보자
-                //switch (substrate.GetSourcePortId())
-                //{
-                //    case 1:
-                //    case 2:
-                //    case 3:
-                //        messageToSend[PWA500WSubstrateAttributes.SubstrateType] = SubstrateType.Bin2.ToString();
-                //        break;
-                //    case 4:
-                //        messageToSend[PWA500WSubstrateAttributes.SubstrateType] = SubstrateType.Empty.ToString();
-                //        break;
-                //    case 5:
-                //    case 6:
-                //        messageToSend[PWA500WSubstrateAttributes.SubstrateType] = SubstrateType.Core.ToString();
-                //        break;
-                //    default:
-                //        break;
-                //}
+                switch (substrate.GetSourcePortId())
+                {
+                    case 1:
+                        messageToSend[PWA500WSubstrateAttributes.SubstrateType] = "Empty";
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                        messageToSend[PWA500WSubstrateAttributes.SubstrateType] = "Core";
+                        break;
+                    default:
+                        break;
+                }
 
             }
         }

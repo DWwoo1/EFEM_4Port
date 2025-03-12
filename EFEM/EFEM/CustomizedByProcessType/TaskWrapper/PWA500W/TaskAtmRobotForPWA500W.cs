@@ -547,6 +547,9 @@ namespace FrameOfSystem3.Task
         #region <Unloading>
         private bool IsUnloadingSignalStillActive(string location)
         {
+            // TODO :
+            return true;
+
             //  1) PM의 스메마 확인 후 Off면 Skipped 리턴
             List<string> requestedLocation = new List<string>();
             if (false == _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref requestedLocation))
@@ -1169,13 +1172,30 @@ namespace FrameOfSystem3.Task
                                     ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SlotId));
                             }
 
-                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SubstrateType, out subType) ||
-                                false == Enum.TryParse(subType, out convertedType))
+                            // TODO : 
+                            if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SubstrateType, out subType))
                             {
                                 return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
                                     _subStepInterface, string.Format("{0} : {1}",
                                     ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SubstrateType));
                             }
+
+                            if (subType == "Core")
+                            {
+                                convertedType = SubstrateType.Core_12;
+                            }
+                            else
+                            {
+                                convertedType = SubstrateType.Sort_12;
+                            }
+
+                            //if (false == receivedData.TryGetValue(PWA500WSubstrateAttributes.SubstrateType, out subType) ||
+                            //    false == Enum.TryParse(subType, out convertedType))
+                            //{
+                            //    return ReturnToError(CommandResult.Error, EN_ALARM.INTERFACE_BEFORE_UNLOADING_RECEIVING_COMPLETED_BUT_DATA_INVALID, MethodName,
+                            //        _subStepInterface, string.Format("{0} : {1}",
+                            //        ResponseMessages.ResponseApproachUnloading.ToString(), PWA500WSubstrateAttributes.SubstrateType));
+                            //}
                         }
                         else
                         {
@@ -1296,7 +1316,7 @@ namespace FrameOfSystem3.Task
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.TransPortState, SubstrateTransferStates.AtWork.ToString());
                                 substrate.SetAttribute(PWA500WSubstrateAttributes.SubstrateType, subType);
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.LotId, lotId);
-                                //substrate.SetAttribute(PWA500WSubstrateAttributes.ParentLotId, lotId);
+                                substrate.SetAttribute(PWA500WSubstrateAttributes.ParentLotId, lotId);
                                 substrate.SetAttribute(BaseSubstrateAttributeKeys.RecipeId, recipeId);
 
                                 int port = FindUnknownPortInfoBySubstrateType(substrate, convertedType);
@@ -1846,6 +1866,9 @@ namespace FrameOfSystem3.Task
         }
         private bool IsLoadingSignalStillActive(string location)
         {
+            // TODO :
+            return true;
+
             //  1) PM의 스메마 확인 후 Off면 Skipped 리턴
             List<string> requestedLocation = new List<string>();
             if (false == _processGroup.IsLoadingRequested(ProcessModuleIndex, ref requestedLocation))
@@ -1853,7 +1876,7 @@ namespace FrameOfSystem3.Task
 
             if (false == requestedLocation.Contains(location))
                 return false;
-
+            
             return true;
         }
 

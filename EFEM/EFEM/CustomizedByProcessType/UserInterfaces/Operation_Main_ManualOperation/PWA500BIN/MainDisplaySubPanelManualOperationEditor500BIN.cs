@@ -374,6 +374,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
                             _selectedLocationName = string.Empty;
                         }
                     }
+
+                    materialEdit.DisposeControls();
+                    materialEdit = null;
                 }
             }
             else if (sender.Equals(btnEdit))
@@ -400,6 +403,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500B
                         }
                     }
                 }
+
+                materialEdit.DisposeControls();
+                materialEdit = null;
             }
             else if (sender.Equals(btnDisable))
             {

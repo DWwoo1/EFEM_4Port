@@ -46,25 +46,26 @@ namespace FrameOfSystem3.Views.Config
 		#endregion
 
 		#region 상수
-		private const int HEIGHT_OF_ROWS					= 30;
+		const int HEIGHT_OF_ROWS					= 30;
 
-		private readonly string	MIN_OF_PARAM				= "0";
-		private readonly string MAX_OF_PARAM				= "999999";
+		readonly string	MIN_OF_PARAM				= "0";
+		readonly string MAX_OF_PARAM				= "999999";
 
 		#region COLUMN_INDEX
-		private const int COLUMN_INDEX_OF_INDEX				= 0;
-		private const int COLUMN_INDEX_OF_ENABLE			= 1;
-		private const int COLUMN_INDEX_OF_NAME				= 2;
-		private const int COLUMN_INDEX_OF_PROTOCOL_TYPE		= 3;
-		private const int COLUMN_INDEX_OF_PROT				= 4;
-		private const int COLUMN_INDEX_OF_TARGET_PORT		= 5;
-		private const int COLUMN_INDEX_OF_STATE				= 6;
+		const int COLUMN_INDEX_OF_INDEX				= 0;
+		const int COLUMN_INDEX_OF_ENABLE			= 1;
+		const int COLUMN_INDEX_OF_NAME				= 2;
+		const int COLUMN_INDEX_OF_PROTOCOL_TYPE		= 3;
+		const int COLUMN_INDEX_OF_PROT				= 4;
+		const int COLUMN_INDEX_OF_TARGET_PORT		= 5;
+		const int COLUMN_INDEX_OF_STATE				= 6;
 		#endregion
 
-		private const int SELECT_NONE						= -1;
+		const int SELECT_NONE						= -1;
 
-		private readonly Color c_clrTrue					= Color.DodgerBlue;
-		private readonly Color c_clrFalse					= Color.White;		
+		readonly Color c_clrTrue					= Color.DodgerBlue;
+		readonly Color c_clrFalse					= Color.White;
+		const int MAX_DISPLAY_LOG_COUNT						= 1000;
 		#endregion
 
 		#region 변수
@@ -211,54 +212,57 @@ namespace FrameOfSystem3.Views.Config
 			return false;
 		}
 
-
-        void WritingSocketLog(string socketItemID, Socket_.PROTOCOL_TYPE protocolType, bool isSendLog, string message)
+		void WritingSocketLog(string socketItemID, Socket_.PROTOCOL_TYPE protocolType, bool isSendLog, string message)
 		{
 			if (m_listMessage.InvokeRequired)
 			{
 				Socket_.DelegateWritingSocketLog d = new Socket_.DelegateWritingSocketLog(WritingSocketLog);
-                m_listMessage.BeginInvoke(d, new object[] { socketItemID , protocolType, isSendLog, message});
-            }
+				m_listMessage.BeginInvoke(d, new object[] { socketItemID, protocolType, isSendLog, message });
+			}
 			else
 			{
-				if(isSendLog)
+				if (isSendLog)
 				{
-                    message = message.Insert(0, socketItemID + " Send Message : ");
-                }
-                else
-                {
-                    message = message.Insert(0, socketItemID + " Receive Message : ");
-                }
+					message = message.Insert(0, socketItemID + " Send Message : ");
+				}
+				else
+				{
+					message = message.Insert(0, socketItemID + " Receive Message : ");
+				}
 
-                
-                m_listMessage.Items.Add(message);
-            }
+				m_listMessage.Items.Add(message);
+
+				if (m_listMessage.Items.Count > MAX_DISPLAY_LOG_COUNT)
+				{
+					m_listMessage.Items.RemoveAt(0);
+				}
+			}
 		}
 
-        ///// <summary>
-        ///// 2024.01.16. by shkim. [DEL] Receive 해버리면 소켓 사용하는데서 실제로 사용못함.
-        ///// 2020.06.15 by twkang [ADD] 문자데이터 수신을 체크한다.
-        ///// </summary>
-        //private void CheckMessage()
-        //{			
-        //	for(int nIndex = 0, nEnd = m_nArrOfItem.Length; nIndex < nEnd; nIndex++)
-        //	{
-        //		string strData	= string.Empty;
+		///// <summary>
+		///// 2024.01.16. by shkim. [DEL] Receive 해버리면 소켓 사용하는데서 실제로 사용못함.
+		///// 2020.06.15 by twkang [ADD] 문자데이터 수신을 체크한다.
+		///// </summary>
+		//private void CheckMessage()
+		//{			
+		//	for(int nIndex = 0, nEnd = m_nArrOfItem.Length; nIndex < nEnd; nIndex++)
+		//	{
+		//		string strData	= string.Empty;
 
-        //		if(m_InstaceOfSoket.Receive(m_nArrOfItem[nIndex], ref strData))
-        //		{
-        //			strData = strData.Insert(0, m_nArrOfItem[nIndex].ToString() + " Receive Message : ");
-        //			m_listMessage.Items.Add(strData);
-        //		}
-        //	}
-        //}
-        /// <summary>
-        /// 2020.06.15 by twkang [ADD] ENABLE, STATE 를 업데이트한다.
-        /// </summary>
-        /// 
+		//		if(m_InstaceOfSoket.Receive(m_nArrOfItem[nIndex], ref strData))
+		//		{
+		//			strData = strData.Insert(0, m_nArrOfItem[nIndex].ToString() + " Receive Message : ");
+		//			m_listMessage.Items.Add(strData);
+		//		}
+		//	}
+		//}
+		/// <summary>
+		/// 2020.06.15 by twkang [ADD] ENABLE, STATE 를 업데이트한다.
+		/// </summary>
+		/// 
 
 
-        private void UpdateState()
+		private void UpdateState()
 		{
 			string strState		= string.Empty;
 

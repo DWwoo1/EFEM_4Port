@@ -376,7 +376,7 @@ namespace FrameOfSystem3.Views.Setup.LoadPort
                 false == EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.PAUSE))
                 return;
             
-            if (!(sender is Component.CustomActionButton button))
+            if (!(sender is Sys3button button))
                 return;
 
             if (false == Enum.TryParse(button.Tag.ToString(), out LoadPortCommands command))

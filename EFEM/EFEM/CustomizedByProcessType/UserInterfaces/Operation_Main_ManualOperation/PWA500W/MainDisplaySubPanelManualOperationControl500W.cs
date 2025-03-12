@@ -295,22 +295,24 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         if (sender.Equals(btnPickCoreWafer))
                         {
                             pickAction = true;
-                            substrateType = SubstrateTypeForControl.Core_8;
+                            // TODO : 임시
+                            substrateType = SubstrateTypeForControl.Core_12;
                         }
                         else if (sender.Equals(btnPickBinWafer))
                         {
                             pickAction = true;
-                            substrateType = SubstrateTypeForControl.Core_12;
+                            substrateType = SubstrateTypeForControl.Sort_12;
                         }
                         else if (sender.Equals(btnPlaceCoreWafer))
                         {
                             pickAction = false;
-                            substrateType = SubstrateTypeForControl.Core_8;
+                            // TODO : 임시
+                            substrateType = SubstrateTypeForControl.Core_12;
                         }
                         else if (sender.Equals(btnPlaceBinWafer))
                         {
                             pickAction = false;
-                            substrateType = SubstrateTypeForControl.Core_12;
+                            substrateType = SubstrateTypeForControl.Sort_12;
                         }
                         else
                             return;
@@ -321,7 +323,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         if (sender.Equals(btnPickCoreWafer))
                         {
                             pickAction = true;
-                            substrateType = SubstrateTypeForControl.Core_8;
+                            // TODO : 임시
+                            substrateType = SubstrateTypeForControl.Core_12;
                         }
                         else if (sender.Equals(btnPickBinWafer))
                         {
@@ -331,7 +334,8 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
                         else if (sender.Equals(btnPlaceCoreWafer))
                         {
                             pickAction = false;
-                            substrateType = SubstrateTypeForControl.Core_8;
+                            // TODO : 임시
+                            substrateType = SubstrateTypeForControl.Core_12;
                         }
                         else if (sender.Equals(btnPlaceBinWafer))
                         {
@@ -513,9 +517,9 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
 
             if (enabled)
             {
-                btnPickCoreWafer.Enabled = IsSubstrateValidToPick(_panelMode, SubstrateTypeForControl.Core_8);
+                btnPickCoreWafer.Enabled = IsSubstrateValidToPick(_panelMode, SubstrateTypeForControl.Core_8) || IsSubstrateValidToPick(_panelMode, SubstrateTypeForControl.Core_12);
                 btnPickBinWafer.Enabled = IsSubstrateValidToPick(_panelMode, SubstrateTypeForControl.Sort_12);
-                btnPlaceCoreWafer.Enabled = IsSubstrateValidToPlace(_panelMode, SubstrateTypeForControl.Core_8);
+                btnPlaceCoreWafer.Enabled = IsSubstrateValidToPlace(_panelMode, SubstrateTypeForControl.Core_8) || IsSubstrateValidToPlace(_panelMode, SubstrateTypeForControl.Core_12);
                 btnPlaceBinWafer.Enabled = IsSubstrateValidToPlace(_panelMode, SubstrateTypeForControl.Sort_12);
             }
             else
@@ -892,7 +896,7 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
 
                                 ProcessModuleLocation targetLocationPm = new ProcessModuleLocation("", "");
                                 string processModuleName = _processGroup.GetProcessModuleName(ProcessModuleIndex);
-                                if (false == _locationServer.GetProcessModuleLocation(processModuleName, destinationName[(int)ProcessModuleEntryWays.Core_8_Out], ref targetLocationPm))
+                                if (false == _locationServer.GetProcessModuleLocation(processModuleName, destinationName[(int)ProcessModuleEntryWays.Core_12_Out], ref targetLocationPm))
                                     return false;
 
                                 _robotSchedulerManager.SetManualWorkingInformation(RobotIndex, arms[0], substrateInProcessModule, targetLocationPm, false);
@@ -1036,40 +1040,44 @@ namespace EFEM.CustomizedByProcessType.UserInterface.OperationMainManual.PWA500W
             _robotSchedulerManager.InitSchedulers(RobotIndex);
             _robotSchedulerManager.InitManualWorkingInformation(RobotIndex);
 
-            while(true)
+            // TODO : 임시
+            if (false)
             {
-                if (false == _executing)
-                    return false;
-
-                System.Threading.Thread.Sleep(100);
-
-                requestedLocations.Clear();
-                if (_panelMode.Equals(PanelMode.Load))
+                while (true)
                 {
-                    if (false == pickAction)
+                    if (false == _executing)
+                        return false;
+
+                    System.Threading.Thread.Sleep(100);
+
+                    requestedLocations.Clear();
+                    if (_panelMode.Equals(PanelMode.Load))
                     {
-                        if (false == _processGroup.IsLoadingRequested(ProcessModuleIndex, ref requestedLocations))
-                            continue;
+                        if (false == pickAction)
+                        {
+                            if (false == _processGroup.IsLoadingRequested(ProcessModuleIndex, ref requestedLocations))
+                                continue;
 
-                        //if (false == requestedLocations.Contains(Constants.ProcessModuleCoreInputName) ||
-                        //    false == requestedLocations.Contains(Constants.ProcessModuleSortInputName))
-                        //    return false;
+                            //if (false == requestedLocations.Contains(Constants.ProcessModuleCoreInputName) ||
+                            //    false == requestedLocations.Contains(Constants.ProcessModuleSortInputName))
+                            //    return false;
+                        }
+
                     }
-
-                }
-                else
-                {
-                    if (pickAction)
+                    else
                     {
-                        if (false == _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref requestedLocations))
-                            continue;
+                        if (pickAction)
+                        {
+                            if (false == _processGroup.IsUnloadingRequested(ProcessModuleIndex, ref requestedLocations))
+                                continue;
 
-                        //if (false == requestedLocations.Contains(Constants.ProcessModuleCoreOutputName) ||
-                        //    false == requestedLocations.Contains(Constants.ProcessModuleSortOutputName))
-                        //    return false;
+                            //if (false == requestedLocations.Contains(Constants.ProcessModuleCoreOutputName) ||
+                            //    false == requestedLocations.Contains(Constants.ProcessModuleSortOutputName))
+                            //    return false;
+                        }
                     }
+                    break;
                 }
-                break;
             }
 
             switch (substrateType)

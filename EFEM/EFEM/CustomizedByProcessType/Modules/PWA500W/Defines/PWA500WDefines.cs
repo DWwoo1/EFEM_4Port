@@ -118,11 +118,17 @@ namespace EFEM.CustomizedByProcessType.PWA500W
     public enum ProcessModuleEntryWays
     {
         Core_8_In = 0,
-        Core_8_Out,
         Core_12_In,
-        Core_12_Out,
         Sort_12_In,
+        Core_8_Out,
+        Core_12_Out,
         Sort_12_Out,
+        //Core_8_In = 0,
+        //Core_8_Out,
+        //Core_12_In,
+        //Core_12_Out,
+        //Sort_12_In,
+        //Sort_12_Out,
     }
     public enum LoadPortType
     {

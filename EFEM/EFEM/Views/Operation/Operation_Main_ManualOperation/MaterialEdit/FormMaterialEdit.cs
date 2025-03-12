@@ -134,7 +134,7 @@ namespace FrameOfSystem3.Views.Functional
                     return ItemType.SelectionListIdReadingState;
 
                 ///////////////////////////////////
-                case EFEM.CustomizedByProcessType.PWA500W.PWA500WSubstrateAttributes.SubstrateType:
+                case EFEM.CustomizedByProcessType.PWA500BIN.PWA500BINSubstrateAttributes.SubstrateType:
                     return ItemType.SelectionListSubstrateType;
 
                 default:
@@ -239,7 +239,7 @@ namespace FrameOfSystem3.Views.Functional
                 case ItemType.SelectionListSubstrateType:
                     {
                         if (false == _selectionList.CreateForm("Edit Substrate Type",
-                            Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.SUBSTRATE_TYPE_500W, oldValue))
+                            Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.SUBSTRATE_TYPE, oldValue))
                             return false;
 
                         _selectionList.GetResult(ref newValue);
@@ -285,6 +285,10 @@ namespace FrameOfSystem3.Views.Functional
             }
 
             return false;
+        }
+        public void DisposeControls()
+        {
+            Dispose();
         }
         #endregion </External>
 
@@ -361,10 +365,6 @@ namespace FrameOfSystem3.Views.Functional
             {
                 _isHandlingSelectedGridItemChanged = false;
             }
-        }
-        private void FormMaterialEdit_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Dispose(true);
         }
         #endregion </UI Event>
 
